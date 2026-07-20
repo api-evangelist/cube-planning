@@ -1,0 +1,37 @@
+generated: '2026-07-18'
+method: searched
+source: openapi/cube-planning-openapi-original.yml
+docs: https://www.cubesoftware.com/developer-center
+well_known: https://api.cubesoftware.com/.well-known/oauth-authorization-server
+summary:
+  types:
+  - oauth2
+  oauth2_flows:
+  - authorizationCode
+  notes: >-
+    Cube's API uses OAuth 2.0 authorization-code with PKCE (S256). Access tokens are
+    Bearer tokens sent in the Authorization header. Refresh tokens are supported. A
+    required X-Company-ID header scopes most requests to a specific Cube company/tenant,
+    and an Accept header carries the API version (e.g. `Accept: application/json; version=1.0`).
+schemes:
+- name: OAuth2
+  type: oauth2
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://portal.cubesoftware.com/o/authorize/
+    tokenUrl: https://api.cubesoftware.com/o/token/
+    introspectionUrl: https://api.cubesoftware.com/o/introspect/
+    pkce: S256
+    grant_types: [authorization_code, refresh_token]
+    token_endpoint_auth: client_secret_basic
+    scopes: [read, write, introspection]
+  description: Standard Cube OAuth 2.0 flow
+  sources:
+  - openapi/cube-planning-openapi-original.yml
+  - well-known/cube-planning-oauth-authorization-server.json
+tenant_header:
+  name: X-Company-ID
+  in: header
+  required: true
+  applies_to_operations: 226
+  description: Identifies the Cube company/tenant a request operates against.
