@@ -1,0 +1,145 @@
+openapi: 3.0.3
+info:
+  title: Cube Agents permissionsets API
+  version: 1.0.0 (1.0)
+  description: "#### General Description\nAn API to access underlying Cube functionality. These endpoints are the same endpoints\nthat support Cube's universal add-ons and a plethora of integrations meaning you'll be able to interact with your\nCube data in many powerful ways. Visit the API section of Cube's [Help Center](https://help.cubesoftware.com/hc/en-us/sections/18205290556180-Custom-Integrations)\nfor more usage guides on how you can use this API to integrate with Cube to accomplish various tasks!\n\n#### Versioning\nAll requests to the API require a version to be configured via an `Accept` Header. The value of this Header should look like this:\n```\nAccept: application/json; version=1.0\n```\nNote that the version number may differ depending on which version of the endpoint is needed.\n\n#### Response Structure\nThe general response structure of Cube's API endpoints will contain a `\"data\"` and `\"metadata\"` root level key:\n```json\n{\n    \"data\": { ... object data or list of objects ... },\n    \"metadata\": {\n        \"status\": 200,\n        \"message\": \"Potential message with additional context\",\n        \"error\": false,\n        \"code\": \"\"\n    }\n}\n```\n\n#### Rate Limiting\nAll endpoints have a rate limit configured, most of them default to 5/s.\nWhen the rate limit is encountered, a 429 HTTP code will be returned.\n\n#### Error Handling\nIn the event an error occurs, the response will typically look like this:\n```json\n{\n    \"data\": {},\n    \"metadata\": {\n        \"status\": 400,\n        \"message\": \"Some error message\",\n        \"error\": true,\n        \"code\": \"SOME_ERROR_CODE\"\n    }\n}\n```\n"
+  termsOfService: https://www.cubesoftware.com/terms-of-service
+servers:
+- url: https://api.cubesoftware.com
+  description: Cube API Production URL
+tags:
+- name: permissionsets
+paths:
+  /permissionsets:
+    get:
+      operationId: permissionsets_list
+      description: Default authenticated ViewSet with standard rate limit (DEFAULT_API_RATE_LIMIT).
+      tags:
+      - permissionsets
+      security:
+      - OAuth2: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PermissionSet'
+          description: ''
+  /permissionsets/{id}:
+    get:
+      operationId: permissionsets_retrieve
+      description: Default authenticated ViewSet with standard rate limit (DEFAULT_API_RATE_LIMIT).
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+      tags:
+      - permissionsets
+      security:
+      - OAuth2: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PermissionSet'
+          description: ''
+components:
+  schemas:
+    OperationTypesEnum:
+      enum:
+      - view
+      - create
+      - edit
+      - delete
+      - export
+      - import
+      - publish
+      - unpublish
+      - manage
+      type: string
+      description: '* `view` - View
+
+        * `create` - Create
+
+        * `edit` - Edit
+
+        * `delete` - Delete
+
+        * `export` - Export
+
+        * `import` - Import
+
+        * `publish` - Publish
+
+        * `unpublish` - Unpublish
+
+        * `manage` - Manage'
+    PermissionSet:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          readOnly: true
+        selectable:
+          type: boolean
+          readOnly: true
+        parent:
+          type: integer
+          readOnly: true
+          nullable: true
+        permissions:
+          type: string
+          readOnly: true
+        operation_types:
+          allOf:
+          - $ref: '#/components/schemas/OperationTypesEnum'
+          readOnly: true
+        dependencies:
+          type: string
+          readOnly: true
+        resolved_permissions:
+          type: array
+          items:
+            type: integer
+          description: "Recursively resolve all permissions for this permission set and its children.\n\nGiven the recursive nature of this method, using the permission mapping with the cache prevents\na significant number of additional database queries vs doing self.permissions.all() here\n\nReturns:\n    A set of permission ids representing all permissions available if an actor is associated with this\n    permissionset."
+          readOnly: true
+        children:
+          type: string
+          readOnly: true
+        visible:
+          type: boolean
+          readOnly: true
+        position:
+          type: integer
+          readOnly: true
+      required:
+      - children
+      - dependencies
+      - id
+      - name
+      - operation_types
+      - parent
+      - permissions
+      - position
+      - resolved_permissions
+      - selectable
+      - visible
+  securitySchemes:
+    OAuth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://portal.cubesoftware.com/o/authorize/
+          tokenUrl: https://api.cubesoftware.com/o/token/
+          scopes: {}
+      description: Standard Cube OAuth 2.0 flow

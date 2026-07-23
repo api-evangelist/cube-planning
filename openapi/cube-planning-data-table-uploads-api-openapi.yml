@@ -1,0 +1,376 @@
+openapi: 3.0.3
+info:
+  title: Cube Agents Data Table Uploads API
+  version: 1.0.0 (1.0)
+  description: "#### General Description\nAn API to access underlying Cube functionality. These endpoints are the same endpoints\nthat support Cube's universal add-ons and a plethora of integrations meaning you'll be able to interact with your\nCube data in many powerful ways. Visit the API section of Cube's [Help Center](https://help.cubesoftware.com/hc/en-us/sections/18205290556180-Custom-Integrations)\nfor more usage guides on how you can use this API to integrate with Cube to accomplish various tasks!\n\n#### Versioning\nAll requests to the API require a version to be configured via an `Accept` Header. The value of this Header should look like this:\n```\nAccept: application/json; version=1.0\n```\nNote that the version number may differ depending on which version of the endpoint is needed.\n\n#### Response Structure\nThe general response structure of Cube's API endpoints will contain a `\"data\"` and `\"metadata\"` root level key:\n```json\n{\n    \"data\": { ... object data or list of objects ... },\n    \"metadata\": {\n        \"status\": 200,\n        \"message\": \"Potential message with additional context\",\n        \"error\": false,\n        \"code\": \"\"\n    }\n}\n```\n\n#### Rate Limiting\nAll endpoints have a rate limit configured, most of them default to 5/s.\nWhen the rate limit is encountered, a 429 HTTP code will be returned.\n\n#### Error Handling\nIn the event an error occurs, the response will typically look like this:\n```json\n{\n    \"data\": {},\n    \"metadata\": {\n        \"status\": 400,\n        \"message\": \"Some error message\",\n        \"error\": true,\n        \"code\": \"SOME_ERROR_CODE\"\n    }\n}\n```\n"
+  termsOfService: https://www.cubesoftware.com/terms-of-service
+servers:
+- url: https://api.cubesoftware.com
+  description: Cube API Production URL
+tags:
+- name: Data Table Uploads
+  description: "Cube often uses uploads as a way to load in transaction data for a given data table\n            or connection. You can use the API to create new uploads, send files, and track the status of an\n            upload.\n        "
+paths:
+  /data-tables/{data_table_id}/upload:
+    get:
+      operationId: data_tables_upload_retrieve
+      description: Retrieve a single upload belonging to a data dable
+      summary: Retrieve a Data Table Upload
+      parameters:
+      - in: header
+        name: X-Company-ID
+        schema:
+          type: string
+        description: Associates request with company
+        required: true
+      - in: path
+        name: data_table_id
+        schema:
+          type: string
+          format: uuid
+        description: The ID of the data table the upload is associated with
+        required: true
+      tags:
+      - Data Table Uploads
+      security:
+      - OAuth2: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SourceDataTableUpload'
+          description: The upload object to start uploading parts for
+    post:
+      operationId: data_tables_upload_create
+      description: Create an upload object for a given data table to track overall upload status and corresponding parts.
+      summary: Create a Data Table Upload
+      parameters:
+      - in: header
+        name: X-Company-ID
+        schema:
+          type: string
+        description: Associates request with company
+        required: true
+      - in: path
+        name: data_table_id
+        schema:
+          type: string
+          format: uuid
+        description: The ID of the data table the upload is associated with
+        required: true
+      tags:
+      - Data Table Uploads
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SourceDataTableUpload'
+            examples:
+              CreatePendingUpload:
+                value:
+                  message: Create an object to start associating upload parts with
+                  status: PENDING
+                  upload_type: REPLACE
+                summary: Create Pending Upload
+                description: "Upload Type Explanation\nSpecify the manner in which data currently in the system should be replaced\n| **Description** | **Value** |\n|---|---|\n| Full Replace | REPLACE |\n| Time Based Replace | TIME_BASED_REPLACE |\n| Update / Append | APPEND |\n        "
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/SourceDataTableUpload'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/SourceDataTableUpload'
+        required: true
+      security:
+      - OAuth2: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SourceDataTableUpload'
+          description: The upload object to start uploading parts for
+  /data-tables/{data_table_id}/upload/{data_table_upload_id}:
+    put:
+      operationId: data_tables_upload_update
+      description: Modify a data table upload, sending emails if the status changes to failed
+      summary: Modify a Data Table Upload
+      parameters:
+      - in: header
+        name: X-Company-ID
+        schema:
+          type: string
+        description: Associates request with company
+        required: true
+      - in: path
+        name: data_table_id
+        schema:
+          type: string
+          format: uuid
+        description: The ID of the data table the upload is associated with
+        required: true
+      - in: path
+        name: data_table_upload_id
+        schema:
+          type: string
+          format: uuid
+        description: The ID of the data table upload this is a part of
+        required: true
+      tags:
+      - Data Table Uploads
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SourceDataTableUpload'
+            examples:
+              CreatePendingUpload:
+                value:
+                  message: Create an object to start associating upload parts with
+                  status: PENDING
+                  upload_type: REPLACE
+                summary: Create Pending Upload
+                description: "Upload Type Explanation\nSpecify the manner in which data currently in the system should be replaced\n| **Description** | **Value** |\n|---|---|\n| Full Replace | REPLACE |\n| Time Based Replace | TIME_BASED_REPLACE |\n| Update / Append | APPEND |\n        "
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/SourceDataTableUpload'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/SourceDataTableUpload'
+        required: true
+      security:
+      - OAuth2: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SourceDataTableUpload'
+          description: The upload object from the URL parameter that had the import started
+  /data-tables/{data_table_id}/upload/{data_table_upload_id}/import:
+    post:
+      operationId: data_tables_upload_import_create
+      description: Once you've uploaded all the parts of your overall upload this endpoint will start the import.
+      summary: Start Importing Uploaded Data
+      parameters:
+      - in: header
+        name: X-Company-ID
+        schema:
+          type: string
+        description: Associates request with company
+        required: true
+      - in: path
+        name: data_table_id
+        schema:
+          type: string
+          format: uuid
+        description: The ID of the data table the upload is associated with
+        required: true
+      - in: path
+        name: data_table_upload_id
+        schema:
+          type: string
+          format: uuid
+        description: The ID of the data table upload this is a part of
+        required: true
+      tags:
+      - Data Table Uploads
+      security:
+      - OAuth2: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SourceDataTableUpload'
+          description: The upload object from the URL parameter that had the import started
+  /data-tables/{data_table_id}/upload/{data_table_upload_id}/part:
+    post:
+      operationId: data_tables_upload_part_create
+      description: "Attach a piece of an overall upload to an upload object.\nAn upload may be comprised of one or multiple parts.\nWhen sending larger amounts of data, this can be used to upload that data in smaller parts.\n        "
+      summary: Upload Part of Data Table Upload
+      parameters:
+      - in: header
+        name: X-Company-ID
+        schema:
+          type: string
+        description: Associates request with company
+        required: true
+      - in: path
+        name: data_table_id
+        schema:
+          type: string
+          format: uuid
+        description: The ID of the data table the upload is associated with
+        required: true
+      - in: path
+        name: data_table_upload_id
+        schema:
+          type: string
+          format: uuid
+        description: The ID of the data table upload this is a part of
+        required: true
+      - in: query
+        name: file
+        schema:
+          type: object
+          additionalProperties: {}
+        description: The data being uploaded. This can uploaded as a literal file, a JSON body, or under the key "file" in the JSON.
+        required: true
+        examples:
+          CSVData:
+            value: 'Account,Department,Time,Value
+
+              My Account,Some Department,2019-07-31,1099.00'
+            summary: CSV Data
+          JSONBody:
+            value:
+            - Account: My Account
+              Department: Some Department
+              Time: '2019-07-31'
+              Value: '1099.00'
+            summary: JSON Body
+          JSONData:
+            value:
+              file:
+              - Account: My Account
+                Department: Some Department
+                Time: '2019-07-31'
+                Value: '1099.00'
+            summary: JSON Data
+      tags:
+      - Data Table Uploads
+      security:
+      - OAuth2: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UploadPart'
+          description: ''
+components:
+  schemas:
+    UploadPart:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        data_table_upload:
+          type: string
+          format: uuid
+        external_id:
+          type: string
+          nullable: true
+          maxLength: 100
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        file:
+          type: string
+          format: uri
+          writeOnly: true
+          nullable: true
+      required:
+      - created_at
+      - data_table_upload
+      - id
+    SourceDataTableUploadStatusEnum:
+      enum:
+      - PROCESSING
+      - IMPORTED
+      - ERROR
+      - PENDING
+      type: string
+      description: '* `PROCESSING` - Processing
+
+        * `IMPORTED` - Imported
+
+        * `ERROR` - Error
+
+        * `PENDING` - Pending'
+    SourceDataTableUploadSourceEnum:
+      enum:
+      - USER_UPLOAD
+      - EMAIL
+      - API
+      - THIRD_PARTY_API
+      type: string
+      description: '* `USER_UPLOAD` - User Upload
+
+        * `EMAIL` - Email
+
+        * `API` - API
+
+        * `THIRD_PARTY_API` - Third Party API'
+    SourceDataTableUploadUploadTypeEnum:
+      enum:
+      - REPLACE
+      - TIME_BASED_REPLACE
+      - APPEND
+      - DELETE
+      type: string
+      description: '* `REPLACE` - Remove all existing records and replace with this uploaded data
+
+        * `TIME_BASED_REPLACE` - Remove and replace existing records between the time periods specified in this uploaded data
+
+        * `APPEND` - Update existing records and add new records
+
+        * `DELETE` - Remove all existing records'
+    SourceDataTableUpload:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        source_data_table:
+          type: string
+          format: uuid
+        source:
+          $ref: '#/components/schemas/SourceDataTableUploadSourceEnum'
+        message:
+          type: string
+          nullable: true
+          maxLength: 255
+        status:
+          $ref: '#/components/schemas/SourceDataTableUploadStatusEnum'
+        data_import:
+          type: integer
+          nullable: true
+        upload_type:
+          $ref: '#/components/schemas/SourceDataTableUploadUploadTypeEnum'
+        status_message:
+          type: string
+          nullable: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        currency:
+          type: integer
+          nullable: true
+        data_can_be_downloaded:
+          type: boolean
+          readOnly: true
+      required:
+      - created_at
+      - data_can_be_downloaded
+      - id
+      - source_data_table
+  securitySchemes:
+    OAuth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://portal.cubesoftware.com/o/authorize/
+          tokenUrl: https://api.cubesoftware.com/o/token/
+          scopes: {}
+      description: Standard Cube OAuth 2.0 flow

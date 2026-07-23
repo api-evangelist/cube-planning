@@ -1,0 +1,582 @@
+openapi: 3.0.3
+info:
+  title: Cube Agents Planning Table API
+  version: 1.0.0 (1.0)
+  description: "#### General Description\nAn API to access underlying Cube functionality. These endpoints are the same endpoints\nthat support Cube's universal add-ons and a plethora of integrations meaning you'll be able to interact with your\nCube data in many powerful ways. Visit the API section of Cube's [Help Center](https://help.cubesoftware.com/hc/en-us/sections/18205290556180-Custom-Integrations)\nfor more usage guides on how you can use this API to integrate with Cube to accomplish various tasks!\n\n#### Versioning\nAll requests to the API require a version to be configured via an `Accept` Header. The value of this Header should look like this:\n```\nAccept: application/json; version=1.0\n```\nNote that the version number may differ depending on which version of the endpoint is needed.\n\n#### Response Structure\nThe general response structure of Cube's API endpoints will contain a `\"data\"` and `\"metadata\"` root level key:\n```json\n{\n    \"data\": { ... object data or list of objects ... },\n    \"metadata\": {\n        \"status\": 200,\n        \"message\": \"Potential message with additional context\",\n        \"error\": false,\n        \"code\": \"\"\n    }\n}\n```\n\n#### Rate Limiting\nAll endpoints have a rate limit configured, most of them default to 5/s.\nWhen the rate limit is encountered, a 429 HTTP code will be returned.\n\n#### Error Handling\nIn the event an error occurs, the response will typically look like this:\n```json\n{\n    \"data\": {},\n    \"metadata\": {\n        \"status\": 400,\n        \"message\": \"Some error message\",\n        \"error\": true,\n        \"code\": \"SOME_ERROR_CODE\"\n    }\n}\n```\n"
+  termsOfService: https://www.cubesoftware.com/terms-of-service
+servers:
+- url: https://api.cubesoftware.com
+  description: Cube API Production URL
+tags:
+- name: Planning Table
+paths:
+  /tables:
+    get:
+      operationId: tables_list
+      description: List all planning tables
+      summary: List all planning tables
+      parameters:
+      - in: header
+        name: X-Company-ID
+        schema:
+          type: string
+        description: Associates request with company
+        required: true
+      tags:
+      - Planning Table
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PlanningTable'
+          description: ''
+    post:
+      operationId: tables_create
+      description: 'Planning tables store a typed column schema (number, text, dimension, and calculated columns).
+
+
+        A calculated column''s output type is inferred from its formula on save and controls whether numeric formatting applies; formulas with an ambiguous type or invalid dimension usage are rejected.'
+      summary: Create a planning table
+      parameters:
+      - in: header
+        name: X-Company-ID
+        schema:
+          type: string
+        description: Associates request with company
+        required: true
+      tags:
+      - Planning Table
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PlanningTable'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PlanningTable'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PlanningTable'
+        required: true
+      security:
+      - OAuth2: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PlanningTable'
+          description: ''
+  /tables/{id}:
+    get:
+      operationId: tables_retrieve
+      description: Retrieve a planning table
+      summary: Retrieve a planning table
+      parameters:
+      - in: header
+        name: X-Company-ID
+        schema:
+          type: string
+        description: Associates request with company
+        required: true
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+      tags:
+      - Planning Table
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PlanningTable'
+          description: ''
+    patch:
+      operationId: tables_partial_update
+      description: 'Planning tables store a typed column schema (number, text, dimension, and calculated columns).
+
+
+        A calculated column''s output type is inferred from its formula on save and controls whether numeric formatting applies; formulas with an ambiguous type or invalid dimension usage are rejected.'
+      summary: Update a planning table
+      parameters:
+      - in: header
+        name: X-Company-ID
+        schema:
+          type: string
+        description: Associates request with company
+        required: true
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+      tags:
+      - Planning Table
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedPlanningTable'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedPlanningTable'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedPlanningTable'
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PlanningTable'
+          description: ''
+    delete:
+      operationId: tables_destroy
+      description: Delete a planning table
+      summary: Delete a planning table
+      parameters:
+      - in: header
+        name: X-Company-ID
+        schema:
+          type: string
+        description: Associates request with company
+        required: true
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+      tags:
+      - Planning Table
+      security:
+      - OAuth2: []
+      responses:
+        '204':
+          description: No response body
+  /tables/{table_pk}/datasets:
+    get:
+      operationId: tables_datasets_list
+      description: Get planning table datasets, optionally filtered by scenario
+      summary: Get planning table datasets
+      parameters:
+      - in: header
+        name: X-Company-ID
+        schema:
+          type: string
+        description: Associates request with company
+        required: true
+      - in: path
+        name: table_pk
+        schema:
+          type: integer
+        required: true
+      tags:
+      - Planning Table
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PlanningTableDataset'
+          description: ''
+    put:
+      operationId: tables_datasets_update
+      description: 'Table-anchored nested resource for a Planning Table''s datasets.
+
+
+        A dataset is never addressed by its own id here: the route is keyed on the parent table
+
+        (`table_pk`) and a dataset is identified by (table, scenario_id from the request). Hence
+
+        `get_queryset`/`get_object` return the parent `PlanningTable` (access control -- sharing
+
+        scheme and `created_by` -- lives on the table), while the actions query `PlanningTableDataset`
+
+        rows directly.
+
+
+        Consequence for `permission_classes`: model-derived primitives (`ModelPermissions`,
+
+        `UserHasModelShared`) resolve `model_name` from the queryset, so they check `*_planningtable`
+
+        perms, NOT `*_planningtabledataset`. Only the hardcoded `SpecificModelPermissions` /
+
+        `EditSharedPermissions` target the dataset model. That is why the expression below mixes
+
+        table-level and dataset-level permissions.'
+      parameters:
+      - in: header
+        name: X-Company-ID
+        schema:
+          type: string
+        description: Associates request with company
+        required: true
+      - in: path
+        name: table_pk
+        schema:
+          type: integer
+        required: true
+      tags:
+      - Planning Table
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          description: No response body
+  /tables/compute-calculated-columns:
+    post:
+      operationId: tables_compute_calculated_columns_create
+      description: Compute calculated column values for the submitted schema and rows without persisting. Dirty/invalid cell values degrade to null per the evaluator rules, and an invalid or unsaved formula nulls only its own column (reported in column_errors) instead of rejecting the payload. Each calculated column also reports its inferred output type in column_types when the formula resolves cleanly; inference mirrors save-time validation and depends only on the schema.
+      summary: Compute calculated columns
+      parameters:
+      - in: header
+        name: X-Company-ID
+        schema:
+          type: string
+        description: Associates request with company
+        required: true
+      tags:
+      - Planning Table
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PlanningTableCompute'
+            examples:
+              ComputeCalculatedColumns:
+                value:
+                  schema:
+                  - id: b1c2d3e4-0000-4000-8000-000000000001
+                    name: Salary
+                    type: number
+                    required: false
+                    format: number
+                  - id: b1c2d3e4-0000-4000-8000-000000000002
+                    name: Annual
+                    type: calculation
+                    required: false
+                    formula: '[Salary] * 12'
+                  data:
+                  - - value: Salary
+                    - value: Annual
+                  - - value: '100'
+                    - value: null
+                summary: Compute calculated columns
+              PreviewAnUnsavedFormula(best-effort):
+                value:
+                  schema:
+                  - id: b1c2d3e4-0000-4000-8000-000000000001
+                    name: Salary
+                    type: number
+                    required: false
+                    format: number
+                  - id: b1c2d3e4-0000-4000-8000-000000000002
+                    name: Annual
+                    type: calculation
+                    required: false
+                    formula: '[Unknown] * 12'
+                  data:
+                  - - value: Salary
+                    - value: Annual
+                  - - value: '100'
+                    - value: null
+                summary: Preview an unsaved formula (best-effort)
+                description: An invalid/unsaved formula nulls only its column and is reported in column_errors.
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PlanningTableCompute'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PlanningTableCompute'
+        required: true
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/data'
+              examples:
+                ComputedRows:
+                  value:
+                    data:
+                      data:
+                      - - value: Salary
+                        - value: Annual
+                      - - value: '100'
+                        - value: '1200'
+                      column_types:
+                      - index: 1
+                        name: Annual
+                        output_type: number
+                      column_errors: []
+                    metadata:
+                      status: 200
+                      error: false
+                      message: null
+                      code: ''
+                  summary: Computed rows
+          description: Rows with calculated columns computed (best-effort), each calculated column's inferred output type (column_types), plus any per-column formula errors (column_errors).
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response_serializer'
+              examples:
+                MalformedSchema:
+                  value:
+                    data: {}
+                    metadata:
+                      status: 400
+                      error: true
+                      message: Invalid table schema.
+                      code: INVALID_TABLE_SCHEMA
+                  summary: Malformed schema
+                PayloadTooLarge:
+                  value:
+                    data: {}
+                    metadata:
+                      status: 400
+                      error: true
+                      message: Table data is too large. Reduce rows, columns, or characters per cell.
+                      code: INVALID_DATASET_DATA_TOO_LARGE
+                  summary: Payload too large
+          description: Malformed table schema, or request payload too large.
+        '403':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response_serializer'
+              examples:
+                PermissionDenied:
+                  value:
+                    data: {}
+                    metadata:
+                      status: 403
+                      error: true
+                      message: Permission denied
+                      code: PERMISSION_DENIED
+                  summary: Permission denied
+          description: User lacks the view_planningtable permission.
+components:
+  schemas:
+    metadata_serializer:
+      type: object
+      properties:
+        status:
+          type: integer
+        error:
+          type: boolean
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - code
+      - error
+      - message
+      - status
+    SharingScheme2f1Enum:
+      enum:
+      - ALL
+      - MANAGERS
+      - SPECIFIC
+      type: string
+      description: '* `ALL` - All Team Members
+
+        * `MANAGERS` - Managers Only
+
+        * `SPECIFIC` - Specific Users'
+    data:
+      type: object
+      properties:
+        data:
+          type: object
+          additionalProperties: {}
+        metadata:
+          type: object
+          additionalProperties: {}
+      required:
+      - data
+      - metadata
+    PatchedPlanningTable:
+      type: object
+      description: Mixin to delegate create and update operations to a service class.
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        company_id:
+          type: string
+          format: uuid
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        modified_at:
+          type: string
+          format: date-time
+          readOnly: true
+        name:
+          type: string
+          maxLength: 255
+        sharing_scheme:
+          $ref: '#/components/schemas/SharingScheme2f1Enum'
+        schema: {}
+        schema_reviewed:
+          type: boolean
+        created_by_id:
+          type: integer
+          readOnly: true
+        modified_by_id:
+          type: integer
+          readOnly: true
+        has_templates:
+          type: boolean
+          readOnly: true
+        shared_with:
+          type: array
+          items:
+            type: string
+            nullable: true
+    PlanningTable:
+      type: object
+      description: Mixin to delegate create and update operations to a service class.
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        company_id:
+          type: string
+          format: uuid
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        modified_at:
+          type: string
+          format: date-time
+          readOnly: true
+        name:
+          type: string
+          maxLength: 255
+        sharing_scheme:
+          $ref: '#/components/schemas/SharingScheme2f1Enum'
+        schema: {}
+        schema_reviewed:
+          type: boolean
+        created_by_id:
+          type: integer
+          readOnly: true
+        modified_by_id:
+          type: integer
+          readOnly: true
+        has_templates:
+          type: boolean
+          readOnly: true
+        shared_with:
+          type: array
+          items:
+            type: string
+            nullable: true
+      required:
+      - company_id
+      - created_at
+      - created_by_id
+      - has_templates
+      - id
+      - modified_at
+      - modified_by_id
+      - name
+      - schema
+    PlanningTableDataset:
+      type: object
+      description: Mixin to delegate create and update operations to a service class.
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        planning_table_id:
+          type: integer
+          readOnly: true
+        planning_table_schema:
+          type: string
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        modified_at:
+          type: string
+          format: date-time
+          readOnly: true
+        version:
+          type: string
+          readOnly: true
+          nullable: true
+        scenario_id:
+          type: integer
+        data: {}
+        created_by_id:
+          type: integer
+          readOnly: true
+        modified_by_id:
+          type: integer
+          readOnly: true
+      required:
+      - created_at
+      - created_by_id
+      - data
+      - id
+      - modified_at
+      - modified_by_id
+      - planning_table_id
+      - planning_table_schema
+      - scenario_id
+      - version
+    error_response_serializer:
+      type: object
+      properties:
+        data:
+          type: object
+          additionalProperties: {}
+        metadata:
+          $ref: '#/components/schemas/metadata_serializer'
+      required:
+      - data
+      - metadata
+    PlanningTableCompute:
+      type: object
+      properties:
+        schema: {}
+        data: {}
+      required:
+      - data
+      - schema
+  securitySchemes:
+    OAuth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://portal.cubesoftware.com/o/authorize/
+          tokenUrl: https://api.cubesoftware.com/o/token/
+          scopes: {}
+      description: Standard Cube OAuth 2.0 flow

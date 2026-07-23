@@ -1,0 +1,1848 @@
+openapi: 3.0.3
+info:
+  title: Cube Agents Taskflow API
+  version: 1.0.0 (1.0)
+  description: "#### General Description\nAn API to access underlying Cube functionality. These endpoints are the same endpoints\nthat support Cube's universal add-ons and a plethora of integrations meaning you'll be able to interact with your\nCube data in many powerful ways. Visit the API section of Cube's [Help Center](https://help.cubesoftware.com/hc/en-us/sections/18205290556180-Custom-Integrations)\nfor more usage guides on how you can use this API to integrate with Cube to accomplish various tasks!\n\n#### Versioning\nAll requests to the API require a version to be configured via an `Accept` Header. The value of this Header should look like this:\n```\nAccept: application/json; version=1.0\n```\nNote that the version number may differ depending on which version of the endpoint is needed.\n\n#### Response Structure\nThe general response structure of Cube's API endpoints will contain a `\"data\"` and `\"metadata\"` root level key:\n```json\n{\n    \"data\": { ... object data or list of objects ... },\n    \"metadata\": {\n        \"status\": 200,\n        \"message\": \"Potential message with additional context\",\n        \"error\": false,\n        \"code\": \"\"\n    }\n}\n```\n\n#### Rate Limiting\nAll endpoints have a rate limit configured, most of them default to 5/s.\nWhen the rate limit is encountered, a 429 HTTP code will be returned.\n\n#### Error Handling\nIn the event an error occurs, the response will typically look like this:\n```json\n{\n    \"data\": {},\n    \"metadata\": {\n        \"status\": 400,\n        \"message\": \"Some error message\",\n        \"error\": true,\n        \"code\": \"SOME_ERROR_CODE\"\n    }\n}\n```\n"
+  termsOfService: https://www.cubesoftware.com/terms-of-service
+servers:
+- url: https://api.cubesoftware.com
+  description: Cube API Production URL
+tags:
+- name: Taskflow
+paths:
+  /action-items:
+    get:
+      operationId: action_items_list
+      description: 'Retrieve a list of all action items created by the authenticated user within their company.
+
+
+        Items are returned ordered by position (ascending).'
+      summary: List action items
+      parameters:
+      - in: header
+        name: X-Company-ID
+        schema:
+          type: string
+        description: Associates request with company
+        required: true
+      tags:
+      - Taskflow
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ActionItem'
+          description: ''
+        '401':
+          description: Unauthorized - authentication credentials not provided or invalid
+        '403':
+          description: Forbidden - insufficient permissions
+    post:
+      operationId: action_items_create
+      description: 'Create a new action item. The action item name must be unique within the company.
+
+
+        The position field is automatically set to the end of the list (count of existing items). Position is 0-indexed and maintains a continuous sequence with no gaps.'
+      summary: Create an action item
+      parameters:
+      - in: header
+        name: X-Company-ID
+        schema:
+          type: string
+        description: Associates request with company
+        required: true
+      tags:
+      - Taskflow
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ActionItem'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/ActionItem'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/ActionItem'
+        required: true
+      security:
+      - OAuth2: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ActionItem'
+          description: ''
+        '400':
+          description: Invalid input - action item name must be unique or exceeds max length
+        '401':
+          description: Unauthorized - authentication credentials not provided or invalid
+        '403':
+          description: Forbidden - insufficient permissions
+  /action-items/{id}:
+    get:
+      operationId: action_items_retrieve
+      description: Retrieve details of a specific action item by ID. Users can only retrieve action items they created.
+      summary: Retrieve an action item
+      parameters:
+      - in: header
+        name: X-Company-ID
+        schema:
+          type: string
+        description: Associates request with company
+        required: true
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+      tags:
+      - Taskflow
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ActionItem'
+          description: ''
+        '401':
+          description: Unauthorized - authentication credentials not provided or invalid
+        '403':
+          description: Forbidden - insufficient permissions
+        '404':
+          description: Action item not found or not owned by user
+    patch:
+      operationId: action_items_partial_update
+      description: 'Partially update an action item. Only include fields to be updated.
+
+
+        - Set "completed" to true to mark as completed, or false to mark as incomplete.
+
+        - Update "position" to reorder the item (0-indexed). Other items will automatically shift to maintain continuous sequence.
+
+        - Users can only update action items they created.'
+      summary: Update an action item
+      parameters:
+      - in: header
+        name: X-Company-ID
+        schema:
+          type: string
+        description: Associates request with company
+        required: true
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+      tags:
+      - Taskflow
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedActionItem'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedActionItem'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedActionItem'
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ActionItem'
+          description: ''
+        '400':
+          description: Invalid input - action item name must be unique, exceeds max length, or position is invalid
+        '401':
+          description: Unauthorized - authentication credentials not provided or invalid
+        '403':
+          description: Forbidden - insufficient permissions
+        '404':
+          description: Action item not found or not owned by user
+    delete:
+      operationId: action_items_destroy
+      description: 'Delete an action item by ID. Users can only delete action items they created.
+
+
+        When an item is deleted, all items with higher positions are automatically shifted down to close the gap and maintain a continuous sequence.'
+      summary: Delete an action item
+      parameters:
+      - in: header
+        name: X-Company-ID
+        schema:
+          type: string
+        description: Associates request with company
+        required: true
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+      tags:
+      - Taskflow
+      security:
+      - OAuth2: []
+      responses:
+        '204':
+          description: Action item successfully deleted
+        '401':
+          description: Unauthorized - authentication credentials not provided or invalid
+        '403':
+          description: Forbidden - insufficient permissions
+        '404':
+          description: Action item not found or not owned by user
+  /processes:
+    get:
+      operationId: processes_list
+      description: List all workflows with optional filtering.
+      summary: List workflows
+      parameters:
+      - in: header
+        name: X-Company-ID
+        schema:
+          type: string
+        description: Associates request with company
+        required: true
+      - in: query
+        name: created_by
+        schema:
+          type: integer
+        description: Filter by creator ID
+      - in: query
+        name: owner
+        schema:
+          type: integer
+        description: Filter by owner ID
+      - in: query
+        name: past_due
+        schema:
+          type: boolean
+        description: Filter for processes with tasks that have a due date in the past.
+      - in: query
+        name: search
+        schema:
+          type: string
+        description: Search term for process name or owner details.
+      - in: query
+        name: status
+        schema:
+          type: string
+          enum:
+          - COMPLETED
+          - IN_PROGRESS
+          - NOT_STARTED
+        description: Filter by status
+      tags:
+      - Taskflow
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Process'
+          description: ''
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden - User does not have permission to view processes.
+    post:
+      operationId: processes_create
+      description: 'Create a new workflow. Required field: name.'
+      summary: Create a workflow
+      parameters:
+      - in: header
+        name: X-Company-ID
+        schema:
+          type: string
+        description: Associates request with company
+        required: true
+      tags:
+      - Taskflow
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Process'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Process'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Process'
+        required: true
+      security:
+      - OAuth2: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Process'
+          description: ''
+        '400':
+          description: Invalid input (e.g., duplicate name).
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden - User does not have permission to create processes.
+  /processes/{id}:
+    get:
+      operationId: processes_retrieve
+      description: Retrieve details of a specific workflow by its ID.
+      summary: Retrieve a workflow
+      parameters:
+      - in: header
+        name: X-Company-ID
+        schema:
+          type: string
+        description: Associates request with company
+        required: true
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+      tags:
+      - Taskflow
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Process'
+          description: ''
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden - User does not have permission to view this process.
+        '404':
+          description: Process not found
+    patch:
+      operationId: processes_partial_update
+      description: Update specific process fields. Only include fields to be updated.
+      summary: Update a workflow (PATCH)
+      parameters:
+      - in: header
+        name: X-Company-ID
+        schema:
+          type: string
+        description: Associates request with company
+        required: true
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+      tags:
+      - Taskflow
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedProcess'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedProcess'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedProcess'
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Process'
+          description: ''
+        '400':
+          description: Invalid input (e.g., duplicate name, invalid status transition).
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden - User does not have permission to update this process.
+        '404':
+          description: Process not found
+    delete:
+      operationId: processes_destroy
+      description: Soft delete a workflow by marking it as deleted.
+      summary: Delete a workflow
+      parameters:
+      - in: header
+        name: X-Company-ID
+        schema:
+          type: string
+        description: Associates request with company
+        required: true
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+      tags:
+      - Taskflow
+      security:
+      - OAuth2: []
+      responses:
+        '204':
+          description: Process deleted successfully
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden - User does not have permission to delete this process.
+        '404':
+          description: Process not found
+  /processes/{id}/duplicate:
+    post:
+      operationId: processes_duplicate_create
+      description: 'This is a shortcut class that will include all 6 resourceful actions part of the DRF ViewSets:
+
+        - list()
+
+        - retrieve()
+
+        - create()
+
+        - update()
+
+        - partial_update()
+
+        - destroy()
+
+
+        If you do not want to expose all 6 of these in your ViewSet, then use the CubeAuthenticatedViewSet and add the
+
+        appropriate mixins to it (see rest_framework.mixins). This will allow the api to behave appropriately and block
+
+        requests to unprocessable endpoints. Furthermore, it will make the drf_spectacular documentation be generated more
+
+        easily.'
+      parameters:
+      - in: header
+        name: X-Company-ID
+        schema:
+          type: string
+        description: Associates request with company
+        required: true
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+      tags:
+      - Taskflow
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Process'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Process'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Process'
+        required: true
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Process'
+          description: ''
+  /processes/{id}/remind-now:
+    post:
+      operationId: processes_remind_now_create
+      description: 'This is a shortcut class that will include all 6 resourceful actions part of the DRF ViewSets:
+
+        - list()
+
+        - retrieve()
+
+        - create()
+
+        - update()
+
+        - partial_update()
+
+        - destroy()
+
+
+        If you do not want to expose all 6 of these in your ViewSet, then use the CubeAuthenticatedViewSet and add the
+
+        appropriate mixins to it (see rest_framework.mixins). This will allow the api to behave appropriately and block
+
+        requests to unprocessable endpoints. Furthermore, it will make the drf_spectacular documentation be generated more
+
+        easily.'
+      parameters:
+      - in: header
+        name: X-Company-ID
+        schema:
+          type: string
+        description: Associates request with company
+        required: true
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+      tags:
+      - Taskflow
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Process'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Process'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Process'
+        required: true
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Process'
+          description: ''
+  /processes/{id}/tasks/{task_id}/remind:
+    post:
+      operationId: processes_tasks_remind_create
+      description: 'This is a shortcut class that will include all 6 resourceful actions part of the DRF ViewSets:
+
+        - list()
+
+        - retrieve()
+
+        - create()
+
+        - update()
+
+        - partial_update()
+
+        - destroy()
+
+
+        If you do not want to expose all 6 of these in your ViewSet, then use the CubeAuthenticatedViewSet and add the
+
+        appropriate mixins to it (see rest_framework.mixins). This will allow the api to behave appropriately and block
+
+        requests to unprocessable endpoints. Furthermore, it will make the drf_spectacular documentation be generated more
+
+        easily.'
+      parameters:
+      - in: header
+        name: X-Company-ID
+        schema:
+          type: string
+        description: Associates request with company
+        required: true
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+      - in: path
+        name: task_id
+        schema:
+          type: string
+        required: true
+      tags:
+      - Taskflow
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Process'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Process'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Process'
+        required: true
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Process'
+          description: ''
+  /processes/{id}/tasks/export:
+    get:
+      operationId: processes_tasks_export_retrieve
+      description: 'This is a shortcut class that will include all 6 resourceful actions part of the DRF ViewSets:
+
+        - list()
+
+        - retrieve()
+
+        - create()
+
+        - update()
+
+        - partial_update()
+
+        - destroy()
+
+
+        If you do not want to expose all 6 of these in your ViewSet, then use the CubeAuthenticatedViewSet and add the
+
+        appropriate mixins to it (see rest_framework.mixins). This will allow the api to behave appropriately and block
+
+        requests to unprocessable endpoints. Furthermore, it will make the drf_spectacular documentation be generated more
+
+        easily.'
+      parameters:
+      - in: header
+        name: X-Company-ID
+        schema:
+          type: string
+        description: Associates request with company
+        required: true
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+      tags:
+      - Taskflow
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Process'
+          description: ''
+  /tasks:
+    get:
+      operationId: tasks_list
+      description: List all tasks for a given workflow
+      summary: List workflows tasks
+      parameters:
+      - in: header
+        name: X-Company-ID
+        schema:
+          type: string
+        description: Associates request with company
+        required: true
+      - in: query
+        name: assignee
+        schema:
+          type: integer
+        description: Filter by assignee id
+      - in: query
+        name: past_due
+        schema:
+          type: boolean
+        description: Filter by past_due
+      - in: query
+        name: process_id
+        schema:
+          type: integer
+        description: Filter by process id
+        required: true
+      - in: query
+        name: status
+        schema:
+          type: string
+          enum:
+          - DONE
+          - DRAFT
+          - TODO
+        description: Filter by status
+      tags:
+      - Taskflow
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Task'
+          description: ''
+        '401':
+          description: Unauthorized
+    post:
+      operationId: tasks_create
+      description: Create a new task
+      summary: Create a task
+      parameters:
+      - in: header
+        name: X-Company-ID
+        schema:
+          type: string
+        description: Associates request with company
+        required: true
+      tags:
+      - Taskflow
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Task'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Task'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Task'
+        required: true
+      security:
+      - OAuth2: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Task'
+          description: ''
+        '400':
+          description: Invalid input
+        '401':
+          description: Unauthorized
+  /tasks/{id}:
+    get:
+      operationId: tasks_retrieve
+      description: 'This is a shortcut class that will include all 6 resourceful actions part of the DRF ViewSets:
+
+        - list()
+
+        - retrieve()
+
+        - create()
+
+        - update()
+
+        - partial_update()
+
+        - destroy()
+
+
+        If you do not want to expose all 6 of these in your ViewSet, then use the CubeAuthenticatedViewSet and add the
+
+        appropriate mixins to it (see rest_framework.mixins). This will allow the api to behave appropriately and block
+
+        requests to unprocessable endpoints. Furthermore, it will make the drf_spectacular documentation be generated more
+
+        easily.'
+      parameters:
+      - in: header
+        name: X-Company-ID
+        schema:
+          type: string
+        description: Associates request with company
+        required: true
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+      tags:
+      - Taskflow
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Task'
+          description: ''
+    put:
+      operationId: tasks_update
+      description: 'This is a shortcut class that will include all 6 resourceful actions part of the DRF ViewSets:
+
+        - list()
+
+        - retrieve()
+
+        - create()
+
+        - update()
+
+        - partial_update()
+
+        - destroy()
+
+
+        If you do not want to expose all 6 of these in your ViewSet, then use the CubeAuthenticatedViewSet and add the
+
+        appropriate mixins to it (see rest_framework.mixins). This will allow the api to behave appropriately and block
+
+        requests to unprocessable endpoints. Furthermore, it will make the drf_spectacular documentation be generated more
+
+        easily.'
+      parameters:
+      - in: header
+        name: X-Company-ID
+        schema:
+          type: string
+        description: Associates request with company
+        required: true
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+      tags:
+      - Taskflow
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Task'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Task'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Task'
+        required: true
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Task'
+          description: ''
+    patch:
+      operationId: tasks_partial_update
+      description: Update task fields. Only include fields to be updated.
+      summary: Update a task
+      parameters:
+      - in: header
+        name: X-Company-ID
+        schema:
+          type: string
+        description: Associates request with company
+        required: true
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+      tags:
+      - Taskflow
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedTask'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedTask'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedTask'
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Task'
+          description: ''
+        '400':
+          description: Invalid input
+        '401':
+          description: Unauthorized
+        '404':
+          description: Task not found
+    delete:
+      operationId: tasks_destroy
+      description: 'This is a shortcut class that will include all 6 resourceful actions part of the DRF ViewSets:
+
+        - list()
+
+        - retrieve()
+
+        - create()
+
+        - update()
+
+        - partial_update()
+
+        - destroy()
+
+
+        If you do not want to expose all 6 of these in your ViewSet, then use the CubeAuthenticatedViewSet and add the
+
+        appropriate mixins to it (see rest_framework.mixins). This will allow the api to behave appropriately and block
+
+        requests to unprocessable endpoints. Furthermore, it will make the drf_spectacular documentation be generated more
+
+        easily.'
+      parameters:
+      - in: header
+        name: X-Company-ID
+        schema:
+          type: string
+        description: Associates request with company
+        required: true
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+      tags:
+      - Taskflow
+      security:
+      - OAuth2: []
+      responses:
+        '204':
+          description: No response body
+  /tasks/bulk:
+    post:
+      operationId: tasks_bulk_create
+      description: 'Executes a batch of Task operations (creates and updates) for a single Workflow Process.
+
+
+        **Request Rules:**
+
+        - Only `In Progress` or `Not Started` Processes are permitted
+
+        - Tasks with an `id` are treated as updates
+
+        - Tasks without an `id` (or `id: null`) are treated as creates
+
+        - Updates are processed before creates
+
+        - New tasks are always created with status `DRAFT` regardless of supplied value
+
+        - Only Workflow Managers can access this endpoint
+
+
+        **Resources:**
+
+        - Each task supports a `resources` array of `{id, content_type}` objects
+
+        - Valid `content_type` values: `dashboard`, `template`, `templateupload`, `canvas`
+
+        - Maximum of 1 resource per task
+
+        - Omit `resources` to preserve existing; set to `[]` to clear all
+
+        - User must have view access to a resource to assign it
+
+        - Restricted resources are returned with `permission_denied: true` and `content: {}`
+
+
+        **Response Behavior:**
+
+        - Returns 400 for request-level validation errors (invalid `process_id`, missing `tasks`, duplicate task IDs)
+
+        - Returns 200 with per-task results for individual task operations (partial success supported)
+
+        - Each result has `task` (data or null) and `errors` (null or error details)
+
+        - On update failure, `task` contains current state; on create failure, `task` is null
+
+
+        **Per-Task Error Structure (flat array):**
+
+        - Each error has: `code`, `detail`, and `source`
+
+        - Field errors: `source: { field: "name" }` with DRF codes (`null`, `required`, `invalid`)
+
+        - Business errors: `source: null` with custom codes (`INVALID_DATE_PAST_DUE`, `DUPLICATE_NAME`)
+
+        - Multiple errors can be present on a single task'
+      summary: Bulk create and update Tasks
+      parameters:
+      - in: header
+        name: X-Company-ID
+        schema:
+          type: string
+        description: Associates request with company
+        required: true
+      tags:
+      - Taskflow
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BulkTaskRequest'
+            examples:
+              CreateMultipleTasks:
+                value:
+                  process_id: 1
+                  tasks:
+                  - name: Review Q1 Budget
+                    due_date: '2025-03-15'
+                  - name: Update Forecasts
+                    due_date: '2025-03-20'
+                    assignee_id: 5
+                summary: Create multiple tasks
+              CreateTaskWithResource:
+                value:
+                  process_id: 1
+                  tasks:
+                  - name: Review Q4 Report
+                    due_date: '2026-02-15'
+                    resources:
+                    - id: '42'
+                      content_type: dashboard
+                summary: Create task with resource
+              CreateTaskWithCanvasResource:
+                value:
+                  process_id: 1
+                  tasks:
+                  - name: Review Q4 Canvas
+                    due_date: '2026-02-15'
+                    resources:
+                    - id: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+                      content_type: canvas
+                summary: Create task with canvas resource
+              UpdateMultipleTasks:
+                value:
+                  process_id: 1
+                  tasks:
+                  - id: 10
+                    name: Updated Task Name
+                  - id: 11
+                    status: TODO
+                    assignee_id: 5
+                summary: Update multiple tasks
+              UpdateTask-ReplaceResource:
+                value:
+                  process_id: 1
+                  tasks:
+                  - id: 15
+                    resources:
+                    - id: '99'
+                      content_type: template
+                summary: Update task - replace resource
+              UpdateTask-RemoveAllResources:
+                value:
+                  process_id: 1
+                  tasks:
+                  - id: 15
+                    resources: []
+                summary: Update task - remove all resources
+              MixedCreateAndUpdate:
+                value:
+                  process_id: 1
+                  tasks:
+                  - id: 10
+                    name: Updated Task Name
+                  - name: New Task
+                    due_date: '2025-03-15'
+                summary: Mixed create and update
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/BulkTaskRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/BulkTaskRequest'
+        required: true
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/BulkTaskResult'
+              examples:
+                AllOperationsSucceed:
+                  value:
+                  - - task:
+                        id: 10
+                        process_id: 1
+                        name: Updated Task Name
+                        description: ''
+                        status: TODO
+                        resources: []
+                        assignee_id: null
+                        due_date: '2025-03-15'
+                        deleted_at: null
+                        completed_at: null
+                        assigned_at: null
+                        modified_at: '2025-01-15T12:00:00Z'
+                        completed_by_id: null
+                        created_by_id: 1
+                        modified_by_id: 1
+                      errors: null
+                    - task:
+                        id: 11
+                        process_id: 1
+                        name: New Task
+                        description: ''
+                        status: DRAFT
+                        resources: []
+                        assignee_id: null
+                        due_date: '2025-03-15'
+                        deleted_at: null
+                        completed_at: null
+                        assigned_at: null
+                        modified_at: '2025-01-15T12:00:00Z'
+                        completed_by_id: null
+                        created_by_id: 1
+                        modified_by_id: 1
+                      errors: null
+                  summary: All operations succeed
+                ValidationErrorOnly:
+                  value:
+                  - - task: null
+                      errors:
+                      - code: required
+                        detail: This field is required.
+                        source:
+                          field: name
+                  summary: Validation error only
+                  description: Task creation fails due to missing required field
+                BusinessErrorOnly:
+                  value:
+                  - - task:
+                        id: 10
+                        process_id: 1
+                        name: Existing Task
+                        description: ''
+                        status: TODO
+                        resources: []
+                        assignee_id: null
+                        due_date: '2025-03-15'
+                        deleted_at: null
+                        completed_at: null
+                        assigned_at: null
+                        modified_at: '2025-01-15T12:00:00Z'
+                        completed_by_id: null
+                        created_by_id: 1
+                        modified_by_id: 1
+                      errors:
+                      - code: INVALID_DATE_PAST_DUE
+                        detail: The date cannot be in the past.
+                        source: null
+                  summary: Business error only
+                  description: Task update fails due to business rule violation
+                BothValidationAndBusinessErrors:
+                  value:
+                  - - task: null
+                      errors:
+                      - code: 'null'
+                        detail: This field may not be null.
+                        source:
+                          field: name
+                      - code: INVALID_STATUS_TRANSITION
+                        detail: This status transition is not allowed.
+                        source: null
+                  summary: Both validation and business errors
+                  description: Task has both field validation errors and a business rule violation
+                DuplicateNameError:
+                  value:
+                  - - task: null
+                      errors:
+                      - code: DUPLICATE_NAME
+                        detail: This name is already being used. Please choose a different name.
+                        source: null
+                  summary: Duplicate name error
+                  description: Task name already exists within the workflow
+                InvalidDateFormat:
+                  value:
+                  - - task:
+                        id: 10
+                        process_id: 1
+                        name: Task Name
+                        description: ''
+                        status: TODO
+                        resources: []
+                        assignee_id: null
+                        due_date: '2025-03-15'
+                        deleted_at: null
+                        completed_at: null
+                        assigned_at: null
+                        modified_at: '2025-01-15T12:00:00Z'
+                        completed_by_id: null
+                        created_by_id: 1
+                        modified_by_id: 1
+                      errors:
+                      - code: invalid
+                        detail: 'Date has wrong format. Use one of these formats instead: YYYY-MM-DD.'
+                        source:
+                          field: due_date
+                  summary: Invalid date format
+                  description: Date field has wrong format
+                MultipleValidationErrorsOnSingleTask:
+                  value:
+                  - - task:
+                        id: 10
+                        process_id: 1
+                        name: Task Name
+                        description: ''
+                        status: TODO
+                        resources: []
+                        assignee_id: null
+                        due_date: '2025-03-15'
+                        deleted_at: null
+                        completed_at: null
+                        assigned_at: null
+                        modified_at: '2025-01-15T12:00:00Z'
+                        completed_by_id: null
+                        created_by_id: 1
+                        modified_by_id: 1
+                      errors:
+                      - code: 'null'
+                        detail: This field may not be null.
+                        source:
+                          field: name
+                      - code: invalid
+                        detail: 'Date has wrong format. Use one of these formats instead: YYYY-MM-DD.'
+                        source:
+                          field: due_date
+                  summary: Multiple validation errors on single task
+                  description: Multiple fields fail validation on the same task
+                AllOperationsFail:
+                  value:
+                  - - task:
+                        id: 10
+                        process_id: 1
+                        name: Existing Task
+                        description: ''
+                        status: TODO
+                        resources: []
+                        assignee_id: null
+                        due_date: '2025-03-15'
+                        deleted_at: null
+                        completed_at: null
+                        assigned_at: null
+                        modified_at: '2025-01-15T12:00:00Z'
+                        completed_by_id: null
+                        created_by_id: 1
+                        modified_by_id: 1
+                      errors:
+                      - code: INVALID_DATE_PAST_DUE
+                        detail: The date cannot be in the past.
+                        source: null
+                    - task: null
+                      errors:
+                      - code: INVALID_DATE_PAST_DUE
+                        detail: The date cannot be in the past.
+                        source: null
+                  summary: All operations fail
+                  description: All tasks in batch fail - update returns current task data, create returns null
+                PartialSuccess:
+                  value:
+                  - - task:
+                        id: 10
+                        process_id: 1
+                        name: Successfully Updated
+                        description: ''
+                        status: TODO
+                        resources: []
+                        assignee_id: null
+                        due_date: '2025-03-15'
+                        deleted_at: null
+                        completed_at: null
+                        assigned_at: null
+                        modified_at: '2025-01-15T12:00:00Z'
+                        completed_by_id: null
+                        created_by_id: 1
+                        modified_by_id: 1
+                      errors: null
+                    - task: null
+                      errors:
+                      - code: blank
+                        detail: This field may not be blank.
+                        source:
+                          field: name
+                    - task:
+                        id: 12
+                        process_id: 1
+                        name: Task With Past Due Date
+                        description: ''
+                        status: TODO
+                        resources: []
+                        assignee_id: null
+                        due_date: '2025-03-15'
+                        deleted_at: null
+                        completed_at: null
+                        assigned_at: null
+                        modified_at: '2025-01-15T12:00:00Z'
+                        completed_by_id: null
+                        created_by_id: 1
+                        modified_by_id: 1
+                      errors:
+                      - code: INVALID_DATE_PAST_DUE
+                        detail: The date cannot be in the past.
+                        source: null
+                    - task:
+                        id: 13
+                        process_id: 1
+                        name: New Task
+                        description: ''
+                        status: DRAFT
+                        resources: []
+                        assignee_id: null
+                        due_date: '2025-03-15'
+                        deleted_at: null
+                        completed_at: null
+                        assigned_at: null
+                        modified_at: '2025-01-15T12:00:00Z'
+                        completed_by_id: null
+                        created_by_id: 1
+                        modified_by_id: 1
+                      errors: null
+                  summary: Partial success
+                  description: Some operations succeed while others fail
+                TaskWithVisibleResource:
+                  value:
+                  - - task:
+                        id: 26
+                        process_id: 1
+                        name: Review Q4 Report
+                        description: ''
+                        status: DRAFT
+                        resources:
+                        - id: 1b635d88-883c-40ae-ad8c-6ef948eedf7a
+                          permission_denied: false
+                          content_type: templateupload
+                          content:
+                            id: 1b635d88-883c-40ae-ad8c-6ef948eedf7a
+                            name: Budget Review Template
+                            url: https://example.com/template
+                            file: null
+                            created_by: 1
+                            company_id: e699cd4c-fb10-4651-893d-bd34245464cf
+                            created_at: '2025-11-13T21:42:26.251967Z'
+                        assignee_id: null
+                        due_date: '2025-03-15'
+                        deleted_at: null
+                        completed_at: null
+                        assigned_at: null
+                        modified_at: '2025-01-15T12:00:00Z'
+                        completed_by_id: null
+                        created_by_id: 1
+                        modified_by_id: 1
+                      errors: null
+                  summary: Task with visible resource
+                  description: Task created with a resource the user has view access to
+                TaskWithVisibleCanvasResource:
+                  value:
+                  - - task:
+                        id: 27
+                        process_id: 1
+                        name: Review Q4 Canvas
+                        description: ''
+                        status: DRAFT
+                        resources:
+                        - id: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+                          permission_denied: false
+                          content_type: canvas
+                          content:
+                            id: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+                            name: Q1 Board
+                            description: null
+                            sharing_scheme: ALL
+                            source: WORKSPACE
+                            created_by:
+                              id: 1
+                              first_name: Alex
+                              last_name: Manager
+                            created_at: '2025-11-13T21:42:26.251967Z'
+                        assignee_id: null
+                        due_date: '2025-03-15'
+                        deleted_at: null
+                        completed_at: null
+                        assigned_at: null
+                        modified_at: '2025-01-15T12:00:00Z'
+                        completed_by_id: null
+                        created_by_id: 1
+                        modified_by_id: 1
+                      errors: null
+                  summary: Task with visible canvas resource
+                  description: Task created with a canvas the user has view access to
+                TaskWithRestrictedResource:
+                  value:
+                  - - task:
+                        id: 15
+                        process_id: 1
+                        name: Payroll Review
+                        description: ''
+                        status: TODO
+                        resources:
+                        - id: '99'
+                          permission_denied: true
+                          content_type: template
+                          content: {}
+                        assignee_id: null
+                        due_date: '2025-03-15'
+                        deleted_at: null
+                        completed_at: null
+                        assigned_at: null
+                        modified_at: '2025-01-15T12:00:00Z'
+                        completed_by_id: null
+                        created_by_id: 1
+                        modified_by_id: 1
+                      errors: null
+                  summary: Task with restricted resource
+                  description: Task has a resource the user cannot view - content is masked
+                ResourceValidationError-UnsupportedType:
+                  value:
+                  - - task: null
+                      errors:
+                      - code: UNSUPPORTED_RESOURCE_TYPE
+                        detail: Resource type 'comment' is not supported.
+                        source:
+                          field: resources
+                  summary: Resource validation error - unsupported type
+                  description: Resource content_type is not supported
+                ResourceValidationError-DoesNotExist:
+                  value:
+                  - - task: null
+                      errors:
+                      - code: RESOURCE_DOES_NOT_EXIST
+                        detail: Resource object does not exist.
+                        source:
+                          field: resources
+                  summary: Resource validation error - does not exist
+                  description: Resource ID references a non-existent object
+                ResourceValidationError-NoViewPermission:
+                  value:
+                  - - task: null
+                      errors:
+                      - code: RESOURCE_OBJECT_PERMISSION_REQUIRED
+                        detail: The user requires at-least view permission on the resource object to be able to associate it with a task.
+                        source:
+                          field: resources
+                  summary: Resource validation error - no view permission
+                  description: User lacks view permission on the resource object
+          description: ''
+        '400':
+          description: Bad Request - Invalid process_id, missing tasks, or duplicate task IDs
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden - User is not a Workflow Manager
+components:
+  schemas:
+    Status32bEnum:
+      enum:
+      - DRAFT
+      - TODO
+      - DONE
+      type: string
+      description: '* `DRAFT` - Draft
+
+        * `TODO` - To Do
+
+        * `DONE` - Done'
+    BulkTaskResult:
+      type: object
+      properties:
+        task:
+          allOf:
+          - $ref: '#/components/schemas/Task'
+          nullable: true
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/BulkTaskError'
+          nullable: true
+      required:
+      - errors
+      - task
+    Task:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        process_id:
+          type: integer
+        name:
+          type: string
+          maxLength: 255
+        description:
+          type: string
+        status:
+          $ref: '#/components/schemas/Status32bEnum'
+        resources:
+          type: array
+          items:
+            $ref: '#/components/schemas/Resource'
+        assignee_id:
+          type: string
+          nullable: true
+        due_date:
+          type: string
+          format: date
+          nullable: true
+        deleted_at:
+          type: string
+          format: date-time
+          readOnly: true
+          nullable: true
+        completed_at:
+          type: string
+          format: date-time
+          readOnly: true
+          nullable: true
+        assigned_at:
+          type: string
+          format: date-time
+          readOnly: true
+          nullable: true
+        modified_at:
+          type: string
+          format: date-time
+          readOnly: true
+        completed_by_id:
+          type: integer
+          nullable: true
+          readOnly: true
+        created_by_id:
+          type: integer
+          readOnly: true
+        modified_by_id:
+          type: integer
+          nullable: true
+          readOnly: true
+      required:
+      - assigned_at
+      - completed_at
+      - completed_by_id
+      - created_by_id
+      - deleted_at
+      - id
+      - modified_at
+      - modified_by_id
+      - name
+    Process:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          maxLength: 255
+        description:
+          type: string
+        status:
+          $ref: '#/components/schemas/ProcessStatusEnum'
+        completed_at:
+          type: string
+          format: date-time
+          readOnly: true
+          nullable: true
+        completed_by:
+          type: integer
+          readOnly: true
+          nullable: true
+        created_by:
+          type: integer
+          readOnly: true
+        modified_by:
+          type: integer
+          readOnly: true
+          nullable: true
+        owner:
+          type: integer
+      required:
+      - completed_at
+      - completed_by
+      - created_by
+      - id
+      - modified_by
+      - name
+    BulkTaskItem:
+      type: object
+      description: Schema for OpenAPI docs - validation deferred to TaskSerializer in service layer.
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        description:
+          type: string
+        status:
+          $ref: '#/components/schemas/Status32bEnum'
+        due_date:
+          type: string
+          format: date
+        assignee_id:
+          type: integer
+        resources:
+          type: array
+          items:
+            $ref: '#/components/schemas/Resource'
+    BulkTaskRequest:
+      type: object
+      properties:
+        process_id:
+          type: integer
+        tasks:
+          type: array
+          items:
+            $ref: '#/components/schemas/BulkTaskItem'
+      required:
+      - process_id
+      - tasks
+    PatchedTask:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        process_id:
+          type: integer
+        name:
+          type: string
+          maxLength: 255
+        description:
+          type: string
+        status:
+          $ref: '#/components/schemas/Status32bEnum'
+        resources:
+          type: array
+          items:
+            $ref: '#/components/schemas/Resource'
+        assignee_id:
+          type: string
+          nullable: true
+        due_date:
+          type: string
+          format: date
+          nullable: true
+        deleted_at:
+          type: string
+          format: date-time
+          readOnly: true
+          nullable: true
+        completed_at:
+          type: string
+          format: date-time
+          readOnly: true
+          nullable: true
+        assigned_at:
+          type: string
+          format: date-time
+          readOnly: true
+          nullable: true
+        modified_at:
+          type: string
+          format: date-time
+          readOnly: true
+        completed_by_id:
+          type: integer
+          nullable: true
+          readOnly: true
+        created_by_id:
+          type: integer
+          readOnly: true
+        modified_by_id:
+          type: integer
+          nullable: true
+          readOnly: true
+    PatchedProcess:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          maxLength: 255
+        description:
+          type: string
+        status:
+          $ref: '#/components/schemas/ProcessStatusEnum'
+        completed_at:
+          type: string
+          format: date-time
+          readOnly: true
+          nullable: true
+        completed_by:
+          type: integer
+          readOnly: true
+          nullable: true
+        created_by:
+          type: integer
+          readOnly: true
+        modified_by:
+          type: integer
+          readOnly: true
+          nullable: true
+        owner:
+          type: integer
+    Resource:
+      type: object
+      properties:
+        id:
+          type: string
+        permission_denied:
+          type: boolean
+          readOnly: true
+        content_type:
+          type: string
+        content:
+          type: object
+          additionalProperties: {}
+          readOnly: true
+      required:
+      - content
+      - content_type
+      - id
+      - permission_denied
+    BulkTaskError:
+      type: object
+      description: Single error object for bulk task operations.
+      properties:
+        code:
+          type: string
+          description: Error code (DRF codes like "null", "invalid" or custom codes like "INVALID_DATE_PAST_DUE")
+        detail:
+          type: string
+          description: Human-readable error message
+        source:
+          type: object
+          additionalProperties: {}
+          nullable: true
+          description: 'Source of the error. Contains {"field": "field_name"} for validation errors, null for business errors.'
+      required:
+      - code
+      - detail
+      - source
+    ProcessStatusEnum:
+      enum:
+      - NOT_STARTED
+      - IN_PROGRESS
+      - COMPLETED
+      type: string
+      description: '* `NOT_STARTED` - Not Started
+
+        * `IN_PROGRESS` - In Progress
+
+        * `COMPLETED` - Completed'
+    PatchedActionItem:
+      type: object
+      description: "Mixin for serializers that automatically validates position field values.\n\nAttributes:\n    position_field_name (str): The name of the position field to validate.\n                               Defaults to 'position'.\n\nThis mixin provides:\n- Automatic validation via validate_<field_name> method\n- Non-negative position validation\n- Max position validation based on existing items\n\nRequires 'position_queryset' in serializer context (provided by PositionReorderViewSetMixin)."
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          maxLength: 255
+        company_id:
+          type: string
+          format: uuid
+          readOnly: true
+        created_by_id:
+          type: integer
+          readOnly: true
+        position:
+          type: integer
+          maximum: 4294967295
+          minimum: 0
+          format: int64
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        modified_at:
+          type: string
+          format: date-time
+          readOnly: true
+        completed_at:
+          type: string
+          format: date-time
+          readOnly: true
+          nullable: true
+        completed:
+          type: boolean
+          writeOnly: true
+    ActionItem:
+      type: object
+      description: "Mixin for serializers that automatically validates position field values.\n\nAttributes:\n    position_field_name (str): The name of the position field to validate.\n                               Defaults to 'position'.\n\nThis mixin provides:\n- Automatic validation via validate_<field_name> method\n- Non-negative position validation\n- Max position validation based on existing items\n\nRequires 'position_queryset' in serializer context (provided by PositionReorderViewSetMixin)."
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          maxLength: 255
+        company_id:
+          type: string
+          format: uuid
+          readOnly: true
+        created_by_id:
+          type: integer
+          readOnly: true
+        position:
+          type: integer
+          maximum: 4294967295
+          minimum: 0
+          format: int64
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        modified_at:
+          type: string
+          format: date-time
+          readOnly: true
+        completed_at:
+          type: string
+          format: date-time
+          readOnly: true
+          nullable: true
+        completed:
+          type: boolean
+          writeOnly: true
+      required:
+      - company_id
+      - completed_at
+      - created_at
+      - created_by_id
+      - id
+      - modified_at
+      - name
+  securitySchemes:
+    OAuth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://portal.cubesoftware.com/o/authorize/
+          tokenUrl: https://api.cubesoftware.com/o/token/
+          scopes: {}
+      description: Standard Cube OAuth 2.0 flow

@@ -1,0 +1,499 @@
+openapi: 3.0.3
+info:
+  title: Cube Agents Notifications API
+  version: 1.0.0 (1.0)
+  description: "#### General Description\nAn API to access underlying Cube functionality. These endpoints are the same endpoints\nthat support Cube's universal add-ons and a plethora of integrations meaning you'll be able to interact with your\nCube data in many powerful ways. Visit the API section of Cube's [Help Center](https://help.cubesoftware.com/hc/en-us/sections/18205290556180-Custom-Integrations)\nfor more usage guides on how you can use this API to integrate with Cube to accomplish various tasks!\n\n#### Versioning\nAll requests to the API require a version to be configured via an `Accept` Header. The value of this Header should look like this:\n```\nAccept: application/json; version=1.0\n```\nNote that the version number may differ depending on which version of the endpoint is needed.\n\n#### Response Structure\nThe general response structure of Cube's API endpoints will contain a `\"data\"` and `\"metadata\"` root level key:\n```json\n{\n    \"data\": { ... object data or list of objects ... },\n    \"metadata\": {\n        \"status\": 200,\n        \"message\": \"Potential message with additional context\",\n        \"error\": false,\n        \"code\": \"\"\n    }\n}\n```\n\n#### Rate Limiting\nAll endpoints have a rate limit configured, most of them default to 5/s.\nWhen the rate limit is encountered, a 429 HTTP code will be returned.\n\n#### Error Handling\nIn the event an error occurs, the response will typically look like this:\n```json\n{\n    \"data\": {},\n    \"metadata\": {\n        \"status\": 400,\n        \"message\": \"Some error message\",\n        \"error\": true,\n        \"code\": \"SOME_ERROR_CODE\"\n    }\n}\n```\n"
+  termsOfService: https://www.cubesoftware.com/terms-of-service
+servers:
+- url: https://api.cubesoftware.com
+  description: Cube API Production URL
+tags:
+- name: Notifications
+paths:
+  /notification-schedules/{target_app}/{target_model}/{target_id}:
+    get:
+      operationId: notification_schedules_retrieve
+      description: Returns the task reminder schedule for a workflow. Creates a schedule with defaults on first access if none exists.
+      summary: Retrieve notification schedule for a target
+      parameters:
+      - in: header
+        name: X-Company-ID
+        schema:
+          type: string
+        description: Associates request with company
+        required: true
+      - in: path
+        name: target_app
+        schema:
+          type: string
+        description: 'Target Django app label (for example: taskflow).'
+        required: true
+      - in: path
+        name: target_id
+        schema:
+          type: string
+        description: Target object identifier.
+        required: true
+      - in: path
+        name: target_model
+        schema:
+          type: string
+        description: 'Target Django model name (for example: process).'
+        required: true
+      tags:
+      - Notifications
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotificationScheduleResponse'
+              examples:
+                RetrieveSchedule:
+                  value:
+                    data:
+                      target:
+                        app: taskflow
+                        model: process
+                        id: '42'
+                      schedule:
+                        id: 88
+                        name: task_reminders
+                        config:
+                          before_due_date:
+                            enabled: true
+                            days: 2
+                          overdue_cadence:
+                            enabled: true
+                            cadence: EVERY_3_DAYS
+                  summary: Retrieve schedule
+          description: ''
+        '403':
+          description: Permission denied
+        '404':
+          description: Target does not exist
+    put:
+      operationId: notification_schedules_update
+      description: Replaces the full reminder schedule config for the target workflow.
+      summary: Replace notification schedule config for a target
+      parameters:
+      - in: header
+        name: X-Company-ID
+        schema:
+          type: string
+        description: Associates request with company
+        required: true
+      - in: path
+        name: target_app
+        schema:
+          type: string
+        description: 'Target Django app label (for example: taskflow).'
+        required: true
+      - in: path
+        name: target_id
+        schema:
+          type: string
+        description: Target object identifier.
+        required: true
+      - in: path
+        name: target_model
+        schema:
+          type: string
+        description: 'Target Django model name (for example: process).'
+        required: true
+      tags:
+      - Notifications
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NotificationScheduleReplaceRequest'
+            examples:
+              UpdateRequest:
+                value:
+                  config:
+                    before_due_date:
+                      enabled: true
+                      days: 5
+                    overdue_cadence:
+                      enabled: false
+                      cadence: EVERY_3_DAYS
+                summary: Update request
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/NotificationScheduleReplaceRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/NotificationScheduleReplaceRequest'
+        required: true
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotificationScheduleResponse'
+              examples:
+                UpdateResponse:
+                  value:
+                    data:
+                      target:
+                        app: taskflow
+                        model: process
+                        id: '42'
+                      schedule:
+                        id: 88
+                        name: task_reminders
+                        config:
+                          before_due_date:
+                            enabled: true
+                            days: 2
+                          overdue_cadence:
+                            enabled: true
+                            cadence: EVERY_3_DAYS
+                  summary: Update response
+          description: ''
+        '400':
+          description: Invalid config
+        '403':
+          description: Permission denied
+        '404':
+          description: Target does not exist
+  /notification-subscriptions/{target_app}/{target_model}/{target_id}:
+    get:
+      operationId: notification_subscriptions_retrieve
+      description: Returns watchers for a target. is_active reflects UserCompany membership (deactivated users may still appear in the list). Import/mapping emails are delivered only to active UserCompany rows whose per-event preferences allow the notification (data_imports, manual_mapping).
+      summary: Retrieve notification subscriptions for a target
+      parameters:
+      - in: header
+        name: X-Company-ID
+        schema:
+          type: string
+        description: Associates request with company
+        required: true
+      - in: path
+        name: target_app
+        schema:
+          type: string
+        description: 'Target Django app label (for example: erps).'
+        required: true
+      - in: path
+        name: target_id
+        schema:
+          type: string
+        description: Target object identifier.
+        required: true
+      - in: path
+        name: target_model
+        schema:
+          type: string
+        description: 'Target Django model name (for example: erpconnection).'
+        required: true
+      tags:
+      - Notifications
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotificationSubscriptionsResponse'
+              examples:
+                RetrieveSubscriptions:
+                  value:
+                    data:
+                      target:
+                        app: erps
+                        model: erpconnection
+                        id: 3fa85f64-5717-4562-b3fc-2c963f66afa6
+                      subscriptions:
+                      - id: 101
+                        user_company_id: 12
+                        user_id: 55
+                        name: Jane Doe
+                        email: jane@example.com
+                        is_active: true
+                        preferences:
+                          data_imports: true
+                          manual_mapping: true
+                      - id: 102
+                        user_company_id: 19
+                        user_id: 72
+                        name: John Doe
+                        email: john@example.com
+                        is_active: false
+                        preferences:
+                          data_imports: true
+                          manual_mapping: true
+                  summary: Retrieve subscriptions
+          description: ''
+        '400':
+          description: Invalid target app/model or request data
+        '403':
+          description: 'Missing required permission(s): erps.view_sourcedatatable and erps.view_erpconnection'
+        '404':
+          description: Target does not exist
+    put:
+      operationId: notification_subscriptions_update
+      description: Replaces watcher list for the target and returns added/removed counts.
+      summary: Replace notification subscriptions for a target
+      parameters:
+      - in: header
+        name: X-Company-ID
+        schema:
+          type: string
+        description: Associates request with company
+        required: true
+      - in: path
+        name: target_app
+        schema:
+          type: string
+        description: 'Target Django app label (for example: erps).'
+        required: true
+      - in: path
+        name: target_id
+        schema:
+          type: string
+        description: Target object identifier.
+        required: true
+      - in: path
+        name: target_model
+        schema:
+          type: string
+        description: 'Target Django model name (for example: erpconnection).'
+        required: true
+      tags:
+      - Notifications
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NotificationSubscriptionReplaceRequest'
+            examples:
+              UpdateRequest:
+                value:
+                  user_company_ids:
+                  - 12
+                  - 19
+                summary: Update request
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/NotificationSubscriptionReplaceRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/NotificationSubscriptionReplaceRequest'
+        required: true
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotificationSubscriptionsReplaceResponse'
+              examples:
+                UpdateResponse:
+                  value:
+                    data:
+                      target:
+                        app: erps
+                        model: erpconnection
+                        id: 3fa85f64-5717-4562-b3fc-2c963f66afa6
+                      subscriptions:
+                      - id: 101
+                        user_company_id: 12
+                        user_id: 55
+                        name: Jane Doe
+                        email: jane@example.com
+                        is_active: true
+                        preferences:
+                          data_imports: true
+                          manual_mapping: true
+                      users_added_count: 1
+                      users_removed_count: 0
+                  summary: Update response
+          description: ''
+        '400':
+          description: Invalid user_company_ids or target
+        '403':
+          description: 'Missing required permission(s): erps.change_sourcedatatable and erps.view_erpconnection'
+        '404':
+          description: Target does not exist
+components:
+  schemas:
+    OverdueCadenceConfig:
+      type: object
+      properties:
+        enabled:
+          type: boolean
+        cadence:
+          $ref: '#/components/schemas/CadenceEnum'
+      required:
+      - cadence
+      - enabled
+    NotificationSubscriptionsResponse:
+      type: object
+      properties:
+        target:
+          $ref: '#/components/schemas/NotificationSubscriptionTarget'
+        subscriptions:
+          type: array
+          items:
+            $ref: '#/components/schemas/NotificationSubscriptionUser'
+      required:
+      - subscriptions
+      - target
+    BeforeDueDateConfig:
+      type: object
+      properties:
+        enabled:
+          type: boolean
+        days:
+          type: integer
+      required:
+      - days
+      - enabled
+    NotificationSubscriptionTarget:
+      type: object
+      properties:
+        app:
+          type: string
+        model:
+          type: string
+        id:
+          type: string
+      required:
+      - app
+      - id
+      - model
+    NotificationSubscriptionUser:
+      type: object
+      properties:
+        id:
+          type: integer
+        user_company_id:
+          type: integer
+        user_id:
+          type: integer
+        name:
+          type: string
+        email:
+          type: string
+          format: email
+        is_active:
+          type: boolean
+        preferences:
+          type: object
+          additionalProperties: {}
+      required:
+      - email
+      - id
+      - is_active
+      - name
+      - preferences
+      - user_company_id
+      - user_id
+    NotificationScheduleRecord:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        config:
+          $ref: '#/components/schemas/NotificationScheduleConfig'
+      required:
+      - config
+      - id
+      - name
+    NotificationScheduleTarget:
+      type: object
+      properties:
+        app:
+          type: string
+        model:
+          type: string
+        id:
+          type: string
+      required:
+      - app
+      - id
+      - model
+    NotificationSubscriptionReplaceRequest:
+      type: object
+      properties:
+        user_company_ids:
+          type: array
+          items:
+            type: integer
+      required:
+      - user_company_ids
+    NotificationScheduleReplaceRequest:
+      type: object
+      properties:
+        config:
+          $ref: '#/components/schemas/NotificationScheduleConfig'
+      required:
+      - config
+    NotificationScheduleConfig:
+      type: object
+      properties:
+        before_due_date:
+          $ref: '#/components/schemas/BeforeDueDateConfig'
+        overdue_cadence:
+          $ref: '#/components/schemas/OverdueCadenceConfig'
+      required:
+      - before_due_date
+      - overdue_cadence
+    NotificationScheduleResponse:
+      type: object
+      properties:
+        target:
+          $ref: '#/components/schemas/NotificationScheduleTarget'
+        schedule:
+          $ref: '#/components/schemas/NotificationScheduleRecord'
+      required:
+      - schedule
+      - target
+    CadenceEnum:
+      enum:
+      - DAILY
+      - EVERY_3_DAYS
+      - WEEKLY
+      type: string
+      description: '* `DAILY` - Daily
+
+        * `EVERY_3_DAYS` - Every 3 Days
+
+        * `WEEKLY` - Weekly'
+    NotificationSubscriptionsReplaceResponse:
+      type: object
+      properties:
+        target:
+          $ref: '#/components/schemas/NotificationSubscriptionTarget'
+        subscriptions:
+          type: array
+          items:
+            $ref: '#/components/schemas/NotificationSubscriptionUser'
+        users_added_count:
+          type: integer
+        users_removed_count:
+          type: integer
+      required:
+      - subscriptions
+      - target
+      - users_added_count
+      - users_removed_count
+  securitySchemes:
+    OAuth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://portal.cubesoftware.com/o/authorize/
+          tokenUrl: https://api.cubesoftware.com/o/token/
+          scopes: {}
+      description: Standard Cube OAuth 2.0 flow

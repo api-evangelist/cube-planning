@@ -1,0 +1,383 @@
+openapi: 3.0.3
+info:
+  title: Cube Agents Attributes API
+  version: 1.0.0 (1.0)
+  description: "#### General Description\nAn API to access underlying Cube functionality. These endpoints are the same endpoints\nthat support Cube's universal add-ons and a plethora of integrations meaning you'll be able to interact with your\nCube data in many powerful ways. Visit the API section of Cube's [Help Center](https://help.cubesoftware.com/hc/en-us/sections/18205290556180-Custom-Integrations)\nfor more usage guides on how you can use this API to integrate with Cube to accomplish various tasks!\n\n#### Versioning\nAll requests to the API require a version to be configured via an `Accept` Header. The value of this Header should look like this:\n```\nAccept: application/json; version=1.0\n```\nNote that the version number may differ depending on which version of the endpoint is needed.\n\n#### Response Structure\nThe general response structure of Cube's API endpoints will contain a `\"data\"` and `\"metadata\"` root level key:\n```json\n{\n    \"data\": { ... object data or list of objects ... },\n    \"metadata\": {\n        \"status\": 200,\n        \"message\": \"Potential message with additional context\",\n        \"error\": false,\n        \"code\": \"\"\n    }\n}\n```\n\n#### Rate Limiting\nAll endpoints have a rate limit configured, most of them default to 5/s.\nWhen the rate limit is encountered, a 429 HTTP code will be returned.\n\n#### Error Handling\nIn the event an error occurs, the response will typically look like this:\n```json\n{\n    \"data\": {},\n    \"metadata\": {\n        \"status\": 400,\n        \"message\": \"Some error message\",\n        \"error\": true,\n        \"code\": \"SOME_ERROR_CODE\"\n    }\n}\n```\n"
+  termsOfService: https://www.cubesoftware.com/terms-of-service
+servers:
+- url: https://api.cubesoftware.com
+  description: Cube API Production URL
+tags:
+- name: Attributes
+  description: "Attributes are additional metadata that can be applied to values in the cube. They\n            show up as additional columns in drilldowns, for instance.\n        "
+paths:
+  /attributes:
+    get:
+      operationId: attributes_retrieve
+      description: "This endpoint retrieves all the attributes of a company. To filter attributes to a specific\n        data table, use the table query parameter.\n        "
+      summary: Get Company's Attributes
+      parameters:
+      - in: header
+        name: X-Company-ID
+        schema:
+          type: string
+        description: Associates request with company
+        required: true
+      - in: query
+        name: table
+        schema:
+          type: string
+        description: The ID of an attribute table to limit results to
+        required: true
+      tags:
+      - Attributes
+      security:
+      - OAuth2: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AttributeResponse'
+              examples:
+                FullExample:
+                  value:
+                    id: 1
+                    name: Vendor
+                    description: Name of vendor
+                    table:
+                      id: 156f1d7f-3364-42b4-bed5-d0d1e87327a1
+                      name: My Data Table
+                      settings: {}
+                      created_at: '2021-03-09T19:21:20.656464+00:00'
+                    created_at: '2021-03-09T19:21:20.766168+00:00'
+                  summary: Full Example
+          description: ''
+      x-codeSamples:
+      - lang: curl
+        source: "curl -X \\\n  GET \\\n  -H 'Accept: application/json; version=1.0' \\\n  -H 'Content-Type: application/json' \\\n  -H 'X-Company-ID: <your-company-id>' \\\n  'https://api.cubesoftware.com/attributes?table=156f1d7f-3364-42b4-bed5-d0d1e87327a1'"
+      - lang: python
+        source: "import requests\n\nheaders = {\n    \"Accept\": \"application/json; version=1.0\",\n    \"Content-Type\": \"application/json\",\n    \"X-Company-ID\": \"<your-company-id>\"\n}\n\nurl = 'https://api.cubesoftware.com/attributes?table=156f1d7f-3364-42b4-bed5-d0d1e87327a1'\n\nresponse = requests.get(url, headers=headers)\n\nprint(response.json())"
+    post:
+      operationId: attributes_create
+      description: "This endpoint creates and updates attributes for a given company. To create an attribute,\n        don't include an ID in the payload. Including an ID implies updating an existing attribute.\n        "
+      summary: Manage Company Attributes
+      parameters:
+      - in: header
+        name: X-Company-ID
+        schema:
+          type: string
+        description: Associates request with company
+        required: true
+      tags:
+      - Attributes
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AttributeRequest'
+            examples:
+              FullExample:
+                value:
+                  name: New Attribute
+                  description: My new attribute
+                  table_id: 156f1d7f-3364-42b4-bed5-d0d1e87327a1
+                summary: Full Example
+                description: "| **Parameter** | **Required** | **Description** |\n|---|---|---|\n| id | false | ID of existing attribute, for update |\n| name | true | The name of the attribute |\n| table_id | true | The data table for this attribute |\n| description | false | A brief description |\n                        "
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/AttributeRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/AttributeRequest'
+        required: true
+      security:
+      - OAuth2: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AttributeResponse'
+              examples:
+                FullExample:
+                  value:
+                    id: 1
+                    name: Vendor
+                    description: Name of vendor
+                    table:
+                      id: 156f1d7f-3364-42b4-bed5-d0d1e87327a1
+                      name: My Data Table
+                      settings: {}
+                      created_at: '2021-03-09T19:21:20.656464+00:00'
+                    created_at: '2021-03-09T19:21:20.766168+00:00'
+                  summary: Full Example
+          description: ''
+      x-codeSamples:
+      - lang: curl
+        source: "curl -X \\\n  POST \\\n  -H 'Accept: application/json; version=1.0' \\\n  -H 'Content-Type: application/json' \\\n  -H 'X-Company-ID: <your-company-id>' \\\n  -d '{\n  \"name\": \"New Attribute\",\n  \"description\": \"My new attribute\",\n  \"table_id\": \"156f1d7f-3364-42b4-bed5-d0d1e87327a1\"\n}' \\\n  'https://api.cubesoftware.com/attributes'"
+      - lang: python
+        source: "import requests\n\nheaders = {\n    \"Accept\": \"application/json; version=1.0\",\n    \"Content-Type\": \"application/json\",\n    \"X-Company-ID\": \"<your-company-id>\"\n}\n\nurl = 'https://api.cubesoftware.com/attributes'\n\npayload = {\n    \"name\": \"New Attribute\",\n    \"description\": \"My new attribute\",\n    \"table_id\": \"156f1d7f-3364-42b4-bed5-d0d1e87327a1\"\n}\n\nresponse = requests.post(url, headers=headers, json=payload)\n\nprint(response.json())"
+components:
+  schemas:
+    SourceDataTable:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        name:
+          type: string
+          maxLength: 255
+        active:
+          type: boolean
+          readOnly: true
+        settings:
+          type: object
+          additionalProperties: {}
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        connection:
+          allOf:
+          - $ref: '#/components/schemas/Connection'
+          readOnly: true
+        type:
+          allOf:
+          - $ref: '#/components/schemas/SourceDataTableTypeEnum'
+          readOnly: true
+        type_friendly:
+          type: string
+          readOnly: true
+        last_import:
+          type: object
+          additionalProperties: {}
+          readOnly: true
+        last_successful_import:
+          type: object
+          additionalProperties: {}
+          readOnly: true
+        source_type:
+          type: string
+          description: "Returns the human-friendly category of the connection's Integration, if the table has\na connection. Otherwise, returns 'Data Table'.\n\nReturns:\n    The human-friendly source category"
+          readOnly: true
+        mapping_data:
+          type: object
+          additionalProperties: {}
+          readOnly: true
+        description:
+          type: string
+      required:
+      - active
+      - connection
+      - created_at
+      - id
+      - last_import
+      - last_successful_import
+      - mapping_data
+      - name
+      - settings
+      - source_type
+      - type
+      - type_friendly
+    Integration:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        source:
+          $ref: '#/components/schemas/IntegrationSourceEnum'
+        category:
+          $ref: '#/components/schemas/CategoryEnum'
+        name:
+          type: string
+          maxLength: 100
+        logo_url:
+          type: string
+          nullable: true
+          readOnly: true
+      required:
+      - category
+      - id
+      - logo_url
+      - name
+      - source
+    SourceDataTableTypeEnum:
+      enum:
+      - AD_HOC
+      - ERP_CONNECTION
+      - GENERIC
+      - EMPLOYEE_ROSTER
+      - HRIS
+      type: string
+      description: '* `AD_HOC` - Ad Hoc
+
+        * `ERP_CONNECTION` - ERP Connection
+
+        * `GENERIC` - Generic
+
+        * `EMPLOYEE_ROSTER` - Employee Roster
+
+        * `HRIS` - HRIS Connection'
+    CategoryEnum:
+      enum:
+      - BI
+      - GL
+      - HRIS
+      - SSO
+      - CRM
+      - OTHER
+      - UAP
+      type: string
+      description: '* `BI` - Business Intelligence
+
+        * `GL` - General Ledger
+
+        * `HRIS` - Human Resource Information Service
+
+        * `SSO` - Single Sign On
+
+        * `CRM` - Customer Relationship Management
+
+        * `OTHER` - Other
+
+        * `UAP` - Unified API Platform'
+    AttributeResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        description:
+          type: string
+        table:
+          $ref: '#/components/schemas/SourceDataTable'
+        table_id:
+          type: string
+          format: uuid
+        created_at:
+          type: string
+          format: date-time
+      required:
+      - created_at
+      - description
+      - id
+      - name
+      - table
+      - table_id
+    Connection:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        active:
+          type: boolean
+          readOnly: true
+        type:
+          type: string
+          nullable: true
+          description: "Return the category of the associated Integration model for backwards compatibility\n\nReturns:\n    The integration category (See Integration.CATEGORIES)"
+          readOnly: true
+        friendly_source:
+          type: string
+          readOnly: true
+        integration:
+          allOf:
+          - $ref: '#/components/schemas/Integration'
+          readOnly: true
+        settings:
+          type: object
+          additionalProperties: {}
+        metadata:
+          type: object
+          additionalProperties: {}
+          readOnly: true
+      required:
+      - active
+      - friendly_source
+      - id
+      - integration
+      - metadata
+      - settings
+      - type
+    IntegrationSourceEnum:
+      enum:
+      - METABASE
+      - QUICKBOOKS
+      - XERO
+      - NETSUITE
+      - SALESFORCE
+      - SAGE_INTACCT
+      - RILLET
+      - CAMPFIRE
+      - CHARTHOP
+      - GOOGLE
+      - OKTA
+      - BOOMI
+      - SAML
+      - OPEN_EXCHANGE_RATES
+      - NETSUITE_RATES
+      - MERGE
+      type: string
+      description: '* `METABASE` - Metabase
+
+        * `QUICKBOOKS` - QuickBooks
+
+        * `XERO` - Xero
+
+        * `NETSUITE` - NetSuite
+
+        * `SALESFORCE` - Salesforce
+
+        * `SAGE_INTACCT` - Sage Intacct
+
+        * `RILLET` - Rillet
+
+        * `CAMPFIRE` - Campfire
+
+        * `CHARTHOP` - ChartHop
+
+        * `GOOGLE` - Google SSO
+
+        * `OKTA` - Okta (OIDC)
+
+        * `BOOMI` - Boomi
+
+        * `SAML` - SAML
+
+        * `OPEN_EXCHANGE_RATES` - Open Exchange Rates
+
+        * `NETSUITE_RATES` - NetSuite Saved Search
+
+        * `MERGE` - Cube Universal Connect'
+    AttributeRequest:
+      type: object
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        table_id:
+          type: string
+          format: uuid
+      required:
+      - description
+      - name
+      - table_id
+  securitySchemes:
+    OAuth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://portal.cubesoftware.com/o/authorize/
+          tokenUrl: https://api.cubesoftware.com/o/token/
+          scopes: {}
+      description: Standard Cube OAuth 2.0 flow

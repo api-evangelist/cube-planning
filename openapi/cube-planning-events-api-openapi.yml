@@ -1,0 +1,90 @@
+openapi: 3.0.3
+info:
+  title: Cube Agents Events API
+  version: 1.0.0 (1.0)
+  description: "#### General Description\nAn API to access underlying Cube functionality. These endpoints are the same endpoints\nthat support Cube's universal add-ons and a plethora of integrations meaning you'll be able to interact with your\nCube data in many powerful ways. Visit the API section of Cube's [Help Center](https://help.cubesoftware.com/hc/en-us/sections/18205290556180-Custom-Integrations)\nfor more usage guides on how you can use this API to integrate with Cube to accomplish various tasks!\n\n#### Versioning\nAll requests to the API require a version to be configured via an `Accept` Header. The value of this Header should look like this:\n```\nAccept: application/json; version=1.0\n```\nNote that the version number may differ depending on which version of the endpoint is needed.\n\n#### Response Structure\nThe general response structure of Cube's API endpoints will contain a `\"data\"` and `\"metadata\"` root level key:\n```json\n{\n    \"data\": { ... object data or list of objects ... },\n    \"metadata\": {\n        \"status\": 200,\n        \"message\": \"Potential message with additional context\",\n        \"error\": false,\n        \"code\": \"\"\n    }\n}\n```\n\n#### Rate Limiting\nAll endpoints have a rate limit configured, most of them default to 5/s.\nWhen the rate limit is encountered, a 429 HTTP code will be returned.\n\n#### Error Handling\nIn the event an error occurs, the response will typically look like this:\n```json\n{\n    \"data\": {},\n    \"metadata\": {\n        \"status\": 400,\n        \"message\": \"Some error message\",\n        \"error\": true,\n        \"code\": \"SOME_ERROR_CODE\"\n    }\n}\n```\n"
+  termsOfService: https://www.cubesoftware.com/terms-of-service
+servers:
+- url: https://api.cubesoftware.com
+  description: Cube API Production URL
+tags:
+- name: Events
+  description: This endpoint can be used to track generic events completed by users.
+paths:
+  /user/event:
+    post:
+      operationId: user_event_create
+      description: This endpoint can be used to track generic events completed by users.
+      summary: Events
+      parameters:
+      - in: header
+        name: X-Company-ID
+        schema:
+          type: string
+        description: Associates request with company
+        required: true
+      tags:
+      - Events
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserEventResponseRequest'
+            examples:
+              TrackWebTemplateViewedEvent:
+                value:
+                  name: Web Template Viewed
+                  model_id: f73b543c-4caa-4437-82e4-5e28d65933cb
+                summary: Track Web Template Viewed Event
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/UserEventResponseRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/UserEventResponseRequest'
+        required: true
+      security:
+      - OAuth2: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserEventResponse'
+          description: ''
+components:
+  schemas:
+    UserEventResponseRequest:
+      type: object
+      properties:
+        name:
+          type: string
+        model_id:
+          type: string
+      required:
+      - model_id
+      - name
+    UserEventResponse:
+      type: object
+      properties:
+        name:
+          type: string
+        model_id:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+      required:
+      - created_at
+      - model_id
+      - name
+  securitySchemes:
+    OAuth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://portal.cubesoftware.com/o/authorize/
+          tokenUrl: https://api.cubesoftware.com/o/token/
+          scopes: {}
+      description: Standard Cube OAuth 2.0 flow

@@ -1,0 +1,328 @@
+openapi: 3.0.3
+info:
+  title: Cube Agents Invitations API
+  version: 1.0.0 (1.0)
+  description: "#### General Description\nAn API to access underlying Cube functionality. These endpoints are the same endpoints\nthat support Cube's universal add-ons and a plethora of integrations meaning you'll be able to interact with your\nCube data in many powerful ways. Visit the API section of Cube's [Help Center](https://help.cubesoftware.com/hc/en-us/sections/18205290556180-Custom-Integrations)\nfor more usage guides on how you can use this API to integrate with Cube to accomplish various tasks!\n\n#### Versioning\nAll requests to the API require a version to be configured via an `Accept` Header. The value of this Header should look like this:\n```\nAccept: application/json; version=1.0\n```\nNote that the version number may differ depending on which version of the endpoint is needed.\n\n#### Response Structure\nThe general response structure of Cube's API endpoints will contain a `\"data\"` and `\"metadata\"` root level key:\n```json\n{\n    \"data\": { ... object data or list of objects ... },\n    \"metadata\": {\n        \"status\": 200,\n        \"message\": \"Potential message with additional context\",\n        \"error\": false,\n        \"code\": \"\"\n    }\n}\n```\n\n#### Rate Limiting\nAll endpoints have a rate limit configured, most of them default to 5/s.\nWhen the rate limit is encountered, a 429 HTTP code will be returned.\n\n#### Error Handling\nIn the event an error occurs, the response will typically look like this:\n```json\n{\n    \"data\": {},\n    \"metadata\": {\n        \"status\": 400,\n        \"message\": \"Some error message\",\n        \"error\": true,\n        \"code\": \"SOME_ERROR_CODE\"\n    }\n}\n```\n"
+  termsOfService: https://www.cubesoftware.com/terms-of-service
+servers:
+- url: https://api.cubesoftware.com
+  description: Cube API Production URL
+tags:
+- name: Invitations
+paths:
+  /company/invitations:
+    get:
+      operationId: company_invitations_list
+      description: Load all invitations for a company
+      summary: List invitations
+      parameters:
+      - in: header
+        name: X-Company-ID
+        schema:
+          type: string
+        description: Associates request with company
+        required: true
+      tags:
+      - Invitations
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/UserInvitation'
+          description: ''
+    post:
+      operationId: company_invitations_create
+      description: Invite someone to the company
+      summary: Create a new invitation
+      parameters:
+      - in: header
+        name: X-Company-ID
+        schema:
+          type: string
+        description: Associates request with company
+        required: true
+      tags:
+      - Invitations
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserInvitation'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/UserInvitation'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/UserInvitation'
+        required: true
+      security:
+      - OAuth2: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserInvitation'
+          description: ''
+  /company/invitations/{id}:
+    get:
+      operationId: company_invitations_retrieve
+      description: Retrieves an invitation
+      summary: Retrieve an invitation
+      parameters:
+      - in: header
+        name: X-Company-ID
+        schema:
+          type: string
+        description: Associates request with company
+        required: true
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+      tags:
+      - Invitations
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserInvitation'
+          description: ''
+    put:
+      operationId: company_invitations_update
+      description: Update an invitation by sending all editable field data.
+      summary: Update an invitation
+      parameters:
+      - in: header
+        name: X-Company-ID
+        schema:
+          type: string
+        description: Associates request with company
+        required: true
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+      tags:
+      - Invitations
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserInvitationUpdateOpenApiDocAttributes_1'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/UserInvitationUpdateOpenApiDocAttributes_1'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/UserInvitationUpdateOpenApiDocAttributes_1'
+        required: true
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserInvitation'
+          description: ''
+    patch:
+      operationId: company_invitations_partial_update
+      description: Update one or more editable fields for an invitation.
+      summary: Partially update an invitation
+      parameters:
+      - in: header
+        name: X-Company-ID
+        schema:
+          type: string
+        description: Associates request with company
+        required: true
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+      tags:
+      - Invitations
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedUserInvitationUpdateOpenApiDocAttributes_1'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedUserInvitationUpdateOpenApiDocAttributes_1'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedUserInvitationUpdateOpenApiDocAttributes_1'
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserInvitation'
+          description: ''
+    delete:
+      operationId: company_invitations_destroy
+      description: Prevents a user from accepting the invitation.
+      summary: Deletes a invitation completely
+      parameters:
+      - in: header
+        name: X-Company-ID
+        schema:
+          type: string
+        description: Associates request with company
+        required: true
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+      tags:
+      - Invitations
+      security:
+      - OAuth2: []
+      responses:
+        '204':
+          description: No response body
+  /company/invitations/{id}/resend:
+    put:
+      operationId: company_invitations_resend_update
+      description: Resends the email to the user. If the invitation has expired this will re-generate the invitation to reset the expiration date.
+      summary: Resend an invitation
+      parameters:
+      - in: header
+        name: X-Company-ID
+        schema:
+          type: string
+        description: Associates request with company
+        required: true
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+      tags:
+      - Invitations
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserInvitation'
+          description: ''
+components:
+  schemas:
+    UserInvitationUpdateOpenApiDocAttributes_1:
+      type: object
+      properties:
+        company_groups:
+          type: array
+          items:
+            type: integer
+        metadata: {}
+        permission_group:
+          type: integer
+        can_publish_data:
+          type: boolean
+        accepted_at:
+          type: string
+          format: date-time
+          nullable: true
+      required:
+      - company_groups
+      - permission_group
+    UserInvitation:
+      type: object
+      description: 'This mixin is used to supplement the serializer with additional fields that are not provided in the request data
+
+        for use in updating either the model being worked with OR any through tables that are used to join the model with
+
+        a related model when the through table holds useful information.'
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        email:
+          type: string
+          format: email
+          maxLength: 254
+        company:
+          type: string
+          format: uuid
+        permission_group:
+          type: integer
+        can_publish_data:
+          type: boolean
+        accepted_at:
+          type: string
+          format: date-time
+          nullable: true
+        created_by:
+          type: integer
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        last_sent:
+          type: string
+          format: date-time
+          readOnly: true
+        company_groups:
+          type: array
+          items:
+            type: integer
+        metadata: {}
+        expired:
+          type: boolean
+          readOnly: true
+      required:
+      - company
+      - company_groups
+      - created_at
+      - created_by
+      - email
+      - expired
+      - id
+      - last_sent
+      - permission_group
+    PatchedUserInvitationUpdateOpenApiDocAttributes_1:
+      type: object
+      properties:
+        company_groups:
+          type: array
+          items:
+            type: integer
+        metadata: {}
+        permission_group:
+          type: integer
+        can_publish_data:
+          type: boolean
+        accepted_at:
+          type: string
+          format: date-time
+          nullable: true
+  securitySchemes:
+    OAuth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://portal.cubesoftware.com/o/authorize/
+          tokenUrl: https://api.cubesoftware.com/o/token/
+          scopes: {}
+      description: Standard Cube OAuth 2.0 flow

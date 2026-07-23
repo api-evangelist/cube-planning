@@ -1,0 +1,1075 @@
+openapi: 3.0.3
+info:
+  title: Cube Agents Cube Value Range API
+  version: 1.0.0 (1.0)
+  description: "#### General Description\nAn API to access underlying Cube functionality. These endpoints are the same endpoints\nthat support Cube's universal add-ons and a plethora of integrations meaning you'll be able to interact with your\nCube data in many powerful ways. Visit the API section of Cube's [Help Center](https://help.cubesoftware.com/hc/en-us/sections/18205290556180-Custom-Integrations)\nfor more usage guides on how you can use this API to integrate with Cube to accomplish various tasks!\n\n#### Versioning\nAll requests to the API require a version to be configured via an `Accept` Header. The value of this Header should look like this:\n```\nAccept: application/json; version=1.0\n```\nNote that the version number may differ depending on which version of the endpoint is needed.\n\n#### Response Structure\nThe general response structure of Cube's API endpoints will contain a `\"data\"` and `\"metadata\"` root level key:\n```json\n{\n    \"data\": { ... object data or list of objects ... },\n    \"metadata\": {\n        \"status\": 200,\n        \"message\": \"Potential message with additional context\",\n        \"error\": false,\n        \"code\": \"\"\n    }\n}\n```\n\n#### Rate Limiting\nAll endpoints have a rate limit configured, most of them default to 5/s.\nWhen the rate limit is encountered, a 429 HTTP code will be returned.\n\n#### Error Handling\nIn the event an error occurs, the response will typically look like this:\n```json\n{\n    \"data\": {},\n    \"metadata\": {\n        \"status\": 400,\n        \"message\": \"Some error message\",\n        \"error\": true,\n        \"code\": \"SOME_ERROR_CODE\"\n    }\n}\n```\n"
+  termsOfService: https://www.cubesoftware.com/terms-of-service
+servers:
+- url: https://api.cubesoftware.com
+  description: Cube API Production URL
+tags:
+- name: Cube Value Range
+paths:
+  /ranges:
+    get:
+      operationId: ranges_list
+      description: 'List all cube value ranges available to the authenticated user company.
+
+
+        - The `headers`, `filters`, and `tags` fields are omitted from this response for performance reasons.
+
+        - Results can be limited by passing a comma separated list of ids in the query string: `?ids=1,2,3`'
+      summary: List all cube value ranges
+      parameters:
+      - in: header
+        name: X-Company-ID
+        schema:
+          type: string
+        description: Associates request with company
+        required: true
+      tags:
+      - Cube Value Range
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CubeValueRangeListSchema'
+              examples:
+                ListCubeValueRanges:
+                  value:
+                  - id: 1
+                    name: Awesome Range
+                    currency:
+                      id: 1
+                      code: USD
+                      name: US Dollar
+                    fetch_enabled: true
+                    publish_enabled: false
+                    exclude_zeros: false
+                    suppressed_row_dimensions: {}
+                  summary: List Cube Value Ranges
+          description: ''
+    post:
+      operationId: ranges_create
+      description: 'Create a new cube value range associated with the authenticated user company.
+
+
+        - Required fields typically include `name` and `data`.
+
+        - The full range, including generated fields like `id` and `headers`, is returned upon success.'
+      summary: Create a cube value range
+      parameters:
+      - in: header
+        name: X-Company-ID
+        schema:
+          type: string
+        description: Associates request with company
+        required: true
+      - in: query
+        name: collapse_coordinates
+        schema:
+          type: array
+          items:
+            type: array
+            items:
+              type: integer
+          default: []
+        description: Coordinates to collapse. When provided, adds `delete` property to response.
+      - in: query
+        name: header_discovery
+        schema:
+          type: string
+          enum:
+          - 'false'
+          - 'true'
+          default: 'false'
+        description: Control header discovery. When `true`, adds `discovered_row_headers` property to response.
+      tags:
+      - Cube Value Range
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/A1CubeValueRange'
+            examples:
+              CreateACubeValueRange(stringCellValues):
+                value:
+                  name: Awesome Range
+                  data:
+                  - - ''
+                    - Q1-25
+                  - - Revenue
+                    - ''
+                  filters:
+                    123: 345
+                    321: 543
+                  currency:
+                    code: USD
+                  fetch_enabled: true
+                  publish_enabled: false
+                  exclude_zeros: false
+                  suppressed_row_dimensions: {}
+                  tags:
+                    Accounts tag:
+                    - Revenue
+                    - Cost of Goods Sold
+                summary: Create a Cube Value Range (string cell values)
+              CreateACubeValueRange(objectCellValues):
+                value:
+                  name: Awesome Range
+                  data:
+                  - - date: ''
+                      displayValue: ''
+                      format: 0.###############
+                      value: ''
+                    - date: ''
+                      displayValue: Q1-25
+                      format: 0.###############
+                      value: Q1-25
+                  - - date: ''
+                      displayValue: ''
+                      format: 0.###############
+                      value: ''
+                    - date: ''
+                      displayValue: ''
+                      format: 0.###############
+                      value: ''
+                  filters:
+                    123: 345
+                    321: 543
+                  currency:
+                    code: USD
+                  fetch_enabled: true
+                  publish_enabled: false
+                  exclude_zeros: false
+                  suppressed_row_dimensions: {}
+                summary: Create a Cube Value Range (object cell values)
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/A1CubeValueRange'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/A1CubeValueRange'
+        required: true
+      security:
+      - OAuth2: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/A1CubeValueRange'
+              examples:
+                RangeCreated:
+                  value:
+                    id: 1
+                    name: Awesome Range
+                    headers:
+                      B1: Q1-25
+                      A2: Revenue
+                    filters:
+                      123: 345
+                      321: 543
+                    currency:
+                      id: 1
+                      code: USD
+                      name: US Dollar
+                    fetch_enabled: true
+                    publish_enabled: false
+                    exclude_zeros: false
+                    suppressed_row_dimensions: {}
+                    tags:
+                      '123':
+                      - dimension_id: 1
+                        name: Revenue
+                      - dimension_id: 2
+                        name: Cost of Goods Sold
+                  summary: Range Created
+                  description: 'tags: tag Dimension id -> member Dimensions (dimension_id + display name).'
+          description: ''
+  /ranges/{id}:
+    get:
+      operationId: ranges_retrieve
+      description: 'Fetch detailed information about a single cube value range by ID.
+
+
+        - Includes all fields, including the optional, expensive `headers` field, which is represented in **A1 notation**, plus `filters` and `tags`.
+
+        - This endpoint is intended for detail views or editing.'
+      summary: Retrieve a cube value range (A1 notation headers)
+      parameters:
+      - in: header
+        name: X-Company-ID
+        schema:
+          type: string
+        description: Associates request with company
+        required: true
+      - in: query
+        name: header_discovery
+        schema:
+          type: string
+          enum:
+          - 'false'
+          - 'true'
+          default: 'false'
+        description: Control header discovery. When `true`, adds `discovered_row_headers` property to response.
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+      tags:
+      - Cube Value Range
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/A1CubeValueRange'
+              examples:
+                RetrieveACubeValueRange:
+                  value:
+                    id: 1
+                    name: Awesome Range
+                    headers:
+                      B1: Q1-25
+                      A2: Revenue
+                    filters:
+                      123: 345
+                      321: 543
+                    currency:
+                      id: 1
+                      code: USD
+                      name: US Dollar
+                    fetch_enabled: true
+                    publish_enabled: false
+                    exclude_zeros: false
+                    suppressed_row_dimensions: {}
+                    tags:
+                      '123':
+                      - dimension_id: 1
+                        name: Revenue
+                      - dimension_id: 2
+                        name: Cost of Goods Sold
+                  summary: Retrieve a Cube Value Range
+                  description: tags maps each tag Dimension id to its member Dimensions (dimension_id identifies the member; name is formatted for display).
+          description: ''
+    put:
+      operationId: ranges_update
+      description: 'Perform a full update of an existing cube value range.
+
+
+        - Read-only fields (`id`, `headers`) will be ignored if included.
+
+        - The `headers` field is not accepted in the request but will appear in the response.'
+      summary: Update a cube value range
+      parameters:
+      - in: header
+        name: X-Company-ID
+        schema:
+          type: string
+        description: Associates request with company
+        required: true
+      - in: query
+        name: collapse_coordinates
+        schema:
+          type: array
+          items:
+            type: array
+            items:
+              type: integer
+          default: []
+        description: Coordinates to collapse. When provided, adds `delete` property to response.
+      - in: query
+        name: header_discovery
+        schema:
+          type: string
+          enum:
+          - 'false'
+          - 'true'
+          default: 'false'
+        description: Control header discovery. When `true`, adds `discovered_row_headers` property to response.
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+      tags:
+      - Cube Value Range
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/A1CubeValueRange'
+            examples:
+              UpdateACubeValueRange(stringCellValues):
+                value:
+                  name: Range Again the Machine
+                  data:
+                  - - ''
+                    - Q1-25
+                  - - Revenue
+                    - ''
+                  filters:
+                    123: 345
+                    321: 543
+                  currency:
+                    code: USD
+                  fetch_enabled: false
+                  publish_enabled: true
+                  exclude_zeros: true
+                  suppressed_row_dimensions:
+                    B4:
+                      dimension_id: 123
+                      leading_spaces: 5
+                  tags:
+                    Accounts tag:
+                    - Revenue
+                    - Cost of Goods Sold
+                summary: Update a Cube Value Range (string cell values)
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/A1CubeValueRange'
+            examples:
+              UpdateACubeValueRange(stringCellValues):
+                value:
+                  name: Range Again the Machine
+                  data:
+                  - - ''
+                    - Q1-25
+                  - - Revenue
+                    - ''
+                  filters:
+                    123: 345
+                    321: 543
+                  currency:
+                    code: USD
+                  fetch_enabled: false
+                  publish_enabled: true
+                  exclude_zeros: true
+                  suppressed_row_dimensions:
+                    B4:
+                      dimension_id: 123
+                      leading_spaces: 5
+                  tags:
+                    Accounts tag:
+                    - Revenue
+                    - Cost of Goods Sold
+                summary: Update a Cube Value Range (string cell values)
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/A1CubeValueRange'
+            examples:
+              UpdateACubeValueRange(stringCellValues):
+                value:
+                  name: Range Again the Machine
+                  data:
+                  - - ''
+                    - Q1-25
+                  - - Revenue
+                    - ''
+                  filters:
+                    123: 345
+                    321: 543
+                  currency:
+                    code: USD
+                  fetch_enabled: false
+                  publish_enabled: true
+                  exclude_zeros: true
+                  suppressed_row_dimensions:
+                    B4:
+                      dimension_id: 123
+                      leading_spaces: 5
+                  tags:
+                    Accounts tag:
+                    - Revenue
+                    - Cost of Goods Sold
+                summary: Update a Cube Value Range (string cell values)
+        required: true
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/A1CubeValueRange'
+              examples:
+                UpdatedCubeValueRange:
+                  value:
+                    id: 1
+                    name: Awesome Range
+                    headers:
+                      B1: Q1-25
+                      A2: Revenue
+                    filters:
+                      123: 345
+                      321: 543
+                    currency:
+                      id: 1
+                      code: USD
+                      name: US Dollar
+                    fetch_enabled: true
+                    publish_enabled: false
+                    exclude_zeros: false
+                    suppressed_row_dimensions: {}
+                    tags:
+                      '123':
+                      - dimension_id: 1
+                        name: Revenue
+                      - dimension_id: 2
+                        name: Cost of Goods Sold
+                  summary: Updated Cube Value Range
+          description: ''
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response_serializer'
+              examples:
+                InvalidRowsOrColumns:
+                  value:
+                    data: {}
+                    metadata:
+                      status: 400
+                      error: true
+                      message: 'Invalid data: VALIDATION_DETAIL'
+                      code: ''
+                  summary: Invalid Rows or Columns
+                  description: Payload validation failed due to incorrect structure in the `rows` or `columns` fields. Ensure that the header data conforms to the expected 2D array format.
+          description: ''
+    patch:
+      operationId: ranges_partial_update
+      description: 'Update one or more editable fields on an existing cube value range.
+
+
+        '
+      summary: Partially update a cube value range
+      parameters:
+      - in: header
+        name: X-Company-ID
+        schema:
+          type: string
+        description: Associates request with company
+        required: true
+      - in: query
+        name: collapse_coordinates
+        schema:
+          type: array
+          items:
+            type: array
+            items:
+              type: integer
+          default: []
+        description: Coordinates to collapse. When provided, adds `delete` property to response.
+      - in: query
+        name: header_discovery
+        schema:
+          type: string
+          enum:
+          - 'false'
+          - 'true'
+          default: 'false'
+        description: Control header discovery. When `true`, adds `discovered_row_headers` property to response.
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+      tags:
+      - Cube Value Range
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedA1CubeValueRange'
+            examples:
+              PatchACubeValueRange(stringCellValues):
+                value:
+                  data:
+                  - - ''
+                    - Q2-25
+                  - - Income Statement
+                    - ''
+                  filters:
+                    123: 345
+                    321: 543
+                  tags:
+                    Accounts tag:
+                    - Revenue
+                summary: Patch a Cube Value Range (string cell values)
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedA1CubeValueRange'
+            examples:
+              PatchACubeValueRange(stringCellValues):
+                value:
+                  data:
+                  - - ''
+                    - Q2-25
+                  - - Income Statement
+                    - ''
+                  filters:
+                    123: 345
+                    321: 543
+                  tags:
+                    Accounts tag:
+                    - Revenue
+                summary: Patch a Cube Value Range (string cell values)
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedA1CubeValueRange'
+            examples:
+              PatchACubeValueRange(stringCellValues):
+                value:
+                  data:
+                  - - ''
+                    - Q2-25
+                  - - Income Statement
+                    - ''
+                  filters:
+                    123: 345
+                    321: 543
+                  tags:
+                    Accounts tag:
+                    - Revenue
+                summary: Patch a Cube Value Range (string cell values)
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/A1CubeValueRange'
+              examples:
+                PatchedCubeValueRange:
+                  value:
+                    id: 1
+                    name: Awesome Range
+                    headers:
+                      B1: Q1-25
+                      A2: Revenue
+                    filters:
+                      123: 345
+                      321: 543
+                    currency:
+                      id: 1
+                      code: USD
+                      name: US Dollar
+                    fetch_enabled: true
+                    publish_enabled: false
+                    exclude_zeros: false
+                    suppressed_row_dimensions: {}
+                    tags:
+                      '123':
+                      - dimension_id: 1
+                        name: Revenue
+                      - dimension_id: 2
+                        name: Cost of Goods Sold
+                  summary: Patched Cube Value Range
+          description: ''
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response_serializer'
+              examples:
+                InvalidRowsOrColumns:
+                  value:
+                    data: {}
+                    metadata:
+                      status: 400
+                      error: true
+                      message: 'Invalid data: VALIDATION_DETAIL'
+                      code: ''
+                  summary: Invalid Rows or Columns
+                  description: Payload validation failed due to incorrect structure in the `rows` or `columns` fields. Ensure that the header data conforms to the expected 2D array format.
+          description: ''
+    delete:
+      operationId: ranges_destroy
+      description: Permanently remove a cube value range by ID.
+      summary: Delete a cube value range
+      parameters:
+      - in: header
+        name: X-Company-ID
+        schema:
+          type: string
+        description: Associates request with company
+        required: true
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+      tags:
+      - Cube Value Range
+      security:
+      - OAuth2: []
+      responses:
+        '204':
+          description: No response body
+  /ranges/{id}/a1:
+    get:
+      operationId: ranges_a1_retrieve
+      description: 'Return the cube value range with its `headers` field represented in **A1 notation**.
+
+
+        - Equivalent to the default `retrieve` endpoint.
+
+        - Use this when you want to explicitly request A1-based headers.'
+      summary: Retrieve a cube value range with A1 headers
+      parameters:
+      - in: header
+        name: X-Company-ID
+        schema:
+          type: string
+        description: Associates request with company
+        required: true
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+      tags:
+      - Cube Value Range
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/A1CubeValueRange'
+              examples:
+                RetrieveACubeValueRange:
+                  value:
+                    id: 1
+                    name: Awesome Range
+                    headers:
+                      B1: Q1-25
+                      A2: Revenue
+                    filters:
+                      123: 345
+                      321: 543
+                    currency:
+                      id: 1
+                      code: USD
+                      name: US Dollar
+                    fetch_enabled: true
+                    publish_enabled: false
+                    exclude_zeros: false
+                    suppressed_row_dimensions: {}
+                    tags:
+                      '123':
+                      - dimension_id: 1
+                        name: Revenue
+                      - dimension_id: 2
+                        name: Cost of Goods Sold
+                  summary: Retrieve a Cube Value Range
+                  description: tags maps each tag Dimension id to its member Dimensions (dimension_id identifies the member; name is formatted for display).
+          description: ''
+  /ranges/{id}/dimensions:
+    get:
+      operationId: ranges_dimensions_retrieve
+      description: 'Return the cube value range with its `headers` field represented as structured row/column dimensions.
+
+
+        - Unlike `retrieve` and `a1`, this endpoint organizes headers by their underlying dimensions.
+
+        - Use this when you need explicit row/column headers instead of A1 notation.'
+      summary: Retrieve a cube value range with structured headers
+      parameters:
+      - in: header
+        name: X-Company-ID
+        schema:
+          type: string
+        description: Associates request with company
+        required: true
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+      tags:
+      - Cube Value Range
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RowColumnCubeValueRange'
+              examples:
+                RetrieveACubeValueRange:
+                  value:
+                    id: 1
+                    name: Awesome Range
+                    headers:
+                      rows:
+                        '10':
+                        - dimension_id: 11
+                          name: Q1-25
+                      columns:
+                        '100':
+                        - dimension_id: 101
+                          name: Revenue
+                    filters:
+                      123: 345
+                      321: 543
+                    currency:
+                      id: 1
+                      code: USD
+                      name: US Dollar
+                    fetch_enabled: true
+                    publish_enabled: false
+                    exclude_zeros: false
+                    suppressed_row_dimensions: {}
+                    tags:
+                      '123':
+                      - dimension_id: 1
+                        name: Revenue
+                      - dimension_id: 2
+                        name: Cost of Goods Sold
+                  summary: Retrieve a Cube Value Range
+          description: ''
+components:
+  schemas:
+    metadata_serializer:
+      type: object
+      properties:
+        status:
+          type: integer
+        error:
+          type: boolean
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - code
+      - error
+      - message
+      - status
+    CubeValueRangeListSchema:
+      type: object
+      properties:
+        currency:
+          $ref: '#/components/schemas/CurrencyNested'
+        suppressed_row_dimensions: {}
+        id:
+          type: integer
+          readOnly: true
+        range_type:
+          $ref: '#/components/schemas/RangeTypeEnum'
+        name:
+          type: string
+          nullable: true
+          maxLength: 255
+        fetch_enabled:
+          type: boolean
+        publish_enabled:
+          type: boolean
+        row_discovery_enabled:
+          type: boolean
+        exclude_zeros:
+          type: boolean
+        created_by_id:
+          type: string
+          readOnly: true
+      required:
+      - created_by_id
+      - id
+    RowColumnCubeValueRange:
+      type: object
+      description: Mixin to delegate create and update operations to a service class.
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        headers:
+          type: object
+          additionalProperties:
+            type: object
+            additionalProperties: {}
+          readOnly: true
+        data:
+          writeOnly: true
+          nullable: true
+        filters: {}
+        range_type:
+          $ref: '#/components/schemas/RangeTypeEnum'
+        name:
+          type: string
+          nullable: true
+          maxLength: 255
+        fetch_enabled:
+          type: boolean
+        publish_enabled:
+          type: boolean
+        row_discovery_enabled:
+          type: boolean
+        currency:
+          $ref: '#/components/schemas/CurrencyNested'
+        exclude_zeros:
+          type: boolean
+        suppressed_row_dimensions: {}
+        created_by_id:
+          type: integer
+          nullable: true
+          readOnly: true
+        collapse_coordinates:
+          type: array
+          items:
+            type: array
+            items:
+              type: integer
+            maxItems: 2
+            minItems: 2
+          writeOnly: true
+        expand_all_coordinates:
+          type: array
+          items:
+            type: array
+            items:
+              type: integer
+            maxItems: 2
+            minItems: 2
+          writeOnly: true
+        expand_coordinates:
+          type: array
+          items:
+            type: array
+            items:
+              type: integer
+            maxItems: 2
+            minItems: 2
+          writeOnly: true
+        tags: {}
+      required:
+      - created_by_id
+      - filters
+      - headers
+      - id
+    CurrencyNested:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          readOnly: true
+        code:
+          type: string
+          maxLength: 10
+      required:
+      - code
+      - id
+      - name
+    PatchedA1CubeValueRange:
+      type: object
+      description: Mixin to delegate create and update operations to a service class.
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        headers:
+          type: object
+          additionalProperties: {}
+          readOnly: true
+        data:
+          writeOnly: true
+          nullable: true
+        filters: {}
+        range_type:
+          $ref: '#/components/schemas/RangeTypeEnum'
+        name:
+          type: string
+          nullable: true
+          maxLength: 255
+        fetch_enabled:
+          type: boolean
+        publish_enabled:
+          type: boolean
+        row_discovery_enabled:
+          type: boolean
+        currency:
+          $ref: '#/components/schemas/CurrencyNested'
+        exclude_zeros:
+          type: boolean
+        suppressed_row_dimensions: {}
+        created_by_id:
+          type: integer
+          nullable: true
+          readOnly: true
+        collapse_coordinates:
+          type: array
+          items:
+            type: array
+            items:
+              type: integer
+            maxItems: 2
+            minItems: 2
+          writeOnly: true
+        expand_all_coordinates:
+          type: array
+          items:
+            type: array
+            items:
+              type: integer
+            maxItems: 2
+            minItems: 2
+          writeOnly: true
+        expand_coordinates:
+          type: array
+          items:
+            type: array
+            items:
+              type: integer
+            maxItems: 2
+            minItems: 2
+          writeOnly: true
+        tags: {}
+        discovered_row_headers:
+          type: object
+          additionalProperties: {}
+          readOnly: true
+        delete:
+          type: array
+          items:
+            type: string
+          readOnly: true
+        insert:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              type: object
+              additionalProperties: {}
+          readOnly: true
+    error_response_serializer:
+      type: object
+      properties:
+        data:
+          type: object
+          additionalProperties: {}
+        metadata:
+          $ref: '#/components/schemas/metadata_serializer'
+      required:
+      - data
+      - metadata
+    RangeTypeEnum:
+      enum:
+      - PIVOT
+      - DRILLDOWN
+      type: string
+      description: '* `PIVOT` - Pivot
+
+        * `DRILLDOWN` - Drilldown'
+    A1CubeValueRange:
+      type: object
+      description: Mixin to delegate create and update operations to a service class.
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        headers:
+          type: object
+          additionalProperties: {}
+          readOnly: true
+        data:
+          writeOnly: true
+          nullable: true
+        filters: {}
+        range_type:
+          $ref: '#/components/schemas/RangeTypeEnum'
+        name:
+          type: string
+          nullable: true
+          maxLength: 255
+        fetch_enabled:
+          type: boolean
+        publish_enabled:
+          type: boolean
+        row_discovery_enabled:
+          type: boolean
+        currency:
+          $ref: '#/components/schemas/CurrencyNested'
+        exclude_zeros:
+          type: boolean
+        suppressed_row_dimensions: {}
+        created_by_id:
+          type: integer
+          nullable: true
+          readOnly: true
+        collapse_coordinates:
+          type: array
+          items:
+            type: array
+            items:
+              type: integer
+            maxItems: 2
+            minItems: 2
+          writeOnly: true
+        expand_all_coordinates:
+          type: array
+          items:
+            type: array
+            items:
+              type: integer
+            maxItems: 2
+            minItems: 2
+          writeOnly: true
+        expand_coordinates:
+          type: array
+          items:
+            type: array
+            items:
+              type: integer
+            maxItems: 2
+            minItems: 2
+          writeOnly: true
+        tags: {}
+        discovered_row_headers:
+          type: object
+          additionalProperties: {}
+          readOnly: true
+        delete:
+          type: array
+          items:
+            type: string
+          readOnly: true
+        insert:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              type: object
+              additionalProperties: {}
+          readOnly: true
+      required:
+      - created_by_id
+      - delete
+      - discovered_row_headers
+      - filters
+      - headers
+      - id
+      - insert
+  securitySchemes:
+    OAuth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://portal.cubesoftware.com/o/authorize/
+          tokenUrl: https://api.cubesoftware.com/o/token/
+          scopes: {}
+      description: Standard Cube OAuth 2.0 flow

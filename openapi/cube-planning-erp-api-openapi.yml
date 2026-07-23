@@ -1,0 +1,381 @@
+openapi: 3.0.3
+info:
+  title: Cube Agents ERP API
+  version: 1.0.0 (1.0)
+  description: "#### General Description\nAn API to access underlying Cube functionality. These endpoints are the same endpoints\nthat support Cube's universal add-ons and a plethora of integrations meaning you'll be able to interact with your\nCube data in many powerful ways. Visit the API section of Cube's [Help Center](https://help.cubesoftware.com/hc/en-us/sections/18205290556180-Custom-Integrations)\nfor more usage guides on how you can use this API to integrate with Cube to accomplish various tasks!\n\n#### Versioning\nAll requests to the API require a version to be configured via an `Accept` Header. The value of this Header should look like this:\n```\nAccept: application/json; version=1.0\n```\nNote that the version number may differ depending on which version of the endpoint is needed.\n\n#### Response Structure\nThe general response structure of Cube's API endpoints will contain a `\"data\"` and `\"metadata\"` root level key:\n```json\n{\n    \"data\": { ... object data or list of objects ... },\n    \"metadata\": {\n        \"status\": 200,\n        \"message\": \"Potential message with additional context\",\n        \"error\": false,\n        \"code\": \"\"\n    }\n}\n```\n\n#### Rate Limiting\nAll endpoints have a rate limit configured, most of them default to 5/s.\nWhen the rate limit is encountered, a 429 HTTP code will be returned.\n\n#### Error Handling\nIn the event an error occurs, the response will typically look like this:\n```json\n{\n    \"data\": {},\n    \"metadata\": {\n        \"status\": 400,\n        \"message\": \"Some error message\",\n        \"error\": true,\n        \"code\": \"SOME_ERROR_CODE\"\n    }\n}\n```\n"
+  termsOfService: https://www.cubesoftware.com/terms-of-service
+servers:
+- url: https://api.cubesoftware.com
+  description: Cube API Production URL
+tags:
+- name: ERP
+paths:
+  /data-tables/{data_table_id}/transaction-events:
+    get:
+      operationId: data_tables_transaction_events_list
+      description: List all transaction events for a given data table
+      summary: List transaction events
+      parameters:
+      - in: header
+        name: X-Company-ID
+        schema:
+          type: string
+        description: Associates request with company
+        required: true
+      - in: path
+        name: data_table_id
+        schema:
+          type: string
+        description: Data table UUID
+        required: true
+      - in: query
+        name: limit
+        schema:
+          type: integer
+        description: 'Number of items per page (default: 25)'
+      - in: query
+        name: page
+        schema:
+          type: integer
+        description: 'Page number (default: 1)'
+      tags:
+      - ERP
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TransactionEvent'
+          description: ''
+        '400':
+          description: Invalid pagination parameters
+        '401':
+          description: Unauthorized
+        '403':
+          description: Permission denied
+  /data-tables/{data_table_id}/transactions/uploads/{upload_id}/download:
+    get:
+      operationId: data_tables_transactions_uploads_download_retrieve
+      description: Queue an export of transaction data. User receives email with download link when complete.
+      summary: Queue transaction download
+      parameters:
+      - in: header
+        name: X-Company-ID
+        schema:
+          type: string
+        description: Associates request with company
+        required: true
+      - in: path
+        name: data_table_id
+        schema:
+          type: string
+        description: Data table UUID
+        required: true
+      - in: path
+        name: upload_id
+        schema:
+          type: string
+        description: Upload UUID to download
+        required: true
+      tags:
+      - ERP
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SourceDataTableUpload'
+          description: ''
+        '400':
+          description: Invalid request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Permission denied
+  /data-tables/{data_table_id}/transactions/uploads/complete:
+    post:
+      operationId: data_tables_transactions_uploads_complete_create
+      description: Verifies file exists in S3 and triggers NetSuite import workflow. Only supports NetSuite connections.
+      summary: Complete transaction file upload and trigger import workflow
+      parameters:
+      - in: header
+        name: X-Company-ID
+        schema:
+          type: string
+        description: Associates request with company
+        required: true
+      - in: path
+        name: data_table_id
+        schema:
+          type: string
+        description: Data table UUID
+        required: true
+      tags:
+      - ERP
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CompleteUpload'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/CompleteUpload'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/CompleteUpload'
+        required: true
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SourceDataTableUpload'
+          description: ''
+        '400':
+          description: Invalid request body, file not found in S3, or non-NetSuite connection
+        '401':
+          description: Unauthorized
+        '403':
+          description: Permission denied
+  /data-tables/{data_table_id}/transactions/uploads/presign:
+    post:
+      operationId: data_tables_transactions_uploads_presign_create
+      description: Creates a presigned S3 URL that allows direct client-side file upload to S3. Only supports NetSuite connections. Use the returned file_path in complete_upload.
+      summary: Generate presigned S3 URL for transaction file upload
+      parameters:
+      - in: header
+        name: X-Company-ID
+        schema:
+          type: string
+        description: Associates request with company
+        required: true
+      - in: path
+        name: data_table_id
+        schema:
+          type: string
+        description: Data table UUID
+        required: true
+      tags:
+      - ERP
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PresignUpload'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PresignUpload'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PresignUpload'
+        required: true
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  upload_url:
+                    type: string
+                    description: Presigned S3 URL for PUT upload (expires in 1 hour)
+                  file_path:
+                    type: string
+                    description: S3 key to use in complete_upload
+          description: Presigned URL generated successfully
+        '400':
+          description: Invalid request body or non-NetSuite connection
+        '401':
+          description: Unauthorized
+        '403':
+          description: Permission denied
+components:
+  schemas:
+    SourceDataTableUploadStatusEnum:
+      enum:
+      - PROCESSING
+      - IMPORTED
+      - ERROR
+      - PENDING
+      type: string
+      description: '* `PROCESSING` - Processing
+
+        * `IMPORTED` - Imported
+
+        * `ERROR` - Error
+
+        * `PENDING` - Pending'
+    CompleteUploadUploadTypeEnum:
+      enum:
+      - REPLACE
+      - TIME_BASED_REPLACE
+      - APPEND
+      - DELETE
+      type: string
+      description: '* `REPLACE` - Replace
+
+        * `TIME_BASED_REPLACE` - Time-based replace
+
+        * `APPEND` - Append
+
+        * `DELETE` - Delete'
+    SourceDataTableUploadSourceEnum:
+      enum:
+      - USER_UPLOAD
+      - EMAIL
+      - API
+      - THIRD_PARTY_API
+      type: string
+      description: '* `USER_UPLOAD` - User Upload
+
+        * `EMAIL` - Email
+
+        * `API` - API
+
+        * `THIRD_PARTY_API` - Third Party API'
+    PresignUpload:
+      type: object
+      properties:
+        file_name:
+          type: string
+        content_type:
+          type: string
+      required:
+      - content_type
+      - file_name
+    TransactionEvent:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        deletion_start_date:
+          type: string
+          format: date
+          readOnly: true
+          nullable: true
+        deletion_end_date:
+          type: string
+          format: date
+          readOnly: true
+          nullable: true
+        num_created:
+          type: integer
+          readOnly: true
+        num_modified:
+          type: integer
+          readOnly: true
+        num_deleted:
+          type: integer
+          readOnly: true
+        total:
+          type: integer
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        modified_at:
+          type: string
+          format: date-time
+          readOnly: true
+        upload_id:
+          type: string
+          format: uuid
+          readOnly: true
+      required:
+      - created_at
+      - deletion_end_date
+      - deletion_start_date
+      - id
+      - modified_at
+      - num_created
+      - num_deleted
+      - num_modified
+      - total
+      - upload_id
+    SourceDataTableUpload:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        source_data_table:
+          type: string
+          format: uuid
+        source:
+          $ref: '#/components/schemas/SourceDataTableUploadSourceEnum'
+        message:
+          type: string
+          nullable: true
+          maxLength: 255
+        status:
+          $ref: '#/components/schemas/SourceDataTableUploadStatusEnum'
+        data_import:
+          type: integer
+          nullable: true
+        upload_type:
+          $ref: '#/components/schemas/SourceDataTableUploadUploadTypeEnum'
+        status_message:
+          type: string
+          nullable: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        currency:
+          type: integer
+          nullable: true
+        data_can_be_downloaded:
+          type: boolean
+          readOnly: true
+      required:
+      - created_at
+      - data_can_be_downloaded
+      - id
+      - source_data_table
+    SourceDataTableUploadUploadTypeEnum:
+      enum:
+      - REPLACE
+      - TIME_BASED_REPLACE
+      - APPEND
+      - DELETE
+      type: string
+      description: '* `REPLACE` - Remove all existing records and replace with this uploaded data
+
+        * `TIME_BASED_REPLACE` - Remove and replace existing records between the time periods specified in this uploaded data
+
+        * `APPEND` - Update existing records and add new records
+
+        * `DELETE` - Remove all existing records'
+    CompleteUpload:
+      type: object
+      properties:
+        file_path:
+          type: string
+        upload_type:
+          allOf:
+          - $ref: '#/components/schemas/CompleteUploadUploadTypeEnum'
+          default: APPEND
+      required:
+      - file_path
+  securitySchemes:
+    OAuth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://portal.cubesoftware.com/o/authorize/
+          tokenUrl: https://api.cubesoftware.com/o/token/
+          scopes: {}
+      description: Standard Cube OAuth 2.0 flow

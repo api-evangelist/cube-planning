@@ -1,0 +1,1659 @@
+openapi: 3.0.3
+info:
+  title: Cube Agents Dimensions API
+  version: 1.0.0 (1.0)
+  description: "#### General Description\nAn API to access underlying Cube functionality. These endpoints are the same endpoints\nthat support Cube's universal add-ons and a plethora of integrations meaning you'll be able to interact with your\nCube data in many powerful ways. Visit the API section of Cube's [Help Center](https://help.cubesoftware.com/hc/en-us/sections/18205290556180-Custom-Integrations)\nfor more usage guides on how you can use this API to integrate with Cube to accomplish various tasks!\n\n#### Versioning\nAll requests to the API require a version to be configured via an `Accept` Header. The value of this Header should look like this:\n```\nAccept: application/json; version=1.0\n```\nNote that the version number may differ depending on which version of the endpoint is needed.\n\n#### Response Structure\nThe general response structure of Cube's API endpoints will contain a `\"data\"` and `\"metadata\"` root level key:\n```json\n{\n    \"data\": { ... object data or list of objects ... },\n    \"metadata\": {\n        \"status\": 200,\n        \"message\": \"Potential message with additional context\",\n        \"error\": false,\n        \"code\": \"\"\n    }\n}\n```\n\n#### Rate Limiting\nAll endpoints have a rate limit configured, most of them default to 5/s.\nWhen the rate limit is encountered, a 429 HTTP code will be returned.\n\n#### Error Handling\nIn the event an error occurs, the response will typically look like this:\n```json\n{\n    \"data\": {},\n    \"metadata\": {\n        \"status\": 400,\n        \"message\": \"Some error message\",\n        \"error\": true,\n        \"code\": \"SOME_ERROR_CODE\"\n    }\n}\n```\n"
+  termsOfService: https://www.cubesoftware.com/terms-of-service
+servers:
+- url: https://api.cubesoftware.com
+  description: Cube API Production URL
+tags:
+- name: Dimensions
+  description: "Dimensions store the organizational hierarchy for a company and outline how their data is\n            structured. All companies have top level dimensions called Account, Scenario, Department, and Time. They also\n            can have additional custom top level dimensions (i.e. Product, Entity).\n        "
+paths:
+  /dimensions:
+    get:
+      operationId: DimensionList
+      description: This endpoint lists all dimensions accessible to the user in a flat list.
+      summary: Get All Dimensions
+      parameters:
+      - in: header
+        name: X-Company-ID
+        schema:
+          type: string
+        description: Associates request with company
+        required: true
+      - in: query
+        name: can_be_mapped
+        schema:
+          type: boolean
+        description: Limit to dimensions that can be mapped to source systems.
+      - in: query
+        name: inactive
+        schema:
+          type: boolean
+        description: Include inactive dimensions.
+      - in: query
+        name: include_tags
+        schema:
+          type: boolean
+        description: Include TAG-type dimensions.
+      - in: query
+        name: tld_id
+        schema:
+          type: integer
+        description: Limit to dimensions under this top-level dimension.
+      tags:
+      - Dimensions
+      security:
+      - OAuth2: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DimensionList'
+          description: The list of dimensions
+    post:
+      operationId: DimensionCreate
+      description: This endpoint creates a dimension.
+      summary: Create a Dimension
+      parameters:
+      - in: header
+        name: X-Company-ID
+        schema:
+          type: string
+        description: Associates request with company
+        required: true
+      - in: query
+        name: can_be_mapped
+        schema:
+          type: boolean
+        description: Limit to dimensions that can be mapped to source systems.
+      - in: query
+        name: inactive
+        schema:
+          type: boolean
+        description: Include inactive dimensions.
+      - in: query
+        name: include_tags
+        schema:
+          type: boolean
+        description: Include TAG-type dimensions.
+      - in: query
+        name: tld_id
+        schema:
+          type: integer
+        description: Limit to dimensions under this top-level dimension.
+      tags:
+      - Dimensions
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DimensionListApiDocAttributes_2'
+            examples:
+              CreateADimensionAndSpecifyParentDimensionViaID:
+                value:
+                  name: My Dimension
+                  parent_id: 11
+                  write_protection: NONE
+                summary: Create a dimension and specify parent dimension via ID
+              CreateADimensionAndSpecifyParentDimensionViaName:
+                value:
+                  name: My Dimension
+                  parent_name: My Parent Dimension
+                  write_protection: NONE
+                summary: Create a dimension and specify parent dimension via name
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/DimensionListApiDocAttributes_2'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/DimensionListApiDocAttributes_2'
+        required: true
+      security:
+      - OAuth2: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DimensionList'
+          description: The list of dimensions
+  /dimensions/{dimension_id}:
+    get:
+      operationId: DimensionRetrieve
+      description: Get a single dimension by it's ID
+      summary: Get Dimension by ID
+      parameters:
+      - in: header
+        name: X-Company-ID
+        schema:
+          type: string
+        description: Associates request with company
+        required: true
+      - in: path
+        name: dimension_id
+        schema:
+          type: integer
+        description: The ID of the dimension
+        required: true
+        examples:
+          ExampleDimensionID:
+            value: 1
+            summary: Example Dimension ID
+      tags:
+      - Dimensions
+      security:
+      - OAuth2: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Dimension'
+          description: The requested dimension
+    post:
+      operationId: DimensionUpdate
+      description: "Update individual fields of a dimension model.\n        NOTE: A dimension can NOT be enabled and disabled via this endpoint. Instead see the Dimension Status endpoint.\n        "
+      summary: Update Dimension By ID
+      parameters:
+      - in: header
+        name: X-Company-ID
+        schema:
+          type: string
+        description: Associates request with company
+        required: true
+      - in: path
+        name: dimension_id
+        schema:
+          type: integer
+        description: The ID of the dimension
+        required: true
+        examples:
+          ExampleDimensionID:
+            value: 1
+            summary: Example Dimension ID
+      tags:
+      - Dimensions
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Dimension'
+            examples:
+              CreateDimensionExample:
+                value:
+                  parent_id: 11
+                  name: '2026'
+                  active: true
+                  status: ENABLED
+                  type: BASIC
+                  rollup_type: null
+                  formula: null
+                  write_protection: NONE
+                  position: 2026
+                  special_case_id: null
+                  date: '2026-07-19'
+                  has_children: true
+                  write_block_reason: Dimension with name "2026" is a parent dimension and cannot be written to
+                  metadata: null
+                summary: Create Dimension Example
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Dimension'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Dimension'
+        required: true
+      security:
+      - OAuth2: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Dimension'
+          description: The requested dimension
+  /dimensions/{dimension_id}/duplicate:
+    post:
+      operationId: dimensions_duplicate_create
+      description: This endpoint duplicates a dimension. Note that this is only possible for Scenario Dimensions.
+      summary: Duplicate a Dimension
+      parameters:
+      - in: header
+        name: X-Company-ID
+        schema:
+          type: string
+        description: Associates request with company
+        required: true
+      - in: path
+        name: dimension_id
+        schema:
+          type: integer
+        description: The ID of the dimension
+        required: true
+        examples:
+          ExampleDimensionID:
+            value: 1
+            summary: Example Dimension ID
+      tags:
+      - Dimensions
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DimensionDuplicateApiDocAttributes_1'
+            examples:
+              DuplicateDimensionExample:
+                value:
+                  name: New Duplicated Dimension Name
+                summary: Duplicate Dimension Example
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/DimensionDuplicateApiDocAttributes_1'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/DimensionDuplicateApiDocAttributes_1'
+        required: true
+      security:
+      - OAuth2: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/duplicate_message_serializer_message_serializer'
+          description: Message
+  /dimensions/{dimension_id}/mappings:
+    get:
+      operationId: dimensions_mappings_retrieve_2
+      description: Get the mappings for a given dimension ID to data tables
+      summary: Get Dimension Mappings for Source Data Tables
+      parameters:
+      - in: header
+        name: X-Company-ID
+        schema:
+          type: string
+        description: Associates request with company
+        required: true
+      - in: path
+        name: dimension_id
+        schema:
+          type: integer
+        description: The ID of the dimension
+        required: true
+        examples:
+          ExampleDimensionID:
+            value: 1
+            summary: Example Dimension ID
+      tags:
+      - Dimensions
+      security:
+      - OAuth2: []
+      - {}
+      responses:
+        '200':
+          description: Dimension Mappings
+  /dimensions/{dimension_id}/options:
+    get:
+      operationId: dimensions_options_retrieve
+      description: "List the options for acceptable changes to a given dimension, such as possible parents, write\n        protection options, and rollup type options. For new dimensions, passing 0 as the ID gets default options.\n        "
+      summary: Get Dimension Options
+      parameters:
+      - in: header
+        name: X-Company-ID
+        schema:
+          type: string
+        description: Associates request with company
+        required: true
+      - in: path
+        name: dimension_id
+        schema:
+          type: integer
+        description: The ID of the dimension
+        required: true
+        examples:
+          ExampleDimensionID:
+            value: 1
+            summary: Example Dimension ID
+      tags:
+      - Dimensions
+      security:
+      - OAuth2: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dimension_options_serializer'
+          description: Dimension Options
+  /dimensions/{dimension_id}/status:
+    post:
+      operationId: dimensions_status_create
+      description: You can use this endpoint to disable or re-enable a dimension
+      summary: Enable or Disable a Dimension
+      parameters:
+      - in: header
+        name: X-Company-ID
+        schema:
+          type: string
+        description: Associates request with company
+        required: true
+      - in: path
+        name: dimension_id
+        schema:
+          type: integer
+        description: The ID of the dimension
+        required: true
+        examples:
+          ExampleDimensionID:
+            value: 1
+            summary: Example Dimension ID
+      tags:
+      - Dimensions
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DimensionStatusApiDocAttributes_1'
+            examples:
+              EnableADimension:
+                value:
+                  disable: false
+                summary: Enable a Dimension
+              DisableADimension:
+                value:
+                  disable: true
+                summary: Disable a Dimension
+              DimensionExample:
+                value:
+                  id: 1
+                  parent_id: 11
+                  name: '2026'
+                  active: true
+                  status: ENABLED
+                  type: BASIC
+                  rollup_type: null
+                  formula: null
+                  write_protection: NONE
+                  position: 2026
+                  special_case_id: null
+                  date: '2026-07-19'
+                  has_children: true
+                  write_block_reason: Dimension with name "2026" is a parent dimension and cannot be written to
+                  metadata: null
+                summary: Dimension Example
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/DimensionStatusApiDocAttributes_1'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/DimensionStatusApiDocAttributes_1'
+        required: true
+      security:
+      - OAuth2: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Dimension'
+              examples:
+                DimensionExample:
+                  value:
+                    id: 1
+                    parent_id: 11
+                    name: '2026'
+                    active: true
+                    status: ENABLED
+                    type: BASIC
+                    rollup_type: null
+                    formula: null
+                    write_protection: NONE
+                    position: 2026
+                    special_case_id: null
+                    date: '2026-07-19'
+                    has_children: true
+                    write_block_reason: Dimension with name "2026" is a parent dimension and cannot be written to
+                    metadata: null
+                  summary: Dimension Example
+          description: The modified dimension
+  /dimensions/bulk:
+    post:
+      operationId: dimensions_bulk_create
+      description: This endpoint bulk updates dimensions.
+      summary: Bulk Update Dimensions
+      tags:
+      - Dimensions
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BulkDimensionUpdateRequest'
+            examples:
+              BulkUpdateRequest:
+                value:
+                  batch_id: batch_12345
+                  tld_id: 1
+                summary: Bulk Update Request
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/BulkDimensionUpdateRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/BulkDimensionUpdateRequest'
+        required: true
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Dimension'
+              examples:
+                SuccessResponse:
+                  value:
+                    data:
+                      message: Bulk update request accepted and queued for processing
+                    metadata:
+                      status: 200
+                      error: false
+                      message: null
+                      code: ''
+                  summary: Success Response
+                ValidationError:
+                  value:
+                    data: {}
+                    metadata:
+                      status: 400
+                      error: true
+                      message: Invalid top-level dimension ID
+                      code: VALIDATION_ERROR
+                  summary: Validation Error
+                PermissionDenied:
+                  value:
+                    data: {}
+                    metadata:
+                      status: 403
+                      error: true
+                      message: User not allowed to modify dimensions under this top-level dimension
+                      code: PERMISSION_DENIED
+                  summary: Permission Denied
+          description: Bulk update request accepted and queued for processing
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response_serializer'
+          description: Invalid request - validation error
+        '403':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response_serializer'
+          description: Permission denied - user not allowed to modify dimensions under this TLD
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response_serializer'
+          description: Top-level dimension not found
+  /dimensions/deepest:
+    get:
+      operationId: dimensions_deepest_retrieve
+      description: This endpoint retrieves all the deepest level dimensions
+      summary: Get Deepest Dimensions
+      parameters:
+      - in: header
+        name: X-Company-ID
+        schema:
+          type: string
+        description: Associates request with company
+        required: true
+      tags:
+      - Dimensions
+      security:
+      - OAuth2: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Dimension'
+          description: The Dimension
+  /dimensions/download:
+    get:
+      operationId: dimensions_download_list
+      description: Download an Excel file containing dimension data for the specified TLD IDs.
+      summary: Download Dimensions Excel File
+      parameters:
+      - in: query
+        name: enable_reparenting
+        schema:
+          type: string
+        description: Whether to enable reparenting functionality
+      - in: query
+        name: for_upload
+        schema:
+          type: string
+        description: Whether to include the updated name column for upload
+      - in: query
+        name: tld_ids
+        schema:
+          type: string
+        description: Comma-separated list of TLD IDs to include in the export
+        required: true
+      tags:
+      - Dimensions
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          description: Excel file download
+        '400':
+          description: Invalid TLD IDs provided
+        '403':
+          description: Permission denied
+  /dimensions/mappings:
+    get:
+      operationId: dimensions_mappings_retrieve
+      description: Get the mappings for all dimensions to data tables
+      summary: Get all Dimension Mappings for Source Data Tables
+      parameters:
+      - in: header
+        name: X-Company-ID
+        schema:
+          type: string
+        description: Associates request with company
+        required: true
+      tags:
+      - Dimensions
+      security:
+      - OAuth2: []
+      - {}
+      responses:
+        '200':
+          description: Dimension Mappings
+  /dimensions/merge:
+    get:
+      operationId: dimensions_merge_retrieve
+      description: "List previous merge scenarios. You can filter this list by destination dimension ID and/or\n        merge request status\n        "
+      summary: List previous merge scenarios
+      parameters:
+      - in: header
+        name: X-Company-ID
+        schema:
+          type: string
+        description: Associates request with company
+        required: true
+      - in: query
+        name: destination_dimension
+        schema:
+          type: integer
+        description: The dimension ID of the destination dimension to filter on.
+      - in: query
+        name: limit
+        schema:
+          type: integer
+          default: 50
+        description: The limit for the paginated response.
+      - in: query
+        name: offset
+        schema:
+          type: integer
+          default: 0
+        description: The number of results to skip from 0.
+      - in: query
+        name: status
+        schema:
+          type: string
+          enum:
+          - ''
+          - BACKLOG
+          - FAILED
+          - IN_PROGRESS
+          - SUCCESS
+          default: ''
+        description: The status of the merge request you'd like to filter by
+      tags:
+      - Dimensions
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/data'
+          description: The merge scenario was triggered and a message was sent in the metadata.
+    post:
+      operationId: dimensions_merge_create
+      description: "Create a request to merge data from one or more source Scenario dimensions in to a destination\n        Scenario. This can be limited by time periods based on Time dimensions. If successful, a background worker\n        will start to move the data and the caller will be emailed with the results.\n        "
+      summary: Merge one or more Scenario to a destination Scenario based on Time dimensions
+      parameters:
+      - in: header
+        name: X-Company-ID
+        schema:
+          type: string
+        description: Associates request with company
+        required: true
+      tags:
+      - Dimensions
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MergeScenarioApi'
+            examples:
+              MergeDataFromASingleScenarioWithAGivenTimeFrameIntoASingleDestinationScenario:
+                value:
+                  to_scenario_request:
+                    to_scenario_dimension_id: 1
+                  from_scenario_requests:
+                  - from_dimension_id: 9
+                    start_time_dimension_id: 33
+                    end_time_dimension_id: 34
+                summary: Merge data from a single Scenario with a given time frame into a single destination Scenario
+                description: "| **Parameter** | **Description** |\n|---|---|\n| to_scenario_dimension_id | The Dimension ID of the Scenario Dimension that we will be merging data into |\n| from_scenario_requests | A list of scenario dimensions and Time dimensions to retrieve data from |\n| from_dimension_id | The Dimension ID of a Scenario to get data from |\n| start_time_dimension_id | The Dimension ID of the starting Time dimension |\n| end_time_dimension_id | The Dimension ID of the ending Time dimension |\n                "
+              MergeDataFromMultipleScenariosWithGivenTimeFramesIntoASingleDestinationScenario:
+                value:
+                  to_scenario_request:
+                    to_scenario_dimension_id: 1
+                  from_scenario_requests:
+                  - from_dimension_id: 9
+                    start_time_dimension_id: 33
+                    end_time_dimension_id: 34
+                  - from_dimension_id: 10
+                    start_time_dimension_id: 34
+                    end_time_dimension_id: 35
+                summary: Merge data from multiple Scenarios with given time frames into a single destination Scenario
+                description: "| **Parameter** | **Description** |\n|---|---|\n| to_scenario_dimension_id | The Dimension ID of the Scenario Dimension that we will be merging data into |\n| from_scenario_requests | A list of scenario dimensions and Time dimensions to retrieve data from |\n| from_dimension_id | The Dimension ID of a Scenario to get data from |\n| start_time_dimension_id | The Dimension ID of the starting Time dimension |\n| end_time_dimension_id | The Dimension ID of the ending Time dimension |\n                "
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/MergeScenarioApi'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/MergeScenarioApi'
+        required: true
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/data'
+          description: The merge scenario was triggered and a message was sent in the metadata.
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/data'
+          description: The merge scenario was not triggered and an error message is included in the metadata.
+  /dimensions/order:
+    post:
+      operationId: dimensions_order_create
+      description: Re-orders dimensions when showing in a list.
+      summary: Reorder Dimensions
+      parameters:
+      - in: header
+        name: X-Company-ID
+        schema:
+          type: string
+        description: Associates request with company
+        required: true
+      tags:
+      - Dimensions
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DimensionOrderApiDocAttributes_1'
+            examples:
+              Place"BalanceSheet"(268)AheadOf"IncomeStatement"(267):
+                value:
+                  order:
+                  - 268
+                  - 267
+                summary: Place "Balance Sheet" (268) ahead of "Income Statement" (267)
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/DimensionOrderApiDocAttributes_1'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/DimensionOrderApiDocAttributes_1'
+        required: true
+      security:
+      - OAuth2: []
+      - {}
+      responses:
+        '200':
+          description: Hierarchy of dimensions in new order
+  /dimensions/scenarios/forecast:
+    post:
+      operationId: dimensions_scenarios_forecast_create
+      description: Generate a time series forecast of a Scenario
+      summary: Generate a time series forecast of a Scenario
+      parameters:
+      - in: header
+        name: X-Company-ID
+        schema:
+          type: string
+        description: Associates request with company
+        required: true
+      tags:
+      - Dimensions
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MetadataMessage'
+            examples:
+              GenerateAForecast:
+                value:
+                  from_scenario:
+                    dimension_id: 10
+                    start_time_dimension_id: 12
+                    end_time_dimension_id: 24
+                  to_scenario:
+                    dimension_id: 11
+                    start_time_dimension_id: 30
+                    end_time_dimension_id: 42
+                summary: Generate a forecast
+                description: "| **Parameter** | **Description** |\n|---|---|\n| from_scenario.dimension_id | The ID of the Scenario dimension to base the forecasted data off of |\n| from_scenario.start_time_dimension_id | The ID of the start Time dimension period to use for the source data |\n| from_scenario.end_time_dimension_id | The ID of the end Time dimension period to use for the source data |\n| to_scenario.dimension_id | The ID of the Scenario dimension the forecasted data is written to |\n        "
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/MetadataMessage'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/MetadataMessage'
+        required: true
+      security:
+      - OAuth2: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MetadataMessage'
+          description: Acknowledgement of the request (generation of the forecast will be backgrounded)
+  /dimensions/time:
+    post:
+      operationId: dimensions_time_create
+      description: "This endpoint creates dimensions for an entire year. Alternatively, it can create a\n        \"Cube Opening Balance\" dimension\n        "
+      summary: Create Time Dimensions
+      parameters:
+      - in: header
+        name: X-Company-ID
+        schema:
+          type: string
+        description: Associates request with company
+        required: true
+      tags:
+      - Dimensions
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DimensionTimeApiDocAttributes_1'
+            examples:
+              CreateDimensionsForOneOrMoreYears:
+                value:
+                  years:
+                  - 2022
+                  - 2023
+                summary: Create dimensions for one or more years
+              Create"CubeOpeningBalance"Dimension:
+                value:
+                  years:
+                  - Cube Opening Balance
+                summary: Create "Cube Opening Balance" dimension
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/DimensionTimeApiDocAttributes_1'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/DimensionTimeApiDocAttributes_1'
+        required: true
+      security:
+      - OAuth2: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Dimension'
+          description: The dimension(s) that were created
+  /dimensions/time/translate:
+    post:
+      operationId: dimensions_time_translate_create
+      description: Translates relative date phrases (like "Last Month", "Last 3 Months") to their corresponding time dimension names and IDs based on the context (row, column, or filter). For row/column context, multi-period phrases expand to individual dimensions. For filter context, multi-period phrases return a single aggregated dimension.
+      summary: Translate Relative Dates
+      parameters:
+      - in: header
+        name: X-Company-ID
+        schema:
+          type: string
+        description: Associates request with company
+        required: true
+      tags:
+      - Dimensions
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TimeTranslateRequest'
+            examples:
+              TimeTranslateRequest:
+                value:
+                  translations:
+                  - phrase: Last Month
+                    context: row
+                  - phrase: Last 3 Months
+                    context: filter
+                  - phrase: Last 3 Months
+                    context: row
+                  - phrase: Last 2 Quarters
+                    context: filter
+                  - phrase: Last 2 Years
+                    context: row
+                summary: Time Translate Request
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/TimeTranslateRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/TimeTranslateRequest'
+        required: true
+      security:
+      - OAuth2: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TimeTranslateResponse'
+              examples:
+                TimeTranslateResponse:
+                  value:
+                    translations:
+                    - phrase: Last Month
+                      context: row
+                      dimensions:
+                      - name: Feb-26
+                        id: 458
+                        is_aggregation: false
+                    - phrase: Last 3 Months
+                      context: filter
+                      dimensions:
+                      - name: Feb-26 T3M
+                        id: 458
+                        is_aggregation: true
+                    - phrase: Last 3 Months
+                      context: row
+                      dimensions:
+                      - name: Dec-25
+                        id: 333
+                        is_aggregation: false
+                      - name: Jan-26
+                        id: 444
+                        is_aggregation: false
+                      - name: Feb-26
+                        id: 458
+                        is_aggregation: false
+                    - phrase: Last 2 Quarters
+                      context: filter
+                      dimensions:
+                      - name: Q1-26 T2Q
+                        id: 120
+                        is_aggregation: true
+                    - phrase: Last 2 Years
+                      context: row
+                      dimensions:
+                      - name: '2025'
+                        id: 100
+                        is_aggregation: false
+                      - name: '2026'
+                        id: 101
+                        is_aggregation: false
+                  summary: Time Translate Response
+          description: ''
+  /dimensions/tld/{id}:
+    put:
+      operationId: dimensions_tld_update
+      description: API for managing custom cube top-level dimensions (TLDs).
+      summary: Rename a custom cube TLD
+      parameters:
+      - in: header
+        name: X-Company-ID
+        schema:
+          type: string
+        description: Associates request with company
+        required: true
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+      tags:
+      - Dimensions
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TopLevelDimension'
+            examples:
+              RenameCustomTLD:
+                value:
+                  name: Projects
+                summary: Rename custom TLD
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/TopLevelDimension'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/TopLevelDimension'
+        required: true
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TopLevelDimension'
+          description: TLD renamed; response contains the updated dimension.
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response_serializer'
+          description: Invalid request — e.g. default TLD rename, validation error
+        '403':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response_serializer'
+          description: Permission denied — user cannot manage this dimension
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response_serializer'
+          description: Dimension not found or not a cube TLD
+    delete:
+      operationId: dimensions_tld_destroy
+      description: API for managing custom cube top-level dimensions (TLDs).
+      summary: Delete a custom cube TLD
+      parameters:
+      - in: header
+        name: X-Company-ID
+        schema:
+          type: string
+        description: Associates request with company
+        required: true
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+      tags:
+      - Dimensions
+      security:
+      - OAuth2: []
+      responses:
+        '202':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TopLevelDimension'
+              examples:
+                DeleteCustomTLD—Accepted:
+                  value:
+                    data:
+                      id: 1
+                      name: '2026'
+                      active: true
+                    metadata:
+                      status: 202
+                      error: false
+                      message: null
+                      code: ''
+                  summary: Delete custom TLD — accepted
+          description: TLD deletion accepted and queued; response `data` is a snapshot of the TLD before deletion. An email is sent when deletion completes (or fails).
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response_serializer'
+          description: Invalid request — e.g. default TLD, multi-currency entity TLD, non-TLD, source-dimension TLD, or active ERP dimension mappings still reference this TLD subtree.
+        '403':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response_serializer'
+          description: Permission denied — user cannot manage dimensions
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response_serializer'
+          description: Dimension not found or not a cube TLD (e.g. source-data-table root)
+        '409':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error_response_serializer'
+          description: Preflight failed — cube has active work (publish lock, import blocks, or maintenance lock).
+  /dimensions/tree:
+    get:
+      operationId: dimensions_tree_retrieve
+      description: This endpoint retrieves the company's dimensions structured in their hierarchy
+      summary: Get Dimensions Tree
+      parameters:
+      - in: header
+        name: X-Company-ID
+        schema:
+          type: string
+        description: Associates request with company
+        required: true
+      - in: query
+        name: can_be_mapped
+        schema:
+          type: boolean
+          default: false
+        description: The result will be limited to dimensions that can be mapped to source systems.
+      - in: query
+        name: inactive
+        schema:
+          type: boolean
+          default: false
+        description: The result will also include inactive dimensions.
+      - in: query
+        name: include_operations
+        schema:
+          type: boolean
+          default: false
+        description: The result will include data about which operations are allowed against a given dimension (i.e. disable_block_reason, enable_block_reason).
+      - in: query
+        name: include_tag_members
+        schema:
+          type: boolean
+          default: false
+        description: The result will also include tag members.
+      - in: query
+        name: include_tags
+        schema:
+          type: boolean
+          default: false
+        description: The result will also include tags.
+      - in: query
+        name: tld_id
+        schema:
+          type: integer
+        description: The result will be limited to dimensions under this top-level dimension
+      tags:
+      - Dimensions
+      security:
+      - OAuth2: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Dimension'
+          description: The Dimension
+  /dimensions/scenarios/variance-analysis/summary:
+    post:
+      operationId: dimensions_scenarios_variance_analysis_summary_create
+      description: This class exists to have a standard rate limit across all authenticated API endpoints
+      tags:
+      - Dimensions
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          description: No response body
+components:
+  schemas:
+    TimeTranslateResponse:
+      type: object
+      properties:
+        translations:
+          type: array
+          items:
+            $ref: '#/components/schemas/TranslationResult'
+      required:
+      - translations
+    Type95aEnum:
+      enum:
+      - BASIC
+      - FORMULA
+      - TAG
+      type: string
+      description: '* `BASIC` - Basic
+
+        * `FORMULA` - Formula
+
+        * `TAG` - Tag'
+    MergeScenarioRequest:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        to_scenario_dimension_id:
+          type: integer
+          readOnly: true
+        created_by:
+          type: integer
+          nullable: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        status:
+          $ref: '#/components/schemas/MergeScenarioRequestStatusEnum'
+      required:
+      - created_at
+      - id
+      - to_scenario_dimension_id
+    TranslationItem:
+      type: object
+      properties:
+        phrase:
+          type: string
+        context:
+          $ref: '#/components/schemas/ContextEnum'
+      required:
+      - context
+      - phrase
+    TopLevelDimension:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          maxLength: 255
+        active:
+          type: boolean
+          readOnly: true
+      required:
+      - active
+      - id
+      - name
+    dimension_options_serializer:
+      type: object
+      properties:
+        tags:
+          type: string
+        parent_options:
+          type: string
+        rollup_types:
+          type: string
+        write_protections:
+          type: string
+        formulas:
+          type: object
+          additionalProperties: {}
+      required:
+      - formulas
+      - parent_options
+      - rollup_types
+      - tags
+      - write_protections
+    Dimension:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        parent_id:
+          type: integer
+          nullable: true
+          readOnly: true
+        name:
+          type: string
+          maxLength: 255
+        active:
+          type: boolean
+          readOnly: true
+        status:
+          $ref: '#/components/schemas/Status2c8Enum'
+        type:
+          $ref: '#/components/schemas/Type95aEnum'
+        rollup_type:
+          nullable: true
+          oneOf:
+          - $ref: '#/components/schemas/RollupTypeEnum'
+          - $ref: '#/components/schemas/BlankEnum'
+          - $ref: '#/components/schemas/NullEnum'
+        formula:
+          type: string
+          readOnly: true
+        write_protection:
+          $ref: '#/components/schemas/WriteProtectionEnum'
+        position:
+          type: integer
+          maximum: 9223372036854775807
+          minimum: -9223372036854775808
+          format: int64
+        special_case_id:
+          type: string
+          nullable: true
+          maxLength: 100
+        date:
+          type: string
+          format: date
+          nullable: true
+        has_children:
+          type: boolean
+        write_block_reason:
+          type: string
+          description: "If the dimension cannot be written to, return the reason why. Otherwise, return nothing.\n\nArgs:\n    obj: The model object to be checked if can be written to.\n\nReturns:\n    str (Optional): The error blocking the dimension from being written to, if one exists"
+          readOnly: true
+        metadata:
+          type: string
+          nullable: true
+      required:
+      - active
+      - formula
+      - id
+      - name
+      - parent_id
+      - write_block_reason
+    DimensionListApiDocAttributes_2:
+      type: object
+      properties:
+        name:
+          type: string
+        parent_id:
+          type: integer
+        parent_name:
+          type: string
+        write_protection:
+          $ref: '#/components/schemas/WriteProtectionEnum'
+      required:
+      - name
+      - parent_id
+      - parent_name
+      - write_protection
+    DimensionDuplicateApiDocAttributes_1:
+      type: object
+      properties:
+        name:
+          type: string
+      required:
+      - name
+    metadata_serializer:
+      type: object
+      properties:
+        status:
+          type: integer
+        error:
+          type: boolean
+        message:
+          type: string
+        code:
+          type: string
+      required:
+      - code
+      - error
+      - message
+      - status
+    data:
+      type: object
+      properties:
+        data:
+          type: object
+          additionalProperties: {}
+        metadata:
+          type: object
+          additionalProperties: {}
+      required:
+      - data
+      - metadata
+    MergeScenarioFromScenarios:
+      type: object
+      properties:
+        from_dimension_id:
+          type: integer
+          readOnly: true
+        start_time_dimension_id:
+          type: integer
+          readOnly: true
+        end_time_dimension_id:
+          type: integer
+          readOnly: true
+        from_dimension_request:
+          type: integer
+      required:
+      - end_time_dimension_id
+      - from_dimension_id
+      - from_dimension_request
+      - start_time_dimension_id
+    ContextEnum:
+      enum:
+      - row
+      - column
+      - filter
+      type: string
+      description: '* `row` - row
+
+        * `column` - column
+
+        * `filter` - filter'
+    MetadataMessage:
+      type: object
+      description: 'This helps with some weird behavior in the API docs when an object isn''t actually returned in the response.
+
+        Using this makes the response example in the API docs look slightly better tho still technically not fully accurate.'
+      properties:
+        data:
+          type: object
+          additionalProperties: {}
+        metadata:
+          type: object
+          additionalProperties: {}
+      required:
+      - data
+      - metadata
+    BulkDimensionUpdateRequest:
+      type: object
+      properties:
+        batch_id:
+          type: string
+          description: The batch ID for the bulk update operation
+        tld_id:
+          type: integer
+          description: The top-level dimension ID to update dimensions under
+      required:
+      - batch_id
+      - tld_id
+    DimensionOrderApiDocAttributes_1:
+      type: object
+      properties:
+        order:
+          type: array
+          items: {}
+      required:
+      - order
+    MergeScenarioRequestStatusEnum:
+      enum:
+      - BACKLOG
+      - IN_PROGRESS
+      - FAILED
+      - SUCCESS
+      type: string
+      description: '* `BACKLOG` - Merge Scenario hasn''t started
+
+        * `IN_PROGRESS` - Merge Scenario in progress
+
+        * `FAILED` - Merge Scenario has failed
+
+        * `SUCCESS` - Merge Scenario has succeeded'
+    DimensionInfo:
+      type: object
+      properties:
+        name:
+          type: string
+        id:
+          type: integer
+          nullable: true
+        is_aggregation:
+          type: boolean
+      required:
+      - id
+      - is_aggregation
+      - name
+    error_response_serializer:
+      type: object
+      properties:
+        data:
+          type: object
+          additionalProperties: {}
+        metadata:
+          $ref: '#/components/schemas/metadata_serializer'
+      required:
+      - data
+      - metadata
+    DimensionList:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        parent_id:
+          type: integer
+          nullable: true
+          readOnly: true
+        name:
+          type: string
+          maxLength: 255
+        active:
+          type: boolean
+          readOnly: true
+        status:
+          $ref: '#/components/schemas/Status2c8Enum'
+        type:
+          $ref: '#/components/schemas/Type95aEnum'
+        rollup_type:
+          nullable: true
+          oneOf:
+          - $ref: '#/components/schemas/RollupTypeEnum'
+          - $ref: '#/components/schemas/BlankEnum'
+          - $ref: '#/components/schemas/NullEnum'
+        formula:
+          type: string
+          readOnly: true
+        write_protection:
+          $ref: '#/components/schemas/WriteProtectionEnum'
+        position:
+          type: integer
+          maximum: 9223372036854775807
+          minimum: -9223372036854775808
+          format: int64
+        special_case_id:
+          type: string
+          nullable: true
+          maxLength: 100
+        date:
+          type: string
+          format: date
+          nullable: true
+        has_children:
+          type: boolean
+        write_block_reason:
+          type: string
+          description: "If the dimension cannot be written to, return the reason why. Otherwise, return nothing.\n\nArgs:\n    obj: The model object to be checked if can be written to.\n\nReturns:\n    str (Optional): The error blocking the dimension from being written to, if one exists"
+          readOnly: true
+        metadata:
+          type: string
+          nullable: true
+        currency_id:
+          type: integer
+          nullable: true
+          readOnly: true
+        data_table_id:
+          type: string
+          format: uuid
+          nullable: true
+        number:
+          type: string
+          nullable: true
+          maxLength: 150
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        description:
+          type: string
+          nullable: true
+        formulas:
+          type: array
+          items:
+            type: object
+            additionalProperties: {}
+          readOnly: true
+        tag_member_ids:
+          type: array
+          items:
+            type: integer
+          readOnly: true
+        children_ids:
+          type: array
+          items:
+            type: integer
+          readOnly: true
+      required:
+      - active
+      - children_ids
+      - created_at
+      - currency_id
+      - data_table_id
+      - formula
+      - formulas
+      - id
+      - name
+      - parent_id
+      - tag_member_ids
+      - write_block_reason
+    BlankEnum:
+      enum:
+      - ''
+    MergeScenarioApi:
+      type: object
+      properties:
+        to_scenario_request:
+          $ref: '#/components/schemas/MergeScenarioRequest'
+        from_scenario_requests:
+          type: array
+          items:
+            $ref: '#/components/schemas/MergeScenarioFromScenarios'
+      required:
+      - from_scenario_requests
+      - to_scenario_request
+    DimensionStatusApiDocAttributes_1:
+      type: object
+      properties:
+        disable:
+          type: boolean
+      required:
+      - disable
+    DimensionTimeApiDocAttributes_1:
+      type: object
+      properties:
+        years:
+          type: array
+          items: {}
+      required:
+      - years
+    WriteProtectionEnum:
+      enum:
+      - NONE
+      - BLOCK
+      - ACTUALS
+      - AI
+      type: string
+      description: '* `NONE` - None
+
+        * `BLOCK` - Block
+
+        * `ACTUALS` - Actuals
+
+        * `AI` - AI'
+    TranslationResult:
+      type: object
+      properties:
+        phrase:
+          type: string
+        context:
+          type: string
+        dimensions:
+          type: array
+          items:
+            $ref: '#/components/schemas/DimensionInfo'
+      required:
+      - context
+      - dimensions
+      - phrase
+    TimeTranslateRequest:
+      type: object
+      properties:
+        translations:
+          type: array
+          items:
+            $ref: '#/components/schemas/TranslationItem'
+      required:
+      - translations
+    NullEnum:
+      enum:
+      - null
+    RollupTypeEnum:
+      enum:
+      - SUM
+      - AVERAGE
+      - BALANCE
+      - BEGINNING_BALANCE
+      type: string
+      description: '* `SUM` - Sum
+
+        * `AVERAGE` - Average
+
+        * `BALANCE` - Ending Balance
+
+        * `BEGINNING_BALANCE` - Beginning Balance'
+    Status2c8Enum:
+      enum:
+      - ENABLED
+      - DISABLING_VALUES
+      - CLEARING_VALUES
+      - VALUES_CLEARED
+      - DISABLED
+      type: string
+      description: '* `ENABLED` - Enabled
+
+        * `DISABLING_VALUES` - Disabling Values
+
+        * `CLEARING_VALUES` - Clearing Values
+
+        * `VALUES_CLEARED` - Values Cleared
+
+        * `DISABLED` - Disabled'
+    duplicate_message_serializer_message_serializer:
+      type: object
+      properties:
+        message:
+          type: string
+      required:
+      - message
+  securitySchemes:
+    OAuth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://portal.cubesoftware.com/o/authorize/
+          tokenUrl: https://api.cubesoftware.com/o/token/
+          scopes: {}
+      description: Standard Cube OAuth 2.0 flow

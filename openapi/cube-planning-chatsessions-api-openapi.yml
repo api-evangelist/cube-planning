@@ -1,0 +1,177 @@
+openapi: 3.0.3
+info:
+  title: Cube Agents ChatSessions API
+  version: 1.0.0 (1.0)
+  description: "#### General Description\nAn API to access underlying Cube functionality. These endpoints are the same endpoints\nthat support Cube's universal add-ons and a plethora of integrations meaning you'll be able to interact with your\nCube data in many powerful ways. Visit the API section of Cube's [Help Center](https://help.cubesoftware.com/hc/en-us/sections/18205290556180-Custom-Integrations)\nfor more usage guides on how you can use this API to integrate with Cube to accomplish various tasks!\n\n#### Versioning\nAll requests to the API require a version to be configured via an `Accept` Header. The value of this Header should look like this:\n```\nAccept: application/json; version=1.0\n```\nNote that the version number may differ depending on which version of the endpoint is needed.\n\n#### Response Structure\nThe general response structure of Cube's API endpoints will contain a `\"data\"` and `\"metadata\"` root level key:\n```json\n{\n    \"data\": { ... object data or list of objects ... },\n    \"metadata\": {\n        \"status\": 200,\n        \"message\": \"Potential message with additional context\",\n        \"error\": false,\n        \"code\": \"\"\n    }\n}\n```\n\n#### Rate Limiting\nAll endpoints have a rate limit configured, most of them default to 5/s.\nWhen the rate limit is encountered, a 429 HTTP code will be returned.\n\n#### Error Handling\nIn the event an error occurs, the response will typically look like this:\n```json\n{\n    \"data\": {},\n    \"metadata\": {\n        \"status\": 400,\n        \"message\": \"Some error message\",\n        \"error\": true,\n        \"code\": \"SOME_ERROR_CODE\"\n    }\n}\n```\n"
+  termsOfService: https://www.cubesoftware.com/terms-of-service
+servers:
+- url: https://api.cubesoftware.com
+  description: Cube API Production URL
+tags:
+- name: ChatSessions
+paths:
+  /agents/chat/sessions:
+    get:
+      operationId: agents_chat_sessions_list
+      description: List chat sessions for the current user
+      summary: List Chat Sessions
+      parameters:
+      - in: query
+        name: data_table_id
+        schema:
+          type: string
+        description: When listing sessions with session_type=DATA_TABLE_MANAGEMENT, filter to sessions scoped to this source data table UUID.
+      - in: query
+        name: limit
+        schema:
+          type: integer
+        description: 'Number of items per page (default: 50)'
+      - in: query
+        name: page
+        schema:
+          type: integer
+        description: 'Page number (default: 1)'
+      - in: query
+        name: session_type
+        schema:
+          type: string
+        description: 'Filter by session type (default: CHAT). One of: CHAT, PLANNER, DATA_TABLE_MANAGEMENT, WIDGET_BUILDER'
+      tags:
+      - ChatSessions
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ChatSession'
+          description: ''
+        '400':
+          description: Invalid pagination parameters
+        '401':
+          description: Unauthorized
+        '403':
+          description: Permission denied
+    post:
+      operationId: agents_chat_sessions_create
+      description: Create a new chat session
+      summary: Create Chat Session
+      tags:
+      - ChatSessions
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ChatSession'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/ChatSession'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/ChatSession'
+      security:
+      - OAuth2: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ChatSession'
+          description: ''
+  /agents/chat/sessions/{id}:
+    get:
+      operationId: agents_chat_sessions_retrieve
+      description: Retrieve a specific chat session by ID
+      summary: Retrieve Chat Session
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+      tags:
+      - ChatSessions
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ChatSession'
+          description: ''
+components:
+  schemas:
+    ChatSession:
+      type: object
+      properties:
+        id:
+          type: string
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        last_active_at:
+          type: string
+          format: date-time
+          readOnly: true
+        app_type:
+          allOf:
+          - $ref: '#/components/schemas/AppTypeEnum'
+          readOnly: true
+        name:
+          type: string
+          nullable: true
+          maxLength: 255
+        session_type:
+          allOf:
+          - $ref: '#/components/schemas/SessionTypeEnum'
+          default: CHAT
+        context: {}
+        resources:
+          type: string
+          readOnly: true
+      required:
+      - app_type
+      - created_at
+      - id
+      - last_active_at
+      - resources
+    SessionTypeEnum:
+      enum:
+      - CHAT
+      - WIDGET_BUILDER
+      - PLANNER
+      - DATA_TABLE_MANAGEMENT
+      type: string
+      description: '* `CHAT` - Chat
+
+        * `WIDGET_BUILDER` - Widget Builder
+
+        * `PLANNER` - Planner
+
+        * `DATA_TABLE_MANAGEMENT` - Data Table Management'
+    AppTypeEnum:
+      enum:
+      - SLACK
+      - MS_TEAMS
+      - CUBE_API
+      type: string
+      description: '* `SLACK` - Slack
+
+        * `MS_TEAMS` - Microsoft Teams
+
+        * `CUBE_API` - Cube API'
+  securitySchemes:
+    OAuth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://portal.cubesoftware.com/o/authorize/
+          tokenUrl: https://api.cubesoftware.com/o/token/
+          scopes: {}
+      description: Standard Cube OAuth 2.0 flow

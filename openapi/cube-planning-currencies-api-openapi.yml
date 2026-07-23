@@ -1,0 +1,1333 @@
+openapi: 3.0.3
+info:
+  title: Cube Agents Currencies API
+  version: 1.0.0 (1.0)
+  description: "#### General Description\nAn API to access underlying Cube functionality. These endpoints are the same endpoints\nthat support Cube's universal add-ons and a plethora of integrations meaning you'll be able to interact with your\nCube data in many powerful ways. Visit the API section of Cube's [Help Center](https://help.cubesoftware.com/hc/en-us/sections/18205290556180-Custom-Integrations)\nfor more usage guides on how you can use this API to integrate with Cube to accomplish various tasks!\n\n#### Versioning\nAll requests to the API require a version to be configured via an `Accept` Header. The value of this Header should look like this:\n```\nAccept: application/json; version=1.0\n```\nNote that the version number may differ depending on which version of the endpoint is needed.\n\n#### Response Structure\nThe general response structure of Cube's API endpoints will contain a `\"data\"` and `\"metadata\"` root level key:\n```json\n{\n    \"data\": { ... object data or list of objects ... },\n    \"metadata\": {\n        \"status\": 200,\n        \"message\": \"Potential message with additional context\",\n        \"error\": false,\n        \"code\": \"\"\n    }\n}\n```\n\n#### Rate Limiting\nAll endpoints have a rate limit configured, most of them default to 5/s.\nWhen the rate limit is encountered, a 429 HTTP code will be returned.\n\n#### Error Handling\nIn the event an error occurs, the response will typically look like this:\n```json\n{\n    \"data\": {},\n    \"metadata\": {\n        \"status\": 400,\n        \"message\": \"Some error message\",\n        \"error\": true,\n        \"code\": \"SOME_ERROR_CODE\"\n    }\n}\n```\n"
+  termsOfService: https://www.cubesoftware.com/terms-of-service
+servers:
+- url: https://api.cubesoftware.com
+  description: Cube API Production URL
+tags:
+- name: Currencies
+paths:
+  /currencies/company:
+    get:
+      operationId: currencies_company_list
+      description: Lists all of the currencies enabled by a company
+      summary: List a company's enabled currencies
+      parameters:
+      - in: header
+        name: HTTP_ACCEPT
+        schema:
+          type: string
+          default: application/json; version=1.1
+        description: Set the version of API the request is for
+        required: true
+      - in: header
+        name: X-Company-ID
+        schema:
+          type: string
+        description: Associates request with company
+        required: true
+      tags:
+      - Currencies
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CompanyCurrency'
+          description: ''
+  /currencies/company/bulk_update:
+    put:
+      operationId: currencies_company_bulk_update_update
+      description: Deletes all related currencies to the company, and replaces the list with the provided payload
+      summary: Bulk update the company's currencies
+      parameters:
+      - in: header
+        name: HTTP_ACCEPT
+        schema:
+          type: string
+          default: application/json; version=1.1
+        description: Set the version of API the request is for
+        required: true
+      - in: header
+        name: X-Company-ID
+        schema:
+          type: string
+        description: Associates request with company
+        required: true
+      tags:
+      - Currencies
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/Inline'
+          application/x-www-form-urlencoded:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/Inline'
+          multipart/form-data:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/Inline'
+        required: true
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CompanyCurrency'
+          description: List of Company Currencies
+  /currencies/rates:
+    get:
+      operationId: currencies_rates_list
+      description: List currency conversion rates
+      summary: List currency conversion rates
+      parameters:
+      - in: header
+        name: HTTP_ACCEPT
+        schema:
+          type: string
+          default: application/json; version=1.1
+        description: Set the version of API the request is for
+        required: true
+      - in: header
+        name: X-Company-ID
+        schema:
+          type: string
+        description: Associates request with company
+        required: true
+      - in: query
+        name: from_currency
+        schema:
+          type: int
+        description: The ID of the currency the rate converts from
+      - in: query
+        name: limit
+        schema:
+          type: int
+        description: The number of results to return
+      - in: query
+        name: offset
+        schema:
+          type: int
+        description: An offset for the results for pagination
+      - in: query
+        name: order_by
+        schema:
+          type: str
+        description: A way to order the rates by date
+      - in: query
+        name: rateable_id
+        schema:
+          type: str
+        description: The ID of the "rateable" object associated with the rate
+      - in: query
+        name: rateable_type
+        schema:
+          type: int
+        description: The content type ID of the model class of the "rateable" object
+      - in: query
+        name: to_currency
+        schema:
+          type: int
+        description: The ID of the currency the rate converts to
+      tags:
+      - Currencies
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ConversionRate'
+          description: List of conversion rates
+    post:
+      operationId: currencies_rates_create
+      description: Create a currency conversion rates
+      summary: Create a currency conversion rates
+      parameters:
+      - in: header
+        name: HTTP_ACCEPT
+        schema:
+          type: string
+          default: application/json; version=1.1
+        description: Set the version of API the request is for
+        required: true
+      - in: header
+        name: X-Company-ID
+        schema:
+          type: string
+        description: Associates request with company
+        required: true
+      tags:
+      - Currencies
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ConversionRate'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/ConversionRate'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/ConversionRate'
+        required: true
+      security:
+      - OAuth2: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConversionRate'
+          description: ''
+  /currencies/rates/{id}:
+    get:
+      operationId: currencies_rates_retrieve
+      description: Retrieve a currency conversion rate by ID
+      summary: Retrieve a currency conversion rate by ID
+      parameters:
+      - in: header
+        name: HTTP_ACCEPT
+        schema:
+          type: string
+          default: application/json; version=1.1
+        description: Set the version of API the request is for
+        required: true
+      - in: header
+        name: X-Company-ID
+        schema:
+          type: string
+        description: Associates request with company
+        required: true
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this conversion rate.
+        required: true
+      tags:
+      - Currencies
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConversionRate'
+          description: ''
+    put:
+      operationId: currencies_rates_update
+      description: Completely update a currency conversion rate by ID
+      summary: Completely update a currency conversion rate by ID
+      parameters:
+      - in: header
+        name: HTTP_ACCEPT
+        schema:
+          type: string
+          default: application/json; version=1.1
+        description: Set the version of API the request is for
+        required: true
+      - in: header
+        name: X-Company-ID
+        schema:
+          type: string
+        description: Associates request with company
+        required: true
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this conversion rate.
+        required: true
+      tags:
+      - Currencies
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ConversionRate'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/ConversionRate'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/ConversionRate'
+        required: true
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConversionRate'
+          description: ''
+    patch:
+      operationId: currencies_rates_partial_update
+      description: Update specific fields within a currency conversion rate by ID
+      summary: Update specific fields within a currency conversion rate by ID
+      parameters:
+      - in: header
+        name: HTTP_ACCEPT
+        schema:
+          type: string
+          default: application/json; version=1.1
+        description: Set the version of API the request is for
+        required: true
+      - in: header
+        name: X-Company-ID
+        schema:
+          type: string
+        description: Associates request with company
+        required: true
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this conversion rate.
+        required: true
+      tags:
+      - Currencies
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedConversionRate'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedConversionRate'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedConversionRate'
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConversionRate'
+          description: ''
+    delete:
+      operationId: currencies_rates_destroy
+      description: Delete a currency conversion rate by ID
+      summary: Delete a currency conversion rate by ID
+      parameters:
+      - in: header
+        name: HTTP_ACCEPT
+        schema:
+          type: string
+          default: application/json; version=1.1
+        description: Set the version of API the request is for
+        required: true
+      - in: header
+        name: X-Company-ID
+        schema:
+          type: string
+        description: Associates request with company
+        required: true
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this conversion rate.
+        required: true
+      tags:
+      - Currencies
+      security:
+      - OAuth2: []
+      responses:
+        '204':
+          description: No response body
+  /currencies/rates/{id}/lock:
+    patch:
+      operationId: currencies_rates_lock_partial_update
+      description: "This endpoint identifies the specific ConversionRate and updates the is_locked attribute to True.\n            This will make it not editable."
+      summary: Lock's a ConversionRate from being editable.
+      parameters:
+      - in: header
+        name: HTTP_ACCEPT
+        schema:
+          type: string
+          default: application/json; version=1.1
+        description: Set the version of API the request is for
+        required: true
+      - in: header
+        name: X-Company-ID
+        schema:
+          type: string
+        description: Associates request with company
+        required: true
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this conversion rate.
+        required: true
+      tags:
+      - Currencies
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedConversionRate'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedConversionRate'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedConversionRate'
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConversionRate'
+          description: ''
+  /currencies/rates/{id}/unlock:
+    patch:
+      operationId: currencies_rates_unlock_partial_update
+      description: "This endpoint identifies the specific ConversionRate and updates the is_locked attribute to False.\n            This will make it editable."
+      summary: UnLock's a ConversionRate from being not editable.
+      parameters:
+      - in: header
+        name: HTTP_ACCEPT
+        schema:
+          type: string
+          default: application/json; version=1.1
+        description: Set the version of API the request is for
+        required: true
+      - in: header
+        name: X-Company-ID
+        schema:
+          type: string
+        description: Associates request with company
+        required: true
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this conversion rate.
+        required: true
+      tags:
+      - Currencies
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedConversionRate'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedConversionRate'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedConversionRate'
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConversionRate'
+          description: ''
+  /currencies/rates/bulk_update:
+    put:
+      operationId: currencies_rates_bulk_update_update
+      description: "This endpoint allows for a destructive delete all and bulk create Currency Conversion Rates for\n            a specific rateable object. This is meant to be used with DimensionExchangeRateTypeMapping entities as the\n            rateable."
+      summary: Bulk Update Currency Conversion Rates
+      parameters:
+      - in: header
+        name: HTTP_ACCEPT
+        schema:
+          type: string
+          default: application/json; version=1.1
+        description: Set the version of API the request is for
+        required: true
+      - in: header
+        name: X-Company-ID
+        schema:
+          type: string
+        description: Associates request with company
+        required: true
+      tags:
+      - Currencies
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InlineForm'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/InlineForm'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/InlineForm'
+        required: true
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ConversionRate'
+          description: List of conversion rates
+  /currencies/rates/dimension-mappings:
+    get:
+      operationId: currencies_rates_dimension_mappings_list
+      description: List all dimension conversion rate mappings
+      summary: List all dimension conversion rate mappings
+      parameters:
+      - in: header
+        name: HTTP_ACCEPT
+        schema:
+          type: string
+          default: application/json; version=1.1
+        description: Set the version of API the request is for
+        required: true
+      - in: header
+        name: X-Company-ID
+        schema:
+          type: string
+        description: Associates request with company
+        required: true
+      - in: query
+        name: is_default
+        schema:
+          type: bool
+        description: Whether or not to only get default rates
+      tags:
+      - Currencies
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/DimensionExchangeRateTypeMapping'
+          description: ''
+    post:
+      operationId: currencies_rates_dimension_mappings_create
+      description: Create a new dimension conversion rate mapping. This object creation may trigger the deletion of other existing mappings if the new object's fields would cause a conflict with those mappings. Will result in a response of 409 (Conflict), and require an additional query parameter `confirm=true` in the request to proceed with creating the mapping and deleting the existing mappings that conflict.Clients that receive a 200 OK response for an create should subsequently request the mappings list to learn of any deletions.
+      summary: Create dimension conversion rate mapping
+      parameters:
+      - in: header
+        name: HTTP_ACCEPT
+        schema:
+          type: string
+          default: application/json; version=1.1
+        description: Set the version of API the request is for
+        required: true
+      - in: header
+        name: X-Company-ID
+        schema:
+          type: string
+        description: Associates request with company
+        required: true
+      tags:
+      - Currencies
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DimensionExchangeRateTypeMapping'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/DimensionExchangeRateTypeMapping'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/DimensionExchangeRateTypeMapping'
+        required: true
+      security:
+      - OAuth2: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DimensionExchangeRateTypeMapping'
+          description: ''
+  /currencies/rates/dimension-mappings/{id}:
+    put:
+      operationId: currencies_rates_dimension_mappings_update
+      description: Update an existing dimension conversion rate mapping. An update may trigger the deletion of other existing mappings if the updated fields would cause a conflict with those mappings. Clients that receive a 200 OK response for an update should subsequently request the mappings list to learn of any deletions.
+      summary: Update dimension conversion rate mapping
+      parameters:
+      - in: header
+        name: HTTP_ACCEPT
+        schema:
+          type: string
+          default: application/json; version=1.1
+        description: Set the version of API the request is for
+        required: true
+      - in: header
+        name: X-Company-ID
+        schema:
+          type: string
+        description: Associates request with company
+        required: true
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+      tags:
+      - Currencies
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DimensionExchangeRateTypeMapping'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/DimensionExchangeRateTypeMapping'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/DimensionExchangeRateTypeMapping'
+        required: true
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DimensionExchangeRateTypeMapping'
+          description: ''
+    delete:
+      operationId: currencies_rates_dimension_mappings_destroy
+      description: Delete a Dimension Conversion Rate Mapping and all related custom Conversion Rates
+      summary: Delete a Dimension Conversion Rate Mapping
+      parameters:
+      - in: header
+        name: HTTP_ACCEPT
+        schema:
+          type: string
+          default: application/json; version=1.1
+        description: Set the version of API the request is for
+        required: true
+      - in: header
+        name: X-Company-ID
+        schema:
+          type: string
+        description: Associates request with company
+        required: true
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+      tags:
+      - Currencies
+      security:
+      - OAuth2: []
+      responses:
+        '204':
+          description: No response body
+  /currencies/rates/export:
+    get:
+      operationId: currencies_rates_export_retrieve
+      description: "This endpoint retrieves and organizes the currency conversion rates into a CSV and streams the\n            result back to the requester."
+      summary: Export Currency Conversion Rates
+      parameters:
+      - in: header
+        name: HTTP_ACCEPT
+        schema:
+          type: string
+          default: application/json; version=1.1
+        description: Set the version of API the request is for
+        required: true
+      - in: header
+        name: X-Company-ID
+        schema:
+          type: string
+        description: Associates request with company
+        required: true
+      - in: query
+        name: account_id
+        schema:
+          type: array
+          items:
+            type: integer
+        description: The Account dimension IDs to filter the exported records by.
+        examples:
+          SingleAccountId:
+            value:
+            - 236
+            summary: Single Account Id
+          MultipleAccountIds:
+            value:
+            - 236
+            - 498
+            summary: Multiple Account Ids
+      - in: query
+        name: currency_id
+        schema:
+          type: array
+          items:
+            type: integer
+        description: The currency IDs to filter the exported records by.
+        examples:
+          SingleCurrencyId:
+            value:
+            - 150
+            summary: Single Currency Id
+          MultipleCurrencyIds:
+            value:
+            - 27
+            - 150
+            summary: Multiple Currency Ids
+      - in: query
+        name: time_id
+        schema:
+          type: array
+          items:
+            type: integer
+        description: The Time dimension IDs to filter the exported records by.
+        examples:
+          SingleTimeId:
+            value:
+            - 13
+            summary: Single Time Id
+          MultipleTimeIds:
+            value:
+            - 13
+            - 17
+            summary: Multiple Time Ids
+      tags:
+      - Currencies
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          description: CSV file containing the exported conversion rates
+  /currencies/rates/types:
+    get:
+      operationId: currencies_rates_types_list
+      description: Lists exchange rate types that exist for a given company
+      summary: Lists exchange rate types that exist for a given company
+      parameters:
+      - in: header
+        name: X-Company-ID
+        schema:
+          type: string
+        description: Associates request with company
+        required: true
+      - in: query
+        name: rate_type
+        schema:
+          type: str
+        description: A rate type to limit the response to
+        examples:
+          CURRENT:
+            value: CURRENT
+          AVERAGE:
+            value: AVERAGE
+          HISTORICAL:
+            value: HISTORICAL
+          CONSTANT:
+            value: CONSTANT
+          CUSTOM:
+            value: CUSTOM
+      tags:
+      - Currencies
+      security:
+      - OAuth2: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ExchangeRateType'
+          description: ''
+  /currencies/system-currencies:
+    get:
+      operationId: currencies_system_currencies_list
+      description: Lists all of the currencies supported
+      summary: View Supported Currencies
+      parameters:
+      - in: header
+        name: X-Company-ID
+        schema:
+          type: string
+        description: Associates request with company
+        required: true
+      tags:
+      - Currencies
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Currency'
+          description: ''
+    post:
+      operationId: currencies_system_currencies_create
+      description: 'This is a shortcut class that will include all 6 resourceful actions part of the DRF ViewSets:
+
+        - list()
+
+        - retrieve()
+
+        - create()
+
+        - update()
+
+        - partial_update()
+
+        - destroy()
+
+
+        If you do not want to expose all 6 of these in your ViewSet, then use the CubeAuthenticatedViewSet and add the
+
+        appropriate mixins to it (see rest_framework.mixins). This will allow the api to behave appropriately and block
+
+        requests to unprocessable endpoints. Furthermore, it will make the drf_spectacular documentation be generated more
+
+        easily.'
+      parameters:
+      - in: header
+        name: X-Company-ID
+        schema:
+          type: string
+        description: Associates request with company
+        required: true
+      tags:
+      - Currencies
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Currency'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Currency'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Currency'
+        required: true
+      security:
+      - OAuth2: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Currency'
+          description: ''
+  /currencies/system-currencies/{id}:
+    get:
+      operationId: currencies_system_currencies_retrieve
+      description: Retrieves a currency
+      summary: Retrieve A Currency
+      parameters:
+      - in: header
+        name: X-Company-ID
+        schema:
+          type: string
+        description: Associates request with company
+        required: true
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+      tags:
+      - Currencies
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Currency'
+          description: ''
+    put:
+      operationId: currencies_system_currencies_update
+      description: 'This is a shortcut class that will include all 6 resourceful actions part of the DRF ViewSets:
+
+        - list()
+
+        - retrieve()
+
+        - create()
+
+        - update()
+
+        - partial_update()
+
+        - destroy()
+
+
+        If you do not want to expose all 6 of these in your ViewSet, then use the CubeAuthenticatedViewSet and add the
+
+        appropriate mixins to it (see rest_framework.mixins). This will allow the api to behave appropriately and block
+
+        requests to unprocessable endpoints. Furthermore, it will make the drf_spectacular documentation be generated more
+
+        easily.'
+      parameters:
+      - in: header
+        name: X-Company-ID
+        schema:
+          type: string
+        description: Associates request with company
+        required: true
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+      tags:
+      - Currencies
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Currency'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Currency'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Currency'
+        required: true
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Currency'
+          description: ''
+    patch:
+      operationId: currencies_system_currencies_partial_update
+      description: 'This is a shortcut class that will include all 6 resourceful actions part of the DRF ViewSets:
+
+        - list()
+
+        - retrieve()
+
+        - create()
+
+        - update()
+
+        - partial_update()
+
+        - destroy()
+
+
+        If you do not want to expose all 6 of these in your ViewSet, then use the CubeAuthenticatedViewSet and add the
+
+        appropriate mixins to it (see rest_framework.mixins). This will allow the api to behave appropriately and block
+
+        requests to unprocessable endpoints. Furthermore, it will make the drf_spectacular documentation be generated more
+
+        easily.'
+      parameters:
+      - in: header
+        name: X-Company-ID
+        schema:
+          type: string
+        description: Associates request with company
+        required: true
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+      tags:
+      - Currencies
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedCurrency'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedCurrency'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedCurrency'
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Currency'
+          description: ''
+    delete:
+      operationId: currencies_system_currencies_destroy
+      description: 'This is a shortcut class that will include all 6 resourceful actions part of the DRF ViewSets:
+
+        - list()
+
+        - retrieve()
+
+        - create()
+
+        - update()
+
+        - partial_update()
+
+        - destroy()
+
+
+        If you do not want to expose all 6 of these in your ViewSet, then use the CubeAuthenticatedViewSet and add the
+
+        appropriate mixins to it (see rest_framework.mixins). This will allow the api to behave appropriately and block
+
+        requests to unprocessable endpoints. Furthermore, it will make the drf_spectacular documentation be generated more
+
+        easily.'
+      parameters:
+      - in: header
+        name: X-Company-ID
+        schema:
+          type: string
+        description: Associates request with company
+        required: true
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+      tags:
+      - Currencies
+      security:
+      - OAuth2: []
+      responses:
+        '204':
+          description: No response body
+components:
+  schemas:
+    PatchedConversionRate:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        from_currency:
+          type: integer
+        to_currency:
+          type: integer
+        account:
+          type: integer
+          nullable: true
+        date:
+          type: string
+          format: date
+        rate:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,17}(?:\.\d{0,20})?$
+        exchange_rate_type_id:
+          type: integer
+          nullable: true
+          readOnly: true
+        rateable_type:
+          type: integer
+          nullable: true
+        rateable_id:
+          type: string
+          nullable: true
+          maxLength: 36
+        is_locked:
+          type: boolean
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        modified_at:
+          type: string
+          format: date-time
+          readOnly: true
+    CompanyCurrency:
+      type: object
+      properties:
+        default:
+          type: boolean
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        currency:
+          $ref: '#/components/schemas/Currency'
+      required:
+      - created_at
+      - currency
+    PatchedCurrency:
+      type: object
+      description: "Allows selectively disabling DRF uniqueness validation for ModelSerializers.\n\nModelSerializer runs unique field validation during `is_valid()`, even when the\nserializer is used only to deserialize or reference existing model data (i.e. with\nno intent to create or update an instance). This mixin enables callers to explicitly\nskip uniqueness checks for specific fields in those cases.\n\nUsage:\n    serializer = MySerializer(\n        data=payload,\n        skip_unique_validation_fields=('code',),\n    )"
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          maxLength: 255
+        code:
+          type: string
+          maxLength: 10
+        symbol:
+          type: string
+          maxLength: 10
+        description:
+          type: string
+          nullable: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        exclusive_to_company_id:
+          type: string
+          format: uuid
+        created_by_id:
+          type: integer
+          writeOnly: true
+    ConversionRate:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        from_currency:
+          type: integer
+        to_currency:
+          type: integer
+        account:
+          type: integer
+          nullable: true
+        date:
+          type: string
+          format: date
+        rate:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,17}(?:\.\d{0,20})?$
+        exchange_rate_type_id:
+          type: integer
+          nullable: true
+          readOnly: true
+        rateable_type:
+          type: integer
+          nullable: true
+        rateable_id:
+          type: string
+          nullable: true
+          maxLength: 36
+        is_locked:
+          type: boolean
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        modified_at:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+      - created_at
+      - date
+      - exchange_rate_type_id
+      - from_currency
+      - id
+      - modified_at
+      - rate
+      - to_currency
+    InlineForm:
+      type: object
+      properties:
+        rateable_id:
+          type: string
+          nullable: true
+        rateable_type:
+          type: integer
+          nullable: true
+        from_currency:
+          type: integer
+        to_currency:
+          type: integer
+        conversion_rates:
+          type: array
+          items:
+            $ref: '#/components/schemas/Dict'
+      required:
+      - conversion_rates
+      - from_currency
+      - rateable_id
+      - rateable_type
+      - to_currency
+    RateTypeEnum:
+      enum:
+      - CURRENT
+      - AVERAGE
+      - HISTORICAL
+      - CONSTANT
+      - CUSTOM
+      type: string
+      description: '* `CURRENT` - Current
+
+        * `AVERAGE` - Average
+
+        * `HISTORICAL` - Historical
+
+        * `CONSTANT` - Constant
+
+        * `CUSTOM` - Custom'
+    Dict:
+      type: object
+      properties:
+        rate:
+          type: number
+          format: double
+        date:
+          type: string
+          format: date
+      required:
+      - date
+      - rate
+    DimensionExchangeRateTypeMapping:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        account:
+          type: integer
+        is_default:
+          type: boolean
+        rate_type:
+          type: string
+          readOnly: true
+        exchange_rate_type:
+          type: integer
+        from_currency:
+          type: integer
+          nullable: true
+        to_currency:
+          type: integer
+          nullable: true
+        constant_rate:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,17}(?:\.\d{0,20})?$
+          nullable: true
+        content_type_id:
+          type: integer
+          description: "A helper property method for grabbing the id of the ContentType of this model.\nThis is used for creating the rateable relationships with ConversionRate instances.\n\nReturns:\n    an integer representing the content type"
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        modified_at:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+      - account
+      - content_type_id
+      - created_at
+      - exchange_rate_type
+      - id
+      - modified_at
+      - rate_type
+    ExchangeRateType:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        rate_type:
+          $ref: '#/components/schemas/RateTypeEnum'
+        name:
+          type: string
+          maxLength: 255
+        weighted_average_of_id:
+          type: integer
+          nullable: true
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        modified_at:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+      - created_at
+      - id
+      - modified_at
+      - name
+      - rate_type
+      - weighted_average_of_id
+    Inline:
+      type: object
+      properties:
+        default:
+          type: boolean
+        currency_id:
+          type: integer
+      required:
+      - currency_id
+      - default
+    Currency:
+      type: object
+      description: "Allows selectively disabling DRF uniqueness validation for ModelSerializers.\n\nModelSerializer runs unique field validation during `is_valid()`, even when the\nserializer is used only to deserialize or reference existing model data (i.e. with\nno intent to create or update an instance). This mixin enables callers to explicitly\nskip uniqueness checks for specific fields in those cases.\n\nUsage:\n    serializer = MySerializer(\n        data=payload,\n        skip_unique_validation_fields=('code',),\n    )"
+      properties:
+        code:
+          type: string
+          maxLength: 10
+      required:
+      - code
+  securitySchemes:
+    OAuth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://portal.cubesoftware.com/o/authorize/
+          tokenUrl: https://api.cubesoftware.com/o/token/
+          scopes: {}
+      description: Standard Cube OAuth 2.0 flow

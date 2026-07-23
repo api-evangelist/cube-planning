@@ -1,0 +1,534 @@
+openapi: 3.0.3
+info:
+  title: Cube Agents Workflow API
+  version: 1.0.0 (1.0)
+  description: "#### General Description\nAn API to access underlying Cube functionality. These endpoints are the same endpoints\nthat support Cube's universal add-ons and a plethora of integrations meaning you'll be able to interact with your\nCube data in many powerful ways. Visit the API section of Cube's [Help Center](https://help.cubesoftware.com/hc/en-us/sections/18205290556180-Custom-Integrations)\nfor more usage guides on how you can use this API to integrate with Cube to accomplish various tasks!\n\n#### Versioning\nAll requests to the API require a version to be configured via an `Accept` Header. The value of this Header should look like this:\n```\nAccept: application/json; version=1.0\n```\nNote that the version number may differ depending on which version of the endpoint is needed.\n\n#### Response Structure\nThe general response structure of Cube's API endpoints will contain a `\"data\"` and `\"metadata\"` root level key:\n```json\n{\n    \"data\": { ... object data or list of objects ... },\n    \"metadata\": {\n        \"status\": 200,\n        \"message\": \"Potential message with additional context\",\n        \"error\": false,\n        \"code\": \"\"\n    }\n}\n```\n\n#### Rate Limiting\nAll endpoints have a rate limit configured, most of them default to 5/s.\nWhen the rate limit is encountered, a 429 HTTP code will be returned.\n\n#### Error Handling\nIn the event an error occurs, the response will typically look like this:\n```json\n{\n    \"data\": {},\n    \"metadata\": {\n        \"status\": 400,\n        \"message\": \"Some error message\",\n        \"error\": true,\n        \"code\": \"SOME_ERROR_CODE\"\n    }\n}\n```\n"
+  termsOfService: https://www.cubesoftware.com/terms-of-service
+servers:
+- url: https://api.cubesoftware.com
+  description: Cube API Production URL
+tags:
+- name: Workflow
+paths:
+  /company/workflow-executions:
+    get:
+      operationId: company_workflow_executions_list
+      description: Paginated registered executions with optional `metadata.counts` (when `count_by` is set) and `metadata.pagination`; omits unregistered workflow paths.
+      summary: List workflow executions.
+      parameters:
+      - in: header
+        name: HTTP_ACCEPT
+        schema:
+          type: string
+          default: application/json; version=1.1
+        description: Set the version of API the request is for
+        required: true
+      - in: header
+        name: X-Company-ID
+        schema:
+          type: string
+        description: Associates request with company
+        required: true
+      - in: query
+        name: count_by
+        schema:
+          type: string
+        description: 'Dimensions for `metadata.counts` grouping. Repeat or comma-separate. Allowed: `created_at` (UTC hour), `started_at` (UTC hour), `status`, `started_by` (alias `created_by`). Counts use DB aggregation over the latest execution per workflow (registered paths only), honor exclude_cleared, and ignore since, type_id, and status list filters. When absent, metadata.counts is omitted (use metadata.pagination.total_items).'
+      - in: query
+        name: exclude_cleared
+        schema:
+          type: string
+        description: When true, omit executions dismissed via clear.
+      - in: query
+        name: limit
+        schema:
+          type: integer
+        description: Page size (default 25, max 500). Invalid values return 400.
+      - in: query
+        name: page
+        schema:
+          type: integer
+          default: 1
+        description: Page number (v1.2 list is always paginated).
+      - in: query
+        name: since
+        schema:
+          type: integer
+          default: 48
+        description: Hours to look back for workflow executions (v1.2 filters on created_at, not started_at).
+      - in: query
+        name: status
+        schema:
+          type: string
+        description: Filter the list by status (QUEUED, PROCESSING, FAILED, COMPLETED, CANCELLED). Repeat or comma-separate for OR (e.g. status=PROCESSING,QUEUED for active). Does not affect metadata.counts. On v1.2, QUEUED means enqueued but not yet started.
+      - in: query
+        name: type_id
+        schema:
+          type: string
+        description: Filter to a registered workflow type id from the catalog.
+      tags:
+      - Workflow
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/WorkflowExecutionV2'
+          description: ''
+  /company/workflow-executions/{workflow_execution_id}/cancel:
+    post:
+      operationId: company_workflow_executions_cancel_create
+      description: Will cancel a currently in-progress workflow.
+      summary: Will cancel a currently in-progress workflow.
+      parameters:
+      - in: header
+        name: HTTP_ACCEPT
+        schema:
+          type: string
+          default: application/json; version=1.1
+        description: Set the version of API the request is for
+        required: true
+      - in: header
+        name: X-Company-ID
+        schema:
+          type: string
+        description: Associates request with company
+        required: true
+      - in: path
+        name: workflow_execution_id
+        schema:
+          type: string
+        required: true
+      tags:
+      - Workflow
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          content:
+            application/json; version=1.0:
+              schema:
+                $ref: '#/components/schemas/WorkflowExecution'
+          description: Cancel a workflow.
+        '404':
+          content:
+            application/json; version=1.0:
+              schema:
+                $ref: '#/components/schemas/WorkflowExecution'
+          description: Workflow does not exist.
+        '400':
+          content:
+            application/json; version=1.0:
+              schema:
+                $ref: '#/components/schemas/WorkflowExecution'
+          description: Indicates that a workflow is not cancellable.
+  /company/workflow-executions/{workflow_execution_id}/clear:
+    post:
+      operationId: company_workflow_executions_clear_create
+      description: Will mark a workflow as deleted for all users at the current company.
+      summary: Will mark a workflow as deleted.
+      parameters:
+      - in: header
+        name: HTTP_ACCEPT
+        schema:
+          type: string
+          default: application/json; version=1.1
+        description: Set the version of API the request is for
+        required: true
+      - in: header
+        name: X-Company-ID
+        schema:
+          type: string
+        description: Associates request with company
+        required: true
+      - in: path
+        name: workflow_execution_id
+        schema:
+          type: string
+        required: true
+      tags:
+      - Workflow
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          content:
+            application/json; version=1.0:
+              schema:
+                $ref: '#/components/schemas/WorkflowExecution'
+          description: Delete a workflow.
+        '404':
+          content:
+            application/json; version=1.0:
+              schema:
+                $ref: '#/components/schemas/WorkflowExecution'
+          description: Workflow does not exist.
+  /company/workflow-types:
+    get:
+      operationId: company_workflow_types_list
+      description: 'Returns metadata for each workflow type in the in-code registry for this company context. GET only — no create, update, or delete. Optional `prefix` filters entries whose `type_id` or workflow class FQN starts with any given prefix (repeat param or comma-separated). Without `page`, optional `limit` caps how many rows are returned (max 500). With `page`, the list is paginated using the same `page` / `limit` contract as other Cube list endpoints (`CubePageNumberPagination`): `limit` is the page size (default 100, max 500) and `metadata.pagination` is included.'
+      summary: List registered workflow types (read-only catalog).
+      parameters:
+      - in: header
+        name: HTTP_ACCEPT
+        schema:
+          type: string
+          default: application/json; version=1.1
+        description: Set the version of API the request is for
+        required: true
+      - in: header
+        name: X-Company-ID
+        schema:
+          type: string
+        description: Associates request with company
+        required: true
+      - in: query
+        name: limit
+        schema:
+          type: integer
+        description: 'Without `page`: optional cap on how many entries to return from the start of the filtered list (max 500). With `page`: page size (defaults to 100 when omitted, max 500); invalid values return 400.'
+      - in: query
+        name: page
+        schema:
+          type: integer
+          default: 1
+        description: When present, enables pagination (same contract as other Cube list endpoints). Out-of-range pages fall back to page 1. Response includes `metadata.pagination`.
+      - in: query
+        name: prefix
+        schema:
+          type: string
+        description: Filter to entries whose type_id or workflow class FQN starts with this prefix. Repeat the parameter or use comma-separated values (OR logic).
+      tags:
+      - Workflow
+      security:
+      - OAuth2: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/WorkflowTypeListRow'
+              examples:
+                WorkflowTypesCatalog:
+                  value:
+                  - - type_id: agents.planner
+                      registry_id: agents.planner
+                      catalog_version: 1
+                      name: Planner
+                      workflow_class_path: agents.workflows.planner.PlannerWorkflow
+                  summary: Workflow types catalog
+          description: ''
+  /company/workflow-types/{type_id}:
+    get:
+      operationId: company_workflow_types_retrieve
+      description: Returns the resolved `WorkflowShape` (stages and tri-state labels) for `type_id`. GET only. Optional query `catalog_version` selects a historical catalog version; if omitted or unknown, the current shape is returned (same fallback as server-side `shape_for_execution`). Unknown `type_id` yields 404.
+      summary: Get resolved workflow shape for a registered type (read-only catalog).
+      parameters:
+      - in: header
+        name: HTTP_ACCEPT
+        schema:
+          type: string
+          default: application/json; version=1.1
+        description: Set the version of API the request is for
+        required: true
+      - in: header
+        name: X-Company-ID
+        schema:
+          type: string
+        description: Associates request with company
+        required: true
+      - in: query
+        name: catalog_version
+        schema:
+          type: integer
+        description: Pinned catalog version; omit for current shape. Unknown versions fall back to current.
+      - in: path
+        name: type_id
+        schema:
+          type: string
+          pattern: ^[^/]+$
+        required: true
+      tags:
+      - Workflow
+      security:
+      - OAuth2: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WorkflowTypeDetail'
+              examples:
+                WorkflowTypeDetail:
+                  value:
+                    type_id: agents.planner
+                    registry_id: agents.planner
+                    workflow_class_path: agents.workflows.planner.PlannerWorkflow
+                    shape:
+                      catalog_version: 1
+                      name: Planner
+                      stages:
+                      - id: plan
+                        labels:
+                          before: Plan
+                          active: Planning
+                          after: Planned
+                        task_fqns:
+                        - agents.worker_tasks.plan.run_plan
+                  summary: Workflow type detail
+          description: ''
+components:
+  schemas:
+    StatusLabels:
+      type: object
+      properties:
+        before:
+          type: string
+        active:
+          type: string
+        after:
+          type: string
+      required:
+      - active
+      - after
+      - before
+    WorkflowShape:
+      type: object
+      properties:
+        catalog_version:
+          type: integer
+        name:
+          type: string
+        stages:
+          type: array
+          items:
+            $ref: '#/components/schemas/WorkflowStage'
+      required:
+      - catalog_version
+      - name
+      - stages
+    WorkflowExecutionV2:
+      type: object
+      properties:
+        id:
+          type: integer
+        status:
+          type: string
+          readOnly: true
+        name:
+          type: string
+        type:
+          type: string
+          readOnly: true
+        metadata:
+          type: object
+          additionalProperties: {}
+          readOnly: true
+        started_by:
+          type: string
+        started_at:
+          type: string
+          nullable: true
+          readOnly: true
+        can_retry:
+          type: boolean
+          readOnly: true
+        retried_by:
+          type: string
+        can_cancel:
+          type: boolean
+          readOnly: true
+        canceled_by:
+          type: string
+        canceled_at:
+          type: string
+          format: date-time
+        completed_at:
+          type: string
+          format: date-time
+          nullable: true
+          readOnly: true
+        last_status_change_at:
+          type: string
+          format: date-time
+          readOnly: true
+        tasks:
+          type: array
+          items: {}
+          readOnly: true
+        type_id:
+          type: string
+          nullable: true
+          readOnly: true
+        catalog_version:
+          type: integer
+          readOnly: true
+          nullable: true
+        created_at:
+          type: string
+          format: date-time
+        current_stage_id:
+          type: string
+          nullable: true
+          readOnly: true
+      required:
+      - can_cancel
+      - can_retry
+      - canceled_at
+      - canceled_by
+      - catalog_version
+      - completed_at
+      - created_at
+      - current_stage_id
+      - id
+      - last_status_change_at
+      - metadata
+      - name
+      - retried_by
+      - started_at
+      - started_by
+      - status
+      - tasks
+      - type
+      - type_id
+    WorkflowTypeListRow:
+      type: object
+      properties:
+        type_id:
+          type: string
+        registry_id:
+          type: string
+        catalog_version:
+          type: integer
+        name:
+          type: string
+        workflow_class_path:
+          type: string
+      required:
+      - catalog_version
+      - name
+      - registry_id
+      - type_id
+      - workflow_class_path
+    WorkflowExecution:
+      type: object
+      properties:
+        id:
+          type: integer
+        status:
+          type: string
+          readOnly: true
+        name:
+          type: string
+        type:
+          type: string
+          readOnly: true
+        metadata:
+          type: object
+          additionalProperties: {}
+          readOnly: true
+        started_by:
+          type: string
+        started_at:
+          type: string
+          readOnly: true
+        can_retry:
+          type: boolean
+          readOnly: true
+        retried_by:
+          type: string
+        can_cancel:
+          type: boolean
+          readOnly: true
+        canceled_by:
+          type: string
+        canceled_at:
+          type: string
+          format: date-time
+        completed_at:
+          type: string
+          format: date-time
+          nullable: true
+          readOnly: true
+        last_status_change_at:
+          type: string
+          format: date-time
+          readOnly: true
+        tasks:
+          type: array
+          items: {}
+          readOnly: true
+        type_id:
+          type: string
+          nullable: true
+          readOnly: true
+        catalog_version:
+          type: integer
+          readOnly: true
+          nullable: true
+      required:
+      - can_cancel
+      - can_retry
+      - canceled_at
+      - canceled_by
+      - catalog_version
+      - completed_at
+      - id
+      - last_status_change_at
+      - metadata
+      - name
+      - retried_by
+      - started_at
+      - started_by
+      - status
+      - tasks
+      - type
+      - type_id
+    WorkflowStage:
+      type: object
+      properties:
+        id:
+          type: string
+        labels:
+          $ref: '#/components/schemas/StatusLabels'
+        task_fqns:
+          type: array
+          items:
+            type: string
+      required:
+      - id
+      - labels
+      - task_fqns
+    WorkflowTypeDetail:
+      type: object
+      properties:
+        type_id:
+          type: string
+        registry_id:
+          type: string
+        workflow_class_path:
+          type: string
+        shape:
+          $ref: '#/components/schemas/WorkflowShape'
+      required:
+      - registry_id
+      - shape
+      - type_id
+      - workflow_class_path
+  securitySchemes:
+    OAuth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://portal.cubesoftware.com/o/authorize/
+          tokenUrl: https://api.cubesoftware.com/o/token/
+          scopes: {}
+      description: Standard Cube OAuth 2.0 flow

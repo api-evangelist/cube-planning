@@ -1,0 +1,172 @@
+openapi: 3.0.3
+info:
+  title: Cube Agents PlanModeSessions API
+  version: 1.0.0 (1.0)
+  description: "#### General Description\nAn API to access underlying Cube functionality. These endpoints are the same endpoints\nthat support Cube's universal add-ons and a plethora of integrations meaning you'll be able to interact with your\nCube data in many powerful ways. Visit the API section of Cube's [Help Center](https://help.cubesoftware.com/hc/en-us/sections/18205290556180-Custom-Integrations)\nfor more usage guides on how you can use this API to integrate with Cube to accomplish various tasks!\n\n#### Versioning\nAll requests to the API require a version to be configured via an `Accept` Header. The value of this Header should look like this:\n```\nAccept: application/json; version=1.0\n```\nNote that the version number may differ depending on which version of the endpoint is needed.\n\n#### Response Structure\nThe general response structure of Cube's API endpoints will contain a `\"data\"` and `\"metadata\"` root level key:\n```json\n{\n    \"data\": { ... object data or list of objects ... },\n    \"metadata\": {\n        \"status\": 200,\n        \"message\": \"Potential message with additional context\",\n        \"error\": false,\n        \"code\": \"\"\n    }\n}\n```\n\n#### Rate Limiting\nAll endpoints have a rate limit configured, most of them default to 5/s.\nWhen the rate limit is encountered, a 429 HTTP code will be returned.\n\n#### Error Handling\nIn the event an error occurs, the response will typically look like this:\n```json\n{\n    \"data\": {},\n    \"metadata\": {\n        \"status\": 400,\n        \"message\": \"Some error message\",\n        \"error\": true,\n        \"code\": \"SOME_ERROR_CODE\"\n    }\n}\n```\n"
+  termsOfService: https://www.cubesoftware.com/terms-of-service
+servers:
+- url: https://api.cubesoftware.com
+  description: Cube API Production URL
+tags:
+- name: PlanModeSessions
+paths:
+  /agents/planner/plan-mode-sessions:
+    get:
+      operationId: agents_planner_plan_mode_sessions_list
+      description: Returns plan mode sessions for the current user company. Each row includes the linked chat session id and the parent scenario dimension (DimensionSerializer shape; plan-mode scenario dimensions do not include list-only formula rollup fields).
+      summary: List Plan Mode Sessions
+      parameters:
+      - in: header
+        name: X-Company-ID
+        schema:
+          type: string
+        description: Associates request with company
+        required: true
+      tags:
+      - PlanModeSessions
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PlanModeSessionList'
+          description: Plan mode sessions for the current user company
+components:
+  schemas:
+    PlanModeKeyAssumptionSourceEnum:
+      enum:
+      - USER
+      - AI
+      type: string
+      description: '* `USER` - User
+
+        * `AI` - AI'
+    PlanModeRecommendation:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        recommendation_type:
+          allOf:
+          - $ref: '#/components/schemas/RecommendationTypeEnum'
+          readOnly: true
+        description:
+          type: string
+          readOnly: true
+        action_label:
+          type: string
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+      - action_label
+      - created_at
+      - description
+      - id
+      - recommendation_type
+    RecommendationTypeEnum:
+      enum:
+      - RISK
+      - OPPORTUNITY
+      - DATA_GAP
+      - INFO
+      type: string
+      description: '* `RISK` - Risk
+
+        * `OPPORTUNITY` - Opportunity
+
+        * `DATA_GAP` - Data gap
+
+        * `INFO` - Info'
+    PlanModeKeyAssumption:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          readOnly: true
+        value:
+          type: string
+          readOnly: true
+        source:
+          allOf:
+          - $ref: '#/components/schemas/PlanModeKeyAssumptionSourceEnum'
+          readOnly: true
+        display_order:
+          type: integer
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+      - created_at
+      - display_order
+      - id
+      - name
+      - source
+      - value
+    PlanModeSessionList:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        chat_session:
+          type: string
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        parent_scenario:
+          type: object
+          additionalProperties: {}
+          readOnly: true
+        headline_metrics_canvas:
+          type: string
+          format: uuid
+          readOnly: true
+          nullable: true
+        updates_canvas:
+          type: string
+          format: uuid
+          readOnly: true
+          nullable: true
+        recommendations:
+          type: array
+          items:
+            $ref: '#/components/schemas/PlanModeRecommendation'
+          readOnly: true
+        key_assumptions:
+          type: array
+          items:
+            $ref: '#/components/schemas/PlanModeKeyAssumption'
+          readOnly: true
+      required:
+      - chat_session
+      - created_at
+      - headline_metrics_canvas
+      - id
+      - key_assumptions
+      - parent_scenario
+      - recommendations
+      - updates_canvas
+  securitySchemes:
+    OAuth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://portal.cubesoftware.com/o/authorize/
+          tokenUrl: https://api.cubesoftware.com/o/token/
+          scopes: {}
+      description: Standard Cube OAuth 2.0 flow

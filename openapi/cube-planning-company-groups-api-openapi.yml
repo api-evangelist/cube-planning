@@ -1,0 +1,570 @@
+openapi: 3.0.3
+info:
+  title: Cube Agents Company Groups API
+  version: 1.0.0 (1.0)
+  description: "#### General Description\nAn API to access underlying Cube functionality. These endpoints are the same endpoints\nthat support Cube's universal add-ons and a plethora of integrations meaning you'll be able to interact with your\nCube data in many powerful ways. Visit the API section of Cube's [Help Center](https://help.cubesoftware.com/hc/en-us/sections/18205290556180-Custom-Integrations)\nfor more usage guides on how you can use this API to integrate with Cube to accomplish various tasks!\n\n#### Versioning\nAll requests to the API require a version to be configured via an `Accept` Header. The value of this Header should look like this:\n```\nAccept: application/json; version=1.0\n```\nNote that the version number may differ depending on which version of the endpoint is needed.\n\n#### Response Structure\nThe general response structure of Cube's API endpoints will contain a `\"data\"` and `\"metadata\"` root level key:\n```json\n{\n    \"data\": { ... object data or list of objects ... },\n    \"metadata\": {\n        \"status\": 200,\n        \"message\": \"Potential message with additional context\",\n        \"error\": false,\n        \"code\": \"\"\n    }\n}\n```\n\n#### Rate Limiting\nAll endpoints have a rate limit configured, most of them default to 5/s.\nWhen the rate limit is encountered, a 429 HTTP code will be returned.\n\n#### Error Handling\nIn the event an error occurs, the response will typically look like this:\n```json\n{\n    \"data\": {},\n    \"metadata\": {\n        \"status\": 400,\n        \"message\": \"Some error message\",\n        \"error\": true,\n        \"code\": \"SOME_ERROR_CODE\"\n    }\n}\n```\n"
+  termsOfService: https://www.cubesoftware.com/terms-of-service
+servers:
+- url: https://api.cubesoftware.com
+  description: Cube API Production URL
+tags:
+- name: Company Groups
+paths:
+  /company/groups:
+    get:
+      operationId: company_groups_list
+      description: Lists all of the groups for the current user's company
+      summary: List a company's groups
+      parameters:
+      - in: header
+        name: X-Company-ID
+        schema:
+          type: string
+        description: Associates request with company
+        required: true
+      tags:
+      - Company Groups
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CompanyGroup'
+          description: ''
+    post:
+      operationId: company_groups_create
+      description: Create a new group for the current user's company
+      summary: Create a group
+      parameters:
+      - in: header
+        name: X-Company-ID
+        schema:
+          type: string
+        description: Associates request with company
+        required: true
+      tags:
+      - Company Groups
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CompanyGroup'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/CompanyGroup'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/CompanyGroup'
+        required: true
+      security:
+      - OAuth2: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CompanyGroup'
+          description: ''
+  /company/groups/{company_group_pk}/subcube-access-rules:
+    get:
+      operationId: company_groups_subcube_access_rules_list
+      description: Default authenticated ViewSet with standard rate limit (DEFAULT_API_RATE_LIMIT).
+      parameters:
+      - in: path
+        name: company_group_pk
+        schema:
+          type: string
+        required: true
+      tags:
+      - Company Groups
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/SubcubeAccessRule'
+          description: ''
+    post:
+      operationId: company_groups_subcube_access_rules_create
+      description: Default authenticated ViewSet with standard rate limit (DEFAULT_API_RATE_LIMIT).
+      parameters:
+      - in: path
+        name: company_group_pk
+        schema:
+          type: string
+        required: true
+      tags:
+      - Company Groups
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SubcubeAccessRule'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/SubcubeAccessRule'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/SubcubeAccessRule'
+        required: true
+      security:
+      - OAuth2: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SubcubeAccessRule'
+          description: ''
+  /company/groups/{company_group_pk}/subcube-access-rules/{id}:
+    get:
+      operationId: company_groups_subcube_access_rules_retrieve
+      description: Default authenticated ViewSet with standard rate limit (DEFAULT_API_RATE_LIMIT).
+      parameters:
+      - in: path
+        name: company_group_pk
+        schema:
+          type: string
+        required: true
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+      tags:
+      - Company Groups
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SubcubeAccessRule'
+          description: ''
+    put:
+      operationId: company_groups_subcube_access_rules_update
+      description: Default authenticated ViewSet with standard rate limit (DEFAULT_API_RATE_LIMIT).
+      parameters:
+      - in: path
+        name: company_group_pk
+        schema:
+          type: string
+        required: true
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+      tags:
+      - Company Groups
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SubcubeAccessRule'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/SubcubeAccessRule'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/SubcubeAccessRule'
+        required: true
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SubcubeAccessRule'
+          description: ''
+    patch:
+      operationId: company_groups_subcube_access_rules_partial_update
+      description: Default authenticated ViewSet with standard rate limit (DEFAULT_API_RATE_LIMIT).
+      parameters:
+      - in: path
+        name: company_group_pk
+        schema:
+          type: string
+        required: true
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+      tags:
+      - Company Groups
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedSubcubeAccessRule'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedSubcubeAccessRule'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedSubcubeAccessRule'
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SubcubeAccessRule'
+          description: ''
+    delete:
+      operationId: company_groups_subcube_access_rules_destroy
+      description: Default authenticated ViewSet with standard rate limit (DEFAULT_API_RATE_LIMIT).
+      parameters:
+      - in: path
+        name: company_group_pk
+        schema:
+          type: string
+        required: true
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+      tags:
+      - Company Groups
+      security:
+      - OAuth2: []
+      responses:
+        '204':
+          description: No response body
+  /company/groups/{id}:
+    get:
+      operationId: company_groups_retrieve
+      description: Retrieve a group for the company by its group ID
+      parameters:
+      - in: header
+        name: X-Company-ID
+        schema:
+          type: string
+        description: Associates request with company
+        required: true
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+      tags:
+      - Company Groups
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CompanyGroup'
+          description: ''
+    put:
+      operationId: company_groups_update
+      description: Update a group for the current user's company
+      summary: Update a group
+      parameters:
+      - in: header
+        name: X-Company-ID
+        schema:
+          type: string
+        description: Associates request with company
+        required: true
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+      tags:
+      - Company Groups
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CompanyGroupOpenApiDoc_1'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/CompanyGroupOpenApiDoc_1'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/CompanyGroupOpenApiDoc_1'
+        required: true
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CompanyGroup'
+          description: ''
+    patch:
+      operationId: company_groups_partial_update
+      description: Update a group for the current user's company
+      summary: Update a subset of a group's fields
+      parameters:
+      - in: header
+        name: X-Company-ID
+        schema:
+          type: string
+        description: Associates request with company
+        required: true
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+      tags:
+      - Company Groups
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedCompanyGroupOpenApiDoc_2'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedCompanyGroupOpenApiDoc_2'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedCompanyGroupOpenApiDoc_2'
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CompanyGroup'
+          description: ''
+    delete:
+      operationId: company_groups_destroy
+      description: Delete a group for the current user's company
+      summary: Delete a group
+      parameters:
+      - in: header
+        name: X-Company-ID
+        schema:
+          type: string
+        description: Associates request with company
+        required: true
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+      tags:
+      - Company Groups
+      security:
+      - OAuth2: []
+      responses:
+        '204':
+          description: No response body
+components:
+  schemas:
+    SubcubeAccessRule:
+      type: object
+      description: 'This mixin is used to supplement the serializer with additional fields that are not provided in the request data
+
+        for use in updating either the model being worked with OR any through tables that are used to join the model with
+
+        a related model when the through table holds useful information.'
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        company:
+          type: string
+          format: uuid
+        company_group:
+          type: integer
+        dimensions:
+          type: string
+        write_access:
+          type: boolean
+        created_by:
+          type: integer
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        modified_by:
+          type: integer
+          nullable: true
+        modified_at:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+      - company
+      - company_group
+      - created_at
+      - created_by
+      - id
+      - modified_at
+    CompanyGroupTypeEnum:
+      enum:
+      - feature
+      - dimension
+      type: string
+      description: '* `feature` - Feature
+
+        * `dimension` - Data'
+    CompanyGroupOpenApiDoc_1:
+      type: object
+      properties:
+        user_invitations:
+          type: string
+        user_companies:
+          type: string
+        permissions:
+          type: string
+        permissionsets:
+          type: string
+        subcube_access_rules:
+          type: array
+          items:
+            $ref: '#/components/schemas/SubcubeAccessRule'
+        name:
+          type: string
+          maxLength: 100
+        active:
+          type: boolean
+      required:
+      - name
+    PatchedCompanyGroupOpenApiDoc_2:
+      type: object
+      properties:
+        user_invitations:
+          type: string
+        user_companies:
+          type: string
+        permissions:
+          type: string
+        permissionsets:
+          type: string
+        subcube_access_rules:
+          type: array
+          items:
+            $ref: '#/components/schemas/SubcubeAccessRule'
+        name:
+          type: string
+          maxLength: 100
+        active:
+          type: boolean
+    CompanyGroup:
+      type: object
+      description: 'This mixin is used to supplement the serializer with additional fields that are not provided in the request data
+
+        for use in updating either the model being worked with OR any through tables that are used to join the model with
+
+        a related model when the through table holds useful information.'
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          maxLength: 100
+        company:
+          type: string
+          format: uuid
+        type:
+          allOf:
+          - $ref: '#/components/schemas/CompanyGroupTypeEnum'
+          default: feature
+        active:
+          type: boolean
+        user_companies:
+          type: string
+        user_invitations:
+          type: string
+        created_by:
+          type: integer
+          nullable: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        permissions:
+          type: string
+        permissionsets:
+          type: string
+        subcube_access_rules:
+          type: array
+          items:
+            $ref: '#/components/schemas/SubcubeAccessRule'
+        resolved_permissions:
+          type: array
+          items:
+            type: integer
+          readOnly: true
+        resolved_permissionsets:
+          type: array
+          items:
+            type: integer
+          readOnly: true
+        editable:
+          type: boolean
+          readOnly: true
+      required:
+      - company
+      - created_at
+      - editable
+      - id
+      - name
+      - resolved_permissions
+      - resolved_permissionsets
+    PatchedSubcubeAccessRule:
+      type: object
+      description: 'This mixin is used to supplement the serializer with additional fields that are not provided in the request data
+
+        for use in updating either the model being worked with OR any through tables that are used to join the model with
+
+        a related model when the through table holds useful information.'
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        company:
+          type: string
+          format: uuid
+        company_group:
+          type: integer
+        dimensions:
+          type: string
+        write_access:
+          type: boolean
+        created_by:
+          type: integer
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        modified_by:
+          type: integer
+          nullable: true
+        modified_at:
+          type: string
+          format: date-time
+          readOnly: true
+  securitySchemes:
+    OAuth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://portal.cubesoftware.com/o/authorize/
+          tokenUrl: https://api.cubesoftware.com/o/token/
+          scopes: {}
+      description: Standard Cube OAuth 2.0 flow

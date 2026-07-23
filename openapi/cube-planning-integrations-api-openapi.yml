@@ -1,0 +1,473 @@
+openapi: 3.0.3
+info:
+  title: Cube Agents Integrations API
+  version: 1.0.0 (1.0)
+  description: "#### General Description\nAn API to access underlying Cube functionality. These endpoints are the same endpoints\nthat support Cube's universal add-ons and a plethora of integrations meaning you'll be able to interact with your\nCube data in many powerful ways. Visit the API section of Cube's [Help Center](https://help.cubesoftware.com/hc/en-us/sections/18205290556180-Custom-Integrations)\nfor more usage guides on how you can use this API to integrate with Cube to accomplish various tasks!\n\n#### Versioning\nAll requests to the API require a version to be configured via an `Accept` Header. The value of this Header should look like this:\n```\nAccept: application/json; version=1.0\n```\nNote that the version number may differ depending on which version of the endpoint is needed.\n\n#### Response Structure\nThe general response structure of Cube's API endpoints will contain a `\"data\"` and `\"metadata\"` root level key:\n```json\n{\n    \"data\": { ... object data or list of objects ... },\n    \"metadata\": {\n        \"status\": 200,\n        \"message\": \"Potential message with additional context\",\n        \"error\": false,\n        \"code\": \"\"\n    }\n}\n```\n\n#### Rate Limiting\nAll endpoints have a rate limit configured, most of them default to 5/s.\nWhen the rate limit is encountered, a 429 HTTP code will be returned.\n\n#### Error Handling\nIn the event an error occurs, the response will typically look like this:\n```json\n{\n    \"data\": {},\n    \"metadata\": {\n        \"status\": 400,\n        \"message\": \"Some error message\",\n        \"error\": true,\n        \"code\": \"SOME_ERROR_CODE\"\n    }\n}\n```\n"
+  termsOfService: https://www.cubesoftware.com/terms-of-service
+servers:
+- url: https://api.cubesoftware.com
+  description: Cube API Production URL
+tags:
+- name: Integrations
+paths:
+  /company/integrations:
+    get:
+      operationId: company_integrations_list
+      description: List all company integrations
+      summary: List all company integrations
+      parameters:
+      - in: header
+        name: X-Company-ID
+        schema:
+          type: string
+        description: Associates request with company
+        required: true
+      tags:
+      - Integrations
+      security:
+      - OAuth2: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CompanyIntegration'
+          description: ''
+    post:
+      operationId: company_integrations_create
+      description: Add a new integration to a company
+      summary: Add a new integration to a company
+      parameters:
+      - in: header
+        name: X-Company-ID
+        schema:
+          type: string
+        description: Associates request with company
+        required: true
+      tags:
+      - Integrations
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CompanyIntegration'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/CompanyIntegration'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/CompanyIntegration'
+      security:
+      - OAuth2: []
+      - {}
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CompanyIntegration'
+          description: ''
+  /company/integrations/{id}:
+    get:
+      operationId: company_integrations_retrieve
+      description: Retrieve a company integration by ID
+      summary: Retrieve a company integration by ID
+      parameters:
+      - in: header
+        name: X-Company-ID
+        schema:
+          type: string
+        description: Associates request with company
+        required: true
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+      tags:
+      - Integrations
+      security:
+      - OAuth2: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CompanyIntegration'
+          description: ''
+    patch:
+      operationId: company_integrations_partial_update
+      description: Update a companies integration settings
+      summary: Update a companies integration settings
+      parameters:
+      - in: header
+        name: X-Company-ID
+        schema:
+          type: string
+        description: Associates request with company
+        required: true
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+      tags:
+      - Integrations
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedCompanyIntegration'
+            examples:
+              UpdateDashboardPermissionGroupIDExample:
+                value:
+                  settings:
+                    metabase_permission_group_id: TheDashboardID
+                summary: Update Dashboard Permission Group ID Example
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedCompanyIntegration'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedCompanyIntegration'
+      security:
+      - OAuth2: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CompanyIntegration'
+          description: ''
+    delete:
+      operationId: company_integrations_destroy
+      description: Remove an integration from a company
+      summary: Remove an integration from a company
+      parameters:
+      - in: header
+        name: X-Company-ID
+        schema:
+          type: string
+        description: Associates request with company
+        required: true
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+      tags:
+      - Integrations
+      security:
+      - OAuth2: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CompanyIntegration'
+          description: Deleted the requested object.
+        '401':
+          description: Not authorized
+  /integrations:
+    get:
+      operationId: integrations_list
+      description: List all integrations
+      summary: List all integrations
+      parameters:
+      - in: header
+        name: X-Company-ID
+        schema:
+          type: string
+        description: Associates request with company
+        required: true
+      tags:
+      - Integrations
+      security:
+      - OAuth2: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Integration'
+          description: ''
+  /integrations/{id}:
+    get:
+      operationId: integrations_retrieve
+      description: Retrieve an integration by ID
+      summary: Retrieve an integration by ID
+      parameters:
+      - in: header
+        name: X-Company-ID
+        schema:
+          type: string
+        description: Associates request with company
+        required: true
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this integration.
+        required: true
+      tags:
+      - Integrations
+      security:
+      - OAuth2: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Integration'
+          description: ''
+  /integrations/merge/link-complete:
+    post:
+      operationId: integrations_merge_link_complete_create
+      description: 'Shared setup for Merge Link endpoints: permission check, integration validation.'
+      tags:
+      - Integrations
+      security:
+      - OAuth2: []
+      - {}
+      responses:
+        '200':
+          description: No response body
+  /integrations/merge/link-token:
+    post:
+      operationId: integrations_merge_link_token_create
+      description: 'Shared setup for Merge Link endpoints: permission check, integration validation.'
+      tags:
+      - Integrations
+      security:
+      - OAuth2: []
+      - {}
+      responses:
+        '200':
+          description: No response body
+  /integrations/merge/webhook:
+    post:
+      operationId: integrations_merge_webhook_create
+      description: "Handle an inbound Merge webhook POST.\n\nValidates the payload, deduplicates by signature, resolves the\nconnection, checks sync-status safety from the webhook payload, and\ndispatches a transaction refresh task when all preconditions pass.\n\nArgs:\n    request: DRF request with HMAC-verified request.auth signature.\n\nReturns:\n    JsonResponse with status indicating the outcome: duplicate,\n    ignored, skipped, or accepted (HTTP 202)."
+      tags:
+      - Integrations
+      security:
+      - {}
+      responses:
+        '200':
+          description: No response body
+components:
+  schemas:
+    Integration:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        source:
+          $ref: '#/components/schemas/IntegrationSourceEnum'
+        category:
+          $ref: '#/components/schemas/CategoryEnum'
+        name:
+          type: string
+          maxLength: 100
+        logo_url:
+          type: string
+          nullable: true
+          readOnly: true
+      required:
+      - category
+      - id
+      - logo_url
+      - name
+      - source
+    IntegrationSourceEnum:
+      enum:
+      - METABASE
+      - QUICKBOOKS
+      - XERO
+      - NETSUITE
+      - SALESFORCE
+      - SAGE_INTACCT
+      - RILLET
+      - CAMPFIRE
+      - CHARTHOP
+      - GOOGLE
+      - OKTA
+      - BOOMI
+      - SAML
+      - OPEN_EXCHANGE_RATES
+      - NETSUITE_RATES
+      - MERGE
+      type: string
+      description: '* `METABASE` - Metabase
+
+        * `QUICKBOOKS` - QuickBooks
+
+        * `XERO` - Xero
+
+        * `NETSUITE` - NetSuite
+
+        * `SALESFORCE` - Salesforce
+
+        * `SAGE_INTACCT` - Sage Intacct
+
+        * `RILLET` - Rillet
+
+        * `CAMPFIRE` - Campfire
+
+        * `CHARTHOP` - ChartHop
+
+        * `GOOGLE` - Google SSO
+
+        * `OKTA` - Okta (OIDC)
+
+        * `BOOMI` - Boomi
+
+        * `SAML` - SAML
+
+        * `OPEN_EXCHANGE_RATES` - Open Exchange Rates
+
+        * `NETSUITE_RATES` - NetSuite Saved Search
+
+        * `MERGE` - Cube Universal Connect'
+    CategoryEnum:
+      enum:
+      - BI
+      - GL
+      - HRIS
+      - SSO
+      - CRM
+      - OTHER
+      - UAP
+      type: string
+      description: '* `BI` - Business Intelligence
+
+        * `GL` - General Ledger
+
+        * `HRIS` - Human Resource Information Service
+
+        * `SSO` - Single Sign On
+
+        * `CRM` - Customer Relationship Management
+
+        * `OTHER` - Other
+
+        * `UAP` - Unified API Platform'
+    CompanyIntegration:
+      type: object
+      description: 'A serializer mixin that allows dynamic inclusion or exclusion of serializer fields by
+
+        passing `fields=[...]` or `exclude_fields=[...]` when initializing.'
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        integration:
+          allOf:
+          - $ref: '#/components/schemas/Integration'
+          readOnly: true
+        company:
+          allOf:
+          - $ref: '#/components/schemas/Company'
+          readOnly: true
+        integration_id:
+          type: integer
+          writeOnly: true
+        company_id:
+          type: string
+          format: uuid
+          writeOnly: true
+        settings: {}
+      required:
+      - company
+      - id
+      - integration
+    PatchedCompanyIntegration:
+      type: object
+      description: 'A serializer mixin that allows dynamic inclusion or exclusion of serializer fields by
+
+        passing `fields=[...]` or `exclude_fields=[...]` when initializing.'
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        integration:
+          allOf:
+          - $ref: '#/components/schemas/Integration'
+          readOnly: true
+        company:
+          allOf:
+          - $ref: '#/components/schemas/Company'
+          readOnly: true
+        integration_id:
+          type: integer
+          writeOnly: true
+        company_id:
+          type: string
+          format: uuid
+          writeOnly: true
+        settings: {}
+    TimeTypeEnum:
+      enum:
+      - STANDARD
+      - HALF_YEAR
+      - CUSTOM
+      type: string
+      description: '* `STANDARD` - Standard
+
+        * `HALF_YEAR` - Half Year
+
+        * `CUSTOM` - Custom'
+    Company:
+      type: object
+      description: 'A serializer mixin that allows dynamic inclusion or exclusion of serializer fields by
+
+        passing `fields=[...]` or `exclude_fields=[...]` when initializing.'
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        name:
+          type: string
+          maxLength: 255
+        slug:
+          type: string
+          readOnly: true
+          nullable: true
+        salesforce_id:
+          type: string
+          nullable: true
+          maxLength: 32
+        time_type:
+          $ref: '#/components/schemas/TimeTypeEnum'
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+      - created_at
+      - id
+      - name
+      - slug
+  securitySchemes:
+    OAuth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://portal.cubesoftware.com/o/authorize/
+          tokenUrl: https://api.cubesoftware.com/o/token/
+          scopes: {}
+      description: Standard Cube OAuth 2.0 flow

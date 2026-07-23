@@ -1,0 +1,417 @@
+openapi: 3.0.3
+info:
+  title: Cube Agents Dashboard API
+  version: 1.0.0 (1.0)
+  description: "#### General Description\nAn API to access underlying Cube functionality. These endpoints are the same endpoints\nthat support Cube's universal add-ons and a plethora of integrations meaning you'll be able to interact with your\nCube data in many powerful ways. Visit the API section of Cube's [Help Center](https://help.cubesoftware.com/hc/en-us/sections/18205290556180-Custom-Integrations)\nfor more usage guides on how you can use this API to integrate with Cube to accomplish various tasks!\n\n#### Versioning\nAll requests to the API require a version to be configured via an `Accept` Header. The value of this Header should look like this:\n```\nAccept: application/json; version=1.0\n```\nNote that the version number may differ depending on which version of the endpoint is needed.\n\n#### Response Structure\nThe general response structure of Cube's API endpoints will contain a `\"data\"` and `\"metadata\"` root level key:\n```json\n{\n    \"data\": { ... object data or list of objects ... },\n    \"metadata\": {\n        \"status\": 200,\n        \"message\": \"Potential message with additional context\",\n        \"error\": false,\n        \"code\": \"\"\n    }\n}\n```\n\n#### Rate Limiting\nAll endpoints have a rate limit configured, most of them default to 5/s.\nWhen the rate limit is encountered, a 429 HTTP code will be returned.\n\n#### Error Handling\nIn the event an error occurs, the response will typically look like this:\n```json\n{\n    \"data\": {},\n    \"metadata\": {\n        \"status\": 400,\n        \"message\": \"Some error message\",\n        \"error\": true,\n        \"code\": \"SOME_ERROR_CODE\"\n    }\n}\n```\n"
+  termsOfService: https://www.cubesoftware.com/terms-of-service
+servers:
+- url: https://api.cubesoftware.com
+  description: Cube API Production URL
+tags:
+- name: Dashboard
+  description: Access the underlying Dashboards of Cube
+paths:
+  /dashboard:
+    get:
+      operationId: dashboard_list
+      description: List all dashboards
+      summary: List all dashboards
+      parameters:
+      - in: header
+        name: X-Company-ID
+        schema:
+          type: string
+        description: Associates request with company
+        required: true
+      tags:
+      - Dashboard
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Dashboard'
+          description: ''
+    post:
+      operationId: dashboard_create
+      description: Create a dashboard
+      summary: Create a dashboard
+      parameters:
+      - in: header
+        name: X-Company-ID
+        schema:
+          type: string
+        description: Associates request with company
+        required: true
+      tags:
+      - Dashboard
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateDashboard'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/CreateDashboard'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/CreateDashboard'
+        required: true
+      security:
+      - OAuth2: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateDashboard'
+          description: ''
+  /dashboard/{dashboard_id}/embed:
+    get:
+      operationId: dashboard_embed_retrieve
+      description: Retrieve the embed URL for Cube Dashboards by Dashboard ID
+      summary: Retrieve Embedded URL for the requested Cube Dashboard
+      parameters:
+      - in: header
+        name: X-Company-ID
+        schema:
+          type: string
+        description: Associates request with company
+        required: true
+      - in: path
+        name: dashboard_id
+        schema:
+          type: string
+          format: uuid
+        description: The dashboard UUID
+        required: true
+      tags:
+      - Dashboard
+      security:
+      - OAuth2: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/data'
+          description: The embed URL with the required token is generated.
+  /dashboard/{id}:
+    get:
+      operationId: dashboard_retrieve
+      description: Retrieve a dashboard by ID
+      summary: Retrieve a dashboard by ID
+      parameters:
+      - in: header
+        name: X-Company-ID
+        schema:
+          type: string
+        description: Associates request with company
+        required: true
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+      tags:
+      - Dashboard
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Dashboard'
+          description: ''
+    patch:
+      operationId: dashboard_partial_update
+      description: Update writable dashboard fields
+      summary: Update a dashboard by ID
+      parameters:
+      - in: header
+        name: X-Company-ID
+        schema:
+          type: string
+        description: Associates request with company
+        required: true
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+      tags:
+      - Dashboard
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedDashboard'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedDashboard'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedDashboard'
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Dashboard'
+          description: ''
+    delete:
+      operationId: dashboard_destroy
+      parameters:
+      - in: header
+        name: X-Company-ID
+        schema:
+          type: string
+        description: Associates request with company
+        required: true
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+      tags:
+      - Dashboard
+      security:
+      - OAuth2: []
+      responses:
+        '204':
+          description: No response body
+  /dashboard/{id}/default:
+    patch:
+      operationId: dashboard_default_partial_update
+      description: DEPRECATED. Use the more general PATCH method instead.
+      summary: Set the default dashboard
+      parameters:
+      - in: header
+        name: X-Company-ID
+        schema:
+          type: string
+        description: Associates request with company
+        required: true
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+      tags:
+      - Dashboard
+      security:
+      - OAuth2: []
+      deprecated: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Dashboard'
+          description: ''
+components:
+  schemas:
+    CreateDashboard:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        name:
+          type: string
+          maxLength: 255
+        description:
+          type: string
+          writeOnly: true
+          nullable: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        external_id:
+          type: string
+          readOnly: true
+          nullable: true
+        source:
+          allOf:
+          - $ref: '#/components/schemas/Source402Enum'
+          readOnly: true
+        edit_url:
+          type: string
+          nullable: true
+          description: "Returns a url in the third party system for editing the dashboard.\n\nReturns:\n    str url in the external system where one can edit the dashboard."
+          readOnly: true
+        external:
+          type: object
+          additionalProperties: {}
+          nullable: true
+          description: "Returns an up to date representation of the dashboard provided by the external system.\n\nReturns:\n    A dictionary representation of the dashboard in the external system or None if this dashboard is\n        not a metabase dashboard.\n\nRaises:\n    MBNotFoundError: raised if the dashboard is not found in the external system."
+          readOnly: true
+        default:
+          type: boolean
+          readOnly: true
+        publish_status:
+          allOf:
+          - $ref: '#/components/schemas/PublishStatusEnum'
+          readOnly: true
+        sharing_scheme:
+          allOf:
+          - $ref: '#/components/schemas/SharingSchemeF41Enum'
+          readOnly: true
+        sharing_users:
+          readOnly: true
+      required:
+      - created_at
+      - default
+      - edit_url
+      - external
+      - external_id
+      - id
+      - name
+      - publish_status
+      - sharing_scheme
+      - sharing_users
+      - source
+    PublishStatusEnum:
+      enum:
+      - DRAFT
+      - PUBLISHED
+      type: string
+      description: '* `DRAFT` - Draft
+
+        * `PUBLISHED` - Published'
+    data:
+      type: object
+      properties:
+        data:
+          type: object
+          additionalProperties: {}
+        metadata:
+          type: object
+          additionalProperties: {}
+      required:
+      - data
+      - metadata
+    PatchedDashboard:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        name:
+          type: string
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        external_id:
+          type: string
+          readOnly: true
+          nullable: true
+        source:
+          allOf:
+          - $ref: '#/components/schemas/Source402Enum'
+          readOnly: true
+        edit_url:
+          type: string
+          nullable: true
+          description: "Returns a url in the third party system for editing the dashboard.\n\nReturns:\n    str url in the external system where one can edit the dashboard."
+          readOnly: true
+        external:
+          type: object
+          additionalProperties: {}
+          nullable: true
+          description: "Returns an up to date representation of the dashboard provided by the external system.\n\nReturns:\n    A dictionary representation of the dashboard in the external system or None if this dashboard is\n        not a metabase dashboard.\n\nRaises:\n    MBNotFoundError: raised if the dashboard is not found in the external system."
+          readOnly: true
+        default:
+          type: boolean
+        publish_status:
+          $ref: '#/components/schemas/PublishStatusEnum'
+        sharing_scheme:
+          $ref: '#/components/schemas/SharingSchemeF41Enum'
+        sharing_users: {}
+    Source402Enum:
+      enum:
+      - METABASE
+      type: string
+      description: '* `METABASE` - Metabase'
+    SharingSchemeF41Enum:
+      enum:
+      - ALL
+      - ADMINS
+      - SPECIFIC
+      type: string
+      description: '* `ALL` - All Team Members
+
+        * `ADMINS` - Only Admins
+
+        * `SPECIFIC` - Specific Team Members'
+    Dashboard:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        name:
+          type: string
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        external_id:
+          type: string
+          readOnly: true
+          nullable: true
+        source:
+          allOf:
+          - $ref: '#/components/schemas/Source402Enum'
+          readOnly: true
+        edit_url:
+          type: string
+          nullable: true
+          description: "Returns a url in the third party system for editing the dashboard.\n\nReturns:\n    str url in the external system where one can edit the dashboard."
+          readOnly: true
+        external:
+          type: object
+          additionalProperties: {}
+          nullable: true
+          description: "Returns an up to date representation of the dashboard provided by the external system.\n\nReturns:\n    A dictionary representation of the dashboard in the external system or None if this dashboard is\n        not a metabase dashboard.\n\nRaises:\n    MBNotFoundError: raised if the dashboard is not found in the external system."
+          readOnly: true
+        default:
+          type: boolean
+        publish_status:
+          $ref: '#/components/schemas/PublishStatusEnum'
+        sharing_scheme:
+          $ref: '#/components/schemas/SharingSchemeF41Enum'
+        sharing_users: {}
+      required:
+      - created_at
+      - edit_url
+      - external
+      - external_id
+      - id
+      - name
+      - sharing_users
+      - source
+  securitySchemes:
+    OAuth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://portal.cubesoftware.com/o/authorize/
+          tokenUrl: https://api.cubesoftware.com/o/token/
+          scopes: {}
+      description: Standard Cube OAuth 2.0 flow
