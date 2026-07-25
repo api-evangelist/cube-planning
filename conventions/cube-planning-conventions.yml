@@ -1,0 +1,39 @@
+generated: '2026-07-18'
+method: searched
+source:
+- openapi/cube-planning-openapi-original.yml
+- https://api.cubesoftware.com/docs/
+authentication:
+  style: oauth2
+  detail: OAuth 2.0 authorization-code + PKCE; Bearer access token in Authorization header.
+  ref: authentication/cube-planning-authentication.yml
+tenancy:
+  header: X-Company-ID
+  required: true
+  detail: Most operations require an X-Company-ID header identifying the Cube company/tenant.
+versioning:
+  style: accept-header
+  header: Accept
+  example: 'application/json; version=1.0'
+  detail: The API version is negotiated via the Accept header; version may differ per endpoint.
+  ref: lifecycle/cube-planning-lifecycle.yml
+response_envelope:
+  detail: Every response is wrapped as { data, metadata }. metadata carries status/message; errors add an errors[] array.
+  shape:
+    data: object|array
+    metadata: {status: int, message: string|object, code: string, error: bool}
+    errors: [{code: string, detail: object}]
+  ref: errors/cube-planning-problem-types.yml
+pagination:
+  style: page-and-limit
+  params: [page, limit, offset]
+  detail: List endpoints accept page/limit (and offset on some); page and limit are the common cursors.
+idempotency:
+  supported: false
+  detail: No Idempotency-Key header or parameter is declared in the OpenAPI or documented.
+rate_limiting:
+  documented: false
+  detail: No published rate-limit headers or quotas were located.
+filtering_sorting:
+  common_params: [search, ordering, status, include_tags]
+  detail: Many list endpoints support search, ordering, and resource-specific filters.

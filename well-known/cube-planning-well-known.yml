@@ -1,0 +1,21 @@
+generated: '2026-07-18'
+method: searched
+host: https://api.cubesoftware.com
+documents:
+- path: /.well-known/oauth-authorization-server
+  status: 200
+  file: cube-planning-oauth-authorization-server.json
+  spec: RFC 8414
+- path: /.well-known/security.txt
+  status: 404
+- path: /.well-known/openid-configuration
+  status: 404
+- path: /.well-known/api-catalog
+  status: 404
+- path: /.well-known/ai-plugin.json
+  status: 404
+other_hosts_probed:
+- host: https://www.cubesoftware.com
+  result: no /.well-known documents (all 404)
+- host: https://portal.cubesoftware.com
+  result: no /.well-known documents (all 404)

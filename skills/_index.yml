@@ -1,0 +1,11 @@
+generated: '2026-07-18'
+method: generated
+skills:
+- file: cube-planning-manage-dimensions.md
+  name: Manage Cube dimensions
+  api: openapi/cube-planning-openapi-original.yml
+  operations: [DimensionList, DimensionCreate, DimensionRetrieve, DimensionUpdate, dimensions_duplicate_create, formulas_recalculate_create]
+- file: cube-planning-export-cube-data.md
+  name: Export Cube data to a destination
+  api: openapi/cube-planning-openapi-original.yml
+  operations: [cube_analyze_create, cube_export_create, cube_export_list, cube_export_schedule_list, cube_export_notification_stale_data_retrieve]

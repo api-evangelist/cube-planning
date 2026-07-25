@@ -1,0 +1,34 @@
+generated: '2026-07-18'
+method: searched
+source: openapi/cube-planning-openapi-original.yml
+docs:
+- https://www.cubesoftware.com/security
+- https://security.cubesoftware.com
+standards:
+- id: oauth2
+  conforms: true
+  evidence: OpenAPI securitySchemes declares oauth2 authorizationCode flow
+- id: oauth2-pkce
+  conforms: true
+  evidence: oauth-authorization-server metadata advertises code_challenge_methods_supported S256
+- id: rfc8414-oauth-server-metadata
+  conforms: true
+  evidence: /.well-known/oauth-authorization-server returns 200 with issuer/endpoints
+- id: rfc7662-token-introspection
+  conforms: true
+  evidence: introspection_endpoint published in oauth-authorization-server metadata
+- id: soc2-type2
+  conforms: true
+  evidence: "Cube completed SOC 2 Type II examination (Dansa D'Arata Soucia); stated on cubesoftware.com/security"
+- id: hipaa
+  conforms: true
+  evidence: "Cube states HIPAA compliance on cubesoftware.com/security"
+- id: rfc9457-problem-details
+  conforms: false
+  evidence: error responses use Cube's data/metadata envelope, not application/problem+json
+- id: fhir-r4
+  conforms: false
+- id: fapi
+  conforms: false
+- id: scim2
+  conforms: false

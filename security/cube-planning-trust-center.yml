@@ -1,0 +1,18 @@
+generated: '2026-07-18'
+method: searched
+probe: false
+url: https://security.cubesoftware.com
+security_page: https://www.cubesoftware.com/security
+certifications:
+- SOC 2 Type II
+- HIPAA
+evidence:
+- source: https://www.cubesoftware.com/security
+  detail: "Cube has successfully completed the SOC 2 Type II examination by Dansa D'Arata Soucia; HIPAA compliance stated."
+- source: https://security.cubesoftware.com
+  detail: Cube Trust Center (hosted trust portal; security reports available upon request).
+notes: >-
+  The trust center at security.cubesoftware.com is a JavaScript single-page portal, so the
+  automated probe could not read certifications from the body; certifications above are confirmed
+  from the public cubesoftware.com/security page. No ISO 27001, PCI DSS, GDPR, or FedRAMP claims
+  were found.

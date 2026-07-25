@@ -1,0 +1,54 @@
+generated: '2026-07-18'
+method: derived
+status: candidate
+source: openapi/cube-planning-openapi-original.yml
+note: >-
+  No official hosted/remote Cube MCP server was found (searched docs, npm @modelcontextprotocol,
+  MCP registries). The tools below are a CANDIDATE set derived from Cube OpenAPI operations, one
+  tool per operationId. All operationIds are verbatim from the spec.
+server:
+  name: cube-planning
+  transport: http
+tools:
+- name: list_dimensions
+  description: Get all dimensions for the company.
+  source_operation: openapi/cube-planning-openapi-original.yml#DimensionList
+- name: create_dimension
+  description: Create a dimension.
+  source_operation: openapi/cube-planning-openapi-original.yml#DimensionCreate
+- name: get_dimension
+  description: Get a dimension by ID.
+  source_operation: openapi/cube-planning-openapi-original.yml#DimensionRetrieve
+- name: list_data_tables
+  description: Retrieve company data tables.
+  source_operation: openapi/cube-planning-openapi-original.yml#list
+- name: get_data_table
+  description: Retrieve a single data table.
+  source_operation: openapi/cube-planning-openapi-original.yml#retrieve_3
+- name: analyze_cube
+  description: Analyze the matrix for dimensions.
+  source_operation: openapi/cube-planning-openapi-original.yml#cube_analyze_create
+- name: begin_export
+  description: Begin a Cube data export.
+  source_operation: openapi/cube-planning-openapi-original.yml#cube_export_create
+- name: list_exports
+  description: List all exports.
+  source_operation: openapi/cube-planning-openapi-original.yml#cube_export_list
+- name: recalculate_formula
+  description: Recalculate a formula.
+  source_operation: openapi/cube-planning-openapi-original.yml#formulas_recalculate_create
+- name: list_dashboards
+  description: List all dashboards.
+  source_operation: openapi/cube-planning-openapi-original.yml#dashboard_list
+- name: create_dashboard
+  description: Create a dashboard.
+  source_operation: openapi/cube-planning-openapi-original.yml#dashboard_create
+- name: resync_connection
+  description: Resync a source system connection.
+  source_operation: openapi/cube-planning-openapi-original.yml#connection_resync_create
+- name: list_tags
+  description: Get all tags.
+  source_operation: openapi/cube-planning-openapi-original.yml#TagList
+- name: get_user
+  description: Return the current user's information.
+  source_operation: openapi/cube-planning-openapi-original.yml#user_retrieve

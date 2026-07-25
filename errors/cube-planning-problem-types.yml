@@ -1,0 +1,56 @@
+generated: '2026-07-18'
+method: derived
+source: openapi/cube-planning-openapi-original.yml
+format: cube-envelope
+envelope:
+  description: Cube wraps every response in a data/metadata envelope; errors add an errors[] array.
+  shape:
+    data: object|array
+    metadata:
+      status: int
+      error: bool
+      message: string|object
+      code: string
+    errors:
+    - code: string
+      detail: object
+note: Cube does not use RFC 9457 application/problem+json; error detail lives in metadata + errors[].
+problems:
+- status: 400
+  count: 44
+  example_messages:
+  - Invalid input - action item name must be unique or exceeds max length
+  - Invalid input - action item name must be unique, exceeds max length, or position is invalid
+  - Invalid pagination parameters
+  example_operation: action_items_create
+- status: 401
+  count: 28
+  example_messages:
+  - Unauthorized - authentication credentials not provided or invalid
+  - Unauthorized
+  - Invalid or expired embed token
+  example_operation: action_items_list
+- status: 403
+  count: 38
+  example_messages:
+  - Forbidden - insufficient permissions
+  - Permission denied
+  - Forbidden - Chat session does not belong to user
+  example_operation: action_items_list
+- status: 404
+  count: 31
+  example_messages:
+  - Action item not found or not owned by user
+  - Widget not found
+  - Workflow does not exist.
+  example_operation: action_items_retrieve
+- status: 409
+  count: 1
+  example_messages:
+  - Preflight failed — cube has active work (publish lock, import blocks, or maintenance lock).
+  example_operation: dimensions_tld_destroy
+- status: 500
+  count: 1
+  example_messages:
+  - Error generating screenshot
+  example_operation: canvases_widgets_render_create

@@ -1,0 +1,32 @@
+generated: '2026-07-18'
+method: searched
+source: openapi/cube-planning-openapi-original.yml
+docs: https://api.cubesoftware.com/.well-known/oauth-authorization-server
+schemes:
+- name: OAuth2
+  source: openapi/cube-planning-openapi-original.yml
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://portal.cubesoftware.com/o/authorize/
+    tokenUrl: https://api.cubesoftware.com/o/token/
+    introspectionUrl: https://api.cubesoftware.com/o/introspect/
+    pkce: S256
+    grant_types: [authorization_code, refresh_token]
+  description: Standard Cube OAuth 2.0 flow (authorization code + PKCE). The OpenAPI
+    security scheme declares no scopes; the scopes below are taken verbatim from Cube's
+    RFC 8414 OAuth authorization-server metadata document.
+# Scopes are NOT declared per-operation in the OpenAPI; they are published in Cube's
+# /.well-known/oauth-authorization-server document (scopes_supported).
+scopes:
+- scope: read
+  description: Read access to Cube resources.
+  flows: [authorizationCode]
+  sources: ['well-known/cube-planning-oauth-authorization-server.json']
+- scope: write
+  description: Write access to Cube resources.
+  flows: [authorizationCode]
+  sources: ['well-known/cube-planning-oauth-authorization-server.json']
+- scope: introspection
+  description: Permission to introspect access tokens via the introspection endpoint.
+  flows: [authorizationCode]
+  sources: ['well-known/cube-planning-oauth-authorization-server.json']

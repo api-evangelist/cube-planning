@@ -1,0 +1,21 @@
+generated: '2026-07-18'
+method: searched
+source:
+- openapi/cube-planning-openapi-original.yml
+- https://www.cubesoftware.com/developer-center
+versioning:
+  scheme: accept-header
+  current: '1.0'
+  detail: >-
+    Every request must set the API version via an Accept header, e.g.
+    `Accept: application/json; version=1.0`. The version may differ per endpoint.
+  docs: https://api.cubesoftware.com/docs/
+deprecation:
+  policy_url: null
+  sunset_header: false
+  note: No public deprecation/sunset policy located; no operations marked deprecated in the OpenAPI.
+status_page: https://status.cubesoftware.com
+terms_of_service: https://www.cubesoftware.com/terms-of-service
+sla:
+  url: null
+deprecated_operations: []
