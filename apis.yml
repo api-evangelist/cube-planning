@@ -745,6 +745,8 @@ apis:
   - type: GettingStarted
     url: https://help.cubesoftware.com/hc/en-us/sections/18205290556180-Custom-Integrations
 common:
+- type: Overlay
+  url: overlays/cube-planning-openapi-overlay.yaml
 - type: DomainSecurity
   url: security/cube-planning-domain-security.yml
 - type: AgenticAccess
