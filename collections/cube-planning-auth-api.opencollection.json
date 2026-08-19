@@ -1,0 +1,81 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Cube Agents Auth API",
+    "version": "1.0.0 (1.0)"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Auth",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List enabled MFA devices",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.cubesoftware.com/auth/devices",
+            "headers": [
+              {
+                "name": "X-Company-ID",
+                "value": ""
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://portal.cubesoftware.com/o/authorize/",
+              "accessTokenUrl": "https://api.cubesoftware.com/o/token/",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Returns all confirmed multi-factor authentication devices for the current user."
+        },
+        {
+          "info": {
+            "name": "Create an embed token",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.cubesoftware.com/auth/embed-token",
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://portal.cubesoftware.com/o/authorize/",
+              "accessTokenUrl": "https://api.cubesoftware.com/o/token/",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Creates a short-lived, single-use embed token for authenticating embedded portal pages in iframes or headless browsers."
+        },
+        {
+          "info": {
+            "name": "Exchange an embed token for an OAuth2 access token",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.cubesoftware.com/auth/embed-token/exchange",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Exchanges a short-lived embed token for a standard OAuth2 access token. Returns the same payload shape as the PKCE token endpoint."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

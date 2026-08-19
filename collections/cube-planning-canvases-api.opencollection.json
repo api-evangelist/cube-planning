@@ -1,0 +1,563 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Cube Agents Canvases API",
+    "version": "1.0.0 (1.0)"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Canvases",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List all canvases.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.cubesoftware.com/canvases",
+            "params": [
+              {
+                "name": "source",
+                "value": "",
+                "type": "query",
+                "description": "Filters the results to canvases with the given source.\n\n- By default, only `WORKSPACE` canvases are returned.\n- Use `?source=DECKS` to list only Decks-created canvases."
+              },
+              {
+                "name": "widget_type",
+                "value": "",
+                "type": "query",
+                "description": "Filters the results to canvases that include **at least one widget** of the given type.\n\n- If omitted, no widget-type filtering is applied."
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://portal.cubesoftware.com/o/authorize/",
+              "accessTokenUrl": "https://api.cubesoftware.com/o/token/",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "List of all canvases available to the authenticated user company.\n\n- Results are ordered by creation date, newest first.\n- Each canvas includes basic metadata and an `is_liked` flag indicating whether the current user has liked it.\n- For performance reasons, related fields such as `tabs` and `shared_with` are **not included** in list responses."
+        },
+        {
+          "info": {
+            "name": "Create a new canvas.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.cubesoftware.com/canvases",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://portal.cubesoftware.com/o/authorize/",
+              "accessTokenUrl": "https://api.cubesoftware.com/o/token/",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Create a new canvas under the authenticated user company.\n\n- Required fields typically include `name`, and optionally layout or metadata fields.\n- The response includes the full representation of the newly created canvas."
+        },
+        {
+          "info": {
+            "name": "Create a new canvas tab.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.cubesoftware.com/canvases/:canvas_pk/tabs",
+            "params": [
+              {
+                "name": "canvas_pk",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://portal.cubesoftware.com/o/authorize/",
+              "accessTokenUrl": "https://api.cubesoftware.com/o/token/",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Create a new canvas tab."
+        },
+        {
+          "info": {
+            "name": "Update specific fields of a canvas tab.",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.cubesoftware.com/canvases/:canvas_pk/tabs/:id",
+            "params": [
+              {
+                "name": "canvas_pk",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://portal.cubesoftware.com/o/authorize/",
+              "accessTokenUrl": "https://api.cubesoftware.com/o/token/",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Update specific fields of a canvas tab."
+        },
+        {
+          "info": {
+            "name": "Delete a canvas tab.",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.cubesoftware.com/canvases/:canvas_pk/tabs/:id",
+            "params": [
+              {
+                "name": "canvas_pk",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://portal.cubesoftware.com/o/authorize/",
+              "accessTokenUrl": "https://api.cubesoftware.com/o/token/",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Delete a canvas tab."
+        },
+        {
+          "info": {
+            "name": "Associate widgets with a canvas tab.",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.cubesoftware.com/canvases/:canvas_pk/tabs/:id/layout",
+            "params": [
+              {
+                "name": "canvas_pk",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://portal.cubesoftware.com/o/authorize/",
+              "accessTokenUrl": "https://api.cubesoftware.com/o/token/",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Associate widgets with a canvas tab."
+        },
+        {
+          "info": {
+            "name": "Retrieve a specific canvas",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.cubesoftware.com/canvases/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://portal.cubesoftware.com/o/authorize/",
+              "accessTokenUrl": "https://api.cubesoftware.com/o/token/",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Retrieve details of a specific canvas by ID.\n\n- Includes all fields, including `tabs` and `shared_with` data.\n- This endpoint is intended for viewing a single canvas along with its associated tabs and widgets."
+        },
+        {
+          "info": {
+            "name": "Partially update a canvas by ID.",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.cubesoftware.com/canvases/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://portal.cubesoftware.com/o/authorize/",
+              "accessTokenUrl": "https://api.cubesoftware.com/o/token/",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Update one or more editable fields of an existing canvas.\n\n- Only the provided fields will be modified.\n- Non-editable fields (such as `id`, `company_id`, and timestamps) are ignored if included.\n- Returns the updated canvas representation."
+        },
+        {
+          "info": {
+            "name": "Delete a canvas.",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.cubesoftware.com/canvases/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://portal.cubesoftware.com/o/authorize/",
+              "accessTokenUrl": "https://api.cubesoftware.com/o/token/",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Permanently delete a canvas by ID."
+        },
+        {
+          "info": {
+            "name": "Duplicate a canvas.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.cubesoftware.com/canvases/:id/duplicate",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://portal.cubesoftware.com/o/authorize/",
+              "accessTokenUrl": "https://api.cubesoftware.com/o/token/",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Duplicate a canvas. The new canvas will be created with a new name and a copy of the layout."
+        },
+        {
+          "info": {
+            "name": "Like a canvas",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.cubesoftware.com/canvases/:id/like",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://portal.cubesoftware.com/o/authorize/",
+              "accessTokenUrl": "https://api.cubesoftware.com/o/token/",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Like a canvas."
+        },
+        {
+          "info": {
+            "name": "Undo a canvas like.",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.cubesoftware.com/canvases/:id/like",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://portal.cubesoftware.com/o/authorize/",
+              "accessTokenUrl": "https://api.cubesoftware.com/o/token/",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Undo a canvas like."
+        },
+        {
+          "info": {
+            "name": "List all widgets.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.cubesoftware.com/canvases/widgets",
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://portal.cubesoftware.com/o/authorize/",
+              "accessTokenUrl": "https://api.cubesoftware.com/o/token/",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "List all widgets."
+        },
+        {
+          "info": {
+            "name": "Create a new widget.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.cubesoftware.com/canvases/widgets",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://portal.cubesoftware.com/o/authorize/",
+              "accessTokenUrl": "https://api.cubesoftware.com/o/token/",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Create a new widget."
+        },
+        {
+          "info": {
+            "name": "Retrieve details of a specific widget.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.cubesoftware.com/canvases/widgets/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://portal.cubesoftware.com/o/authorize/",
+              "accessTokenUrl": "https://api.cubesoftware.com/o/token/",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Retrieve details of a specific widget."
+        },
+        {
+          "info": {
+            "name": "Update specific fields of a widget.",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.cubesoftware.com/canvases/widgets/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://portal.cubesoftware.com/o/authorize/",
+              "accessTokenUrl": "https://api.cubesoftware.com/o/token/",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Update specific fields of a widget."
+        },
+        {
+          "info": {
+            "name": "canvases_widgets_destroy",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.cubesoftware.com/canvases/widgets/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://portal.cubesoftware.com/o/authorize/",
+              "accessTokenUrl": "https://api.cubesoftware.com/o/token/",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "This is a shortcut class that will include all 6 resourceful actions part of the DRF ViewSets:\n- list()\n- retrieve()\n- create()\n- update()\n- partial_update()\n- destroy()\n\nIf you do not want to expose all 6 of these in your ViewSet, then use the CubeAuthenticatedViewSet and add the\nappropriate mixins to it (see rest_framework.mixins). This will allow the api to behave appropriately and block\nrequests to unprocessable endpoints. Furthermore, it will make the drf_spectacular documentation be genera"
+        },
+        {
+          "info": {
+            "name": "Generate a screenshot of a widget component.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.cubesoftware.com/canvases/widgets/:id/render",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://portal.cubesoftware.com/o/authorize/",
+              "accessTokenUrl": "https://api.cubesoftware.com/o/token/",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Generates a PNG screenshot of the widget component by rendering it in a headless browser.\n\n- The screenshot is uploaded to S3 for record keeping.\n- Returns the PNG image directly.\n- Optional rendering parameters can be provided in the request body."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

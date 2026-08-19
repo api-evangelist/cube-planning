@@ -1,0 +1,264 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Cube Agents Workflow API",
+    "version": "1.0.0 (1.0)"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Workflow",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List workflow executions.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.cubesoftware.com/company/workflow-executions",
+            "headers": [
+              {
+                "name": "HTTP_ACCEPT",
+                "value": ""
+              },
+              {
+                "name": "X-Company-ID",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "count_by",
+                "value": "",
+                "type": "query",
+                "description": "Dimensions for `metadata.counts` grouping. Repeat or comma-separate. Allowed: `created_at` (UTC hour), `started_at` (UTC hour), `status`, `started_by` (alias `created_by`). Counts use DB aggregation over the latest execution per workflow (registered paths only), honor exclude_cleared, and ignore since, type_id, and status list filters. When absent, metadata.counts is omitted (use metadata.pagination.total_items)."
+              },
+              {
+                "name": "exclude_cleared",
+                "value": "",
+                "type": "query",
+                "description": "When true, omit executions dismissed via clear."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Page size (default 25, max 500). Invalid values return 400."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number (v1.2 list is always paginated)."
+              },
+              {
+                "name": "since",
+                "value": "",
+                "type": "query",
+                "description": "Hours to look back for workflow executions (v1.2 filters on created_at, not started_at)."
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "Filter the list by status (QUEUED, PROCESSING, FAILED, COMPLETED, CANCELLED). Repeat or comma-separate for OR (e.g. status=PROCESSING,QUEUED for active). Does not affect metadata.counts. On v1.2, QUEUED means enqueued but not yet started."
+              },
+              {
+                "name": "type_id",
+                "value": "",
+                "type": "query",
+                "description": "Filter to a registered workflow type id from the catalog."
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://portal.cubesoftware.com/o/authorize/",
+              "accessTokenUrl": "https://api.cubesoftware.com/o/token/",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Paginated registered executions with optional `metadata.counts` (when `count_by` is set) and `metadata.pagination`; omits unregistered workflow paths."
+        },
+        {
+          "info": {
+            "name": "Will cancel a currently in-progress workflow.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.cubesoftware.com/company/workflow-executions/:workflow_execution_id/cancel",
+            "headers": [
+              {
+                "name": "HTTP_ACCEPT",
+                "value": ""
+              },
+              {
+                "name": "X-Company-ID",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "workflow_execution_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://portal.cubesoftware.com/o/authorize/",
+              "accessTokenUrl": "https://api.cubesoftware.com/o/token/",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Will cancel a currently in-progress workflow."
+        },
+        {
+          "info": {
+            "name": "Will mark a workflow as deleted.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.cubesoftware.com/company/workflow-executions/:workflow_execution_id/clear",
+            "headers": [
+              {
+                "name": "HTTP_ACCEPT",
+                "value": ""
+              },
+              {
+                "name": "X-Company-ID",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "workflow_execution_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://portal.cubesoftware.com/o/authorize/",
+              "accessTokenUrl": "https://api.cubesoftware.com/o/token/",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Will mark a workflow as deleted for all users at the current company."
+        },
+        {
+          "info": {
+            "name": "List registered workflow types (read-only catalog).",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.cubesoftware.com/company/workflow-types",
+            "headers": [
+              {
+                "name": "HTTP_ACCEPT",
+                "value": ""
+              },
+              {
+                "name": "X-Company-ID",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Without `page`: optional cap on how many entries to return from the start of the filtered list (max 500). With `page`: page size (defaults to 100 when omitted, max 500); invalid values return 400."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "When present, enables pagination (same contract as other Cube list endpoints). Out-of-range pages fall back to page 1. Response includes `metadata.pagination`."
+              },
+              {
+                "name": "prefix",
+                "value": "",
+                "type": "query",
+                "description": "Filter to entries whose type_id or workflow class FQN starts with this prefix. Repeat the parameter or use comma-separated values (OR logic)."
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://portal.cubesoftware.com/o/authorize/",
+              "accessTokenUrl": "https://api.cubesoftware.com/o/token/",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Returns metadata for each workflow type in the in-code registry for this company context. GET only — no create, update, or delete. Optional `prefix` filters entries whose `type_id` or workflow class FQN starts with any given prefix (repeat param or comma-separated). Without `page`, optional `limit` caps how many rows are returned (max 500). With `page`, the list is paginated using the same `page` / `limit` contract as other Cube list endpoints (`CubePageNumberPagination`): `limit` is the page si"
+        },
+        {
+          "info": {
+            "name": "Get resolved workflow shape for a registered type (read-only catalog).",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.cubesoftware.com/company/workflow-types/:type_id",
+            "headers": [
+              {
+                "name": "HTTP_ACCEPT",
+                "value": ""
+              },
+              {
+                "name": "X-Company-ID",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "catalog_version",
+                "value": "",
+                "type": "query",
+                "description": "Pinned catalog version; omit for current shape. Unknown versions fall back to current."
+              },
+              {
+                "name": "type_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://portal.cubesoftware.com/o/authorize/",
+              "accessTokenUrl": "https://api.cubesoftware.com/o/token/",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Returns the resolved `WorkflowShape` (stages and tri-state labels) for `type_id`. GET only. Optional query `catalog_version` selects a historical catalog version; if omitted or unknown, the current shape is returned (same fallback as server-side `shape_for_execution`). Unknown `type_id` yields 404."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

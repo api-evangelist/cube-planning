@@ -1,0 +1,1869 @@
+{
+  "item": [
+    {
+      "id": "aaa980a1-7ba4-4b91-8f2b-a737fd5ad454",
+      "name": "Cube Data",
+      "description": {
+        "content": "The data stored in a cube for a company, organized by their dimensions.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "6e334a86-a369-4779-8544-df404af96673",
+          "name": "Analyze Matrix For Dimensions",
+          "request": {
+            "name": "Analyze Matrix For Dimensions",
+            "description": {
+              "content": "Analyzes a 2D array of data representing potential data for the cube\n        and determines where the various dimensions are within that data.\n        ",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "cube",
+                "analyze"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) Associates request with company",
+                "key": "X-Company-ID",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.cubesoftware.com/o/token/"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://portal.cubesoftware.com/o/authorize/"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            },
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "disabled": false,
+                  "key": "address",
+                  "value": "<string>",
+                  "description": "(Required) "
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "f60c7b51-57d5-4766-8a6a-f6df353a7321",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cube",
+                    "analyze"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Associates request with company",
+                    "key": "X-Company-ID",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) ",
+                        "type": "text/plain"
+                      },
+                      "key": "address",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"rows\": [\n    {\n      \"dimensions\": [\n        {\n          \"id\": null,\n          \"parent_id\": 1,\n          \"name\": \"Operating Expenses\",\n          \"active\": true,\n          \"status\": \"ENABLED\",\n          \"type\": \"BASIC\",\n          \"rollup_type\": null,\n          \"formula\": null,\n          \"write_protection\": \"NONE\",\n          \"position\": 1,\n          \"special_case_id\": null,\n          \"date\": null,\n          \"has_children\": false,\n          \"write_block_reason\": null,\n          \"metadata\": null\n        },\n        {\n          \"id\": null,\n          \"parent_id\": 1,\n          \"name\": \"Income Statement\",\n          \"active\": true,\n          \"status\": \"ENABLED\",\n          \"type\": \"BASIC\",\n          \"rollup_type\": null,\n          \"formula\": null,\n          \"write_protection\": \"NONE\",\n          \"position\": 1,\n          \"special_case_id\": null,\n          \"date\": null,\n          \"has_children\": false,\n          \"write_block_reason\": null,\n          \"metadata\": null\n        }\n      ],\n      \"tld\": {\n        \"id\": 1,\n        \"parent_id\": null,\n        \"name\": \"Account\",\n        \"active\": true,\n        \"status\": \"ENABLED\",\n        \"type\": \"BASIC\",\n        \"rollup_type\": null,\n        \"formula\": null,\n        \"write_protection\": \"NONE\",\n        \"position\": 1,\n        \"special_case_id\": null,\n        \"date\": null,\n        \"has_children\": false,\n        \"write_block_reason\": null,\n        \"metadata\": null\n      },\n      \"address\": \"A2:A3\"\n    }\n  ],\n  \"columns\": [\n    {\n      \"dimensions\": [\n        {\n          \"id\": null,\n          \"parent_id\": null,\n          \"name\": \"Q1-22\",\n          \"active\": true,\n          \"status\": \"ENABLED\",\n          \"type\": \"BASIC\",\n          \"rollup_type\": null,\n          \"formula\": null,\n          \"write_protection\": \"NONE\",\n          \"position\": 1,\n          \"special_case_id\": null,\n          \"date\": \"2022-03-31\",\n          \"has_children\": false,\n          \"write_block_reason\": null,\n          \"metadata\": null\n        },\n        {\n          \"id\": null,\n          \"parent_id\": 10,\n          \"name\": \"2022\",\n          \"active\": true,\n          \"status\": \"ENABLED\",\n          \"type\": \"BASIC\",\n          \"rollup_type\": null,\n          \"formula\": null,\n          \"write_protection\": \"NONE\",\n          \"position\": 1,\n          \"special_case_id\": null,\n          \"date\": \"2022-12-31\",\n          \"has_children\": false,\n          \"write_block_reason\": null,\n          \"metadata\": null\n        }\n      ],\n      \"tld\": {\n        \"id\": 10,\n        \"parent_id\": null,\n        \"name\": \"Time\",\n        \"active\": true,\n        \"status\": \"ENABLED\",\n        \"type\": \"BASIC\",\n        \"rollup_type\": null,\n        \"formula\": null,\n        \"write_protection\": \"NONE\",\n        \"position\": 1,\n        \"special_case_id\": null,\n        \"date\": null,\n        \"has_children\": false,\n        \"write_block_reason\": null,\n        \"metadata\": null\n      },\n      \"address\": \"B1:C1\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "95ed69aa-78e4-4d42-b618-4ae874fe0f62",
+          "name": "List all exports",
+          "request": {
+            "name": "List all exports",
+            "description": {
+              "content": "List all exports",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "cube",
+                "export"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) Associates request with company",
+                "key": "X-Company-ID",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.cubesoftware.com/o/token/"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://portal.cubesoftware.com/o/authorize/"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "6205d2f1-5506-4168-a82f-eb7001142e8d",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cube",
+                    "export"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Associates request with company",
+                    "key": "X-Company-ID",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"completed_at\": \"2020-03-16T22:17:26.314Z\",\n    \"created_at\": \"1993-07-24T13:05:37.994Z\",\n    \"created_by\": 7333,\n    \"id\": \"dc955b15-06f9-a87e-5a74-959f63f21805\",\n    \"scheduled\": true,\n    \"status\": \"ERROR\"\n  },\n  {\n    \"completed_at\": \"1995-06-06T23:52:18.738Z\",\n    \"created_at\": \"2015-10-08T15:55:36.383Z\",\n    \"created_by\": 9880,\n    \"id\": \"279b7dfd-2e95-3e8b-2d04-d55577be0b58\",\n    \"scheduled\": false,\n    \"status\": \"ERROR\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e6dfa958-3b8a-497b-ac7b-34e0968506fc",
+          "name": "Begin an export",
+          "request": {
+            "name": "Begin an export",
+            "description": {
+              "content": "Begin an export",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "cube",
+                "export"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) Associates request with company",
+                "key": "X-Company-ID",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.cubesoftware.com/o/token/"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://portal.cubesoftware.com/o/authorize/"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            },
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": []
+            }
+          },
+          "response": [
+            {
+              "id": "75499db0-da11-4daf-80eb-ca210f4e7690",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cube",
+                    "export"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Associates request with company",
+                    "key": "X-Company-ID",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": []
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"95954f51-244a-4971-acf8-e2410f8b90da\",\n  \"created_at\": \"1999-07-10T20:58:43.203Z\",\n  \"status\": \"ERROR\",\n  \"completed_at\": \"1979-10-11T22:44:00.899Z\",\n  \"created_by\": 8010,\n  \"scheduled\": false\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "405ea773-e7f5-467d-88a2-184ad07f293c",
+          "name": "Get stale data notification details",
+          "request": {
+            "name": "Get stale data notification details",
+            "description": {},
+            "url": {
+              "path": [
+                "cube",
+                "export",
+                "notification",
+                "stale-data"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) Associates request with company",
+                "key": "X-Company-ID",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.cubesoftware.com/o/token/"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://portal.cubesoftware.com/o/authorize/"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "c69476ba-c2fc-4ed8-97f9-704d3345532c",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cube",
+                    "export",
+                    "notification",
+                    "stale-data"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Associates request with company",
+                    "key": "X-Company-ID",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"paused\": true,\n  \"paused_at\": \"2026-07-19T00:15:28+00:00\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ebc4194b-90db-4899-8f8f-70645b290f12",
+          "name": "Set stale data notification details",
+          "request": {
+            "name": "Set stale data notification details",
+            "description": {},
+            "url": {
+              "path": [
+                "cube",
+                "export",
+                "notification",
+                "stale-data"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) Associates request with company",
+                "key": "X-Company-ID",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.cubesoftware.com/o/token/"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://portal.cubesoftware.com/o/authorize/"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"paused\": \"<boolean>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "d142e101-3074-4639-943c-98a25d15ada7",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cube",
+                    "export",
+                    "notification",
+                    "stale-data"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Associates request with company",
+                    "key": "X-Company-ID",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"paused\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"paused\": true,\n  \"paused_at\": \"2026-07-19T00:15:28+00:00\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ec67a339-55fd-4246-b481-24d3783b91b9",
+          "name": "Retrieve a BI data export schedule",
+          "request": {
+            "name": "Retrieve a BI data export schedule",
+            "description": {
+              "content": "Retrieve a BI data export schedule",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "cube",
+                "export",
+                "schedule"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) Associates request with company",
+                "key": "X-Company-ID",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.cubesoftware.com/o/token/"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://portal.cubesoftware.com/o/authorize/"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "ee6a835b-21f9-4d25-af73-167fef173353",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cube",
+                    "export",
+                    "schedule"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Associates request with company",
+                    "key": "X-Company-ID",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"created_at\": \"2005-12-10T07:01:19.292Z\",\n    \"id\": 5773,\n    \"modified_at\": \"1966-07-13T19:12:31.719Z\",\n    \"hour_of_day\": 17\n  },\n  {\n    \"created_at\": \"1975-01-31T16:34:48.896Z\",\n    \"id\": 6471,\n    \"modified_at\": \"2004-02-25T22:01:47.035Z\",\n    \"hour_of_day\": 17\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "93e2f435-2537-49e2-b88a-2f3c05913524",
+          "name": "Create a BI data export schedule",
+          "request": {
+            "name": "Create a BI data export schedule",
+            "description": {
+              "content": "Create a BI data export schedule",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "cube",
+                "export",
+                "schedule"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) Associates request with company",
+                "key": "X-Company-ID",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.cubesoftware.com/o/token/"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://portal.cubesoftware.com/o/authorize/"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            },
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "disabled": false,
+                  "key": "hour_of_day",
+                  "value": "<integer>"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "1da65fa3-c9a8-47d3-ab29-d09e48f85c7a",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cube",
+                    "export",
+                    "schedule"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Associates request with company",
+                    "key": "X-Company-ID",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "key": "hour_of_day",
+                      "value": "<integer>"
+                    }
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 5585,\n  \"hour_of_day\": \"<integer>\",\n  \"created_at\": \"2013-10-30T22:17:21.409Z\",\n  \"modified_at\": \"1995-11-26T23:44:31.815Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "17adf5db-2481-4346-a747-35379ec0250b",
+          "name": "Update a BI data export schedule",
+          "request": {
+            "name": "Update a BI data export schedule",
+            "description": {
+              "content": "Update a BI data export schedule",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "cube",
+                "export",
+                "schedule",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) Associates request with company",
+                "key": "X-Company-ID",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.cubesoftware.com/o/token/"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://portal.cubesoftware.com/o/authorize/"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            },
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "disabled": false,
+                  "key": "hour_of_day",
+                  "value": "<integer>"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "d9bc37d7-1d33-401b-904b-b2793c1c5f91",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cube",
+                    "export",
+                    "schedule",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Associates request with company",
+                    "key": "X-Company-ID",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "key": "hour_of_day",
+                      "value": "<integer>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 5585,\n  \"hour_of_day\": \"<integer>\",\n  \"created_at\": \"2013-10-30T22:17:21.409Z\",\n  \"modified_at\": \"1995-11-26T23:44:31.815Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "823a4e79-c5c5-4525-9928-4b00da17dcb9",
+          "name": "Delete a BI data export schedule",
+          "request": {
+            "name": "Delete a BI data export schedule",
+            "description": {
+              "content": "Delete a BI data export schedule",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "cube",
+                "export",
+                "schedule",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) Associates request with company",
+                "key": "X-Company-ID",
+                "value": "<string>"
+              }
+            ],
+            "method": "DELETE",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.cubesoftware.com/o/token/"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://portal.cubesoftware.com/o/authorize/"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "1ab0e319-312d-4333-9f11-4e1779995a28",
+              "name": "No response body",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cube",
+                    "export",
+                    "schedule",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Associates request with company",
+                    "key": "X-Company-ID",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6a3a0660-d37a-4f9b-882a-f3b448ddc832",
+          "name": "Get Cube Values",
+          "request": {
+            "name": "Get Cube Values",
+            "description": {
+              "content": "This endpoint retrieves values stored in the OLAP cube for a given company. Any record with a null ID is a calculated value (i.e. rollups) whereas records with IDs are values explicitly stored in the cube.\n\nThis endpoint is useful when creating reports out of data in the cube. Like a pivot table, you are able to specify which dimensions are in your rows / columns for the report, and the API will figure out the appropriate data to pull. In the example on the right, the \"Account\" dimension is provided as rows with \"Scenario\" and \"Time\" being provided as columns. Therefore, the \"Department\" dimension must be provided as a filter.\n\nYou are able to pass either the names of the dimensions or their IDs as parameters.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "cube",
+                "pivot"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "The ID of the company that is making the request if the authenticated user has access to numerous companies",
+                "key": "X-Company-ID",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.cubesoftware.com/o/token/"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://portal.cubesoftware.com/o/authorize/"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            },
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "disabled": false,
+                  "key": "key_0",
+                  "value": "{}",
+                  "description": "(Required) "
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "bad633b5-c3a9-4294-8265-b9827efa96ea",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cube",
+                    "pivot"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "The ID of the company that is making the request if the authenticated user has access to numerous companies",
+                    "key": "X-Company-ID",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) ",
+                        "type": "text/plain"
+                      },
+                      "key": "key_0",
+                      "value": "{}"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) ",
+                        "type": "text/plain"
+                      },
+                      "key": "key_1",
+                      "value": "{}"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": \"07c991586dfd4593add48225d06352b6\",\n    \"value\": \"1.00\",\n    \"dimensions\": {\n      \"Account\": [\n        {\n          \"id\": 5192,\n          \"name\": \"Income Statement\",\n          \"active\": true,\n          \"status\": \"ENABLED\"\n        },\n        {\n          \"id\": 5693,\n          \"name\": \"Revenue\",\n          \"active\": true,\n          \"status\": \"ENABLED\"\n        },\n        {\n          \"id\": 5695,\n          \"name\": \"Product Revenue\",\n          \"active\": true,\n          \"status\": \"ENABLED\"\n        }\n      ],\n      \"Scenario\": [\n        {\n          \"id\": 5196,\n          \"name\": \"Actuals\",\n          \"active\": true,\n          \"status\": \"ENABLED\"\n        }\n      ],\n      \"Time\": [\n        {\n          \"id\": 5217,\n          \"name\": \"2019\",\n          \"active\": true,\n          \"status\": \"ENABLED\"\n        },\n        {\n          \"id\": 5218,\n          \"name\": \"Q1-20\",\n          \"active\": true,\n          \"status\": \"ENABLED\"\n        },\n        {\n          \"id\": 5219,\n          \"name\": \"Jan-20\",\n          \"active\": true,\n          \"status\": \"ENABLED\"\n        }\n      ],\n      \"Department\": [\n        {\n          \"id\": 5194,\n          \"name\": \"Consolidated Only\",\n          \"active\": true,\n          \"status\": \"ENABLED\"\n        }\n      ]\n    }\n  },\n  {\n    \"id\": null,\n    \"value\": \"3.00\",\n    \"dimensions\": {\n      \"Account\": [\n        {\n          \"id\": 5192,\n          \"name\": \"Income Statement\",\n          \"active\": true,\n          \"status\": \"ENABLED\"\n        },\n        {\n          \"id\": 5700,\n          \"name\": \"Gross Revenue\",\n          \"active\": true,\n          \"status\": \"ENABLED\"\n        }\n      ],\n      \"Scenario\": [\n        {\n          \"id\": 5196,\n          \"name\": \"Actuals\",\n          \"active\": true,\n          \"status\": \"ENABLED\"\n        }\n      ],\n      \"Time\": [\n        {\n          \"id\": 5217,\n          \"name\": \"2019\",\n          \"active\": true,\n          \"status\": \"ENABLED\"\n        },\n        {\n          \"id\": 5218,\n          \"name\": \"Q1\",\n          \"active\": true,\n          \"status\": \"ENABLED\"\n        },\n        {\n          \"id\": 5221,\n          \"name\": \"March\",\n          \"active\": true,\n          \"status\": \"ENABLED\"\n        }\n      ],\n      \"Department\": [\n        {\n          \"id\": 5194,\n          \"name\": \"Consolidated Only\",\n          \"active\": true,\n          \"status\": \"ENABLED\"\n        }\n      ]\n    }\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "89394fcc-d7c7-43ca-9945-2fe99dfad310",
+          "name": "Get Cube Value Sources",
+          "request": {
+            "name": "Get Cube Value Sources",
+            "description": {
+              "content": "This endpoint retrieves the data sources powering the cube values for requested cross-sections.The full Source DataTable and ERP Connection details are provided, including the status of most recent import.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "cube",
+                "pivot",
+                "sources"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) The ID of the company that is making the request if the authenticated user has access to numerous companies",
+                "key": "X-Company-ID",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.cubesoftware.com/o/token/"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://portal.cubesoftware.com/o/authorize/"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            },
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "disabled": false,
+                  "key": "key_0",
+                  "value": "{}",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "key_1",
+                  "value": "{}",
+                  "description": "(Required) "
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "7aa33e43-e3ff-4e7e-8c7c-d658fa05cdad",
+              "name": "The data table object",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cube",
+                    "pivot",
+                    "sources"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The ID of the company that is making the request if the authenticated user has access to numerous companies",
+                    "key": "X-Company-ID",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) ",
+                        "type": "text/plain"
+                      },
+                      "key": "key_0",
+                      "value": "{}"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) ",
+                        "type": "text/plain"
+                      },
+                      "key": "key_1",
+                      "value": "{}"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"cube_change\": {\n    \"batch_id\": \"string\",\n    \"created_at\": \"1968-10-26T12:38:31.563Z\",\n    \"created_by\": {\n      \"created_at\": \"2004-09-25T02:54:19.295Z\",\n      \"email\": \"SyZ3oGzmEbbq@NOMvvXiFiqHBeKmQfxNljGcEtmvCX.ywgc\",\n      \"id\": 7344,\n      \"is_cube_staff\": true,\n      \"is_staff\": false,\n      \"first_name\": \"string\",\n      \"last_name\": \"string\",\n      \"relationship_type\": \"PARTNER\",\n      \"timezone\": \"Etc/GMT-10\"\n    },\n    \"friendly_type\": \"string\",\n    \"id\": 2237,\n    \"url\": \"string\",\n    \"user\": {\n      \"created_at\": \"2018-05-18T07:34:25.408Z\",\n      \"email\": \"Afk400ke@RlmwCCxNZjZJgHVTiKHxcyLbrOHJj.on\",\n      \"id\": 5181,\n      \"is_cube_staff\": false,\n      \"is_staff\": false,\n      \"first_name\": \"string\",\n      \"last_name\": \"string\",\n      \"relationship_type\": \"PARTNER\",\n      \"timezone\": \"Australia/Eucla\"\n    },\n    \"message\": \"string\",\n    \"metadata\": {},\n    \"type\": \"DATA_IMPORT\",\n    \"num_changes\": 513265364,\n    \"status\": \"COMPLETED\"\n  },\n  \"sources\": [\n    {\n      \"active\": false,\n      \"connection\": {\n        \"active\": false,\n        \"friendly_source\": \"string\",\n        \"id\": \"36f17de8-75a0-1e87-1f09-5e6ada13a0bb\",\n        \"integration\": {\n          \"category\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"logo_url\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"source\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"metadata\": {\n          \"key_0\": {},\n          \"key_1\": {},\n          \"key_2\": {}\n        },\n        \"settings\": {\n          \"key_0\": {},\n          \"key_1\": {}\n        },\n        \"type\": \"string\"\n      },\n      \"created_at\": \"1972-01-31T23:48:12.829Z\",\n      \"id\": \"948d96e2-0dec-81a1-32ac-a2f23c50e3f5\",\n      \"last_import\": {\n        \"key_0\": {}\n      },\n      \"last_successful_import\": {\n        \"key_0\": {}\n      },\n      \"mapping_data\": {\n        \"key_0\": {}\n      },\n      \"name\": \"string\",\n      \"settings\": {\n        \"key_0\": {},\n        \"key_1\": {}\n      },\n      \"source_type\": \"string\",\n      \"type\": \"HRIS\",\n      \"type_friendly\": \"string\",\n      \"description\": \"string\"\n    },\n    {\n      \"active\": false,\n      \"connection\": {\n        \"active\": false,\n        \"friendly_source\": \"string\",\n        \"id\": \"b17e42d8-3b06-b32b-e1c8-00934967bce0\",\n        \"integration\": {\n          \"category\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"logo_url\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"source\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"metadata\": {\n          \"key_0\": {},\n          \"key_1\": {},\n          \"key_2\": {}\n        },\n        \"settings\": {\n          \"key_0\": {},\n          \"key_1\": {},\n          \"key_2\": {}\n        },\n        \"type\": \"string\"\n      },\n      \"created_at\": \"2017-11-19T12:02:57.056Z\",\n      \"id\": \"e7c5ccb4-f649-47e5-9a66-f4389c7f9f5f\",\n      \"last_import\": {\n        \"key_0\": {},\n        \"key_1\": {}\n      },\n      \"last_successful_import\": {\n        \"key_0\": {},\n        \"key_1\": {},\n        \"key_2\": {},\n        \"key_3\": {}\n      },\n      \"mapping_data\": {\n        \"key_0\": {},\n        \"key_1\": {},\n        \"key_2\": {}\n      },\n      \"name\": \"string\",\n      \"settings\": {\n        \"key_0\": {},\n        \"key_1\": {},\n        \"key_2\": {}\n      },\n      \"source_type\": \"string\",\n      \"type\": \"HRIS\",\n      \"type_friendly\": \"string\",\n      \"description\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9df61918-dfb5-41f7-a2df-a3c9c923ebd2",
+          "name": "Update Cube Values",
+          "request": {
+            "name": "Update Cube Values",
+            "description": {
+              "content": "This endpoint can be used to update data in the OLAP cube. The message will be used in the changelog for any changes to data. The raw data of the matrix as well as the filters should be passed. The data for `matrix.data` should be a 2D array of data similar to a spreadsheet. At least one row and one column of dimension names should be provided. The data in `matrix.filters` would contain values for any top level dimension that isn't a part of the passed 2D data matrix.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "cube",
+                "update"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "background",
+                  "value": "<boolean>",
+                  "description": "Pass `true` to force the `DATA_UPDATE_BACKGROUNDED` behavior."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.cubesoftware.com/o/token/"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://portal.cubesoftware.com/o/authorize/"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            },
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "disabled": false,
+                  "key": "key_0",
+                  "value": "{}",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "key_1",
+                  "value": "{}",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "message",
+                  "value": "<string>",
+                  "description": "(Required) "
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "fe28dc5a-8ebc-461d-aa9d-13aafcfb67be",
+              "name": "`DATA_UPDATED` - Data was successfully updated as part of this request\n\n`NO_DATA_UPDATED` - The request was successful, but no data was modified by it\n\n`DATA_UPDATE_BACKGROUNDED` - Due to the amount of data sent, it will be processed in the background",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cube",
+                    "update"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "background",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) ",
+                        "type": "text/plain"
+                      },
+                      "key": "key_0",
+                      "value": "{}"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) ",
+                        "type": "text/plain"
+                      },
+                      "key": "key_1",
+                      "value": "{}"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) ",
+                        "type": "text/plain"
+                      },
+                      "key": "message",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"change\": {\n    \"id\": 7663,\n    \"num_changes\": 6844,\n    \"url\": \"https://OiXyaRL.xllvm9sleyJZR52GrC.QIZsHo.HF+ZqiR\"\n  },\n  \"code\": \"string\",\n  \"message\": \"string\",\n  \"nonwriteable_dimensions\": {\n    \"num_formulas\": 5028,\n    \"num_parents\": 2838,\n    \"num_write_protected\": 9601\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8cca7660-88da-4cdd-bad6-dea508bd8cb8",
+          "name": "Update Cube Values (batch)",
+          "request": {
+            "name": "Update Cube Values (batch)",
+            "description": {
+              "content": "Submit multiple matrix publishes in one request. Batch-level `message`, `currency`, and `metadata` apply to the whole run; each element of `publishes` contains a `matrix` (and optional per-publish `metadata`). Publishes are processed in order in the background. A batch may contain at most 50 publishes. Overlapping subcubes between any two publishes are rejected with 400. Optional per-publish `metadata.Range` sets the range label in the completion email (same key family as Document, Sheet, Software, URL, Publish Currency, Range); otherwise the server uses `Range {index}`.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "cube",
+                "update_batch"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.cubesoftware.com/o/token/"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://portal.cubesoftware.com/o/authorize/"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            },
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "disabled": false,
+                  "key": "publishes",
+                  "value": "{\"matrix\":{\"key_0\":{}},\"metadata\":{\"key_0\":{}},\"sheet_name\":\"<string>\",\"range_name\":\"<string>\"}",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "publishes",
+                  "value": "{\"matrix\":{\"key_0\":{},\"key_1\":{}},\"metadata\":{\"key_0\":{}},\"sheet_name\":\"<string>\",\"range_name\":\"<string>\"}",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "message",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "key_0",
+                  "value": "{}"
+                },
+                {
+                  "disabled": false,
+                  "key": "key_0",
+                  "value": "{}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "d6236c44-62fa-4cf6-91bb-d61d929bb4e1",
+              "name": "Batch accepted for asynchronous processing. `backgrounding_info` includes `batch_id` and `publish_count`.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cube",
+                    "update_batch"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) ",
+                        "type": "text/plain"
+                      },
+                      "key": "publishes",
+                      "value": "{\"matrix\":{\"key_0\":{},\"key_1\":{}},\"metadata\":{\"key_0\":{},\"key_1\":{}},\"sheet_name\":\"<string>\",\"range_name\":\"<string>\"}"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) ",
+                        "type": "text/plain"
+                      },
+                      "key": "publishes",
+                      "value": "{\"matrix\":{\"key_0\":{},\"key_1\":{},\"key_2\":{}},\"metadata\":{\"key_0\":{},\"key_1\":{},\"key_2\":{}},\"sheet_name\":\"<string>\",\"range_name\":\"<string>\"}"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "message",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "key_0",
+                      "value": "{}"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "key_1",
+                      "value": "{}"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "key_0",
+                      "value": "{}"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "key_1",
+                      "value": "{}"
+                    }
+                  ]
+                }
+              },
+              "status": "Accepted",
+              "code": 202,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"backgrounding_info\": {\n    \"key_0\": {},\n    \"key_1\": {}\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "39b4c995-4b1f-4604-897f-4e888cdbd0bf",
+              "name": "Validation failed. Possible error codes:\n\n`BATCH_SUBCUBE_INTERSECTION` - Two or more publishes overlap in the cube. `meta.conflicting_ranges` lists the offending publishes.\n\n`BATCH_PUBLISH_COUNT_EXCEEDED` - Batch contains more than 50 publishes. `meta.limit` and `meta.count` carry the configured maximum and the submitted count.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cube",
+                    "update_batch"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) ",
+                        "type": "text/plain"
+                      },
+                      "key": "publishes",
+                      "value": "{\"matrix\":{\"key_0\":{},\"key_1\":{}},\"metadata\":{\"key_0\":{},\"key_1\":{}},\"sheet_name\":\"<string>\",\"range_name\":\"<string>\"}"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) ",
+                        "type": "text/plain"
+                      },
+                      "key": "publishes",
+                      "value": "{\"matrix\":{\"key_0\":{},\"key_1\":{},\"key_2\":{}},\"metadata\":{\"key_0\":{},\"key_1\":{},\"key_2\":{}},\"sheet_name\":\"<string>\",\"range_name\":\"<string>\"}"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "message",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "key_0",
+                      "value": "{}"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "key_1",
+                      "value": "{}"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "key_0",
+                      "value": "{}"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "key_1",
+                      "value": "{}"
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.cubesoftware.com",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "7e1048d3-6ca0-460f-adcc-1f6e30fad660",
+    "name": "Cube Agents Cube Data API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "#### General Description\nAn API to access underlying Cube functionality. These endpoints are the same endpoints\nthat support Cube's universal add-ons and a plethora of integrations meaning you'll be able to interact with your\nCube data in many powerful ways. Visit the API section of Cube's [Help Center](https://help.cubesoftware.com/hc/en-us/sections/18205290556180-Custom-Integrations)\nfor more usage guides on how you can use this API to integrate with Cube to accomplish various tasks!\n\n#### Versioning\nAll requests to the API require a version to be configured via an `Accept` Header. The value of this Header should look like this:\n```\nAccept: application/json; version=1.0\n```\nNote that the version number may differ depending on which version of the endpoint is needed.\n\n#### Response Structure\nThe general response structure of Cube's API endpoints will contain a `\"data\"` and `\"metadata\"` root level key:\n```json\n{\n    \"data\": { ... object data or list of objects ... },\n    \"metadata\": {\n        \"status\": 200,\n        \"message\": \"Potential message with additional context\",\n        \"error\": false,\n        \"code\": \"\"\n    }\n}\n```\n\n#### Rate Limiting\nAll endpoints have a rate limit configured, most of them default to 5/s.\nWhen the rate limit is encountered, a 429 HTTP code will be returned.\n\n#### Error Handling\nIn the event an error occurs, the response will typically look like this:\n```json\n{\n    \"data\": {},\n    \"metadata\": {\n        \"status\": 400,\n        \"message\": \"Some error message\",\n        \"error\": true,\n        \"code\": \"SOME_ERROR_CODE\"\n    }\n}\n```\n",
+      "type": "text/plain"
+    }
+  }
+}

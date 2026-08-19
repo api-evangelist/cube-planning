@@ -1,0 +1,1298 @@
+{
+  "item": [
+    {
+      "id": "86aa8f28-fb22-48f1-869e-80c78a6842d9",
+      "name": "Planning Table",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "3423a6f4-188d-4b78-87db-4f90e2268a01",
+          "name": "List all planning tables",
+          "request": {
+            "name": "List all planning tables",
+            "description": {
+              "content": "List all planning tables",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "tables"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) Associates request with company",
+                "key": "X-Company-ID",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.cubesoftware.com/o/token/"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://portal.cubesoftware.com/o/authorize/"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "3cd8a356-293a-4d39-b54e-579b857bd3f8",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "tables"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Associates request with company",
+                    "key": "X-Company-ID",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"company_id\": \"6e927254-fe5c-5e5c-bb18-587a3b4db8d6\",\n    \"created_at\": \"2018-02-26T13:07:23.474Z\",\n    \"created_by_id\": 9809,\n    \"has_templates\": true,\n    \"id\": 3147,\n    \"modified_at\": \"2006-10-14T20:46:09.526Z\",\n    \"modified_by_id\": 5052,\n    \"name\": \"string\",\n    \"schema\": \"\",\n    \"sharing_scheme\": \"MANAGERS\",\n    \"schema_reviewed\": false,\n    \"shared_with\": [\n      \"string\",\n      \"string\"\n    ]\n  },\n  {\n    \"company_id\": \"e51f2403-7a24-2fc0-81dc-0f334800cb58\",\n    \"created_at\": \"2003-02-16T18:44:50.865Z\",\n    \"created_by_id\": 2461,\n    \"has_templates\": false,\n    \"id\": 3191,\n    \"modified_at\": \"2011-05-13T23:25:19.364Z\",\n    \"modified_by_id\": 4091,\n    \"name\": \"string\",\n    \"schema\": \"\",\n    \"sharing_scheme\": \"ALL\",\n    \"schema_reviewed\": true,\n    \"shared_with\": [\n      \"string\",\n      \"string\"\n    ]\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8ed60de9-0be0-447e-8247-44ed8b472ad5",
+          "name": "Create a planning table",
+          "request": {
+            "name": "Create a planning table",
+            "description": {
+              "content": "Planning tables store a typed column schema (number, text, dimension, and calculated columns).\n\nA calculated column's output type is inferred from its formula on save and controls whether numeric formatting applies; formulas with an ambiguous type or invalid dimension usage are rejected.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "tables"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) Associates request with company",
+                "key": "X-Company-ID",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.cubesoftware.com/o/token/"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://portal.cubesoftware.com/o/authorize/"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            },
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "disabled": false,
+                  "key": "name",
+                  "value": "<string>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "schema",
+                  "value": "",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "sharing_scheme",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "schema_reviewed",
+                  "value": "<boolean>"
+                },
+                {
+                  "disabled": false,
+                  "key": "shared_with",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "shared_with",
+                  "value": "<string>"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "d261abe1-d144-44aa-b2f6-39feefb74878",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "tables"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Associates request with company",
+                    "key": "X-Company-ID",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) ",
+                        "type": "text/plain"
+                      },
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) ",
+                        "type": "text/plain"
+                      },
+                      "key": "schema",
+                      "value": ""
+                    },
+                    {
+                      "disabled": false,
+                      "key": "sharing_scheme",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "schema_reviewed",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "shared_with",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "shared_with",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"name\": \"<string>\",\n  \"schema\": \"\",\n  \"id\": 4922,\n  \"company_id\": \"a8aba060-31c8-fb47-808c-00fcadfc8f19\",\n  \"created_at\": \"2025-01-11T18:57:39.978Z\",\n  \"modified_at\": \"1955-06-28T14:59:09.138Z\",\n  \"sharing_scheme\": \"<string>\",\n  \"schema_reviewed\": \"<boolean>\",\n  \"created_by_id\": 6595,\n  \"modified_by_id\": 1535,\n  \"has_templates\": true,\n  \"shared_with\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "de50ca10-6f8e-47b2-a307-21d839f5f8c3",
+          "name": "Retrieve a planning table",
+          "request": {
+            "name": "Retrieve a planning table",
+            "description": {
+              "content": "Retrieve a planning table",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "tables",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) Associates request with company",
+                "key": "X-Company-ID",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.cubesoftware.com/o/token/"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://portal.cubesoftware.com/o/authorize/"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "078ef1eb-bf7d-4e11-9d5e-ab968aedcb98",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "tables",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Associates request with company",
+                    "key": "X-Company-ID",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"name\": \"<string>\",\n  \"schema\": \"\",\n  \"id\": 4922,\n  \"company_id\": \"a8aba060-31c8-fb47-808c-00fcadfc8f19\",\n  \"created_at\": \"2025-01-11T18:57:39.978Z\",\n  \"modified_at\": \"1955-06-28T14:59:09.138Z\",\n  \"sharing_scheme\": \"<string>\",\n  \"schema_reviewed\": \"<boolean>\",\n  \"created_by_id\": 6595,\n  \"modified_by_id\": 1535,\n  \"has_templates\": true,\n  \"shared_with\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5bcf8c64-d711-45b5-a78a-576901a8fca6",
+          "name": "Update a planning table",
+          "request": {
+            "name": "Update a planning table",
+            "description": {
+              "content": "Planning tables store a typed column schema (number, text, dimension, and calculated columns).\n\nA calculated column's output type is inferred from its formula on save and controls whether numeric formatting applies; formulas with an ambiguous type or invalid dimension usage are rejected.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "tables",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) Associates request with company",
+                "key": "X-Company-ID",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.cubesoftware.com/o/token/"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://portal.cubesoftware.com/o/authorize/"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            },
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "disabled": false,
+                  "key": "name",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "sharing_scheme",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "schema",
+                  "value": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "schema_reviewed",
+                  "value": "<boolean>"
+                },
+                {
+                  "disabled": false,
+                  "key": "shared_with",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "shared_with",
+                  "value": "<string>"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "39b56ab1-bf60-4440-86c9-be56781981a2",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "tables",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Associates request with company",
+                    "key": "X-Company-ID",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "sharing_scheme",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "schema",
+                      "value": ""
+                    },
+                    {
+                      "disabled": false,
+                      "key": "schema_reviewed",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "shared_with",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "shared_with",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"name\": \"<string>\",\n  \"schema\": \"\",\n  \"id\": 4922,\n  \"company_id\": \"a8aba060-31c8-fb47-808c-00fcadfc8f19\",\n  \"created_at\": \"2025-01-11T18:57:39.978Z\",\n  \"modified_at\": \"1955-06-28T14:59:09.138Z\",\n  \"sharing_scheme\": \"<string>\",\n  \"schema_reviewed\": \"<boolean>\",\n  \"created_by_id\": 6595,\n  \"modified_by_id\": 1535,\n  \"has_templates\": true,\n  \"shared_with\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7b5816b4-68bf-4715-9258-4dc91b6ceba4",
+          "name": "Delete a planning table",
+          "request": {
+            "name": "Delete a planning table",
+            "description": {
+              "content": "Delete a planning table",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "tables",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) Associates request with company",
+                "key": "X-Company-ID",
+                "value": "<string>"
+              }
+            ],
+            "method": "DELETE",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.cubesoftware.com/o/token/"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://portal.cubesoftware.com/o/authorize/"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "55702b90-574f-4671-90cb-078e5758a4b0",
+              "name": "No response body",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "tables",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Associates request with company",
+                    "key": "X-Company-ID",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d1a30161-41f4-4ef4-bfcc-a1191f18bf6a",
+          "name": "Get planning table datasets",
+          "request": {
+            "name": "Get planning table datasets",
+            "description": {
+              "content": "Get planning table datasets, optionally filtered by scenario",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "tables",
+                ":table_pk",
+                "datasets"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "table_pk",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) Associates request with company",
+                "key": "X-Company-ID",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.cubesoftware.com/o/token/"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://portal.cubesoftware.com/o/authorize/"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "681b8504-af14-49bc-a225-bc1742cc6db0",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "tables",
+                    ":table_pk",
+                    "datasets"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "table_pk",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Associates request with company",
+                    "key": "X-Company-ID",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"created_at\": \"1980-08-17T21:47:18.355Z\",\n    \"created_by_id\": 2881,\n    \"data\": \"\",\n    \"id\": 2157,\n    \"modified_at\": \"1955-07-30T10:59:08.428Z\",\n    \"modified_by_id\": 5318,\n    \"planning_table_id\": 338,\n    \"planning_table_schema\": \"string\",\n    \"scenario_id\": 4253,\n    \"version\": \"string\"\n  },\n  {\n    \"created_at\": \"1980-10-11T02:28:52.013Z\",\n    \"created_by_id\": 575,\n    \"data\": \"\",\n    \"id\": 1760,\n    \"modified_at\": \"1964-02-09T15:17:27.474Z\",\n    \"modified_by_id\": 1561,\n    \"planning_table_id\": 8030,\n    \"planning_table_schema\": \"string\",\n    \"scenario_id\": 2209,\n    \"version\": \"string\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "bfd6c139-0be6-408c-9d59-969c39fff762",
+          "name": "tables datasets update",
+          "request": {
+            "name": "tables datasets update",
+            "description": {
+              "content": "Table-anchored nested resource for a Planning Table's datasets.\n\nA dataset is never addressed by its own id here: the route is keyed on the parent table\n(`table_pk`) and a dataset is identified by (table, scenario_id from the request). Hence\n`get_queryset`/`get_object` return the parent `PlanningTable` (access control -- sharing\nscheme and `created_by` -- lives on the table), while the actions query `PlanningTableDataset`\nrows directly.\n\nConsequence for `permission_classes`: model-derived primitives (`ModelPermissions`,\n`UserHasModelShared`) resolve `model_name` from the queryset, so they check `*_planningtable`\nperms, NOT `*_planningtabledataset`. Only the hardcoded `SpecificModelPermissions` /\n`EditSharedPermissions` target the dataset model. That is why the expression below mixes\ntable-level and dataset-level permissions.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "tables",
+                ":table_pk",
+                "datasets"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "table_pk",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) Associates request with company",
+                "key": "X-Company-ID",
+                "value": "<string>"
+              }
+            ],
+            "method": "PUT",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.cubesoftware.com/o/token/"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://portal.cubesoftware.com/o/authorize/"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "a979db64-6fa3-4d7a-9844-1fcfcd2f8115",
+              "name": "No response body",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "tables",
+                    ":table_pk",
+                    "datasets"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "table_pk",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Associates request with company",
+                    "key": "X-Company-ID",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "PUT",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4b44b11e-9f12-42af-ac6e-f3d3b99584cb",
+          "name": "Compute calculated columns",
+          "request": {
+            "name": "Compute calculated columns",
+            "description": {
+              "content": "Compute calculated column values for the submitted schema and rows without persisting. Dirty/invalid cell values degrade to null per the evaluator rules, and an invalid or unsaved formula nulls only its own column (reported in column_errors) instead of rejecting the payload. Each calculated column also reports its inferred output type in column_types when the formula resolves cleanly; inference mirrors save-time validation and depends only on the schema.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "tables",
+                "compute-calculated-columns"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) Associates request with company",
+                "key": "X-Company-ID",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.cubesoftware.com/o/token/"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://portal.cubesoftware.com/o/authorize/"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            },
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "disabled": false,
+                  "key": "data",
+                  "value": "",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "schema",
+                  "value": "",
+                  "description": "(Required) "
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "c57e9a76-edc3-43be-b6bb-13ae72aa5f81",
+              "name": "Rows with calculated columns computed (best-effort), each calculated column's inferred output type (column_types), plus any per-column formula errors (column_errors).",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "tables",
+                    "compute-calculated-columns"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Associates request with company",
+                    "key": "X-Company-ID",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) ",
+                        "type": "text/plain"
+                      },
+                      "key": "data",
+                      "value": ""
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) ",
+                        "type": "text/plain"
+                      },
+                      "key": "schema",
+                      "value": ""
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"data\": [\n      [\n        {\n          \"value\": \"Salary\"\n        },\n        {\n          \"value\": \"Annual\"\n        }\n      ],\n      [\n        {\n          \"value\": \"100\"\n        },\n        {\n          \"value\": \"1200\"\n        }\n      ]\n    ],\n    \"column_types\": [\n      {\n        \"index\": 1,\n        \"name\": \"Annual\",\n        \"output_type\": \"number\"\n      }\n    ],\n    \"column_errors\": []\n  },\n  \"metadata\": {\n    \"status\": 200,\n    \"error\": false,\n    \"message\": null,\n    \"code\": \"\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3a6b73b6-4705-43e1-9b69-eae344531e5f",
+              "name": "Malformed table schema, or request payload too large.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "tables",
+                    "compute-calculated-columns"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Associates request with company",
+                    "key": "X-Company-ID",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) ",
+                        "type": "text/plain"
+                      },
+                      "key": "data",
+                      "value": ""
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) ",
+                        "type": "text/plain"
+                      },
+                      "key": "schema",
+                      "value": ""
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {},\n  \"metadata\": {\n    \"status\": 400,\n    \"error\": true,\n    \"message\": \"Invalid table schema.\",\n    \"code\": \"INVALID_TABLE_SCHEMA\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c47b43ba-d9c3-4a06-b56b-c5f1a64570ef",
+              "name": "User lacks the view_planningtable permission.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "tables",
+                    "compute-calculated-columns"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Associates request with company",
+                    "key": "X-Company-ID",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) ",
+                        "type": "text/plain"
+                      },
+                      "key": "data",
+                      "value": ""
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) ",
+                        "type": "text/plain"
+                      },
+                      "key": "schema",
+                      "value": ""
+                    }
+                  ]
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {},\n  \"metadata\": {\n    \"status\": 403,\n    \"error\": true,\n    \"message\": \"Permission denied\",\n    \"code\": \"PERMISSION_DENIED\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.cubesoftware.com",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "a25f4ae2-afef-4555-8707-eda8b356be62",
+    "name": "Cube Agents Planning Table API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "#### General Description\nAn API to access underlying Cube functionality. These endpoints are the same endpoints\nthat support Cube's universal add-ons and a plethora of integrations meaning you'll be able to interact with your\nCube data in many powerful ways. Visit the API section of Cube's [Help Center](https://help.cubesoftware.com/hc/en-us/sections/18205290556180-Custom-Integrations)\nfor more usage guides on how you can use this API to integrate with Cube to accomplish various tasks!\n\n#### Versioning\nAll requests to the API require a version to be configured via an `Accept` Header. The value of this Header should look like this:\n```\nAccept: application/json; version=1.0\n```\nNote that the version number may differ depending on which version of the endpoint is needed.\n\n#### Response Structure\nThe general response structure of Cube's API endpoints will contain a `\"data\"` and `\"metadata\"` root level key:\n```json\n{\n    \"data\": { ... object data or list of objects ... },\n    \"metadata\": {\n        \"status\": 200,\n        \"message\": \"Potential message with additional context\",\n        \"error\": false,\n        \"code\": \"\"\n    }\n}\n```\n\n#### Rate Limiting\nAll endpoints have a rate limit configured, most of them default to 5/s.\nWhen the rate limit is encountered, a 429 HTTP code will be returned.\n\n#### Error Handling\nIn the event an error occurs, the response will typically look like this:\n```json\n{\n    \"data\": {},\n    \"metadata\": {\n        \"status\": 400,\n        \"message\": \"Some error message\",\n        \"error\": true,\n        \"code\": \"SOME_ERROR_CODE\"\n    }\n}\n```\n",
+      "type": "text/plain"
+    }
+  }
+}

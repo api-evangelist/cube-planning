@@ -1,0 +1,180 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Cube Agents UserCompanies API",
+    "version": "1.0.0 (1.0)"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "UserCompanies",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List User Company relationships",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.cubesoftware.com/company/users",
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://portal.cubesoftware.com/o/authorize/",
+              "accessTokenUrl": "https://api.cubesoftware.com/o/token/",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Load all users for a company"
+        },
+        {
+          "info": {
+            "name": "Retrieve a user for a company",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.cubesoftware.com/company/users/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://portal.cubesoftware.com/o/authorize/",
+              "accessTokenUrl": "https://api.cubesoftware.com/o/token/",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Retrieves a user company"
+        },
+        {
+          "info": {
+            "name": "Update a user company",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.cubesoftware.com/company/users/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://portal.cubesoftware.com/o/authorize/",
+              "accessTokenUrl": "https://api.cubesoftware.com/o/token/",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Update a user company by sending all editable field data."
+        },
+        {
+          "info": {
+            "name": "Partially update a user company",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.cubesoftware.com/company/users/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://portal.cubesoftware.com/o/authorize/",
+              "accessTokenUrl": "https://api.cubesoftware.com/o/token/",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Update one or more editable fields for a user company relationship."
+        },
+        {
+          "info": {
+            "name": "Mark a user company as deactivated",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.cubesoftware.com/company/users/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://portal.cubesoftware.com/o/authorize/",
+              "accessTokenUrl": "https://api.cubesoftware.com/o/token/",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Prevents a user from accessing data for the company."
+        },
+        {
+          "info": {
+            "name": "company_users_me_retrieve",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.cubesoftware.com/company/users/me",
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://portal.cubesoftware.com/o/authorize/",
+              "accessTokenUrl": "https://api.cubesoftware.com/o/token/",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Default authenticated ViewSet with standard rate limit (DEFAULT_API_RATE_LIMIT)."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,1001 @@
+{
+  "item": [
+    {
+      "id": "60e4af6d-3691-40b5-994b-f5f5c3195ac5",
+      "name": "Workflow",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "48c79245-4a58-4338-8a60-7adce5f09d55",
+          "name": "List workflow executions.",
+          "request": {
+            "name": "List workflow executions.",
+            "description": {
+              "content": "Paginated registered executions with optional `metadata.counts` (when `count_by` is set) and `metadata.pagination`; omits unregistered workflow paths.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "company",
+                "workflow-executions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "count_by",
+                  "value": "<string>",
+                  "description": "Dimensions for `metadata.counts` grouping. Repeat or comma-separate. Allowed: `created_at` (UTC hour), `started_at` (UTC hour), `status`, `started_by` (alias `created_by`). Counts use DB aggregation over the latest execution per workflow (registered paths only), honor exclude_cleared, and ignore since, type_id, and status list filters. When absent, metadata.counts is omitted (use metadata.pagination.total_items)."
+                },
+                {
+                  "disabled": false,
+                  "key": "exclude_cleared",
+                  "value": "<string>",
+                  "description": "When true, omit executions dismissed via clear."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>",
+                  "description": "Page size (default 25, max 500). Invalid values return 400."
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "1",
+                  "description": "Page number (v1.2 list is always paginated)."
+                },
+                {
+                  "disabled": false,
+                  "key": "since",
+                  "value": "48",
+                  "description": "Hours to look back for workflow executions (v1.2 filters on created_at, not started_at)."
+                },
+                {
+                  "disabled": false,
+                  "key": "status",
+                  "value": "<string>",
+                  "description": "Filter the list by status (QUEUED, PROCESSING, FAILED, COMPLETED, CANCELLED). Repeat or comma-separate for OR (e.g. status=PROCESSING,QUEUED for active). Does not affect metadata.counts. On v1.2, QUEUED means enqueued but not yet started."
+                },
+                {
+                  "disabled": false,
+                  "key": "type_id",
+                  "value": "<string>",
+                  "description": "Filter to a registered workflow type id from the catalog."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) Set the version of API the request is for",
+                "key": "HTTP_ACCEPT",
+                "value": "application/json; version=1.1"
+              },
+              {
+                "disabled": false,
+                "description": "(Required) Associates request with company",
+                "key": "X-Company-ID",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.cubesoftware.com/o/token/"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://portal.cubesoftware.com/o/authorize/"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "98229386-f970-4cc5-8d82-8a4579dc8e32",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "company",
+                    "workflow-executions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "count_by",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "exclude_cleared",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "since",
+                      "value": "48"
+                    },
+                    {
+                      "key": "status",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "type_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Set the version of API the request is for",
+                    "key": "HTTP_ACCEPT",
+                    "value": "application/json; version=1.1"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Associates request with company",
+                    "key": "X-Company-ID",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"can_cancel\": false,\n    \"can_retry\": true,\n    \"canceled_at\": \"1952-07-26T05:10:13.093Z\",\n    \"canceled_by\": \"string\",\n    \"catalog_version\": 2664,\n    \"completed_at\": \"2017-07-18T19:32:18.968Z\",\n    \"created_at\": \"1952-06-17T10:58:13.974Z\",\n    \"current_stage_id\": \"string\",\n    \"id\": 4211,\n    \"last_status_change_at\": \"1987-05-21T21:04:09.448Z\",\n    \"metadata\": {\n      \"key_0\": {},\n      \"key_1\": {}\n    },\n    \"name\": \"string\",\n    \"retried_by\": \"string\",\n    \"started_at\": \"string\",\n    \"started_by\": \"string\",\n    \"status\": \"string\",\n    \"tasks\": [],\n    \"type\": \"string\",\n    \"type_id\": \"string\"\n  },\n  {\n    \"can_cancel\": true,\n    \"can_retry\": true,\n    \"canceled_at\": \"1975-03-29T09:15:51.727Z\",\n    \"canceled_by\": \"string\",\n    \"catalog_version\": 472,\n    \"completed_at\": \"1947-03-23T14:15:55.511Z\",\n    \"created_at\": \"1995-05-06T03:19:44.590Z\",\n    \"current_stage_id\": \"string\",\n    \"id\": 2232,\n    \"last_status_change_at\": \"1971-07-07T10:15:00.499Z\",\n    \"metadata\": {\n      \"key_0\": {},\n      \"key_1\": {}\n    },\n    \"name\": \"string\",\n    \"retried_by\": \"string\",\n    \"started_at\": \"string\",\n    \"started_by\": \"string\",\n    \"status\": \"string\",\n    \"tasks\": [],\n    \"type\": \"string\",\n    \"type_id\": \"string\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a1fd2f35-78b1-4414-ae55-6bc4b42fb17e",
+          "name": "Will cancel a currently in-progress workflow.",
+          "request": {
+            "name": "Will cancel a currently in-progress workflow.",
+            "description": {
+              "content": "Will cancel a currently in-progress workflow.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "company",
+                "workflow-executions",
+                ":workflow_execution_id",
+                "cancel"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "workflow_execution_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) Set the version of API the request is for",
+                "key": "HTTP_ACCEPT",
+                "value": "application/json; version=1.1"
+              },
+              {
+                "disabled": false,
+                "description": "(Required) Associates request with company",
+                "key": "X-Company-ID",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json; version=1.0"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.cubesoftware.com/o/token/"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://portal.cubesoftware.com/o/authorize/"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "d49ea033-2aa0-4612-b6b1-0febc3f68061",
+              "name": "Cancel a workflow.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "company",
+                    "workflow-executions",
+                    ":workflow_execution_id",
+                    "cancel"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "workflow_execution_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Set the version of API the request is for",
+                    "key": "HTTP_ACCEPT",
+                    "value": "application/json; version=1.1"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Associates request with company",
+                    "key": "X-Company-ID",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json; version=1.0"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; version=1.0"
+                }
+              ],
+              "body": "{\n  \"can_cancel\": true,\n  \"can_retry\": true,\n  \"canceled_at\": \"1963-10-20T21:35:27.440Z\",\n  \"canceled_by\": \"string\",\n  \"catalog_version\": 2799,\n  \"completed_at\": \"1993-12-18T13:47:50.471Z\",\n  \"id\": 7365,\n  \"last_status_change_at\": \"1964-11-29T03:34:33.482Z\",\n  \"metadata\": {\n    \"key_0\": {},\n    \"key_1\": {}\n  },\n  \"name\": \"string\",\n  \"retried_by\": \"string\",\n  \"started_at\": \"string\",\n  \"started_by\": \"string\",\n  \"status\": \"string\",\n  \"tasks\": [],\n  \"type\": \"string\",\n  \"type_id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6e4cf85d-3f83-499e-9343-f66cce0486d8",
+              "name": "Indicates that a workflow is not cancellable.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "company",
+                    "workflow-executions",
+                    ":workflow_execution_id",
+                    "cancel"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "workflow_execution_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Set the version of API the request is for",
+                    "key": "HTTP_ACCEPT",
+                    "value": "application/json; version=1.1"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Associates request with company",
+                    "key": "X-Company-ID",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json; version=1.0"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; version=1.0"
+                }
+              ],
+              "body": "{\n  \"can_cancel\": true,\n  \"can_retry\": true,\n  \"canceled_at\": \"1983-08-05T16:51:53.813Z\",\n  \"canceled_by\": \"string\",\n  \"catalog_version\": 5331,\n  \"completed_at\": \"1992-01-02T05:42:54.982Z\",\n  \"id\": 1873,\n  \"last_status_change_at\": \"1968-08-17T00:11:56.785Z\",\n  \"metadata\": {\n    \"key_0\": {}\n  },\n  \"name\": \"string\",\n  \"retried_by\": \"string\",\n  \"started_at\": \"string\",\n  \"started_by\": \"string\",\n  \"status\": \"string\",\n  \"tasks\": [],\n  \"type\": \"string\",\n  \"type_id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "74500173-47e0-4659-bd30-aaa9b863eb55",
+              "name": "Workflow does not exist.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "company",
+                    "workflow-executions",
+                    ":workflow_execution_id",
+                    "cancel"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "workflow_execution_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Set the version of API the request is for",
+                    "key": "HTTP_ACCEPT",
+                    "value": "application/json; version=1.1"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Associates request with company",
+                    "key": "X-Company-ID",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json; version=1.0"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; version=1.0"
+                }
+              ],
+              "body": "{\n  \"can_cancel\": true,\n  \"can_retry\": true,\n  \"canceled_at\": \"1983-08-05T16:51:53.813Z\",\n  \"canceled_by\": \"string\",\n  \"catalog_version\": 5331,\n  \"completed_at\": \"1992-01-02T05:42:54.982Z\",\n  \"id\": 1873,\n  \"last_status_change_at\": \"1968-08-17T00:11:56.785Z\",\n  \"metadata\": {\n    \"key_0\": {}\n  },\n  \"name\": \"string\",\n  \"retried_by\": \"string\",\n  \"started_at\": \"string\",\n  \"started_by\": \"string\",\n  \"status\": \"string\",\n  \"tasks\": [],\n  \"type\": \"string\",\n  \"type_id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4b6f7186-dede-4a53-9eb6-802ac062de81",
+          "name": "Will mark a workflow as deleted.",
+          "request": {
+            "name": "Will mark a workflow as deleted.",
+            "description": {
+              "content": "Will mark a workflow as deleted for all users at the current company.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "company",
+                "workflow-executions",
+                ":workflow_execution_id",
+                "clear"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "workflow_execution_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) Set the version of API the request is for",
+                "key": "HTTP_ACCEPT",
+                "value": "application/json; version=1.1"
+              },
+              {
+                "disabled": false,
+                "description": "(Required) Associates request with company",
+                "key": "X-Company-ID",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json; version=1.0"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.cubesoftware.com/o/token/"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://portal.cubesoftware.com/o/authorize/"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "04bdcf84-f8a1-488b-8133-b8da18f987ff",
+              "name": "Delete a workflow.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "company",
+                    "workflow-executions",
+                    ":workflow_execution_id",
+                    "clear"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "workflow_execution_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Set the version of API the request is for",
+                    "key": "HTTP_ACCEPT",
+                    "value": "application/json; version=1.1"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Associates request with company",
+                    "key": "X-Company-ID",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json; version=1.0"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; version=1.0"
+                }
+              ],
+              "body": "{\n  \"can_cancel\": true,\n  \"can_retry\": true,\n  \"canceled_at\": \"1983-08-05T16:51:53.813Z\",\n  \"canceled_by\": \"string\",\n  \"catalog_version\": 5331,\n  \"completed_at\": \"1992-01-02T05:42:54.982Z\",\n  \"id\": 1873,\n  \"last_status_change_at\": \"1968-08-17T00:11:56.785Z\",\n  \"metadata\": {\n    \"key_0\": {}\n  },\n  \"name\": \"string\",\n  \"retried_by\": \"string\",\n  \"started_at\": \"string\",\n  \"started_by\": \"string\",\n  \"status\": \"string\",\n  \"tasks\": [],\n  \"type\": \"string\",\n  \"type_id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "01c8acb5-f6de-4383-a3c9-ed445e448cfb",
+              "name": "Workflow does not exist.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "company",
+                    "workflow-executions",
+                    ":workflow_execution_id",
+                    "clear"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "workflow_execution_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Set the version of API the request is for",
+                    "key": "HTTP_ACCEPT",
+                    "value": "application/json; version=1.1"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Associates request with company",
+                    "key": "X-Company-ID",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json; version=1.0"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; version=1.0"
+                }
+              ],
+              "body": "{\n  \"can_cancel\": true,\n  \"can_retry\": true,\n  \"canceled_at\": \"1983-08-05T16:51:53.813Z\",\n  \"canceled_by\": \"string\",\n  \"catalog_version\": 5331,\n  \"completed_at\": \"1992-01-02T05:42:54.982Z\",\n  \"id\": 1873,\n  \"last_status_change_at\": \"1968-08-17T00:11:56.785Z\",\n  \"metadata\": {\n    \"key_0\": {}\n  },\n  \"name\": \"string\",\n  \"retried_by\": \"string\",\n  \"started_at\": \"string\",\n  \"started_by\": \"string\",\n  \"status\": \"string\",\n  \"tasks\": [],\n  \"type\": \"string\",\n  \"type_id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "21a3b52a-c9a5-431f-bf9d-2a9c2912d16c",
+          "name": "List registered workflow types (read-only catalog).",
+          "request": {
+            "name": "List registered workflow types (read-only catalog).",
+            "description": {
+              "content": "Returns metadata for each workflow type in the in-code registry for this company context. GET only — no create, update, or delete. Optional `prefix` filters entries whose `type_id` or workflow class FQN starts with any given prefix (repeat param or comma-separated). Without `page`, optional `limit` caps how many rows are returned (max 500). With `page`, the list is paginated using the same `page` / `limit` contract as other Cube list endpoints (`CubePageNumberPagination`): `limit` is the page size (default 100, max 500) and `metadata.pagination` is included.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "company",
+                "workflow-types"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>",
+                  "description": "Without `page`: optional cap on how many entries to return from the start of the filtered list (max 500). With `page`: page size (defaults to 100 when omitted, max 500); invalid values return 400."
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "1",
+                  "description": "When present, enables pagination (same contract as other Cube list endpoints). Out-of-range pages fall back to page 1. Response includes `metadata.pagination`."
+                },
+                {
+                  "disabled": false,
+                  "key": "prefix",
+                  "value": "<string>",
+                  "description": "Filter to entries whose type_id or workflow class FQN starts with this prefix. Repeat the parameter or use comma-separated values (OR logic)."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) Set the version of API the request is for",
+                "key": "HTTP_ACCEPT",
+                "value": "application/json; version=1.1"
+              },
+              {
+                "disabled": false,
+                "description": "(Required) Associates request with company",
+                "key": "X-Company-ID",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.cubesoftware.com/o/token/"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://portal.cubesoftware.com/o/authorize/"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "dbc94a6f-54c3-42ac-8da8-329c4154fb2f",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "company",
+                    "workflow-types"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "prefix",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Set the version of API the request is for",
+                    "key": "HTTP_ACCEPT",
+                    "value": "application/json; version=1.1"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Associates request with company",
+                    "key": "X-Company-ID",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  [\n    {\n      \"type_id\": \"agents.planner\",\n      \"registry_id\": \"agents.planner\",\n      \"catalog_version\": 1,\n      \"name\": \"Planner\",\n      \"workflow_class_path\": \"agents.workflows.planner.PlannerWorkflow\"\n    }\n  ]\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6c922003-4339-4929-9e20-bf8b7ec55e4d",
+          "name": "Get resolved workflow shape for a registered type (read-only catalog).",
+          "request": {
+            "name": "Get resolved workflow shape for a registered type (read-only catalog).",
+            "description": {
+              "content": "Returns the resolved `WorkflowShape` (stages and tri-state labels) for `type_id`. GET only. Optional query `catalog_version` selects a historical catalog version; if omitted or unknown, the current shape is returned (same fallback as server-side `shape_for_execution`). Unknown `type_id` yields 404.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "company",
+                "workflow-types",
+                ":type_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "catalog_version",
+                  "value": "<integer>",
+                  "description": "Pinned catalog version; omit for current shape. Unknown versions fall back to current."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "type_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) Set the version of API the request is for",
+                "key": "HTTP_ACCEPT",
+                "value": "application/json; version=1.1"
+              },
+              {
+                "disabled": false,
+                "description": "(Required) Associates request with company",
+                "key": "X-Company-ID",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.cubesoftware.com/o/token/"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://portal.cubesoftware.com/o/authorize/"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "15a93817-85b1-40cd-aa9a-707529ff1c52",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "company",
+                    "workflow-types",
+                    ":type_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "catalog_version",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "type_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Set the version of API the request is for",
+                    "key": "HTTP_ACCEPT",
+                    "value": "application/json; version=1.1"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Associates request with company",
+                    "key": "X-Company-ID",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type_id\": \"agents.planner\",\n  \"registry_id\": \"agents.planner\",\n  \"workflow_class_path\": \"agents.workflows.planner.PlannerWorkflow\",\n  \"shape\": {\n    \"catalog_version\": 1,\n    \"name\": \"Planner\",\n    \"stages\": [\n      {\n        \"id\": \"plan\",\n        \"labels\": {\n          \"before\": \"Plan\",\n          \"active\": \"Planning\",\n          \"after\": \"Planned\"\n        },\n        \"task_fqns\": [\n          \"agents.worker_tasks.plan.run_plan\"\n        ]\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.cubesoftware.com",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "577fe561-bfd1-455f-b3ac-43ec315ed2c3",
+    "name": "Cube Agents Workflow API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "#### General Description\nAn API to access underlying Cube functionality. These endpoints are the same endpoints\nthat support Cube's universal add-ons and a plethora of integrations meaning you'll be able to interact with your\nCube data in many powerful ways. Visit the API section of Cube's [Help Center](https://help.cubesoftware.com/hc/en-us/sections/18205290556180-Custom-Integrations)\nfor more usage guides on how you can use this API to integrate with Cube to accomplish various tasks!\n\n#### Versioning\nAll requests to the API require a version to be configured via an `Accept` Header. The value of this Header should look like this:\n```\nAccept: application/json; version=1.0\n```\nNote that the version number may differ depending on which version of the endpoint is needed.\n\n#### Response Structure\nThe general response structure of Cube's API endpoints will contain a `\"data\"` and `\"metadata\"` root level key:\n```json\n{\n    \"data\": { ... object data or list of objects ... },\n    \"metadata\": {\n        \"status\": 200,\n        \"message\": \"Potential message with additional context\",\n        \"error\": false,\n        \"code\": \"\"\n    }\n}\n```\n\n#### Rate Limiting\nAll endpoints have a rate limit configured, most of them default to 5/s.\nWhen the rate limit is encountered, a 429 HTTP code will be returned.\n\n#### Error Handling\nIn the event an error occurs, the response will typically look like this:\n```json\n{\n    \"data\": {},\n    \"metadata\": {\n        \"status\": 400,\n        \"message\": \"Some error message\",\n        \"error\": true,\n        \"code\": \"SOME_ERROR_CODE\"\n    }\n}\n```\n",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,254 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Cube Agents Invitations API",
+    "version": "1.0.0 (1.0)"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Invitations",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List invitations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.cubesoftware.com/company/invitations",
+            "headers": [
+              {
+                "name": "X-Company-ID",
+                "value": ""
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://portal.cubesoftware.com/o/authorize/",
+              "accessTokenUrl": "https://api.cubesoftware.com/o/token/",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Load all invitations for a company"
+        },
+        {
+          "info": {
+            "name": "Create a new invitation",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.cubesoftware.com/company/invitations",
+            "headers": [
+              {
+                "name": "X-Company-ID",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://portal.cubesoftware.com/o/authorize/",
+              "accessTokenUrl": "https://api.cubesoftware.com/o/token/",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Invite someone to the company"
+        },
+        {
+          "info": {
+            "name": "Retrieve an invitation",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.cubesoftware.com/company/invitations/:id",
+            "headers": [
+              {
+                "name": "X-Company-ID",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://portal.cubesoftware.com/o/authorize/",
+              "accessTokenUrl": "https://api.cubesoftware.com/o/token/",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Retrieves an invitation"
+        },
+        {
+          "info": {
+            "name": "Update an invitation",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.cubesoftware.com/company/invitations/:id",
+            "headers": [
+              {
+                "name": "X-Company-ID",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://portal.cubesoftware.com/o/authorize/",
+              "accessTokenUrl": "https://api.cubesoftware.com/o/token/",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Update an invitation by sending all editable field data."
+        },
+        {
+          "info": {
+            "name": "Partially update an invitation",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.cubesoftware.com/company/invitations/:id",
+            "headers": [
+              {
+                "name": "X-Company-ID",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://portal.cubesoftware.com/o/authorize/",
+              "accessTokenUrl": "https://api.cubesoftware.com/o/token/",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Update one or more editable fields for an invitation."
+        },
+        {
+          "info": {
+            "name": "Deletes a invitation completely",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.cubesoftware.com/company/invitations/:id",
+            "headers": [
+              {
+                "name": "X-Company-ID",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://portal.cubesoftware.com/o/authorize/",
+              "accessTokenUrl": "https://api.cubesoftware.com/o/token/",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Prevents a user from accepting the invitation."
+        },
+        {
+          "info": {
+            "name": "Resend an invitation",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.cubesoftware.com/company/invitations/:id/resend",
+            "headers": [
+              {
+                "name": "X-Company-ID",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://portal.cubesoftware.com/o/authorize/",
+              "accessTokenUrl": "https://api.cubesoftware.com/o/token/",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Resends the email to the user. If the invitation has expired this will re-generate the invitation to reset the expiration date."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

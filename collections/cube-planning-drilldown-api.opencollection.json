@@ -1,0 +1,107 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Cube Agents Drilldown API",
+    "version": "1.0.0 (1.0)"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Drilldown",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Drilldown",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.cubesoftware.com/cube/drilldown",
+            "headers": [
+              {
+                "name": "X-Company-ID",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "Account",
+                "value": "",
+                "type": "query",
+                "description": "A list of child Account dimensions"
+              },
+              {
+                "name": "Department",
+                "value": "",
+                "type": "query",
+                "description": "A list of child Department dimensions"
+              },
+              {
+                "name": "Scenario",
+                "value": "",
+                "type": "query",
+                "description": "A list of child Scenario dimensions"
+              },
+              {
+                "name": "Time",
+                "value": "",
+                "type": "query",
+                "description": "A list of child Time dimensions"
+              },
+              {
+                "name": "currency_code",
+                "value": "",
+                "type": "query",
+                "description": "The three character currency code"
+              },
+              {
+                "name": "export",
+                "value": "",
+                "type": "query",
+                "description": "Export type. Download link will be emailed when ready"
+              },
+              {
+                "name": "full_path",
+                "value": "",
+                "type": "query",
+                "description": "Whether or not to include full dimension path in records of the response"
+              },
+              {
+                "name": "include_zeroes",
+                "value": "",
+                "type": "query",
+                "description": "Whether or not to include records where value=0 in the response"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The number of rows to limit the response to"
+              },
+              {
+                "name": "spreadsheet",
+                "value": "",
+                "type": "query",
+                "description": "Whether or not to return a 2D array for spreadsheet usage back (escapes Time dimension names)"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://portal.cubesoftware.com/o/authorize/",
+              "accessTokenUrl": "https://api.cubesoftware.com/o/token/",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "This endpoint retrieves any values in the cube that make up the overall value at the provided\ncross section of dimensions. For instance, in the example JSON \"Q1-19\" was provided as the \"Time\" dimension and\nyou can see that it returned a value for \"Jan-19\", \"Feb-19\", and \"Mar-19\" which all make up \"Q1-19\".\n\nDrilling down into a cube value is very similar to viewing details for a value, and filtering in that you are able\nto pass either the names of the dimensions or their IDs as parameters. A dime"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

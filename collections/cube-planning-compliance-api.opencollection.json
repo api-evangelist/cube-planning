@@ -1,0 +1,32 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Cube Agents compliance API",
+    "version": "1.0.0 (1.0)"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "compliance",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "compliance_customer_event_create",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.cubesoftware.com/compliance/customer-event",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

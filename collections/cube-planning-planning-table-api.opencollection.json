@@ -1,0 +1,281 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Cube Agents Planning Table API",
+    "version": "1.0.0 (1.0)"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Planning Table",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List all planning tables",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.cubesoftware.com/tables",
+            "headers": [
+              {
+                "name": "X-Company-ID",
+                "value": ""
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://portal.cubesoftware.com/o/authorize/",
+              "accessTokenUrl": "https://api.cubesoftware.com/o/token/",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "List all planning tables"
+        },
+        {
+          "info": {
+            "name": "Create a planning table",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.cubesoftware.com/tables",
+            "headers": [
+              {
+                "name": "X-Company-ID",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://portal.cubesoftware.com/o/authorize/",
+              "accessTokenUrl": "https://api.cubesoftware.com/o/token/",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Planning tables store a typed column schema (number, text, dimension, and calculated columns).\n\nA calculated column's output type is inferred from its formula on save and controls whether numeric formatting applies; formulas with an ambiguous type or invalid dimension usage are rejected."
+        },
+        {
+          "info": {
+            "name": "Retrieve a planning table",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.cubesoftware.com/tables/:id",
+            "headers": [
+              {
+                "name": "X-Company-ID",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://portal.cubesoftware.com/o/authorize/",
+              "accessTokenUrl": "https://api.cubesoftware.com/o/token/",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Retrieve a planning table"
+        },
+        {
+          "info": {
+            "name": "Update a planning table",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.cubesoftware.com/tables/:id",
+            "headers": [
+              {
+                "name": "X-Company-ID",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://portal.cubesoftware.com/o/authorize/",
+              "accessTokenUrl": "https://api.cubesoftware.com/o/token/",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Planning tables store a typed column schema (number, text, dimension, and calculated columns).\n\nA calculated column's output type is inferred from its formula on save and controls whether numeric formatting applies; formulas with an ambiguous type or invalid dimension usage are rejected."
+        },
+        {
+          "info": {
+            "name": "Delete a planning table",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.cubesoftware.com/tables/:id",
+            "headers": [
+              {
+                "name": "X-Company-ID",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://portal.cubesoftware.com/o/authorize/",
+              "accessTokenUrl": "https://api.cubesoftware.com/o/token/",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Delete a planning table"
+        },
+        {
+          "info": {
+            "name": "Get planning table datasets",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.cubesoftware.com/tables/:table_pk/datasets",
+            "headers": [
+              {
+                "name": "X-Company-ID",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "table_pk",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://portal.cubesoftware.com/o/authorize/",
+              "accessTokenUrl": "https://api.cubesoftware.com/o/token/",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Get planning table datasets, optionally filtered by scenario"
+        },
+        {
+          "info": {
+            "name": "tables_datasets_update",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.cubesoftware.com/tables/:table_pk/datasets",
+            "headers": [
+              {
+                "name": "X-Company-ID",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "table_pk",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://portal.cubesoftware.com/o/authorize/",
+              "accessTokenUrl": "https://api.cubesoftware.com/o/token/",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Table-anchored nested resource for a Planning Table's datasets.\n\nA dataset is never addressed by its own id here: the route is keyed on the parent table\n(`table_pk`) and a dataset is identified by (table, scenario_id from the request). Hence\n`get_queryset`/`get_object` return the parent `PlanningTable` (access control -- sharing\nscheme and `created_by` -- lives on the table), while the actions query `PlanningTableDataset`\nrows directly.\n\nConsequence for `permission_classes`: model-derived primit"
+        },
+        {
+          "info": {
+            "name": "Compute calculated columns",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.cubesoftware.com/tables/compute-calculated-columns",
+            "headers": [
+              {
+                "name": "X-Company-ID",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://portal.cubesoftware.com/o/authorize/",
+              "accessTokenUrl": "https://api.cubesoftware.com/o/token/",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Compute calculated column values for the submitted schema and rows without persisting. Dirty/invalid cell values degrade to null per the evaluator rules, and an invalid or unsaved formula nulls only its own column (reported in column_errors) instead of rejecting the payload. Each calculated column also reports its inferred output type in column_types when the formula resolves cleanly; inference mirrors save-time validation and depends only on the schema."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

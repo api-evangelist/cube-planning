@@ -1,0 +1,1160 @@
+{
+  "item": [
+    {
+      "id": "0e442657-9af3-4cac-8033-6678e618b6c9",
+      "name": "Invitations",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "6381a450-2725-4f8d-a0c6-c199f4e6ea7e",
+          "name": "List invitations",
+          "request": {
+            "name": "List invitations",
+            "description": {
+              "content": "Load all invitations for a company",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "company",
+                "invitations"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) Associates request with company",
+                "key": "X-Company-ID",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.cubesoftware.com/o/token/"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://portal.cubesoftware.com/o/authorize/"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "710d0159-0bbc-4022-85b1-e1850cdf295d",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "company",
+                    "invitations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Associates request with company",
+                    "key": "X-Company-ID",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"company\": \"7220af2e-3f0c-4290-5548-4feda82a6a16\",\n    \"company_groups\": [\n      5204,\n      4628\n    ],\n    \"created_at\": \"1967-02-19T13:54:10.897Z\",\n    \"created_by\": 7092,\n    \"email\": \"8B5nmECDX3Fs4G8@eGuaNtdGeciciurOGZwaRI.uis\",\n    \"expired\": true,\n    \"id\": \"43c2be83-4d12-fac5-f9ef-c6110cb50100\",\n    \"last_sent\": \"1986-11-30T06:41:05.979Z\",\n    \"permission_group\": 5462,\n    \"can_publish_data\": false,\n    \"accepted_at\": \"2018-12-06T23:38:15.562Z\",\n    \"metadata\": \"\"\n  },\n  {\n    \"company\": \"5b17ab22-fc80-8b4e-7d83-cf3a1cde9869\",\n    \"company_groups\": [\n      1486,\n      2806\n    ],\n    \"created_at\": \"1992-03-28T19:02:52.155Z\",\n    \"created_by\": 6792,\n    \"email\": \"n0W8sVe@cFVjfEJgwVrozLVwIoUabHExS.ooe\",\n    \"expired\": false,\n    \"id\": \"c83efc22-6794-2882-af85-e76a4e01e386\",\n    \"last_sent\": \"1994-07-05T07:16:08.031Z\",\n    \"permission_group\": 6173,\n    \"can_publish_data\": true,\n    \"accepted_at\": \"1947-10-10T21:57:26.029Z\",\n    \"metadata\": \"\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4112f674-9432-47d8-ba3f-dde17ac29228",
+          "name": "Create a new invitation",
+          "request": {
+            "name": "Create a new invitation",
+            "description": {
+              "content": "Invite someone to the company",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "company",
+                "invitations"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) Associates request with company",
+                "key": "X-Company-ID",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.cubesoftware.com/o/token/"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://portal.cubesoftware.com/o/authorize/"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            },
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "disabled": false,
+                  "key": "company",
+                  "value": "<uuid>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "company_groups",
+                  "value": "<integer>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "company_groups",
+                  "value": "<integer>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "created_by",
+                  "value": "<integer>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "email",
+                  "value": "<email>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "permission_group",
+                  "value": "<integer>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "can_publish_data",
+                  "value": "<boolean>"
+                },
+                {
+                  "disabled": false,
+                  "key": "accepted_at",
+                  "value": "<dateTime>"
+                },
+                {
+                  "disabled": false,
+                  "key": "metadata",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "34ab13e7-fb79-4d54-8d64-587e9c8a44cc",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "company",
+                    "invitations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Associates request with company",
+                    "key": "X-Company-ID",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) ",
+                        "type": "text/plain"
+                      },
+                      "key": "company",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) ",
+                        "type": "text/plain"
+                      },
+                      "key": "company_groups",
+                      "value": "<integer>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) ",
+                        "type": "text/plain"
+                      },
+                      "key": "company_groups",
+                      "value": "<integer>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) ",
+                        "type": "text/plain"
+                      },
+                      "key": "created_by",
+                      "value": "<integer>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) ",
+                        "type": "text/plain"
+                      },
+                      "key": "email",
+                      "value": "<email>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) ",
+                        "type": "text/plain"
+                      },
+                      "key": "permission_group",
+                      "value": "<integer>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "can_publish_data",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "accepted_at",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "metadata",
+                      "value": ""
+                    }
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"company\": \"<uuid>\",\n  \"company_groups\": [\n    \"<integer>\",\n    \"<integer>\"\n  ],\n  \"created_by\": \"<integer>\",\n  \"email\": \"<email>\",\n  \"permission_group\": \"<integer>\",\n  \"id\": \"43d2924c-90e8-ae66-ae7f-09aa37faceb8\",\n  \"can_publish_data\": \"<boolean>\",\n  \"accepted_at\": \"<dateTime>\",\n  \"created_at\": \"1947-03-20T18:02:44.743Z\",\n  \"last_sent\": \"2019-12-28T13:11:18.373Z\",\n  \"metadata\": \"\",\n  \"expired\": false\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7bd67e1c-6030-4234-a292-b7e09d2703db",
+          "name": "Retrieve an invitation",
+          "request": {
+            "name": "Retrieve an invitation",
+            "description": {
+              "content": "Retrieves an invitation",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "company",
+                "invitations",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) Associates request with company",
+                "key": "X-Company-ID",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.cubesoftware.com/o/token/"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://portal.cubesoftware.com/o/authorize/"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "a49c145b-aa61-4428-869c-e960c2747b48",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "company",
+                    "invitations",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Associates request with company",
+                    "key": "X-Company-ID",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"company\": \"<uuid>\",\n  \"company_groups\": [\n    \"<integer>\",\n    \"<integer>\"\n  ],\n  \"created_by\": \"<integer>\",\n  \"email\": \"<email>\",\n  \"permission_group\": \"<integer>\",\n  \"id\": \"43d2924c-90e8-ae66-ae7f-09aa37faceb8\",\n  \"can_publish_data\": \"<boolean>\",\n  \"accepted_at\": \"<dateTime>\",\n  \"created_at\": \"1947-03-20T18:02:44.743Z\",\n  \"last_sent\": \"2019-12-28T13:11:18.373Z\",\n  \"metadata\": \"\",\n  \"expired\": false\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "180f7d92-50b1-4194-a7cc-33d3fa6af114",
+          "name": "Update an invitation",
+          "request": {
+            "name": "Update an invitation",
+            "description": {
+              "content": "Update an invitation by sending all editable field data.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "company",
+                "invitations",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) Associates request with company",
+                "key": "X-Company-ID",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.cubesoftware.com/o/token/"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://portal.cubesoftware.com/o/authorize/"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            },
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "disabled": false,
+                  "key": "company_groups",
+                  "value": "<integer>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "company_groups",
+                  "value": "<integer>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "permission_group",
+                  "value": "<integer>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "metadata",
+                  "value": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "can_publish_data",
+                  "value": "<boolean>"
+                },
+                {
+                  "disabled": false,
+                  "key": "accepted_at",
+                  "value": "<dateTime>"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "7e6dde6b-49a2-47c0-ab1e-525d223338b7",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "company",
+                    "invitations",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Associates request with company",
+                    "key": "X-Company-ID",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) ",
+                        "type": "text/plain"
+                      },
+                      "key": "company_groups",
+                      "value": "<integer>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) ",
+                        "type": "text/plain"
+                      },
+                      "key": "company_groups",
+                      "value": "<integer>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) ",
+                        "type": "text/plain"
+                      },
+                      "key": "permission_group",
+                      "value": "<integer>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "metadata",
+                      "value": ""
+                    },
+                    {
+                      "disabled": false,
+                      "key": "can_publish_data",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "accepted_at",
+                      "value": "<dateTime>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"company\": \"<uuid>\",\n  \"company_groups\": [\n    \"<integer>\",\n    \"<integer>\"\n  ],\n  \"created_by\": \"<integer>\",\n  \"email\": \"<email>\",\n  \"permission_group\": \"<integer>\",\n  \"id\": \"43d2924c-90e8-ae66-ae7f-09aa37faceb8\",\n  \"can_publish_data\": \"<boolean>\",\n  \"accepted_at\": \"<dateTime>\",\n  \"created_at\": \"1947-03-20T18:02:44.743Z\",\n  \"last_sent\": \"2019-12-28T13:11:18.373Z\",\n  \"metadata\": \"\",\n  \"expired\": false\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ab4d0834-ca71-48ef-801f-aea62c0f8da4",
+          "name": "Partially update an invitation",
+          "request": {
+            "name": "Partially update an invitation",
+            "description": {
+              "content": "Update one or more editable fields for an invitation.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "company",
+                "invitations",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) Associates request with company",
+                "key": "X-Company-ID",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.cubesoftware.com/o/token/"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://portal.cubesoftware.com/o/authorize/"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            },
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "disabled": false,
+                  "key": "company_groups",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "company_groups",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "metadata",
+                  "value": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "permission_group",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "can_publish_data",
+                  "value": "<boolean>"
+                },
+                {
+                  "disabled": false,
+                  "key": "accepted_at",
+                  "value": "<dateTime>"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "30c7de74-37be-4255-9f2b-1b8b89ac8d58",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "company",
+                    "invitations",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Associates request with company",
+                    "key": "X-Company-ID",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "key": "company_groups",
+                      "value": "<integer>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "company_groups",
+                      "value": "<integer>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "metadata",
+                      "value": ""
+                    },
+                    {
+                      "disabled": false,
+                      "key": "permission_group",
+                      "value": "<integer>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "can_publish_data",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "accepted_at",
+                      "value": "<dateTime>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"company\": \"<uuid>\",\n  \"company_groups\": [\n    \"<integer>\",\n    \"<integer>\"\n  ],\n  \"created_by\": \"<integer>\",\n  \"email\": \"<email>\",\n  \"permission_group\": \"<integer>\",\n  \"id\": \"43d2924c-90e8-ae66-ae7f-09aa37faceb8\",\n  \"can_publish_data\": \"<boolean>\",\n  \"accepted_at\": \"<dateTime>\",\n  \"created_at\": \"1947-03-20T18:02:44.743Z\",\n  \"last_sent\": \"2019-12-28T13:11:18.373Z\",\n  \"metadata\": \"\",\n  \"expired\": false\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9272d740-36df-440e-81d9-d7c127dba56d",
+          "name": "Deletes a invitation completely",
+          "request": {
+            "name": "Deletes a invitation completely",
+            "description": {
+              "content": "Prevents a user from accepting the invitation.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "company",
+                "invitations",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) Associates request with company",
+                "key": "X-Company-ID",
+                "value": "<string>"
+              }
+            ],
+            "method": "DELETE",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.cubesoftware.com/o/token/"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://portal.cubesoftware.com/o/authorize/"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "e70bd6aa-a692-427f-b801-2b5b83703904",
+              "name": "No response body",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "company",
+                    "invitations",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Associates request with company",
+                    "key": "X-Company-ID",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0d2170e7-18f8-43fd-8a41-38fde5d143db",
+          "name": "Resend an invitation",
+          "request": {
+            "name": "Resend an invitation",
+            "description": {
+              "content": "Resends the email to the user. If the invitation has expired this will re-generate the invitation to reset the expiration date.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "company",
+                "invitations",
+                ":id",
+                "resend"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) Associates request with company",
+                "key": "X-Company-ID",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.cubesoftware.com/o/token/"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://portal.cubesoftware.com/o/authorize/"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "75125f18-77c2-4d30-add5-77a0bb081368",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "company",
+                    "invitations",
+                    ":id",
+                    "resend"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Associates request with company",
+                    "key": "X-Company-ID",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"company\": \"<uuid>\",\n  \"company_groups\": [\n    \"<integer>\",\n    \"<integer>\"\n  ],\n  \"created_by\": \"<integer>\",\n  \"email\": \"<email>\",\n  \"permission_group\": \"<integer>\",\n  \"id\": \"43d2924c-90e8-ae66-ae7f-09aa37faceb8\",\n  \"can_publish_data\": \"<boolean>\",\n  \"accepted_at\": \"<dateTime>\",\n  \"created_at\": \"1947-03-20T18:02:44.743Z\",\n  \"last_sent\": \"2019-12-28T13:11:18.373Z\",\n  \"metadata\": \"\",\n  \"expired\": false\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.cubesoftware.com",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "4cdedd8a-15a2-44c4-8297-c52ffe3e0e2d",
+    "name": "Cube Agents Invitations API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "#### General Description\nAn API to access underlying Cube functionality. These endpoints are the same endpoints\nthat support Cube's universal add-ons and a plethora of integrations meaning you'll be able to interact with your\nCube data in many powerful ways. Visit the API section of Cube's [Help Center](https://help.cubesoftware.com/hc/en-us/sections/18205290556180-Custom-Integrations)\nfor more usage guides on how you can use this API to integrate with Cube to accomplish various tasks!\n\n#### Versioning\nAll requests to the API require a version to be configured via an `Accept` Header. The value of this Header should look like this:\n```\nAccept: application/json; version=1.0\n```\nNote that the version number may differ depending on which version of the endpoint is needed.\n\n#### Response Structure\nThe general response structure of Cube's API endpoints will contain a `\"data\"` and `\"metadata\"` root level key:\n```json\n{\n    \"data\": { ... object data or list of objects ... },\n    \"metadata\": {\n        \"status\": 200,\n        \"message\": \"Potential message with additional context\",\n        \"error\": false,\n        \"code\": \"\"\n    }\n}\n```\n\n#### Rate Limiting\nAll endpoints have a rate limit configured, most of them default to 5/s.\nWhen the rate limit is encountered, a 429 HTTP code will be returned.\n\n#### Error Handling\nIn the event an error occurs, the response will typically look like this:\n```json\n{\n    \"data\": {},\n    \"metadata\": {\n        \"status\": 400,\n        \"message\": \"Some error message\",\n        \"error\": true,\n        \"code\": \"SOME_ERROR_CODE\"\n    }\n}\n```\n",
+      "type": "text/plain"
+    }
+  }
+}

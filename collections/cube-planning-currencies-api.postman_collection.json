@@ -1,0 +1,3998 @@
+{
+  "item": [
+    {
+      "id": "a7e70c43-36d8-4c64-a401-21932a71b77c",
+      "name": "Currencies",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "c3a0f42d-786a-434e-8710-f135915c3f31",
+          "name": "List a company's enabled currencies",
+          "request": {
+            "name": "List a company's enabled currencies",
+            "description": {
+              "content": "Lists all of the currencies enabled by a company",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "currencies",
+                "company"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) Set the version of API the request is for",
+                "key": "HTTP_ACCEPT",
+                "value": "application/json; version=1.1"
+              },
+              {
+                "disabled": false,
+                "description": "(Required) Associates request with company",
+                "key": "X-Company-ID",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.cubesoftware.com/o/token/"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://portal.cubesoftware.com/o/authorize/"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "2e8c4d5e-5584-485a-b00e-e77b53a81e86",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "currencies",
+                    "company"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Set the version of API the request is for",
+                    "key": "HTTP_ACCEPT",
+                    "value": "application/json; version=1.1"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Associates request with company",
+                    "key": "X-Company-ID",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"created_at\": \"2016-11-25T08:01:40.272Z\",\n    \"currency\": {\n      \"code\": \"string\"\n    },\n    \"default\": true\n  },\n  {\n    \"created_at\": \"1957-11-30T16:20:26.009Z\",\n    \"currency\": {\n      \"code\": \"string\"\n    },\n    \"default\": true\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e0fecb79-28fb-4792-92cf-306fdd9d7028",
+          "name": "Bulk update the company's currencies",
+          "request": {
+            "name": "Bulk update the company's currencies",
+            "description": {
+              "content": "Deletes all related currencies to the company, and replaces the list with the provided payload",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "currencies",
+                "company",
+                "bulk_update"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) Set the version of API the request is for",
+                "key": "HTTP_ACCEPT",
+                "value": "application/json; version=1.1"
+              },
+              {
+                "disabled": false,
+                "description": "(Required) Associates request with company",
+                "key": "X-Company-ID",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.cubesoftware.com/o/token/"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://portal.cubesoftware.com/o/authorize/"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            },
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "disabled": false,
+                  "key": "currency_id",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "default",
+                  "value": "<boolean>"
+                },
+                {
+                  "disabled": false,
+                  "key": "currency_id",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "default",
+                  "value": "<boolean>"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "496da51b-ef83-4cfd-930e-89a6fca97914",
+              "name": "List of Company Currencies",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "currencies",
+                    "company",
+                    "bulk_update"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Set the version of API the request is for",
+                    "key": "HTTP_ACCEPT",
+                    "value": "application/json; version=1.1"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Associates request with company",
+                    "key": "X-Company-ID",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "key": "currency_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "default",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "currency_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "default",
+                      "value": "<boolean>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"created_at\": \"2016-11-25T08:01:40.272Z\",\n    \"currency\": {\n      \"code\": \"string\"\n    },\n    \"default\": true\n  },\n  {\n    \"created_at\": \"1957-11-30T16:20:26.009Z\",\n    \"currency\": {\n      \"code\": \"string\"\n    },\n    \"default\": true\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6e094462-460e-48f1-859d-649b17a57b55",
+          "name": "List currency conversion rates",
+          "request": {
+            "name": "List currency conversion rates",
+            "description": {
+              "content": "List currency conversion rates",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "currencies",
+                "rates"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "from_currency",
+                  "value": "<int>",
+                  "description": "The ID of the currency the rate converts from"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<int>",
+                  "description": "The number of results to return"
+                },
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "<int>",
+                  "description": "An offset for the results for pagination"
+                },
+                {
+                  "disabled": false,
+                  "key": "order_by",
+                  "value": "<str>",
+                  "description": "A way to order the rates by date"
+                },
+                {
+                  "disabled": false,
+                  "key": "rateable_id",
+                  "value": "<str>",
+                  "description": "The ID of the \"rateable\" object associated with the rate"
+                },
+                {
+                  "disabled": false,
+                  "key": "rateable_type",
+                  "value": "<int>",
+                  "description": "The content type ID of the model class of the \"rateable\" object"
+                },
+                {
+                  "disabled": false,
+                  "key": "to_currency",
+                  "value": "<int>",
+                  "description": "The ID of the currency the rate converts to"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) Set the version of API the request is for",
+                "key": "HTTP_ACCEPT",
+                "value": "application/json; version=1.1"
+              },
+              {
+                "disabled": false,
+                "description": "(Required) Associates request with company",
+                "key": "X-Company-ID",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.cubesoftware.com/o/token/"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://portal.cubesoftware.com/o/authorize/"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "a5267614-7141-4677-ad5c-201b26b93a2b",
+              "name": "List of conversion rates",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "currencies",
+                    "rates"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "from_currency",
+                      "value": "<int>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<int>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "<int>"
+                    },
+                    {
+                      "key": "order_by",
+                      "value": "<str>"
+                    },
+                    {
+                      "key": "rateable_id",
+                      "value": "<str>"
+                    },
+                    {
+                      "key": "rateable_type",
+                      "value": "<int>"
+                    },
+                    {
+                      "key": "to_currency",
+                      "value": "<int>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Set the version of API the request is for",
+                    "key": "HTTP_ACCEPT",
+                    "value": "application/json; version=1.1"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Associates request with company",
+                    "key": "X-Company-ID",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"created_at\": \"1974-01-02T22:22:15.634Z\",\n    \"date\": \"1954-08-01\",\n    \"exchange_rate_type_id\": 6509,\n    \"from_currency\": 6941,\n    \"id\": 6469,\n    \"modified_at\": \"2001-04-07T17:35:24.436Z\",\n    \"rate\": \"-2527126136823\",\n    \"to_currency\": 6035,\n    \"account\": 9946,\n    \"rateable_type\": 6883,\n    \"rateable_id\": \"string\",\n    \"is_locked\": false\n  },\n  {\n    \"created_at\": \"1971-08-30T13:07:44.924Z\",\n    \"date\": \"1981-03-07\",\n    \"exchange_rate_type_id\": 407,\n    \"from_currency\": 1900,\n    \"id\": 6822,\n    \"modified_at\": \"1972-04-28T00:42:11.063Z\",\n    \"rate\": \"8841643032061\",\n    \"to_currency\": 8770,\n    \"account\": 998,\n    \"rateable_type\": 2578,\n    \"rateable_id\": \"string\",\n    \"is_locked\": true\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1c06ac83-060e-4112-8758-a111546295c5",
+          "name": "Create a currency conversion rates",
+          "request": {
+            "name": "Create a currency conversion rates",
+            "description": {
+              "content": "Create a currency conversion rates",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "currencies",
+                "rates"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) Set the version of API the request is for",
+                "key": "HTTP_ACCEPT",
+                "value": "application/json; version=1.1"
+              },
+              {
+                "disabled": false,
+                "description": "(Required) Associates request with company",
+                "key": "X-Company-ID",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.cubesoftware.com/o/token/"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://portal.cubesoftware.com/o/authorize/"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            },
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "disabled": false,
+                  "key": "date",
+                  "value": "<date>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "from_currency",
+                  "value": "<integer>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "rate",
+                  "value": "<decimal>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "to_currency",
+                  "value": "<integer>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "account",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "rateable_type",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "rateable_id",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "is_locked",
+                  "value": "<boolean>"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "33d55a86-5b70-40e5-b544-7a0e6d94909e",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "currencies",
+                    "rates"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Set the version of API the request is for",
+                    "key": "HTTP_ACCEPT",
+                    "value": "application/json; version=1.1"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Associates request with company",
+                    "key": "X-Company-ID",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) ",
+                        "type": "text/plain"
+                      },
+                      "key": "date",
+                      "value": "<date>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) ",
+                        "type": "text/plain"
+                      },
+                      "key": "from_currency",
+                      "value": "<integer>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) ",
+                        "type": "text/plain"
+                      },
+                      "key": "rate",
+                      "value": "<decimal>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) ",
+                        "type": "text/plain"
+                      },
+                      "key": "to_currency",
+                      "value": "<integer>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "account",
+                      "value": "<integer>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "rateable_type",
+                      "value": "<integer>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "rateable_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "is_locked",
+                      "value": "<boolean>"
+                    }
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"date\": \"<date>\",\n  \"from_currency\": \"<integer>\",\n  \"rate\": \"<decimal>\",\n  \"to_currency\": \"<integer>\",\n  \"id\": 2222,\n  \"account\": \"<integer>\",\n  \"exchange_rate_type_id\": 5390,\n  \"rateable_type\": \"<integer>\",\n  \"rateable_id\": \"<string>\",\n  \"is_locked\": \"<boolean>\",\n  \"created_at\": \"1961-05-05T20:01:40.467Z\",\n  \"modified_at\": \"2001-12-27T19:53:27.507Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3f4d32a1-4a0d-4812-94df-9836fc1c541c",
+          "name": "Retrieve a currency conversion rate by ID",
+          "request": {
+            "name": "Retrieve a currency conversion rate by ID",
+            "description": {
+              "content": "Retrieve a currency conversion rate by ID",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "currencies",
+                "rates",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "id",
+                  "description": "(Required) A unique integer value identifying this conversion rate."
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) Set the version of API the request is for",
+                "key": "HTTP_ACCEPT",
+                "value": "application/json; version=1.1"
+              },
+              {
+                "disabled": false,
+                "description": "(Required) Associates request with company",
+                "key": "X-Company-ID",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.cubesoftware.com/o/token/"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://portal.cubesoftware.com/o/authorize/"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "e72fa013-1472-4396-a5b4-d37d96aa267e",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "currencies",
+                    "rates",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) A unique integer value identifying this conversion rate."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Set the version of API the request is for",
+                    "key": "HTTP_ACCEPT",
+                    "value": "application/json; version=1.1"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Associates request with company",
+                    "key": "X-Company-ID",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"date\": \"<date>\",\n  \"from_currency\": \"<integer>\",\n  \"rate\": \"<decimal>\",\n  \"to_currency\": \"<integer>\",\n  \"id\": 2222,\n  \"account\": \"<integer>\",\n  \"exchange_rate_type_id\": 5390,\n  \"rateable_type\": \"<integer>\",\n  \"rateable_id\": \"<string>\",\n  \"is_locked\": \"<boolean>\",\n  \"created_at\": \"1961-05-05T20:01:40.467Z\",\n  \"modified_at\": \"2001-12-27T19:53:27.507Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3d3dc90b-6f6e-4fa0-8ee0-ee4031a3bedf",
+          "name": "Completely update a currency conversion rate by ID",
+          "request": {
+            "name": "Completely update a currency conversion rate by ID",
+            "description": {
+              "content": "Completely update a currency conversion rate by ID",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "currencies",
+                "rates",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "id",
+                  "description": "(Required) A unique integer value identifying this conversion rate."
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) Set the version of API the request is for",
+                "key": "HTTP_ACCEPT",
+                "value": "application/json; version=1.1"
+              },
+              {
+                "disabled": false,
+                "description": "(Required) Associates request with company",
+                "key": "X-Company-ID",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.cubesoftware.com/o/token/"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://portal.cubesoftware.com/o/authorize/"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            },
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "disabled": false,
+                  "key": "date",
+                  "value": "<date>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "from_currency",
+                  "value": "<integer>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "rate",
+                  "value": "<decimal>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "to_currency",
+                  "value": "<integer>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "account",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "rateable_type",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "rateable_id",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "is_locked",
+                  "value": "<boolean>"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "7e492242-72de-4737-87c0-1cd602d84701",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "currencies",
+                    "rates",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) A unique integer value identifying this conversion rate."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Set the version of API the request is for",
+                    "key": "HTTP_ACCEPT",
+                    "value": "application/json; version=1.1"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Associates request with company",
+                    "key": "X-Company-ID",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) ",
+                        "type": "text/plain"
+                      },
+                      "key": "date",
+                      "value": "<date>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) ",
+                        "type": "text/plain"
+                      },
+                      "key": "from_currency",
+                      "value": "<integer>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) ",
+                        "type": "text/plain"
+                      },
+                      "key": "rate",
+                      "value": "<decimal>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) ",
+                        "type": "text/plain"
+                      },
+                      "key": "to_currency",
+                      "value": "<integer>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "account",
+                      "value": "<integer>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "rateable_type",
+                      "value": "<integer>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "rateable_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "is_locked",
+                      "value": "<boolean>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"date\": \"<date>\",\n  \"from_currency\": \"<integer>\",\n  \"rate\": \"<decimal>\",\n  \"to_currency\": \"<integer>\",\n  \"id\": 2222,\n  \"account\": \"<integer>\",\n  \"exchange_rate_type_id\": 5390,\n  \"rateable_type\": \"<integer>\",\n  \"rateable_id\": \"<string>\",\n  \"is_locked\": \"<boolean>\",\n  \"created_at\": \"1961-05-05T20:01:40.467Z\",\n  \"modified_at\": \"2001-12-27T19:53:27.507Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "28de4ac0-7f60-47de-a45d-88abbc84946b",
+          "name": "Update specific fields within a currency conversion rate by ID",
+          "request": {
+            "name": "Update specific fields within a currency conversion rate by ID",
+            "description": {
+              "content": "Update specific fields within a currency conversion rate by ID",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "currencies",
+                "rates",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "id",
+                  "description": "(Required) A unique integer value identifying this conversion rate."
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) Set the version of API the request is for",
+                "key": "HTTP_ACCEPT",
+                "value": "application/json; version=1.1"
+              },
+              {
+                "disabled": false,
+                "description": "(Required) Associates request with company",
+                "key": "X-Company-ID",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.cubesoftware.com/o/token/"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://portal.cubesoftware.com/o/authorize/"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            },
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "disabled": false,
+                  "key": "from_currency",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "to_currency",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "account",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "date",
+                  "value": "<date>"
+                },
+                {
+                  "disabled": false,
+                  "key": "rate",
+                  "value": "<decimal>"
+                },
+                {
+                  "disabled": false,
+                  "key": "rateable_type",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "rateable_id",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "is_locked",
+                  "value": "<boolean>"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "ca46a92a-ea2c-4d96-a984-ce3fbd5e859a",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "currencies",
+                    "rates",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) A unique integer value identifying this conversion rate."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Set the version of API the request is for",
+                    "key": "HTTP_ACCEPT",
+                    "value": "application/json; version=1.1"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Associates request with company",
+                    "key": "X-Company-ID",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "key": "from_currency",
+                      "value": "<integer>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "to_currency",
+                      "value": "<integer>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "account",
+                      "value": "<integer>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "date",
+                      "value": "<date>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "rate",
+                      "value": "<decimal>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "rateable_type",
+                      "value": "<integer>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "rateable_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "is_locked",
+                      "value": "<boolean>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"date\": \"<date>\",\n  \"from_currency\": \"<integer>\",\n  \"rate\": \"<decimal>\",\n  \"to_currency\": \"<integer>\",\n  \"id\": 2222,\n  \"account\": \"<integer>\",\n  \"exchange_rate_type_id\": 5390,\n  \"rateable_type\": \"<integer>\",\n  \"rateable_id\": \"<string>\",\n  \"is_locked\": \"<boolean>\",\n  \"created_at\": \"1961-05-05T20:01:40.467Z\",\n  \"modified_at\": \"2001-12-27T19:53:27.507Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a97f863e-4be5-44d4-a140-9ce61502add8",
+          "name": "Delete a currency conversion rate by ID",
+          "request": {
+            "name": "Delete a currency conversion rate by ID",
+            "description": {
+              "content": "Delete a currency conversion rate by ID",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "currencies",
+                "rates",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "id",
+                  "description": "(Required) A unique integer value identifying this conversion rate."
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) Set the version of API the request is for",
+                "key": "HTTP_ACCEPT",
+                "value": "application/json; version=1.1"
+              },
+              {
+                "disabled": false,
+                "description": "(Required) Associates request with company",
+                "key": "X-Company-ID",
+                "value": "<string>"
+              }
+            ],
+            "method": "DELETE",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.cubesoftware.com/o/token/"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://portal.cubesoftware.com/o/authorize/"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "0aa084fa-4699-4b10-bb12-1d4b9e127acb",
+              "name": "No response body",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "currencies",
+                    "rates",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) A unique integer value identifying this conversion rate."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Set the version of API the request is for",
+                    "key": "HTTP_ACCEPT",
+                    "value": "application/json; version=1.1"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Associates request with company",
+                    "key": "X-Company-ID",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6dc763e2-8a0f-49fa-8252-2d219c596921",
+          "name": "Lock's a ConversionRate from being editable.",
+          "request": {
+            "name": "Lock's a ConversionRate from being editable.",
+            "description": {
+              "content": "This endpoint identifies the specific ConversionRate and updates the is_locked attribute to True.\n            This will make it not editable.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "currencies",
+                "rates",
+                ":id",
+                "lock"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "id",
+                  "description": "(Required) A unique integer value identifying this conversion rate."
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) Set the version of API the request is for",
+                "key": "HTTP_ACCEPT",
+                "value": "application/json; version=1.1"
+              },
+              {
+                "disabled": false,
+                "description": "(Required) Associates request with company",
+                "key": "X-Company-ID",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.cubesoftware.com/o/token/"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://portal.cubesoftware.com/o/authorize/"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            },
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "disabled": false,
+                  "key": "from_currency",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "to_currency",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "account",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "date",
+                  "value": "<date>"
+                },
+                {
+                  "disabled": false,
+                  "key": "rate",
+                  "value": "<decimal>"
+                },
+                {
+                  "disabled": false,
+                  "key": "rateable_type",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "rateable_id",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "is_locked",
+                  "value": "<boolean>"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "5f9e1c15-066e-4d84-8c13-f1ced34c0c43",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "currencies",
+                    "rates",
+                    ":id",
+                    "lock"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) A unique integer value identifying this conversion rate."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Set the version of API the request is for",
+                    "key": "HTTP_ACCEPT",
+                    "value": "application/json; version=1.1"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Associates request with company",
+                    "key": "X-Company-ID",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "key": "from_currency",
+                      "value": "<integer>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "to_currency",
+                      "value": "<integer>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "account",
+                      "value": "<integer>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "date",
+                      "value": "<date>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "rate",
+                      "value": "<decimal>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "rateable_type",
+                      "value": "<integer>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "rateable_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "is_locked",
+                      "value": "<boolean>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"date\": \"<date>\",\n  \"from_currency\": \"<integer>\",\n  \"rate\": \"<decimal>\",\n  \"to_currency\": \"<integer>\",\n  \"id\": 2222,\n  \"account\": \"<integer>\",\n  \"exchange_rate_type_id\": 5390,\n  \"rateable_type\": \"<integer>\",\n  \"rateable_id\": \"<string>\",\n  \"is_locked\": \"<boolean>\",\n  \"created_at\": \"1961-05-05T20:01:40.467Z\",\n  \"modified_at\": \"2001-12-27T19:53:27.507Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c7dab1cd-c446-4ebf-9bfc-55184783960d",
+          "name": "UnLock's a ConversionRate from being not editable.",
+          "request": {
+            "name": "UnLock's a ConversionRate from being not editable.",
+            "description": {
+              "content": "This endpoint identifies the specific ConversionRate and updates the is_locked attribute to False.\n            This will make it editable.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "currencies",
+                "rates",
+                ":id",
+                "unlock"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "id",
+                  "description": "(Required) A unique integer value identifying this conversion rate."
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) Set the version of API the request is for",
+                "key": "HTTP_ACCEPT",
+                "value": "application/json; version=1.1"
+              },
+              {
+                "disabled": false,
+                "description": "(Required) Associates request with company",
+                "key": "X-Company-ID",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.cubesoftware.com/o/token/"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://portal.cubesoftware.com/o/authorize/"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            },
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "disabled": false,
+                  "key": "from_currency",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "to_currency",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "account",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "date",
+                  "value": "<date>"
+                },
+                {
+                  "disabled": false,
+                  "key": "rate",
+                  "value": "<decimal>"
+                },
+                {
+                  "disabled": false,
+                  "key": "rateable_type",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "rateable_id",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "is_locked",
+                  "value": "<boolean>"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "34f6b99e-8046-4e14-8e9e-5bbba6ca2387",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "currencies",
+                    "rates",
+                    ":id",
+                    "unlock"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) A unique integer value identifying this conversion rate."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Set the version of API the request is for",
+                    "key": "HTTP_ACCEPT",
+                    "value": "application/json; version=1.1"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Associates request with company",
+                    "key": "X-Company-ID",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "key": "from_currency",
+                      "value": "<integer>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "to_currency",
+                      "value": "<integer>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "account",
+                      "value": "<integer>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "date",
+                      "value": "<date>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "rate",
+                      "value": "<decimal>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "rateable_type",
+                      "value": "<integer>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "rateable_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "is_locked",
+                      "value": "<boolean>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"date\": \"<date>\",\n  \"from_currency\": \"<integer>\",\n  \"rate\": \"<decimal>\",\n  \"to_currency\": \"<integer>\",\n  \"id\": 2222,\n  \"account\": \"<integer>\",\n  \"exchange_rate_type_id\": 5390,\n  \"rateable_type\": \"<integer>\",\n  \"rateable_id\": \"<string>\",\n  \"is_locked\": \"<boolean>\",\n  \"created_at\": \"1961-05-05T20:01:40.467Z\",\n  \"modified_at\": \"2001-12-27T19:53:27.507Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9661ab5a-38c4-4308-832e-d818b7c7edba",
+          "name": "Bulk Update Currency Conversion Rates",
+          "request": {
+            "name": "Bulk Update Currency Conversion Rates",
+            "description": {
+              "content": "This endpoint allows for a destructive delete all and bulk create Currency Conversion Rates for\n            a specific rateable object. This is meant to be used with DimensionExchangeRateTypeMapping entities as the\n            rateable.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "currencies",
+                "rates",
+                "bulk_update"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) Set the version of API the request is for",
+                "key": "HTTP_ACCEPT",
+                "value": "application/json; version=1.1"
+              },
+              {
+                "disabled": false,
+                "description": "(Required) Associates request with company",
+                "key": "X-Company-ID",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.cubesoftware.com/o/token/"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://portal.cubesoftware.com/o/authorize/"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            },
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "disabled": false,
+                  "key": "conversion_rates",
+                  "value": "{\"date\":\"<date>\",\"rate\":\"<double>\"}",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "conversion_rates",
+                  "value": "{\"date\":\"<date>\",\"rate\":\"<double>\"}",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "from_currency",
+                  "value": "<integer>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "rateable_id",
+                  "value": "<string>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "rateable_type",
+                  "value": "<integer>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "to_currency",
+                  "value": "<integer>",
+                  "description": "(Required) "
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "490e55e0-e186-493a-9e00-bf737a3f6a79",
+              "name": "List of conversion rates",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "currencies",
+                    "rates",
+                    "bulk_update"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Set the version of API the request is for",
+                    "key": "HTTP_ACCEPT",
+                    "value": "application/json; version=1.1"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Associates request with company",
+                    "key": "X-Company-ID",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) ",
+                        "type": "text/plain"
+                      },
+                      "key": "conversion_rates",
+                      "value": "{\"date\":\"<date>\",\"rate\":\"<double>\"}"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) ",
+                        "type": "text/plain"
+                      },
+                      "key": "conversion_rates",
+                      "value": "{\"date\":\"<date>\",\"rate\":\"<double>\"}"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) ",
+                        "type": "text/plain"
+                      },
+                      "key": "from_currency",
+                      "value": "<integer>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) ",
+                        "type": "text/plain"
+                      },
+                      "key": "rateable_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) ",
+                        "type": "text/plain"
+                      },
+                      "key": "rateable_type",
+                      "value": "<integer>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) ",
+                        "type": "text/plain"
+                      },
+                      "key": "to_currency",
+                      "value": "<integer>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"date\": \"<date>\",\n    \"from_currency\": \"<integer>\",\n    \"rate\": \"<decimal>\",\n    \"to_currency\": \"<integer>\",\n    \"id\": 6463,\n    \"account\": \"<integer>\",\n    \"exchange_rate_type_id\": 3787,\n    \"rateable_type\": \"<integer>\",\n    \"rateable_id\": \"<string>\",\n    \"is_locked\": \"<boolean>\",\n    \"created_at\": \"1975-02-13T12:51:28.925Z\",\n    \"modified_at\": \"2025-01-20T07:58:57.247Z\"\n  },\n  {\n    \"date\": \"<date>\",\n    \"from_currency\": \"<integer>\",\n    \"rate\": \"<decimal>\",\n    \"to_currency\": \"<integer>\",\n    \"id\": 9557,\n    \"account\": \"<integer>\",\n    \"exchange_rate_type_id\": 9709,\n    \"rateable_type\": \"<integer>\",\n    \"rateable_id\": \"<string>\",\n    \"is_locked\": \"<boolean>\",\n    \"created_at\": \"1984-09-15T05:50:36.477Z\",\n    \"modified_at\": \"1948-01-02T01:13:43.799Z\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5a8dca07-05e2-481e-adbf-ebb2bafc9897",
+          "name": "List all dimension conversion rate mappings",
+          "request": {
+            "name": "List all dimension conversion rate mappings",
+            "description": {
+              "content": "List all dimension conversion rate mappings",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "currencies",
+                "rates",
+                "dimension-mappings"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "is_default",
+                  "value": "<bool>",
+                  "description": "Whether or not to only get default rates"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) Set the version of API the request is for",
+                "key": "HTTP_ACCEPT",
+                "value": "application/json; version=1.1"
+              },
+              {
+                "disabled": false,
+                "description": "(Required) Associates request with company",
+                "key": "X-Company-ID",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.cubesoftware.com/o/token/"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://portal.cubesoftware.com/o/authorize/"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "08f97e2b-c54b-446d-b9d2-c8788352d2b7",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "currencies",
+                    "rates",
+                    "dimension-mappings"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "is_default",
+                      "value": "<bool>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Set the version of API the request is for",
+                    "key": "HTTP_ACCEPT",
+                    "value": "application/json; version=1.1"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Associates request with company",
+                    "key": "X-Company-ID",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"account\": 9497,\n    \"content_type_id\": 5565,\n    \"created_at\": \"1979-09-29T19:17:12.900Z\",\n    \"exchange_rate_type\": 9282,\n    \"id\": 6862,\n    \"modified_at\": \"2025-11-26T10:51:38.398Z\",\n    \"rate_type\": \"string\",\n    \"is_default\": true,\n    \"from_currency\": 1268,\n    \"to_currency\": 8068,\n    \"constant_rate\": \"910515\"\n  },\n  {\n    \"account\": 969,\n    \"content_type_id\": 3451,\n    \"created_at\": \"1948-07-06T21:42:51.765Z\",\n    \"exchange_rate_type\": 1507,\n    \"id\": 4119,\n    \"modified_at\": \"1989-10-02T00:05:13.145Z\",\n    \"rate_type\": \"string\",\n    \"is_default\": true,\n    \"from_currency\": 5969,\n    \"to_currency\": 7738,\n    \"constant_rate\": \"30513691255564.8\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "dba18d04-21ce-4b07-929c-bfae165b6c51",
+          "name": "Create dimension conversion rate mapping",
+          "request": {
+            "name": "Create dimension conversion rate mapping",
+            "description": {
+              "content": "Create a new dimension conversion rate mapping. This object creation may trigger the deletion of other existing mappings if the new object's fields would cause a conflict with those mappings. Will result in a response of 409 (Conflict), and require an additional query parameter `confirm=true` in the request to proceed with creating the mapping and deleting the existing mappings that conflict.Clients that receive a 200 OK response for an create should subsequently request the mappings list to learn of any deletions.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "currencies",
+                "rates",
+                "dimension-mappings"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) Set the version of API the request is for",
+                "key": "HTTP_ACCEPT",
+                "value": "application/json; version=1.1"
+              },
+              {
+                "disabled": false,
+                "description": "(Required) Associates request with company",
+                "key": "X-Company-ID",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.cubesoftware.com/o/token/"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://portal.cubesoftware.com/o/authorize/"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            },
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "disabled": false,
+                  "key": "account",
+                  "value": "<integer>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "exchange_rate_type",
+                  "value": "<integer>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "is_default",
+                  "value": "<boolean>"
+                },
+                {
+                  "disabled": false,
+                  "key": "from_currency",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "to_currency",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "constant_rate",
+                  "value": "<decimal>"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "5ff5da02-f87f-40cb-9f51-a404138330ad",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "currencies",
+                    "rates",
+                    "dimension-mappings"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Set the version of API the request is for",
+                    "key": "HTTP_ACCEPT",
+                    "value": "application/json; version=1.1"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Associates request with company",
+                    "key": "X-Company-ID",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) ",
+                        "type": "text/plain"
+                      },
+                      "key": "account",
+                      "value": "<integer>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) ",
+                        "type": "text/plain"
+                      },
+                      "key": "exchange_rate_type",
+                      "value": "<integer>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "is_default",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "from_currency",
+                      "value": "<integer>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "to_currency",
+                      "value": "<integer>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "constant_rate",
+                      "value": "<decimal>"
+                    }
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"account\": \"<integer>\",\n  \"exchange_rate_type\": \"<integer>\",\n  \"id\": 4249,\n  \"is_default\": \"<boolean>\",\n  \"rate_type\": \"string\",\n  \"from_currency\": \"<integer>\",\n  \"to_currency\": \"<integer>\",\n  \"constant_rate\": \"<decimal>\",\n  \"content_type_id\": 1146,\n  \"created_at\": \"1966-04-18T16:01:41.613Z\",\n  \"modified_at\": \"1954-01-07T21:21:49.559Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d187065f-8f55-4c73-8bff-a94df6f81594",
+          "name": "Update dimension conversion rate mapping",
+          "request": {
+            "name": "Update dimension conversion rate mapping",
+            "description": {
+              "content": "Update an existing dimension conversion rate mapping. An update may trigger the deletion of other existing mappings if the updated fields would cause a conflict with those mappings. Clients that receive a 200 OK response for an update should subsequently request the mappings list to learn of any deletions.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "currencies",
+                "rates",
+                "dimension-mappings",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) Set the version of API the request is for",
+                "key": "HTTP_ACCEPT",
+                "value": "application/json; version=1.1"
+              },
+              {
+                "disabled": false,
+                "description": "(Required) Associates request with company",
+                "key": "X-Company-ID",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.cubesoftware.com/o/token/"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://portal.cubesoftware.com/o/authorize/"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            },
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "disabled": false,
+                  "key": "account",
+                  "value": "<integer>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "exchange_rate_type",
+                  "value": "<integer>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "is_default",
+                  "value": "<boolean>"
+                },
+                {
+                  "disabled": false,
+                  "key": "from_currency",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "to_currency",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "constant_rate",
+                  "value": "<decimal>"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "68005c35-6fba-442f-917f-0f03334cdda2",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "currencies",
+                    "rates",
+                    "dimension-mappings",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Set the version of API the request is for",
+                    "key": "HTTP_ACCEPT",
+                    "value": "application/json; version=1.1"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Associates request with company",
+                    "key": "X-Company-ID",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) ",
+                        "type": "text/plain"
+                      },
+                      "key": "account",
+                      "value": "<integer>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) ",
+                        "type": "text/plain"
+                      },
+                      "key": "exchange_rate_type",
+                      "value": "<integer>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "is_default",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "from_currency",
+                      "value": "<integer>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "to_currency",
+                      "value": "<integer>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "constant_rate",
+                      "value": "<decimal>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"account\": \"<integer>\",\n  \"exchange_rate_type\": \"<integer>\",\n  \"id\": 4249,\n  \"is_default\": \"<boolean>\",\n  \"rate_type\": \"string\",\n  \"from_currency\": \"<integer>\",\n  \"to_currency\": \"<integer>\",\n  \"constant_rate\": \"<decimal>\",\n  \"content_type_id\": 1146,\n  \"created_at\": \"1966-04-18T16:01:41.613Z\",\n  \"modified_at\": \"1954-01-07T21:21:49.559Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d9f25467-ad9a-4196-84a0-aabf3b7114f7",
+          "name": "Delete a Dimension Conversion Rate Mapping",
+          "request": {
+            "name": "Delete a Dimension Conversion Rate Mapping",
+            "description": {
+              "content": "Delete a Dimension Conversion Rate Mapping and all related custom Conversion Rates",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "currencies",
+                "rates",
+                "dimension-mappings",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) Set the version of API the request is for",
+                "key": "HTTP_ACCEPT",
+                "value": "application/json; version=1.1"
+              },
+              {
+                "disabled": false,
+                "description": "(Required) Associates request with company",
+                "key": "X-Company-ID",
+                "value": "<string>"
+              }
+            ],
+            "method": "DELETE",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.cubesoftware.com/o/token/"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://portal.cubesoftware.com/o/authorize/"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "1904e262-ff46-42c8-b4a3-f32d151cbef6",
+              "name": "No response body",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "currencies",
+                    "rates",
+                    "dimension-mappings",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Set the version of API the request is for",
+                    "key": "HTTP_ACCEPT",
+                    "value": "application/json; version=1.1"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Associates request with company",
+                    "key": "X-Company-ID",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c81f2bdc-ffad-4f9c-8588-baa078c897d2",
+          "name": "Export Currency Conversion Rates",
+          "request": {
+            "name": "Export Currency Conversion Rates",
+            "description": {
+              "content": "This endpoint retrieves and organizes the currency conversion rates into a CSV and streams the\n            result back to the requester.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "currencies",
+                "rates",
+                "export"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "account_id",
+                  "value": "<integer>",
+                  "description": "The Account dimension IDs to filter the exported records by."
+                },
+                {
+                  "disabled": false,
+                  "key": "account_id",
+                  "value": "<integer>",
+                  "description": "The Account dimension IDs to filter the exported records by."
+                },
+                {
+                  "disabled": false,
+                  "key": "currency_id",
+                  "value": "<integer>",
+                  "description": "The currency IDs to filter the exported records by."
+                },
+                {
+                  "disabled": false,
+                  "key": "currency_id",
+                  "value": "<integer>",
+                  "description": "The currency IDs to filter the exported records by."
+                },
+                {
+                  "disabled": false,
+                  "key": "time_id",
+                  "value": "<integer>",
+                  "description": "The Time dimension IDs to filter the exported records by."
+                },
+                {
+                  "disabled": false,
+                  "key": "time_id",
+                  "value": "<integer>",
+                  "description": "The Time dimension IDs to filter the exported records by."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) Set the version of API the request is for",
+                "key": "HTTP_ACCEPT",
+                "value": "application/json; version=1.1"
+              },
+              {
+                "disabled": false,
+                "description": "(Required) Associates request with company",
+                "key": "X-Company-ID",
+                "value": "<string>"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.cubesoftware.com/o/token/"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://portal.cubesoftware.com/o/authorize/"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "dcdf69b2-6f15-4998-a44e-025228c2b0b3",
+              "name": "CSV file containing the exported conversion rates",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "currencies",
+                    "rates",
+                    "export"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "account_id",
+                      "value": "236"
+                    },
+                    {
+                      "key": "currency_id",
+                      "value": "150"
+                    },
+                    {
+                      "key": "time_id",
+                      "value": "13"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Set the version of API the request is for",
+                    "key": "HTTP_ACCEPT",
+                    "value": "application/json; version=1.1"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Associates request with company",
+                    "key": "X-Company-ID",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "89da5ccd-ecc1-452e-b715-424bbcb1c36f",
+          "name": "Lists exchange rate types that exist for a given company",
+          "request": {
+            "name": "Lists exchange rate types that exist for a given company",
+            "description": {
+              "content": "Lists exchange rate types that exist for a given company",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "currencies",
+                "rates",
+                "types"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "rate_type",
+                  "value": "<str>",
+                  "description": "A rate type to limit the response to"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) Associates request with company",
+                "key": "X-Company-ID",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.cubesoftware.com/o/token/"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://portal.cubesoftware.com/o/authorize/"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "664f1a1a-3e59-43bb-9129-2884444fec74",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "currencies",
+                    "rates",
+                    "types"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "rate_type",
+                      "value": "CURRENT"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Associates request with company",
+                    "key": "X-Company-ID",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"created_at\": \"1951-12-18T09:42:36.253Z\",\n    \"id\": 9843,\n    \"modified_at\": \"1964-12-31T14:22:58.430Z\",\n    \"name\": \"string\",\n    \"rate_type\": \"HISTORICAL\",\n    \"weighted_average_of_id\": 791\n  },\n  {\n    \"created_at\": \"1979-06-11T21:58:30.146Z\",\n    \"id\": 4628,\n    \"modified_at\": \"1972-07-08T02:58:13.072Z\",\n    \"name\": \"string\",\n    \"rate_type\": \"HISTORICAL\",\n    \"weighted_average_of_id\": 1529\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4aef4ba7-1cd3-483c-b397-8b1aad6bec64",
+          "name": "View Supported Currencies",
+          "request": {
+            "name": "View Supported Currencies",
+            "description": {
+              "content": "Lists all of the currencies supported",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "currencies",
+                "system-currencies"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) Associates request with company",
+                "key": "X-Company-ID",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.cubesoftware.com/o/token/"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://portal.cubesoftware.com/o/authorize/"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "875e9abf-d83b-4038-931d-672f1b5d9d25",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "currencies",
+                    "system-currencies"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Associates request with company",
+                    "key": "X-Company-ID",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"code\": \"string\"\n  },\n  {\n    \"code\": \"string\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1e6282e0-f13d-4824-90f3-54d9acc78d6d",
+          "name": "currencies system currencies create",
+          "request": {
+            "name": "currencies system currencies create",
+            "description": {
+              "content": "This is a shortcut class that will include all 6 resourceful actions part of the DRF ViewSets:\n- list()\n- retrieve()\n- create()\n- update()\n- partial_update()\n- destroy()\n\nIf you do not want to expose all 6 of these in your ViewSet, then use the CubeAuthenticatedViewSet and add the\nappropriate mixins to it (see rest_framework.mixins). This will allow the api to behave appropriately and block\nrequests to unprocessable endpoints. Furthermore, it will make the drf_spectacular documentation be generated more\neasily.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "currencies",
+                "system-currencies"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) Associates request with company",
+                "key": "X-Company-ID",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.cubesoftware.com/o/token/"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://portal.cubesoftware.com/o/authorize/"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            },
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "disabled": false,
+                  "key": "code",
+                  "value": "<string>",
+                  "description": "(Required) "
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "f0b8e200-562e-44bd-b902-7365d3e775d2",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "currencies",
+                    "system-currencies"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Associates request with company",
+                    "key": "X-Company-ID",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) ",
+                        "type": "text/plain"
+                      },
+                      "key": "code",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"<string>\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "73c8d39b-d258-497d-96e0-82b9de2ee840",
+          "name": "Retrieve A Currency",
+          "request": {
+            "name": "Retrieve A Currency",
+            "description": {
+              "content": "Retrieves a currency",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "currencies",
+                "system-currencies",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) Associates request with company",
+                "key": "X-Company-ID",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.cubesoftware.com/o/token/"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://portal.cubesoftware.com/o/authorize/"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "45ff8f45-3f96-4a97-8009-b128aa3e145d",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "currencies",
+                    "system-currencies",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Associates request with company",
+                    "key": "X-Company-ID",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"<string>\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f5bd7df8-4eba-4f62-9695-ff6aaa026de3",
+          "name": "currencies system currencies update",
+          "request": {
+            "name": "currencies system currencies update",
+            "description": {
+              "content": "This is a shortcut class that will include all 6 resourceful actions part of the DRF ViewSets:\n- list()\n- retrieve()\n- create()\n- update()\n- partial_update()\n- destroy()\n\nIf you do not want to expose all 6 of these in your ViewSet, then use the CubeAuthenticatedViewSet and add the\nappropriate mixins to it (see rest_framework.mixins). This will allow the api to behave appropriately and block\nrequests to unprocessable endpoints. Furthermore, it will make the drf_spectacular documentation be generated more\neasily.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "currencies",
+                "system-currencies",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) Associates request with company",
+                "key": "X-Company-ID",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.cubesoftware.com/o/token/"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://portal.cubesoftware.com/o/authorize/"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            },
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "disabled": false,
+                  "key": "code",
+                  "value": "<string>",
+                  "description": "(Required) "
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "89c7861f-8629-433e-a522-02cf9189d526",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "currencies",
+                    "system-currencies",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Associates request with company",
+                    "key": "X-Company-ID",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) ",
+                        "type": "text/plain"
+                      },
+                      "key": "code",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"<string>\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7a895f43-ae8c-40f5-8f81-c52fd86c65d1",
+          "name": "currencies system currencies partial update",
+          "request": {
+            "name": "currencies system currencies partial update",
+            "description": {
+              "content": "This is a shortcut class that will include all 6 resourceful actions part of the DRF ViewSets:\n- list()\n- retrieve()\n- create()\n- update()\n- partial_update()\n- destroy()\n\nIf you do not want to expose all 6 of these in your ViewSet, then use the CubeAuthenticatedViewSet and add the\nappropriate mixins to it (see rest_framework.mixins). This will allow the api to behave appropriately and block\nrequests to unprocessable endpoints. Furthermore, it will make the drf_spectacular documentation be generated more\neasily.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "currencies",
+                "system-currencies",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) Associates request with company",
+                "key": "X-Company-ID",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.cubesoftware.com/o/token/"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://portal.cubesoftware.com/o/authorize/"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            },
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "disabled": false,
+                  "key": "name",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "code",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "symbol",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "description",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "exclusive_to_company_id",
+                  "value": "<uuid>"
+                },
+                {
+                  "disabled": false,
+                  "key": "created_by_id",
+                  "value": "<integer>"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "3865e3a6-8471-435b-a2a8-d4836d18e193",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "currencies",
+                    "system-currencies",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Associates request with company",
+                    "key": "X-Company-ID",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "code",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "symbol",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "description",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "exclusive_to_company_id",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "created_by_id",
+                      "value": "<integer>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"<string>\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a3f5b0d0-88f6-4ded-ab51-cc98d46247e1",
+          "name": "currencies system currencies destroy",
+          "request": {
+            "name": "currencies system currencies destroy",
+            "description": {
+              "content": "This is a shortcut class that will include all 6 resourceful actions part of the DRF ViewSets:\n- list()\n- retrieve()\n- create()\n- update()\n- partial_update()\n- destroy()\n\nIf you do not want to expose all 6 of these in your ViewSet, then use the CubeAuthenticatedViewSet and add the\nappropriate mixins to it (see rest_framework.mixins). This will allow the api to behave appropriately and block\nrequests to unprocessable endpoints. Furthermore, it will make the drf_spectacular documentation be generated more\neasily.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "currencies",
+                "system-currencies",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) Associates request with company",
+                "key": "X-Company-ID",
+                "value": "<string>"
+              }
+            ],
+            "method": "DELETE",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.cubesoftware.com/o/token/"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://portal.cubesoftware.com/o/authorize/"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "1bc233bc-93cd-468d-a7f0-520cac423faf",
+              "name": "No response body",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "currencies",
+                    "system-currencies",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Associates request with company",
+                    "key": "X-Company-ID",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.cubesoftware.com",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "1df3c3ad-d43a-41be-82a2-4fc22b8d2718",
+    "name": "Cube Agents Currencies API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "#### General Description\nAn API to access underlying Cube functionality. These endpoints are the same endpoints\nthat support Cube's universal add-ons and a plethora of integrations meaning you'll be able to interact with your\nCube data in many powerful ways. Visit the API section of Cube's [Help Center](https://help.cubesoftware.com/hc/en-us/sections/18205290556180-Custom-Integrations)\nfor more usage guides on how you can use this API to integrate with Cube to accomplish various tasks!\n\n#### Versioning\nAll requests to the API require a version to be configured via an `Accept` Header. The value of this Header should look like this:\n```\nAccept: application/json; version=1.0\n```\nNote that the version number may differ depending on which version of the endpoint is needed.\n\n#### Response Structure\nThe general response structure of Cube's API endpoints will contain a `\"data\"` and `\"metadata\"` root level key:\n```json\n{\n    \"data\": { ... object data or list of objects ... },\n    \"metadata\": {\n        \"status\": 200,\n        \"message\": \"Potential message with additional context\",\n        \"error\": false,\n        \"code\": \"\"\n    }\n}\n```\n\n#### Rate Limiting\nAll endpoints have a rate limit configured, most of them default to 5/s.\nWhen the rate limit is encountered, a 429 HTTP code will be returned.\n\n#### Error Handling\nIn the event an error occurs, the response will typically look like this:\n```json\n{\n    \"data\": {},\n    \"metadata\": {\n        \"status\": 400,\n        \"message\": \"Some error message\",\n        \"error\": true,\n        \"code\": \"SOME_ERROR_CODE\"\n    }\n}\n```\n",
+      "type": "text/plain"
+    }
+  }
+}

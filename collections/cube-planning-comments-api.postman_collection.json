@@ -1,0 +1,1495 @@
+{
+  "item": [
+    {
+      "id": "1114ffed-0fc3-4626-a00a-76171ce7a234",
+      "name": "Comments",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "bc4ea226-7da1-411c-8bff-92d8bef5c7f1",
+          "name": "List comments",
+          "request": {
+            "name": "List comments",
+            "description": {
+              "content": "List all comments for a specific content type with filtering.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "comments",
+                ":target_app",
+                ":target_model"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "target_id",
+                  "value": "<string>",
+                  "description": "(Required) Filter by target object id: int or uuid."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "target_app",
+                  "description": "(Required) The app label of the target object"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "target_model",
+                  "description": "(Required) The model name of the target object"
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) Associates request with company",
+                "key": "X-Company-ID",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.cubesoftware.com/o/token/"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://portal.cubesoftware.com/o/authorize/"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "eac0b4e9-611b-49ce-bed2-4dd50c427e7d",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "comments",
+                    ":target_app",
+                    ":target_model"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "target_id",
+                      "value": "86"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "target_app",
+                      "description": "(Required) The app label of the target object"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "target_model",
+                      "description": "(Required) The model name of the target object"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Associates request with company",
+                    "key": "X-Company-ID",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"data\": [\n      {\n        \"id\": 1,\n        \"content\": \"Cube is reinventing FP&A.\",\n        \"content_structured\": {},\n        \"created_by_id\": 1,\n        \"created_by_user_company\": {\n          \"user\": {\n            \"id\": 28,\n            \"first_name\": \"hhePZBKFhfdSrDsqHkC\",\n            \"last_name\": \"SnPCaLuQIazTmqTjD\",\n            \"created_at\": \"1986-03-28T19:56:43\",\n            \"email\": \"lindawest@example.org\",\n            \"is_staff\": null,\n            \"is_cube_staff\": null,\n            \"relationship_type\": null,\n            \"timezone\": \"Africa/Abidjan\"\n          },\n          \"is_deactivated\": false\n        },\n        \"created_at\": \"2026-07-12T00:15:28.277654+00:00\",\n        \"deleted_at\": null,\n        \"deleted_by_id\": null,\n        \"deleted_by_user_company\": {\n          \"user\": {\n            \"id\": 71,\n            \"first_name\": \"oePqmjQbZndJghceKRJRB\",\n            \"last_name\": \"QSUEXExIZVPeFzGRmMg\",\n            \"created_at\": \"1985-01-01T13:50:02\",\n            \"email\": \"laura56@example.org\",\n            \"is_staff\": null,\n            \"is_cube_staff\": null,\n            \"relationship_type\": null,\n            \"timezone\": \"Africa/Abidjan\"\n          },\n          \"is_deactivated\": false\n        },\n        \"modified_at\": null,\n        \"target\": {\n          \"app\": \"taskflow\",\n          \"model\": \"task\",\n          \"content_type_id\": 1,\n          \"id\": \"86\"\n        }\n      },\n      {\n        \"id\": 2,\n        \"content\": \"Cube is leading the FP&A revolution.\",\n        \"content_structured\": {},\n        \"created_by_id\": 1,\n        \"created_by_user_company\": {\n          \"user\": {\n            \"id\": 28,\n            \"first_name\": \"hhePZBKFhfdSrDsqHkC\",\n            \"last_name\": \"SnPCaLuQIazTmqTjD\",\n            \"created_at\": \"1986-03-28T19:56:43\",\n            \"email\": \"lindawest@example.org\",\n            \"is_staff\": null,\n            \"is_cube_staff\": null,\n            \"relationship_type\": null,\n            \"timezone\": \"Africa/Abidjan\"\n          },\n          \"is_deactivated\": false\n        },\n        \"created_at\": \"2026-07-13T00:15:28.277741+00:00\",\n        \"deleted_at\": null,\n        \"deleted_by_id\": null,\n        \"deleted_by_user_company\": {\n          \"user\": {\n            \"id\": 71,\n            \"first_name\": \"oePqmjQbZndJghceKRJRB\",\n            \"last_name\": \"QSUEXExIZVPeFzGRmMg\",\n            \"created_at\": \"1985-01-01T13:50:02\",\n            \"email\": \"laura56@example.org\",\n            \"is_staff\": null,\n            \"is_cube_staff\": null,\n            \"relationship_type\": null,\n            \"timezone\": \"Africa/Abidjan\"\n          },\n          \"is_deactivated\": false\n        },\n        \"modified_at\": null,\n        \"target\": {\n          \"app\": \"taskflow\",\n          \"model\": \"task\",\n          \"content_type_id\": 1,\n          \"id\": \"87\"\n        }\n      }\n    ]\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e83038fd-0638-42bd-b1ff-5cd527966d37",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "comments",
+                    ":target_app",
+                    ":target_model"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "target_id",
+                      "value": "86"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "target_app",
+                      "description": "(Required) The app label of the target object"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "target_model",
+                      "description": "(Required) The model name of the target object"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Associates request with company",
+                    "key": "X-Company-ID",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {},\n  \"metadata\": {\n    \"status\": 400,\n    \"error\": true,\n    \"message\": {\n      \"target_id\": [\n        \"This field is required.\"\n      ]\n    },\n    \"code\": \"\"\n  },\n  \"errors\": [\n    {\n      \"code\": \"\",\n      \"detail\": {\n        \"target_id\": [\n          \"This field is required.\"\n        ]\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6d4805af-b266-4c9c-8a99-67238c178d53",
+              "name": "Permission denied",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "comments",
+                    ":target_app",
+                    ":target_model"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "target_id",
+                      "value": "86"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "target_app",
+                      "description": "(Required) The app label of the target object"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "target_model",
+                      "description": "(Required) The model name of the target object"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Associates request with company",
+                    "key": "X-Company-ID",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {},\n  \"metadata\": {\n    \"status\": 403,\n    \"error\": true,\n    \"message\": \"You do not have permission to perform this action.\",\n    \"code\": \"\"\n  },\n  \"errors\": [\n    {\n      \"code\": \"\",\n      \"detail\": \"You do not have permission to perform this action.\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "15c6c3b7-84b2-4f65-a011-0f1b386c5f35",
+          "name": "Create comment",
+          "request": {
+            "name": "Create comment",
+            "description": {
+              "content": "Create a new comment for a specific target object. The content must not exceed 1000 characters.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "comments",
+                ":target_app",
+                ":target_model"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "target_app",
+                  "description": "(Required) The app label of the target object"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "target_model",
+                  "description": "(Required) The model name of the target object"
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) Associates request with company",
+                "key": "X-Company-ID",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.cubesoftware.com/o/token/"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://portal.cubesoftware.com/o/authorize/"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            },
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "disabled": false,
+                  "key": "content",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "content_structured",
+                  "value": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "target_id",
+                  "value": "<string>"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "ed9f1fd5-776b-4a9c-a37f-93ba92312ac9",
+              "name": "Comment created successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "comments",
+                    ":target_app",
+                    ":target_model"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "target_app",
+                      "description": "(Required) The app label of the target object"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "target_model",
+                      "description": "(Required) The model name of the target object"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Associates request with company",
+                    "key": "X-Company-ID",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "key": "content",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "content_structured",
+                      "value": ""
+                    },
+                    {
+                      "disabled": false,
+                      "key": "target_id",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": 1,\n    \"content\": \"Cube is reinventing FP&A.\",\n    \"content_structured\": {},\n    \"created_by_id\": 1,\n    \"created_by_user_company\": {\n      \"user\": {\n        \"id\": 28,\n        \"first_name\": \"hhePZBKFhfdSrDsqHkC\",\n        \"last_name\": \"SnPCaLuQIazTmqTjD\",\n        \"created_at\": \"1986-03-28T19:56:43\",\n        \"email\": \"lindawest@example.org\",\n        \"is_staff\": null,\n        \"is_cube_staff\": null,\n        \"relationship_type\": null,\n        \"timezone\": \"Africa/Abidjan\"\n      },\n      \"is_deactivated\": false\n    },\n    \"created_at\": \"2026-07-12T00:15:28.292851+00:00\",\n    \"deleted_at\": null,\n    \"deleted_by_id\": null,\n    \"deleted_by_user_company\": {\n      \"user\": {\n        \"id\": 71,\n        \"first_name\": \"oePqmjQbZndJghceKRJRB\",\n        \"last_name\": \"QSUEXExIZVPeFzGRmMg\",\n        \"created_at\": \"1985-01-01T13:50:02\",\n        \"email\": \"laura56@example.org\",\n        \"is_staff\": null,\n        \"is_cube_staff\": null,\n        \"relationship_type\": null,\n        \"timezone\": \"Africa/Abidjan\"\n      },\n      \"is_deactivated\": false\n    },\n    \"modified_at\": null,\n    \"target\": {\n      \"app\": \"taskflow\",\n      \"model\": \"task\",\n      \"content_type_id\": 1,\n      \"id\": \"86\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5a83a14a-745a-4ebc-b1e4-89172c6698ae",
+              "name": "Invalid input",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "comments",
+                    ":target_app",
+                    ":target_model"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "target_app",
+                      "description": "(Required) The app label of the target object"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "target_model",
+                      "description": "(Required) The model name of the target object"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Associates request with company",
+                    "key": "X-Company-ID",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "key": "content",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "content_structured",
+                      "value": ""
+                    },
+                    {
+                      "disabled": false,
+                      "key": "target_id",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {},\n  \"metadata\": {\n    \"status\": 400,\n    \"error\": true,\n    \"message\": {\n      \"content\": [\n        \"This field is required.\"\n      ]\n    },\n    \"code\": \"\"\n  },\n  \"errors\": [\n    {\n      \"code\": \"\",\n      \"detail\": {\n        \"content\": [\n          \"This field is required.\"\n        ]\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ccd3c88a-9555-42df-bf91-5d579b39d82e",
+              "name": "Permission denied",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "comments",
+                    ":target_app",
+                    ":target_model"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "target_app",
+                      "description": "(Required) The app label of the target object"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "target_model",
+                      "description": "(Required) The model name of the target object"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Associates request with company",
+                    "key": "X-Company-ID",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "key": "content",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "content_structured",
+                      "value": ""
+                    },
+                    {
+                      "disabled": false,
+                      "key": "target_id",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {},\n  \"metadata\": {\n    \"status\": 403,\n    \"error\": true,\n    \"message\": \"You do not have permission to perform this action.\",\n    \"code\": \"\"\n  },\n  \"errors\": [\n    {\n      \"code\": \"\",\n      \"detail\": \"You do not have permission to perform this action.\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "243d6820-ab02-4e94-97f3-023aa508c534",
+          "name": "Retrieve comment",
+          "request": {
+            "name": "Retrieve comment",
+            "description": {
+              "content": "Retrieve a specific comment by its id.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "comments",
+                ":target_app",
+                ":target_model",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "target_app",
+                  "description": "(Required) The app label of the target object"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "target_model",
+                  "description": "(Required) The model name of the target object"
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) Associates request with company",
+                "key": "X-Company-ID",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.cubesoftware.com/o/token/"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://portal.cubesoftware.com/o/authorize/"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "dc59f50d-0d24-4f21-bff1-bf9f707850f4",
+              "name": "Comment retrieved successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "comments",
+                    ":target_app",
+                    ":target_model",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "target_app",
+                      "description": "(Required) The app label of the target object"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "target_model",
+                      "description": "(Required) The model name of the target object"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Associates request with company",
+                    "key": "X-Company-ID",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": 1,\n    \"content\": \"Cube is reinventing FP&A.\",\n    \"content_structured\": {},\n    \"created_by_id\": 1,\n    \"created_by_user_company\": {\n      \"user\": {\n        \"id\": 28,\n        \"first_name\": \"hhePZBKFhfdSrDsqHkC\",\n        \"last_name\": \"SnPCaLuQIazTmqTjD\",\n        \"created_at\": \"1986-03-28T19:56:43\",\n        \"email\": \"lindawest@example.org\",\n        \"is_staff\": null,\n        \"is_cube_staff\": null,\n        \"relationship_type\": null,\n        \"timezone\": \"Africa/Abidjan\"\n      },\n      \"is_deactivated\": false\n    },\n    \"created_at\": \"2026-07-12T00:15:28.321798+00:00\",\n    \"deleted_at\": null,\n    \"deleted_by_id\": null,\n    \"deleted_by_user_company\": {\n      \"user\": {\n        \"id\": 71,\n        \"first_name\": \"oePqmjQbZndJghceKRJRB\",\n        \"last_name\": \"QSUEXExIZVPeFzGRmMg\",\n        \"created_at\": \"1985-01-01T13:50:02\",\n        \"email\": \"laura56@example.org\",\n        \"is_staff\": null,\n        \"is_cube_staff\": null,\n        \"relationship_type\": null,\n        \"timezone\": \"Africa/Abidjan\"\n      },\n      \"is_deactivated\": false\n    },\n    \"modified_at\": null,\n    \"target\": {\n      \"app\": \"taskflow\",\n      \"model\": \"task\",\n      \"content_type_id\": 1,\n      \"id\": \"86\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "97adc1f4-3ef9-4976-ae56-8e94ecd81c78",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "comments",
+                    ":target_app",
+                    ":target_model",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "target_app",
+                      "description": "(Required) The app label of the target object"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "target_model",
+                      "description": "(Required) The model name of the target object"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Associates request with company",
+                    "key": "X-Company-ID",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {},\n  \"metadata\": {\n    \"status\": 404,\n    \"error\": true,\n    \"message\": \"Resource does not exist\",\n    \"code\": \"DOES_NOT_EXIST\"\n  },\n  \"errors\": [\n    {\n      \"code\": \"DOES_NOT_EXIST\",\n      \"detail\": \"Resource does not exist\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "885f52c9-71e9-40a0-8071-5253ef4d238a",
+          "name": "Update comment",
+          "request": {
+            "name": "Update comment",
+            "description": {
+              "content": "Update a specific comment by its id.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "comments",
+                ":target_app",
+                ":target_model",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "target_app",
+                  "description": "(Required) The app label of the target object"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "target_model",
+                  "description": "(Required) The model name of the target object"
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) Associates request with company",
+                "key": "X-Company-ID",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.cubesoftware.com/o/token/"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://portal.cubesoftware.com/o/authorize/"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            },
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "disabled": false,
+                  "key": "content",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "content_structured",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "0374b485-2631-428c-bf98-e1b9631177e9",
+              "name": "Comment updated successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "comments",
+                    ":target_app",
+                    ":target_model",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "target_app",
+                      "description": "(Required) The app label of the target object"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "target_model",
+                      "description": "(Required) The model name of the target object"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Associates request with company",
+                    "key": "X-Company-ID",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "key": "content",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "content_structured",
+                      "value": ""
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": 1,\n    \"content\": \"Cube is leading the FP&A revolution.\",\n    \"content_structured\": {\n      \"type\": \"doc\",\n      \"content\": [\n        {\n          \"type\": \"paragraph\",\n          \"content\": [\n            {\n              \"type\": \"text\",\n              \"text\": \"Cube is leading the FP&A revolution.\"\n            }\n          ]\n        }\n      ]\n    },\n    \"created_by_id\": 1,\n    \"created_by_user_company\": {\n      \"user\": {\n        \"id\": 28,\n        \"first_name\": \"hhePZBKFhfdSrDsqHkC\",\n        \"last_name\": \"SnPCaLuQIazTmqTjD\",\n        \"created_at\": \"1986-03-28T19:56:43\",\n        \"email\": \"lindawest@example.org\",\n        \"is_staff\": null,\n        \"is_cube_staff\": null,\n        \"relationship_type\": null,\n        \"timezone\": \"Africa/Abidjan\"\n      },\n      \"is_deactivated\": false\n    },\n    \"created_at\": \"2026-07-12T00:15:28.307419+00:00\",\n    \"deleted_at\": null,\n    \"deleted_by_id\": null,\n    \"deleted_by_user_company\": {\n      \"user\": {\n        \"id\": 71,\n        \"first_name\": \"oePqmjQbZndJghceKRJRB\",\n        \"last_name\": \"QSUEXExIZVPeFzGRmMg\",\n        \"created_at\": \"1985-01-01T13:50:02\",\n        \"email\": \"laura56@example.org\",\n        \"is_staff\": null,\n        \"is_cube_staff\": null,\n        \"relationship_type\": null,\n        \"timezone\": \"Africa/Abidjan\"\n      },\n      \"is_deactivated\": false\n    },\n    \"modified_at\": \"2025-05-21T12:34:56Z\",\n    \"target\": {\n      \"app\": \"taskflow\",\n      \"model\": \"task\",\n      \"content_type_id\": 1,\n      \"id\": \"86\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "faaa4dcd-bb23-4676-96f0-2bca73e49903",
+              "name": "Invalid input",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "comments",
+                    ":target_app",
+                    ":target_model",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "target_app",
+                      "description": "(Required) The app label of the target object"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "target_model",
+                      "description": "(Required) The model name of the target object"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Associates request with company",
+                    "key": "X-Company-ID",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "key": "content",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "content_structured",
+                      "value": ""
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {},\n  \"metadata\": {\n    \"status\": 400,\n    \"error\": true,\n    \"message\": {\n      \"content_structured\": [\n        \"Invalid data\"\n      ]\n    },\n    \"code\": \"\"\n  },\n  \"errors\": [\n    {\n      \"code\": \"\",\n      \"detail\": {\n        \"content_structured\": [\n          \"Invalid data\"\n        ]\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8a5ca6f7-5be8-46cf-bc4d-353798afc253",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "comments",
+                    ":target_app",
+                    ":target_model",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "target_app",
+                      "description": "(Required) The app label of the target object"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "target_model",
+                      "description": "(Required) The model name of the target object"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Associates request with company",
+                    "key": "X-Company-ID",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "key": "content",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "content_structured",
+                      "value": ""
+                    }
+                  ]
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {},\n  \"metadata\": {\n    \"status\": 404,\n    \"error\": true,\n    \"message\": \"Resource does not exist\",\n    \"code\": \"DOES_NOT_EXIST\"\n  },\n  \"errors\": [\n    {\n      \"code\": \"DOES_NOT_EXIST\",\n      \"detail\": \"Resource does not exist\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ad31230c-eb35-42d3-9f3d-f791d963df02",
+          "name": "Destroy comment",
+          "request": {
+            "name": "Destroy comment",
+            "description": {
+              "content": "Destroy a specific comment by its id.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "comments",
+                ":target_app",
+                ":target_model",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "target_app",
+                  "description": "(Required) The app label of the target object"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "target_model",
+                  "description": "(Required) The model name of the target object"
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) Associates request with company",
+                "key": "X-Company-ID",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.cubesoftware.com/o/token/"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://portal.cubesoftware.com/o/authorize/"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "f729001f-afa1-4910-be56-d6e888896805",
+              "name": "Comment deleted successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "comments",
+                    ":target_app",
+                    ":target_model",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "target_app",
+                      "description": "(Required) The app label of the target object"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "target_model",
+                      "description": "(Required) The model name of the target object"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Associates request with company",
+                    "key": "X-Company-ID",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "74ee8685-5ad8-4036-b9e5-cb0de72bdab3",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "comments",
+                    ":target_app",
+                    ":target_model",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "target_app",
+                      "description": "(Required) The app label of the target object"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "target_model",
+                      "description": "(Required) The model name of the target object"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Associates request with company",
+                    "key": "X-Company-ID",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {},\n  \"metadata\": {\n    \"status\": 404,\n    \"error\": true,\n    \"message\": \"Resource does not exist\",\n    \"code\": \"DOES_NOT_EXIST\"\n  },\n  \"errors\": [\n    {\n      \"code\": \"DOES_NOT_EXIST\",\n      \"detail\": \"Resource does not exist\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.cubesoftware.com",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "9418b15c-ba81-4001-bb33-04593bca6b15",
+    "name": "Cube Agents Comments API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "#### General Description\nAn API to access underlying Cube functionality. These endpoints are the same endpoints\nthat support Cube's universal add-ons and a plethora of integrations meaning you'll be able to interact with your\nCube data in many powerful ways. Visit the API section of Cube's [Help Center](https://help.cubesoftware.com/hc/en-us/sections/18205290556180-Custom-Integrations)\nfor more usage guides on how you can use this API to integrate with Cube to accomplish various tasks!\n\n#### Versioning\nAll requests to the API require a version to be configured via an `Accept` Header. The value of this Header should look like this:\n```\nAccept: application/json; version=1.0\n```\nNote that the version number may differ depending on which version of the endpoint is needed.\n\n#### Response Structure\nThe general response structure of Cube's API endpoints will contain a `\"data\"` and `\"metadata\"` root level key:\n```json\n{\n    \"data\": { ... object data or list of objects ... },\n    \"metadata\": {\n        \"status\": 200,\n        \"message\": \"Potential message with additional context\",\n        \"error\": false,\n        \"code\": \"\"\n    }\n}\n```\n\n#### Rate Limiting\nAll endpoints have a rate limit configured, most of them default to 5/s.\nWhen the rate limit is encountered, a 429 HTTP code will be returned.\n\n#### Error Handling\nIn the event an error occurs, the response will typically look like this:\n```json\n{\n    \"data\": {},\n    \"metadata\": {\n        \"status\": 400,\n        \"message\": \"Some error message\",\n        \"error\": true,\n        \"code\": \"SOME_ERROR_CODE\"\n    }\n}\n```\n",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,836 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Cube Agents Dimensions API",
+    "version": "1.0.0 (1.0)"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Dimensions",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get All Dimensions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.cubesoftware.com/dimensions",
+            "headers": [
+              {
+                "name": "X-Company-ID",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "can_be_mapped",
+                "value": "",
+                "type": "query",
+                "description": "Limit to dimensions that can be mapped to source systems."
+              },
+              {
+                "name": "inactive",
+                "value": "",
+                "type": "query",
+                "description": "Include inactive dimensions."
+              },
+              {
+                "name": "include_tags",
+                "value": "",
+                "type": "query",
+                "description": "Include TAG-type dimensions."
+              },
+              {
+                "name": "tld_id",
+                "value": "",
+                "type": "query",
+                "description": "Limit to dimensions under this top-level dimension."
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://portal.cubesoftware.com/o/authorize/",
+              "accessTokenUrl": "https://api.cubesoftware.com/o/token/",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "This endpoint lists all dimensions accessible to the user in a flat list."
+        },
+        {
+          "info": {
+            "name": "Create a Dimension",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.cubesoftware.com/dimensions",
+            "headers": [
+              {
+                "name": "X-Company-ID",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "can_be_mapped",
+                "value": "",
+                "type": "query",
+                "description": "Limit to dimensions that can be mapped to source systems."
+              },
+              {
+                "name": "inactive",
+                "value": "",
+                "type": "query",
+                "description": "Include inactive dimensions."
+              },
+              {
+                "name": "include_tags",
+                "value": "",
+                "type": "query",
+                "description": "Include TAG-type dimensions."
+              },
+              {
+                "name": "tld_id",
+                "value": "",
+                "type": "query",
+                "description": "Limit to dimensions under this top-level dimension."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://portal.cubesoftware.com/o/authorize/",
+              "accessTokenUrl": "https://api.cubesoftware.com/o/token/",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "This endpoint creates a dimension."
+        },
+        {
+          "info": {
+            "name": "Get Dimension by ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.cubesoftware.com/dimensions/:dimension_id",
+            "headers": [
+              {
+                "name": "X-Company-ID",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "dimension_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the dimension"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://portal.cubesoftware.com/o/authorize/",
+              "accessTokenUrl": "https://api.cubesoftware.com/o/token/",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Get a single dimension by it's ID"
+        },
+        {
+          "info": {
+            "name": "Update Dimension By ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.cubesoftware.com/dimensions/:dimension_id",
+            "headers": [
+              {
+                "name": "X-Company-ID",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "dimension_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the dimension"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://portal.cubesoftware.com/o/authorize/",
+              "accessTokenUrl": "https://api.cubesoftware.com/o/token/",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Update individual fields of a dimension model.\n        NOTE: A dimension can NOT be enabled and disabled via this endpoint. Instead see the Dimension Status endpoint.\n        "
+        },
+        {
+          "info": {
+            "name": "Duplicate a Dimension",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.cubesoftware.com/dimensions/:dimension_id/duplicate",
+            "headers": [
+              {
+                "name": "X-Company-ID",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "dimension_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the dimension"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://portal.cubesoftware.com/o/authorize/",
+              "accessTokenUrl": "https://api.cubesoftware.com/o/token/",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "This endpoint duplicates a dimension. Note that this is only possible for Scenario Dimensions."
+        },
+        {
+          "info": {
+            "name": "Get Dimension Mappings for Source Data Tables",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.cubesoftware.com/dimensions/:dimension_id/mappings",
+            "headers": [
+              {
+                "name": "X-Company-ID",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "dimension_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the dimension"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://portal.cubesoftware.com/o/authorize/",
+              "accessTokenUrl": "https://api.cubesoftware.com/o/token/",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Get the mappings for a given dimension ID to data tables"
+        },
+        {
+          "info": {
+            "name": "Get Dimension Options",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.cubesoftware.com/dimensions/:dimension_id/options",
+            "headers": [
+              {
+                "name": "X-Company-ID",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "dimension_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the dimension"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://portal.cubesoftware.com/o/authorize/",
+              "accessTokenUrl": "https://api.cubesoftware.com/o/token/",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "List the options for acceptable changes to a given dimension, such as possible parents, write\n        protection options, and rollup type options. For new dimensions, passing 0 as the ID gets default options.\n        "
+        },
+        {
+          "info": {
+            "name": "Enable or Disable a Dimension",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.cubesoftware.com/dimensions/:dimension_id/status",
+            "headers": [
+              {
+                "name": "X-Company-ID",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "dimension_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the dimension"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://portal.cubesoftware.com/o/authorize/",
+              "accessTokenUrl": "https://api.cubesoftware.com/o/token/",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "You can use this endpoint to disable or re-enable a dimension"
+        },
+        {
+          "info": {
+            "name": "Bulk Update Dimensions",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.cubesoftware.com/dimensions/bulk",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://portal.cubesoftware.com/o/authorize/",
+              "accessTokenUrl": "https://api.cubesoftware.com/o/token/",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "This endpoint bulk updates dimensions."
+        },
+        {
+          "info": {
+            "name": "Get Deepest Dimensions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.cubesoftware.com/dimensions/deepest",
+            "headers": [
+              {
+                "name": "X-Company-ID",
+                "value": ""
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://portal.cubesoftware.com/o/authorize/",
+              "accessTokenUrl": "https://api.cubesoftware.com/o/token/",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "This endpoint retrieves all the deepest level dimensions"
+        },
+        {
+          "info": {
+            "name": "Download Dimensions Excel File",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.cubesoftware.com/dimensions/download",
+            "params": [
+              {
+                "name": "enable_reparenting",
+                "value": "",
+                "type": "query",
+                "description": "Whether to enable reparenting functionality"
+              },
+              {
+                "name": "for_upload",
+                "value": "",
+                "type": "query",
+                "description": "Whether to include the updated name column for upload"
+              },
+              {
+                "name": "tld_ids",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of TLD IDs to include in the export"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://portal.cubesoftware.com/o/authorize/",
+              "accessTokenUrl": "https://api.cubesoftware.com/o/token/",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Download an Excel file containing dimension data for the specified TLD IDs."
+        },
+        {
+          "info": {
+            "name": "Get all Dimension Mappings for Source Data Tables",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.cubesoftware.com/dimensions/mappings",
+            "headers": [
+              {
+                "name": "X-Company-ID",
+                "value": ""
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://portal.cubesoftware.com/o/authorize/",
+              "accessTokenUrl": "https://api.cubesoftware.com/o/token/",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Get the mappings for all dimensions to data tables"
+        },
+        {
+          "info": {
+            "name": "List previous merge scenarios",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.cubesoftware.com/dimensions/merge",
+            "headers": [
+              {
+                "name": "X-Company-ID",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "destination_dimension",
+                "value": "",
+                "type": "query",
+                "description": "The dimension ID of the destination dimension to filter on."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The limit for the paginated response."
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "The number of results to skip from 0."
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "The status of the merge request you'd like to filter by"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://portal.cubesoftware.com/o/authorize/",
+              "accessTokenUrl": "https://api.cubesoftware.com/o/token/",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "List previous merge scenarios. You can filter this list by destination dimension ID and/or\n        merge request status\n        "
+        },
+        {
+          "info": {
+            "name": "Merge one or more Scenario to a destination Scenario based on Time dimensions",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.cubesoftware.com/dimensions/merge",
+            "headers": [
+              {
+                "name": "X-Company-ID",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://portal.cubesoftware.com/o/authorize/",
+              "accessTokenUrl": "https://api.cubesoftware.com/o/token/",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Create a request to merge data from one or more source Scenario dimensions in to a destination\n        Scenario. This can be limited by time periods based on Time dimensions. If successful, a background worker\n        will start to move the data and the caller will be emailed with the results.\n        "
+        },
+        {
+          "info": {
+            "name": "Reorder Dimensions",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.cubesoftware.com/dimensions/order",
+            "headers": [
+              {
+                "name": "X-Company-ID",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://portal.cubesoftware.com/o/authorize/",
+              "accessTokenUrl": "https://api.cubesoftware.com/o/token/",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Re-orders dimensions when showing in a list."
+        },
+        {
+          "info": {
+            "name": "Generate a time series forecast of a Scenario",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.cubesoftware.com/dimensions/scenarios/forecast",
+            "headers": [
+              {
+                "name": "X-Company-ID",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://portal.cubesoftware.com/o/authorize/",
+              "accessTokenUrl": "https://api.cubesoftware.com/o/token/",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Generate a time series forecast of a Scenario"
+        },
+        {
+          "info": {
+            "name": "Create Time Dimensions",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.cubesoftware.com/dimensions/time",
+            "headers": [
+              {
+                "name": "X-Company-ID",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://portal.cubesoftware.com/o/authorize/",
+              "accessTokenUrl": "https://api.cubesoftware.com/o/token/",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "This endpoint creates dimensions for an entire year. Alternatively, it can create a\n        \"Cube Opening Balance\" dimension\n        "
+        },
+        {
+          "info": {
+            "name": "Translate Relative Dates",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.cubesoftware.com/dimensions/time/translate",
+            "headers": [
+              {
+                "name": "X-Company-ID",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://portal.cubesoftware.com/o/authorize/",
+              "accessTokenUrl": "https://api.cubesoftware.com/o/token/",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Translates relative date phrases (like \"Last Month\", \"Last 3 Months\") to their corresponding time dimension names and IDs based on the context (row, column, or filter). For row/column context, multi-period phrases expand to individual dimensions. For filter context, multi-period phrases return a single aggregated dimension."
+        },
+        {
+          "info": {
+            "name": "Rename a custom cube TLD",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.cubesoftware.com/dimensions/tld/:id",
+            "headers": [
+              {
+                "name": "X-Company-ID",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://portal.cubesoftware.com/o/authorize/",
+              "accessTokenUrl": "https://api.cubesoftware.com/o/token/",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "API for managing custom cube top-level dimensions (TLDs)."
+        },
+        {
+          "info": {
+            "name": "Delete a custom cube TLD",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.cubesoftware.com/dimensions/tld/:id",
+            "headers": [
+              {
+                "name": "X-Company-ID",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://portal.cubesoftware.com/o/authorize/",
+              "accessTokenUrl": "https://api.cubesoftware.com/o/token/",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "API for managing custom cube top-level dimensions (TLDs)."
+        },
+        {
+          "info": {
+            "name": "Get Dimensions Tree",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.cubesoftware.com/dimensions/tree",
+            "headers": [
+              {
+                "name": "X-Company-ID",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "can_be_mapped",
+                "value": "",
+                "type": "query",
+                "description": "The result will be limited to dimensions that can be mapped to source systems."
+              },
+              {
+                "name": "inactive",
+                "value": "",
+                "type": "query",
+                "description": "The result will also include inactive dimensions."
+              },
+              {
+                "name": "include_operations",
+                "value": "",
+                "type": "query",
+                "description": "The result will include data about which operations are allowed against a given dimension (i.e. disable_block_reason, enable_block_reason)."
+              },
+              {
+                "name": "include_tag_members",
+                "value": "",
+                "type": "query",
+                "description": "The result will also include tag members."
+              },
+              {
+                "name": "include_tags",
+                "value": "",
+                "type": "query",
+                "description": "The result will also include tags."
+              },
+              {
+                "name": "tld_id",
+                "value": "",
+                "type": "query",
+                "description": "The result will be limited to dimensions under this top-level dimension"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://portal.cubesoftware.com/o/authorize/",
+              "accessTokenUrl": "https://api.cubesoftware.com/o/token/",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "This endpoint retrieves the company's dimensions structured in their hierarchy"
+        },
+        {
+          "info": {
+            "name": "dimensions_scenarios_variance_analysis_summary_create",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.cubesoftware.com/dimensions/scenarios/variance-analysis/summary",
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://portal.cubesoftware.com/o/authorize/",
+              "accessTokenUrl": "https://api.cubesoftware.com/o/token/",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "This class exists to have a standard rate limit across all authenticated API endpoints"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

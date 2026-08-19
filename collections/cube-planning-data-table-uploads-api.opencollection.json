@@ -1,0 +1,225 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Cube Agents Data Table Uploads API",
+    "version": "1.0.0 (1.0)"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Data Table Uploads",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve a Data Table Upload",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.cubesoftware.com/data-tables/:data_table_id/upload",
+            "headers": [
+              {
+                "name": "X-Company-ID",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "data_table_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the data table the upload is associated with"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://portal.cubesoftware.com/o/authorize/",
+              "accessTokenUrl": "https://api.cubesoftware.com/o/token/",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Retrieve a single upload belonging to a data dable"
+        },
+        {
+          "info": {
+            "name": "Create a Data Table Upload",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.cubesoftware.com/data-tables/:data_table_id/upload",
+            "headers": [
+              {
+                "name": "X-Company-ID",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "data_table_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the data table the upload is associated with"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://portal.cubesoftware.com/o/authorize/",
+              "accessTokenUrl": "https://api.cubesoftware.com/o/token/",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Create an upload object for a given data table to track overall upload status and corresponding parts."
+        },
+        {
+          "info": {
+            "name": "Modify a Data Table Upload",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.cubesoftware.com/data-tables/:data_table_id/upload/:data_table_upload_id",
+            "headers": [
+              {
+                "name": "X-Company-ID",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "data_table_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the data table the upload is associated with"
+              },
+              {
+                "name": "data_table_upload_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the data table upload this is a part of"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://portal.cubesoftware.com/o/authorize/",
+              "accessTokenUrl": "https://api.cubesoftware.com/o/token/",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Modify a data table upload, sending emails if the status changes to failed"
+        },
+        {
+          "info": {
+            "name": "Start Importing Uploaded Data",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.cubesoftware.com/data-tables/:data_table_id/upload/:data_table_upload_id/import",
+            "headers": [
+              {
+                "name": "X-Company-ID",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "data_table_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the data table the upload is associated with"
+              },
+              {
+                "name": "data_table_upload_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the data table upload this is a part of"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://portal.cubesoftware.com/o/authorize/",
+              "accessTokenUrl": "https://api.cubesoftware.com/o/token/",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Once you've uploaded all the parts of your overall upload this endpoint will start the import."
+        },
+        {
+          "info": {
+            "name": "Upload Part of Data Table Upload",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.cubesoftware.com/data-tables/:data_table_id/upload/:data_table_upload_id/part",
+            "headers": [
+              {
+                "name": "X-Company-ID",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "data_table_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the data table the upload is associated with"
+              },
+              {
+                "name": "data_table_upload_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the data table upload this is a part of"
+              },
+              {
+                "name": "file",
+                "value": "",
+                "type": "query",
+                "description": "The data being uploaded. This can uploaded as a literal file, a JSON body, or under the key \"file\" in the JSON."
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://portal.cubesoftware.com/o/authorize/",
+              "accessTokenUrl": "https://api.cubesoftware.com/o/token/",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Attach a piece of an overall upload to an upload object.\nAn upload may be comprised of one or multiple parts.\nWhen sending larger amounts of data, this can be used to upload that data in smaller parts.\n        "
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,1698 @@
+{
+  "item": [
+    {
+      "id": "80502425-3843-4e22-9826-119d4f6c1ade",
+      "name": "Cube Value Range",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "5c75d9b1-811f-4746-8952-27e0e3df6fc4",
+          "name": "List all cube value ranges",
+          "request": {
+            "name": "List all cube value ranges",
+            "description": {
+              "content": "List all cube value ranges available to the authenticated user company.\n\n- The `headers`, `filters`, and `tags` fields are omitted from this response for performance reasons.\n- Results can be limited by passing a comma separated list of ids in the query string: `?ids=1,2,3`",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "ranges"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) Associates request with company",
+                "key": "X-Company-ID",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.cubesoftware.com/o/token/"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://portal.cubesoftware.com/o/authorize/"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "a8b86cfb-cdc2-418d-842f-a6656106b771",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ranges"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Associates request with company",
+                    "key": "X-Company-ID",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": 1,\n    \"name\": \"Awesome Range\",\n    \"currency\": {\n      \"id\": 1,\n      \"code\": \"USD\",\n      \"name\": \"US Dollar\"\n    },\n    \"fetch_enabled\": true,\n    \"publish_enabled\": false,\n    \"exclude_zeros\": false,\n    \"suppressed_row_dimensions\": {}\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0b31b74c-24f0-4a30-b206-79da910be7dd",
+          "name": "Create a cube value range",
+          "request": {
+            "name": "Create a cube value range",
+            "description": {
+              "content": "Create a new cube value range associated with the authenticated user company.\n\n- Required fields typically include `name` and `data`.\n- The full range, including generated fields like `id` and `headers`, is returned upon success.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "ranges"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "header_discovery",
+                  "value": "false",
+                  "description": "Control header discovery. When `true`, adds `discovered_row_headers` property to response."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) Associates request with company",
+                "key": "X-Company-ID",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.cubesoftware.com/o/token/"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://portal.cubesoftware.com/o/authorize/"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            },
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "disabled": false,
+                  "key": "filters",
+                  "value": "",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "range_type",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "name",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "fetch_enabled",
+                  "value": "<boolean>"
+                },
+                {
+                  "disabled": false,
+                  "key": "publish_enabled",
+                  "value": "<boolean>"
+                },
+                {
+                  "disabled": false,
+                  "key": "row_discovery_enabled",
+                  "value": "<boolean>"
+                },
+                {
+                  "disabled": false,
+                  "key": "code",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "exclude_zeros",
+                  "value": "<boolean>"
+                },
+                {
+                  "disabled": false,
+                  "key": "suppressed_row_dimensions",
+                  "value": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "collapse_coordinates",
+                  "value": "[\"<integer>\",\"<integer>\"]"
+                },
+                {
+                  "disabled": false,
+                  "key": "collapse_coordinates",
+                  "value": "[\"<integer>\",\"<integer>\"]"
+                },
+                {
+                  "disabled": false,
+                  "key": "expand_all_coordinates",
+                  "value": "[\"<integer>\",\"<integer>\"]"
+                },
+                {
+                  "disabled": false,
+                  "key": "expand_all_coordinates",
+                  "value": "[\"<integer>\",\"<integer>\"]"
+                },
+                {
+                  "disabled": false,
+                  "key": "expand_coordinates",
+                  "value": "[\"<integer>\",\"<integer>\"]"
+                },
+                {
+                  "disabled": false,
+                  "key": "expand_coordinates",
+                  "value": "[\"<integer>\",\"<integer>\"]"
+                },
+                {
+                  "disabled": false,
+                  "key": "tags",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "349932cf-0918-411d-896a-d2e87f7cf6fd",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ranges"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "header_discovery",
+                      "value": "false"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Associates request with company",
+                    "key": "X-Company-ID",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) ",
+                        "type": "text/plain"
+                      },
+                      "key": "filters",
+                      "value": ""
+                    },
+                    {
+                      "disabled": false,
+                      "key": "range_type",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "fetch_enabled",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "publish_enabled",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "row_discovery_enabled",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "code",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "exclude_zeros",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "suppressed_row_dimensions",
+                      "value": ""
+                    },
+                    {
+                      "disabled": false,
+                      "key": "collapse_coordinates",
+                      "value": "[\"<integer>\",\"<integer>\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "collapse_coordinates",
+                      "value": "[\"<integer>\",\"<integer>\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "expand_all_coordinates",
+                      "value": "[\"<integer>\",\"<integer>\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "expand_all_coordinates",
+                      "value": "[\"<integer>\",\"<integer>\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "expand_coordinates",
+                      "value": "[\"<integer>\",\"<integer>\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "expand_coordinates",
+                      "value": "[\"<integer>\",\"<integer>\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "tags",
+                      "value": ""
+                    }
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 1,\n  \"name\": \"Awesome Range\",\n  \"headers\": {\n    \"B1\": \"Q1-25\",\n    \"A2\": \"Revenue\"\n  },\n  \"filters\": {\n    \"123\": 345,\n    \"321\": 543\n  },\n  \"currency\": {\n    \"id\": 1,\n    \"code\": \"USD\",\n    \"name\": \"US Dollar\"\n  },\n  \"fetch_enabled\": true,\n  \"publish_enabled\": false,\n  \"exclude_zeros\": false,\n  \"suppressed_row_dimensions\": {},\n  \"tags\": {\n    \"123\": [\n      {\n        \"dimension_id\": 1,\n        \"name\": \"Revenue\"\n      },\n      {\n        \"dimension_id\": 2,\n        \"name\": \"Cost of Goods Sold\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "07bbb24f-c502-4ce7-b654-429c594b868c",
+          "name": "Retrieve a cube value range (A1 notation headers)",
+          "request": {
+            "name": "Retrieve a cube value range (A1 notation headers)",
+            "description": {
+              "content": "Fetch detailed information about a single cube value range by ID.\n\n- Includes all fields, including the optional, expensive `headers` field, which is represented in **A1 notation**, plus `filters` and `tags`.\n- This endpoint is intended for detail views or editing.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "ranges",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "header_discovery",
+                  "value": "false",
+                  "description": "Control header discovery. When `true`, adds `discovered_row_headers` property to response."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) Associates request with company",
+                "key": "X-Company-ID",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.cubesoftware.com/o/token/"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://portal.cubesoftware.com/o/authorize/"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "a620d901-6185-4e1b-a323-3bd7d7d3ce73",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ranges",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "header_discovery",
+                      "value": "false"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Associates request with company",
+                    "key": "X-Company-ID",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 1,\n  \"name\": \"Awesome Range\",\n  \"headers\": {\n    \"B1\": \"Q1-25\",\n    \"A2\": \"Revenue\"\n  },\n  \"filters\": {\n    \"123\": 345,\n    \"321\": 543\n  },\n  \"currency\": {\n    \"id\": 1,\n    \"code\": \"USD\",\n    \"name\": \"US Dollar\"\n  },\n  \"fetch_enabled\": true,\n  \"publish_enabled\": false,\n  \"exclude_zeros\": false,\n  \"suppressed_row_dimensions\": {},\n  \"tags\": {\n    \"123\": [\n      {\n        \"dimension_id\": 1,\n        \"name\": \"Revenue\"\n      },\n      {\n        \"dimension_id\": 2,\n        \"name\": \"Cost of Goods Sold\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "88c9bc58-7258-43e4-afd4-a0719583473f",
+          "name": "Update a cube value range",
+          "request": {
+            "name": "Update a cube value range",
+            "description": {
+              "content": "Perform a full update of an existing cube value range.\n\n- Read-only fields (`id`, `headers`) will be ignored if included.\n- The `headers` field is not accepted in the request but will appear in the response.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "ranges",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "header_discovery",
+                  "value": "false",
+                  "description": "Control header discovery. When `true`, adds `discovered_row_headers` property to response."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) Associates request with company",
+                "key": "X-Company-ID",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.cubesoftware.com/o/token/"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://portal.cubesoftware.com/o/authorize/"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            },
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "disabled": false,
+                  "key": "filters",
+                  "value": "",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "range_type",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "name",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "fetch_enabled",
+                  "value": "<boolean>"
+                },
+                {
+                  "disabled": false,
+                  "key": "publish_enabled",
+                  "value": "<boolean>"
+                },
+                {
+                  "disabled": false,
+                  "key": "row_discovery_enabled",
+                  "value": "<boolean>"
+                },
+                {
+                  "disabled": false,
+                  "key": "code",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "exclude_zeros",
+                  "value": "<boolean>"
+                },
+                {
+                  "disabled": false,
+                  "key": "suppressed_row_dimensions",
+                  "value": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "collapse_coordinates",
+                  "value": "[\"<integer>\",\"<integer>\"]"
+                },
+                {
+                  "disabled": false,
+                  "key": "collapse_coordinates",
+                  "value": "[\"<integer>\",\"<integer>\"]"
+                },
+                {
+                  "disabled": false,
+                  "key": "expand_all_coordinates",
+                  "value": "[\"<integer>\",\"<integer>\"]"
+                },
+                {
+                  "disabled": false,
+                  "key": "expand_all_coordinates",
+                  "value": "[\"<integer>\",\"<integer>\"]"
+                },
+                {
+                  "disabled": false,
+                  "key": "expand_coordinates",
+                  "value": "[\"<integer>\",\"<integer>\"]"
+                },
+                {
+                  "disabled": false,
+                  "key": "expand_coordinates",
+                  "value": "[\"<integer>\",\"<integer>\"]"
+                },
+                {
+                  "disabled": false,
+                  "key": "tags",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "5730e2d9-3a66-4f5c-a2cd-56e1a47f5ded",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ranges",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "header_discovery",
+                      "value": "false"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Associates request with company",
+                    "key": "X-Company-ID",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "key": "name",
+                      "value": "Range Again the Machine"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "data",
+                      "value": "[\"\",\"Q1-25\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "data",
+                      "value": "[\"Revenue\",\"\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) ",
+                        "type": "text/plain"
+                      },
+                      "key": "123",
+                      "value": "345"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) ",
+                        "type": "text/plain"
+                      },
+                      "key": "321",
+                      "value": "543"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "code",
+                      "value": "USD"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "fetch_enabled",
+                      "value": "false"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "publish_enabled",
+                      "value": "true"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "exclude_zeros",
+                      "value": "true"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "B4",
+                      "value": "{\"dimension_id\":123,\"leading_spaces\":5}"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "Accounts tag",
+                      "value": "[\"Revenue\",\"Cost of Goods Sold\"]"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 1,\n  \"name\": \"Awesome Range\",\n  \"headers\": {\n    \"B1\": \"Q1-25\",\n    \"A2\": \"Revenue\"\n  },\n  \"filters\": {\n    \"123\": 345,\n    \"321\": 543\n  },\n  \"currency\": {\n    \"id\": 1,\n    \"code\": \"USD\",\n    \"name\": \"US Dollar\"\n  },\n  \"fetch_enabled\": true,\n  \"publish_enabled\": false,\n  \"exclude_zeros\": false,\n  \"suppressed_row_dimensions\": {},\n  \"tags\": {\n    \"123\": [\n      {\n        \"dimension_id\": 1,\n        \"name\": \"Revenue\"\n      },\n      {\n        \"dimension_id\": 2,\n        \"name\": \"Cost of Goods Sold\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ba3b6d72-71c7-4b33-9baf-259b626fcaae",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ranges",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "header_discovery",
+                      "value": "false"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Associates request with company",
+                    "key": "X-Company-ID",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "key": "name",
+                      "value": "Range Again the Machine"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "data",
+                      "value": "[\"\",\"Q1-25\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "data",
+                      "value": "[\"Revenue\",\"\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) ",
+                        "type": "text/plain"
+                      },
+                      "key": "123",
+                      "value": "345"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) ",
+                        "type": "text/plain"
+                      },
+                      "key": "321",
+                      "value": "543"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "code",
+                      "value": "USD"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "fetch_enabled",
+                      "value": "false"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "publish_enabled",
+                      "value": "true"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "exclude_zeros",
+                      "value": "true"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "B4",
+                      "value": "{\"dimension_id\":123,\"leading_spaces\":5}"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "Accounts tag",
+                      "value": "[\"Revenue\",\"Cost of Goods Sold\"]"
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {},\n  \"metadata\": {\n    \"status\": 400,\n    \"error\": true,\n    \"message\": \"Invalid data: VALIDATION_DETAIL\",\n    \"code\": \"\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5ed64233-1c9c-4ff7-8794-1dc35c7f98a1",
+          "name": "Partially update a cube value range",
+          "request": {
+            "name": "Partially update a cube value range",
+            "description": {
+              "content": "Update one or more editable fields on an existing cube value range.\n\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "ranges",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "header_discovery",
+                  "value": "false",
+                  "description": "Control header discovery. When `true`, adds `discovered_row_headers` property to response."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) Associates request with company",
+                "key": "X-Company-ID",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.cubesoftware.com/o/token/"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://portal.cubesoftware.com/o/authorize/"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            },
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "disabled": false,
+                  "key": "filters",
+                  "value": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "range_type",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "name",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "fetch_enabled",
+                  "value": "<boolean>"
+                },
+                {
+                  "disabled": false,
+                  "key": "publish_enabled",
+                  "value": "<boolean>"
+                },
+                {
+                  "disabled": false,
+                  "key": "row_discovery_enabled",
+                  "value": "<boolean>"
+                },
+                {
+                  "disabled": false,
+                  "key": "code",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "exclude_zeros",
+                  "value": "<boolean>"
+                },
+                {
+                  "disabled": false,
+                  "key": "suppressed_row_dimensions",
+                  "value": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "collapse_coordinates",
+                  "value": "[\"<integer>\",\"<integer>\"]"
+                },
+                {
+                  "disabled": false,
+                  "key": "collapse_coordinates",
+                  "value": "[\"<integer>\",\"<integer>\"]"
+                },
+                {
+                  "disabled": false,
+                  "key": "expand_all_coordinates",
+                  "value": "[\"<integer>\",\"<integer>\"]"
+                },
+                {
+                  "disabled": false,
+                  "key": "expand_all_coordinates",
+                  "value": "[\"<integer>\",\"<integer>\"]"
+                },
+                {
+                  "disabled": false,
+                  "key": "expand_coordinates",
+                  "value": "[\"<integer>\",\"<integer>\"]"
+                },
+                {
+                  "disabled": false,
+                  "key": "expand_coordinates",
+                  "value": "[\"<integer>\",\"<integer>\"]"
+                },
+                {
+                  "disabled": false,
+                  "key": "tags",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "4306de97-a779-48d3-a546-0724a826e99c",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ranges",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "header_discovery",
+                      "value": "false"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Associates request with company",
+                    "key": "X-Company-ID",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "key": "data",
+                      "value": "[\"\",\"Q2-25\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "data",
+                      "value": "[\"Income Statement\",\"\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "123",
+                      "value": "345"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "321",
+                      "value": "543"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "Accounts tag",
+                      "value": "[\"Revenue\"]"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 1,\n  \"name\": \"Awesome Range\",\n  \"headers\": {\n    \"B1\": \"Q1-25\",\n    \"A2\": \"Revenue\"\n  },\n  \"filters\": {\n    \"123\": 345,\n    \"321\": 543\n  },\n  \"currency\": {\n    \"id\": 1,\n    \"code\": \"USD\",\n    \"name\": \"US Dollar\"\n  },\n  \"fetch_enabled\": true,\n  \"publish_enabled\": false,\n  \"exclude_zeros\": false,\n  \"suppressed_row_dimensions\": {},\n  \"tags\": {\n    \"123\": [\n      {\n        \"dimension_id\": 1,\n        \"name\": \"Revenue\"\n      },\n      {\n        \"dimension_id\": 2,\n        \"name\": \"Cost of Goods Sold\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e59df89e-d6ee-4ff1-b48a-fa85a2128d33",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ranges",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "header_discovery",
+                      "value": "false"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Associates request with company",
+                    "key": "X-Company-ID",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "key": "data",
+                      "value": "[\"\",\"Q2-25\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "data",
+                      "value": "[\"Income Statement\",\"\"]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "123",
+                      "value": "345"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "321",
+                      "value": "543"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "Accounts tag",
+                      "value": "[\"Revenue\"]"
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {},\n  \"metadata\": {\n    \"status\": 400,\n    \"error\": true,\n    \"message\": \"Invalid data: VALIDATION_DETAIL\",\n    \"code\": \"\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3e74922e-27f1-48c3-94fc-1759699fe047",
+          "name": "Delete a cube value range",
+          "request": {
+            "name": "Delete a cube value range",
+            "description": {
+              "content": "Permanently remove a cube value range by ID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "ranges",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) Associates request with company",
+                "key": "X-Company-ID",
+                "value": "<string>"
+              }
+            ],
+            "method": "DELETE",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.cubesoftware.com/o/token/"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://portal.cubesoftware.com/o/authorize/"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "83878e2c-40ec-46a9-894a-966a34b7c571",
+              "name": "No response body",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ranges",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Associates request with company",
+                    "key": "X-Company-ID",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ad84b654-198f-480b-9cf3-3f3181f30444",
+          "name": "Retrieve a cube value range with A1 headers",
+          "request": {
+            "name": "Retrieve a cube value range with A1 headers",
+            "description": {
+              "content": "Return the cube value range with its `headers` field represented in **A1 notation**.\n\n- Equivalent to the default `retrieve` endpoint.\n- Use this when you want to explicitly request A1-based headers.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "ranges",
+                ":id",
+                "a1"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) Associates request with company",
+                "key": "X-Company-ID",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.cubesoftware.com/o/token/"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://portal.cubesoftware.com/o/authorize/"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "9b2e8583-1dd8-4a6a-bbe9-e368fb15b57c",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ranges",
+                    ":id",
+                    "a1"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Associates request with company",
+                    "key": "X-Company-ID",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 1,\n  \"name\": \"Awesome Range\",\n  \"headers\": {\n    \"B1\": \"Q1-25\",\n    \"A2\": \"Revenue\"\n  },\n  \"filters\": {\n    \"123\": 345,\n    \"321\": 543\n  },\n  \"currency\": {\n    \"id\": 1,\n    \"code\": \"USD\",\n    \"name\": \"US Dollar\"\n  },\n  \"fetch_enabled\": true,\n  \"publish_enabled\": false,\n  \"exclude_zeros\": false,\n  \"suppressed_row_dimensions\": {},\n  \"tags\": {\n    \"123\": [\n      {\n        \"dimension_id\": 1,\n        \"name\": \"Revenue\"\n      },\n      {\n        \"dimension_id\": 2,\n        \"name\": \"Cost of Goods Sold\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3a61fe09-4df5-4c43-910b-62770e02095d",
+          "name": "Retrieve a cube value range with structured headers",
+          "request": {
+            "name": "Retrieve a cube value range with structured headers",
+            "description": {
+              "content": "Return the cube value range with its `headers` field represented as structured row/column dimensions.\n\n- Unlike `retrieve` and `a1`, this endpoint organizes headers by their underlying dimensions.\n- Use this when you need explicit row/column headers instead of A1 notation.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "ranges",
+                ":id",
+                "dimensions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) Associates request with company",
+                "key": "X-Company-ID",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.cubesoftware.com/o/token/"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://portal.cubesoftware.com/o/authorize/"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "a48a101a-bf8a-4097-b927-95a599bfd171",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ranges",
+                    ":id",
+                    "dimensions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Associates request with company",
+                    "key": "X-Company-ID",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 1,\n  \"name\": \"Awesome Range\",\n  \"headers\": {\n    \"rows\": {\n      \"10\": [\n        {\n          \"dimension_id\": 11,\n          \"name\": \"Q1-25\"\n        }\n      ]\n    },\n    \"columns\": {\n      \"100\": [\n        {\n          \"dimension_id\": 101,\n          \"name\": \"Revenue\"\n        }\n      ]\n    }\n  },\n  \"filters\": {\n    \"123\": 345,\n    \"321\": 543\n  },\n  \"currency\": {\n    \"id\": 1,\n    \"code\": \"USD\",\n    \"name\": \"US Dollar\"\n  },\n  \"fetch_enabled\": true,\n  \"publish_enabled\": false,\n  \"exclude_zeros\": false,\n  \"suppressed_row_dimensions\": {},\n  \"tags\": {\n    \"123\": [\n      {\n        \"dimension_id\": 1,\n        \"name\": \"Revenue\"\n      },\n      {\n        \"dimension_id\": 2,\n        \"name\": \"Cost of Goods Sold\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.cubesoftware.com",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "10ca5e4a-6b1a-40ef-b8d8-362f1f645c96",
+    "name": "Cube Agents Cube Value Range API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "#### General Description\nAn API to access underlying Cube functionality. These endpoints are the same endpoints\nthat support Cube's universal add-ons and a plethora of integrations meaning you'll be able to interact with your\nCube data in many powerful ways. Visit the API section of Cube's [Help Center](https://help.cubesoftware.com/hc/en-us/sections/18205290556180-Custom-Integrations)\nfor more usage guides on how you can use this API to integrate with Cube to accomplish various tasks!\n\n#### Versioning\nAll requests to the API require a version to be configured via an `Accept` Header. The value of this Header should look like this:\n```\nAccept: application/json; version=1.0\n```\nNote that the version number may differ depending on which version of the endpoint is needed.\n\n#### Response Structure\nThe general response structure of Cube's API endpoints will contain a `\"data\"` and `\"metadata\"` root level key:\n```json\n{\n    \"data\": { ... object data or list of objects ... },\n    \"metadata\": {\n        \"status\": 200,\n        \"message\": \"Potential message with additional context\",\n        \"error\": false,\n        \"code\": \"\"\n    }\n}\n```\n\n#### Rate Limiting\nAll endpoints have a rate limit configured, most of them default to 5/s.\nWhen the rate limit is encountered, a 429 HTTP code will be returned.\n\n#### Error Handling\nIn the event an error occurs, the response will typically look like this:\n```json\n{\n    \"data\": {},\n    \"metadata\": {\n        \"status\": 400,\n        \"message\": \"Some error message\",\n        \"error\": true,\n        \"code\": \"SOME_ERROR_CODE\"\n    }\n}\n```\n",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,142 @@
+{
+  "item": [
+    {
+      "id": "fc89db08-c7de-45e8-9ba5-020054e4f789",
+      "name": "PlanModeSessions",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "ef216d3f-e6ce-4710-90d0-b50fca1dca40",
+          "name": "List Plan Mode Sessions",
+          "request": {
+            "name": "List Plan Mode Sessions",
+            "description": {
+              "content": "Returns plan mode sessions for the current user company. Each row includes the linked chat session id and the parent scenario dimension (DimensionSerializer shape; plan-mode scenario dimensions do not include list-only formula rollup fields).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "agents",
+                "planner",
+                "plan-mode-sessions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) Associates request with company",
+                "key": "X-Company-ID",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.cubesoftware.com/o/token/"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://portal.cubesoftware.com/o/authorize/"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "04e23c9a-fdac-475f-aeff-2d0e33da01c5",
+              "name": "Plan mode sessions for the current user company",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "agents",
+                    "planner",
+                    "plan-mode-sessions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Associates request with company",
+                    "key": "X-Company-ID",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"chat_session\": \"string\",\n    \"created_at\": \"1997-09-30T18:32:53.448Z\",\n    \"headline_metrics_canvas\": \"802dae4a-f1e0-8585-ce00-a758052ee565\",\n    \"id\": 9450,\n    \"key_assumptions\": [\n      {\n        \"created_at\": \"2005-11-18T05:17:04.745Z\",\n        \"display_order\": 4696,\n        \"id\": 5784,\n        \"name\": \"string\",\n        \"source\": \"USER\",\n        \"value\": \"string\"\n      },\n      {\n        \"created_at\": \"1963-03-25T03:16:53.012Z\",\n        \"display_order\": 1403,\n        \"id\": 4295,\n        \"name\": \"string\",\n        \"source\": \"USER\",\n        \"value\": \"string\"\n      }\n    ],\n    \"parent_scenario\": {\n      \"key_0\": {}\n    },\n    \"recommendations\": [\n      {\n        \"action_label\": \"string\",\n        \"created_at\": \"2021-12-04T22:44:46.882Z\",\n        \"description\": \"string\",\n        \"id\": 3310,\n        \"recommendation_type\": \"INFO\"\n      },\n      {\n        \"action_label\": \"string\",\n        \"created_at\": \"2008-01-08T19:18:29.528Z\",\n        \"description\": \"string\",\n        \"id\": 478,\n        \"recommendation_type\": \"DATA_GAP\"\n      }\n    ],\n    \"updates_canvas\": \"b8d60169-3be1-5a36-36c1-1c6b929d3905\"\n  },\n  {\n    \"chat_session\": \"string\",\n    \"created_at\": \"1962-08-20T13:18:05.051Z\",\n    \"headline_metrics_canvas\": \"a4811e5e-2c03-c938-8356-ddddd8532682\",\n    \"id\": 5877,\n    \"key_assumptions\": [\n      {\n        \"created_at\": \"1987-04-20T07:10:02.409Z\",\n        \"display_order\": 1906,\n        \"id\": 9443,\n        \"name\": \"string\",\n        \"source\": \"AI\",\n        \"value\": \"string\"\n      },\n      {\n        \"created_at\": \"1987-04-11T20:22:13.241Z\",\n        \"display_order\": 4464,\n        \"id\": 7409,\n        \"name\": \"string\",\n        \"source\": \"AI\",\n        \"value\": \"string\"\n      }\n    ],\n    \"parent_scenario\": {\n      \"key_0\": {},\n      \"key_1\": {}\n    },\n    \"recommendations\": [\n      {\n        \"action_label\": \"string\",\n        \"created_at\": \"2015-02-27T08:03:37.014Z\",\n        \"description\": \"string\",\n        \"id\": 1204,\n        \"recommendation_type\": \"DATA_GAP\"\n      },\n      {\n        \"action_label\": \"string\",\n        \"created_at\": \"1974-02-15T16:13:20.976Z\",\n        \"description\": \"string\",\n        \"id\": 9106,\n        \"recommendation_type\": \"INFO\"\n      }\n    ],\n    \"updates_canvas\": \"c10519c1-ca0d-7e33-28ce-d9a253567b51\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.cubesoftware.com",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "9e2ea47c-9ce5-4038-bb1a-6cebde9ac9a5",
+    "name": "Cube Agents PlanModeSessions API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "#### General Description\nAn API to access underlying Cube functionality. These endpoints are the same endpoints\nthat support Cube's universal add-ons and a plethora of integrations meaning you'll be able to interact with your\nCube data in many powerful ways. Visit the API section of Cube's [Help Center](https://help.cubesoftware.com/hc/en-us/sections/18205290556180-Custom-Integrations)\nfor more usage guides on how you can use this API to integrate with Cube to accomplish various tasks!\n\n#### Versioning\nAll requests to the API require a version to be configured via an `Accept` Header. The value of this Header should look like this:\n```\nAccept: application/json; version=1.0\n```\nNote that the version number may differ depending on which version of the endpoint is needed.\n\n#### Response Structure\nThe general response structure of Cube's API endpoints will contain a `\"data\"` and `\"metadata\"` root level key:\n```json\n{\n    \"data\": { ... object data or list of objects ... },\n    \"metadata\": {\n        \"status\": 200,\n        \"message\": \"Potential message with additional context\",\n        \"error\": false,\n        \"code\": \"\"\n    }\n}\n```\n\n#### Rate Limiting\nAll endpoints have a rate limit configured, most of them default to 5/s.\nWhen the rate limit is encountered, a 429 HTTP code will be returned.\n\n#### Error Handling\nIn the event an error occurs, the response will typically look like this:\n```json\n{\n    \"data\": {},\n    \"metadata\": {\n        \"status\": 400,\n        \"message\": \"Some error message\",\n        \"error\": true,\n        \"code\": \"SOME_ERROR_CODE\"\n    }\n}\n```\n",
+      "type": "text/plain"
+    }
+  }
+}

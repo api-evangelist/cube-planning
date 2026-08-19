@@ -1,0 +1,519 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Cube Agents Data Tables API",
+    "version": "1.0.0 (1.0)"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Data Tables",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve Company Data Tables",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.cubesoftware.com/data-tables",
+            "headers": [
+              {
+                "name": "X-Company-ID",
+                "value": ""
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://portal.cubesoftware.com/o/authorize/",
+              "accessTokenUrl": "https://api.cubesoftware.com/o/token/",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "List all data tables for a company.\n\nData Tables are a generic way to organize the source dimensions, mappings, uploads, and imports\nfrom an outside source into Cube (source system connections, imported flat files and employee rosters, etc).\n        \n        "
+        },
+        {
+          "info": {
+            "name": "Retrieve a Data Table",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.cubesoftware.com/data-tables/:data_table_id",
+            "headers": [
+              {
+                "name": "X-Company-ID",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "data_table_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the data table"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://portal.cubesoftware.com/o/authorize/",
+              "accessTokenUrl": "https://api.cubesoftware.com/o/token/",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Retrieve a single data table for a company.\n\nData Tables are a generic way to organize the source dimensions, mappings, uploads, and imports\nfrom an outside source into Cube (source system connections, imported flat files and employee rosters, etc).\n        \n        "
+        },
+        {
+          "info": {
+            "name": "Update a Data Table",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.cubesoftware.com/data-tables/:data_table_id",
+            "headers": [
+              {
+                "name": "X-Company-ID",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "data_table_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://portal.cubesoftware.com/o/authorize/",
+              "accessTokenUrl": "https://api.cubesoftware.com/o/token/",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Allows updating a data table. This currently supports modifying\n        settings for data tables tied to Salesforce connections and name, description fields for all data tables.\n        "
+        },
+        {
+          "info": {
+            "name": "data_tables_partial_update",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.cubesoftware.com/data-tables/:data_table_id",
+            "params": [
+              {
+                "name": "data_table_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://portal.cubesoftware.com/o/authorize/",
+              "accessTokenUrl": "https://api.cubesoftware.com/o/token/",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "This class exists to have a standard rate limit across all authenticated API endpoints"
+        },
+        {
+          "info": {
+            "name": "Retrieve Data Table Dimensions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.cubesoftware.com/data-tables/:data_table_id/dimensions",
+            "headers": [
+              {
+                "name": "X-Company-ID",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "data_table_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "only_tlds",
+                "value": "",
+                "type": "query",
+                "description": "Whether to only return Top-Level Dimensions"
+              },
+              {
+                "name": "order_tree",
+                "value": "",
+                "type": "query",
+                "description": "Whether the dimension tree needs to be ordered"
+              },
+              {
+                "name": "tld_id",
+                "value": "",
+                "type": "query",
+                "description": "The ID of the Top-Level Dimension restricting this request"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://portal.cubesoftware.com/o/authorize/",
+              "accessTokenUrl": "https://api.cubesoftware.com/o/token/",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Lists all of the dimensions associated with a given data table"
+        },
+        {
+          "info": {
+            "name": "Update Data Table Dimensions",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.cubesoftware.com/data-tables/:data_table_id/dimensions",
+            "headers": [
+              {
+                "name": "X-Company-ID",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "data_table_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "flat",
+                "value": "",
+                "type": "query",
+                "description": "Whether or not the POSTed body contains a nested or flat dimensional structure"
+              },
+              {
+                "name": "full_list",
+                "value": "",
+                "type": "query",
+                "description": "Whether or not the full list is provided, if set to True any dimensions not in this list will be marked as disabled"
+              },
+              {
+                "name": "tld_name",
+                "value": "",
+                "type": "query",
+                "description": "A TLD name to associate all the provided dimensions with"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://portal.cubesoftware.com/o/authorize/",
+              "accessTokenUrl": "https://api.cubesoftware.com/o/token/",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Creates and modifies dimensions tied to a data table"
+        },
+        {
+          "info": {
+            "name": "Retrieve AutoMappingRules for a Data Table",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.cubesoftware.com/data-tables/:data_table_id/dimensions/mappings/rules",
+            "headers": [
+              {
+                "name": "X-Company-ID",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "data_table_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the data table the auto-mapping rules belong to"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://portal.cubesoftware.com/o/authorize/",
+              "accessTokenUrl": "https://api.cubesoftware.com/o/token/",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Lists all of the auto mapping rules from a data table."
+        },
+        {
+          "info": {
+            "name": "Create and Modify AutoMappingRules for a Data Table",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.cubesoftware.com/data-tables/:data_table_id/dimensions/mappings/rules",
+            "headers": [
+              {
+                "name": "X-Company-ID",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "data_table_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the data table the auto-mapping rules belong to"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://portal.cubesoftware.com/o/authorize/",
+              "accessTokenUrl": "https://api.cubesoftware.com/o/token/",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Create and modify auto mapping rules for a data table."
+        },
+        {
+          "info": {
+            "name": "Retrieve Mappings for a Data Table",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.cubesoftware.com/data-tables/:data_table_id/mappings",
+            "headers": [
+              {
+                "name": "X-Company-ID",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "data_table_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the data table the mappings are for"
+              },
+              {
+                "name": "source_tld_id",
+                "value": "",
+                "type": "query",
+                "description": "The ID of the Top-Level Source Dimension restricting this request"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://portal.cubesoftware.com/o/authorize/",
+              "accessTokenUrl": "https://api.cubesoftware.com/o/token/",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Lists all of the dimension mappings from a data table's dimensions to a\ncompany's dimensions in Cube. These mappings are used when running an import against source data.\n        "
+        },
+        {
+          "info": {
+            "name": "Update Mappings for a Data Table",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.cubesoftware.com/data-tables/:data_table_id/mappings",
+            "headers": [
+              {
+                "name": "X-Company-ID",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "data_table_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the data table the mappings are for"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://portal.cubesoftware.com/o/authorize/",
+              "accessTokenUrl": "https://api.cubesoftware.com/o/token/",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Lists all of the dimension mappings from a data table's dimensions to a\ncompany's dimensions in Cube. These mappings are used when running an import against source data.\n        "
+        },
+        {
+          "info": {
+            "name": "Schedule and Update a Data Table Import",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.cubesoftware.com/data-tables/:data_table_id/schedule-import",
+            "headers": [
+              {
+                "name": "X-Company-ID",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "data_table_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://portal.cubesoftware.com/o/authorize/",
+              "accessTokenUrl": "https://api.cubesoftware.com/o/token/",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Schedule and Update a data table import.  A single endpoint that either creates a scheduled data import if one doesn’t already exist, OR updates an existing scheduled data import."
+        },
+        {
+          "info": {
+            "name": "Delete the Schedule for a Data Table Import",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.cubesoftware.com/data-tables/:data_table_id/schedule-import",
+            "headers": [
+              {
+                "name": "X-Company-ID",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "data_table_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://portal.cubesoftware.com/o/authorize/",
+              "accessTokenUrl": "https://api.cubesoftware.com/o/token/",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Deletes an import schedule for a given data table"
+        },
+        {
+          "info": {
+            "name": "Retrieve Scheduled Data Table Imports",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.cubesoftware.com/data-tables/scheduled-imports",
+            "headers": [
+              {
+                "name": "X-Company-ID",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "data_table_id",
+                "value": "",
+                "type": "query",
+                "description": "Filter imports related to a specific data table"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://portal.cubesoftware.com/o/authorize/",
+              "accessTokenUrl": "https://api.cubesoftware.com/o/token/",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "List all scheduled data table imports for a company. The response can also be filtered by data_table_id."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

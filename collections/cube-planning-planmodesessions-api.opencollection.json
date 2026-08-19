@@ -1,0 +1,45 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Cube Agents PlanModeSessions API",
+    "version": "1.0.0 (1.0)"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "PlanModeSessions",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Plan Mode Sessions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.cubesoftware.com/agents/planner/plan-mode-sessions",
+            "headers": [
+              {
+                "name": "X-Company-ID",
+                "value": ""
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://portal.cubesoftware.com/o/authorize/",
+              "accessTokenUrl": "https://api.cubesoftware.com/o/token/",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Returns plan mode sessions for the current user company. Each row includes the linked chat session id and the parent scenario dimension (DimensionSerializer shape; plan-mode scenario dimensions do not include list-only formula rollup fields)."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

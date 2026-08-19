@@ -2,10 +2,9 @@ generated: '2026-07-18'
 method: derived
 status: candidate
 source: openapi/cube-planning-openapi-original.yml
-note: >-
-  No official hosted/remote Cube MCP server was found (searched docs, npm @modelcontextprotocol,
-  MCP registries). The tools below are a CANDIDATE set derived from Cube OpenAPI operations, one
-  tool per operationId. All operationIds are verbatim from the spec.
+note: No official hosted/remote Cube MCP server was found (searched docs, npm @modelcontextprotocol, MCP
+  registries). The tools below are a CANDIDATE set derived from Cube OpenAPI operations, one tool per
+  operationId. All operationIds are verbatim from the spec.
 server:
   name: cube-planning
   transport: http
@@ -52,3 +51,9 @@ tools:
 - name: get_user
   description: Return the current user's information.
   source_operation: openapi/cube-planning-openapi-original.yml#user_retrieve
+deployment:
+  mode: none
+  verified: derived
+  tools: 14
+  checked: '2026-08-12'
+  source: catalog MCP census

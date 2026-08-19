@@ -1,0 +1,3314 @@
+{
+  "item": [
+    {
+      "id": "a0b9ecd8-d111-4502-ae94-40bc865ff152",
+      "name": "Canvases",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "0808ccd5-61dd-43cb-b258-865708beedf4",
+          "name": "List all canvases.",
+          "request": {
+            "name": "List all canvases.",
+            "description": {
+              "content": "List of all canvases available to the authenticated user company.\n\n- Results are ordered by creation date, newest first.\n- Each canvas includes basic metadata and an `is_liked` flag indicating whether the current user has liked it.\n- For performance reasons, related fields such as `tabs` and `shared_with` are **not included** in list responses.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "canvases"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "source",
+                  "value": "<string>",
+                  "description": "Filters the results to canvases with the given source.\n\n- By default, only `WORKSPACE` canvases are returned.\n- Use `?source=DECKS` to list only Decks-created canvases."
+                },
+                {
+                  "disabled": false,
+                  "key": "widget_type",
+                  "value": "<string>",
+                  "description": "Filters the results to canvases that include **at least one widget** of the given type.\n\n- If omitted, no widget-type filtering is applied."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.cubesoftware.com/o/token/"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://portal.cubesoftware.com/o/authorize/"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "66fb1b82-0752-48c1-9fb8-78a4e6685f8b",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "canvases"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "source",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "widget_type",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": \"79fc999d-f145-47d7-a6a3-a5792ec1b262\",\n    \"name\": \"One Big Beautiful Canvas\",\n    \"description\": \"Best Canvas Ever\",\n    \"sharing_scheme\": \"MANAGERS\",\n    \"is_liked\": true,\n    \"created_by\": {\n      \"id\": 1,\n      \"first_name\": \"John\",\n      \"last_name\": \"Frusciante\"\n    },\n    \"created_at\": \"2026-07-19 00:15:28.217428+00:00\",\n    \"default_currency_id\": null\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "900d01d6-42b1-441c-aa6a-9d7517f11d51",
+          "name": "Create a new canvas.",
+          "request": {
+            "name": "Create a new canvas.",
+            "description": {
+              "content": "Create a new canvas under the authenticated user company.\n\n- Required fields typically include `name`, and optionally layout or metadata fields.\n- The response includes the full representation of the newly created canvas.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "canvases"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.cubesoftware.com/o/token/"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://portal.cubesoftware.com/o/authorize/"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            },
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "disabled": false,
+                  "key": "name",
+                  "value": "<string>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "description",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "sharing_scheme",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "source",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "filters",
+                  "value": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "default_currency_id",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "shared_with",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "shared_with",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "tabs",
+                  "value": "{\"name\":\"<string>\",\"position\":\"<long>\",\"layout\":[{\"layout_x\":\"<long>\",\"layout_y\":\"<long>\",\"widget\":\"<uuid>\",\"width\":\"<long>\",\"height\":\"<long>\"},{\"layout_x\":\"<long>\",\"layout_y\":\"<long>\",\"widget\":\"<uuid>\",\"width\":\"<long>\",\"height\":\"<long>\"}]}"
+                },
+                {
+                  "disabled": false,
+                  "key": "tabs",
+                  "value": "{\"name\":\"<string>\",\"position\":\"<long>\",\"layout\":[{\"layout_x\":\"<long>\",\"layout_y\":\"<long>\",\"widget\":\"<uuid>\",\"width\":\"<long>\",\"height\":\"<long>\"},{\"layout_x\":\"<long>\",\"layout_y\":\"<long>\",\"widget\":\"<uuid>\",\"width\":\"<long>\",\"height\":\"<long>\"}]}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "425ea837-2287-4f5e-b751-f3f72bc5aba4",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "canvases"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) ",
+                        "type": "text/plain"
+                      },
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "description",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "sharing_scheme",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "source",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "filters",
+                      "value": ""
+                    },
+                    {
+                      "disabled": false,
+                      "key": "default_currency_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "shared_with",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "shared_with",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "tabs",
+                      "value": "{\"name\":\"<string>\",\"position\":\"<long>\",\"layout\":[{\"layout_x\":\"<long>\",\"layout_y\":\"<long>\",\"widget\":\"<uuid>\",\"width\":\"<long>\",\"height\":\"<long>\"},{\"layout_x\":\"<long>\",\"layout_y\":\"<long>\",\"widget\":\"<uuid>\",\"width\":\"<long>\",\"height\":\"<long>\"}]}"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "tabs",
+                      "value": "{\"name\":\"<string>\",\"position\":\"<long>\",\"layout\":[{\"layout_x\":\"<long>\",\"layout_y\":\"<long>\",\"widget\":\"<uuid>\",\"width\":\"<long>\",\"height\":\"<long>\"},{\"layout_x\":\"<long>\",\"layout_y\":\"<long>\",\"widget\":\"<uuid>\",\"width\":\"<long>\",\"height\":\"<long>\"}]}"
+                    }
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"79fc999d-f145-47d7-a6a3-a5792ec1b262\",\n  \"name\": \"One Big Beautiful Canvas\",\n  \"description\": \"Best Canvas Ever\",\n  \"sharing_scheme\": \"MANAGERS\",\n  \"is_liked\": true,\n  \"created_by\": {\n    \"id\": 1,\n    \"first_name\": \"John\",\n    \"last_name\": \"Frusciante\"\n  },\n  \"created_at\": \"2026-07-19 00:15:28.217428+00:00\",\n  \"tabs\": [],\n  \"shared_with\": [],\n  \"default_currency_id\": null\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "02cf4a68-9053-41d6-8dec-26ae5faae59e",
+          "name": "Create a new canvas tab.",
+          "request": {
+            "name": "Create a new canvas tab.",
+            "description": {
+              "content": "Create a new canvas tab.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "canvases",
+                ":canvas_pk",
+                "tabs"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "canvas_pk",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.cubesoftware.com/o/token/"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://portal.cubesoftware.com/o/authorize/"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            },
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "disabled": false,
+                  "key": "name",
+                  "value": "<string>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "position",
+                  "value": "<long>"
+                },
+                {
+                  "disabled": false,
+                  "key": "layout",
+                  "value": "{\"layout_x\":\"<long>\",\"layout_y\":\"<long>\",\"widget\":\"<uuid>\",\"width\":\"<long>\",\"height\":\"<long>\"}"
+                },
+                {
+                  "disabled": false,
+                  "key": "layout",
+                  "value": "{\"layout_x\":\"<long>\",\"layout_y\":\"<long>\",\"widget\":\"<uuid>\",\"width\":\"<long>\",\"height\":\"<long>\"}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "21d35a39-05e9-4926-bc20-fe3c5f41da5b",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "canvases",
+                    ":canvas_pk",
+                    "tabs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "canvas_pk",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) ",
+                        "type": "text/plain"
+                      },
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "position",
+                      "value": "<long>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "layout",
+                      "value": "{\"layout_x\":\"<long>\",\"layout_y\":\"<long>\",\"widget\":\"<uuid>\",\"width\":\"<long>\",\"height\":\"<long>\"}"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "layout",
+                      "value": "{\"layout_x\":\"<long>\",\"layout_y\":\"<long>\",\"widget\":\"<uuid>\",\"width\":\"<long>\",\"height\":\"<long>\"}"
+                    }
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"name\": \"<string>\",\n  \"id\": \"3a256ddf-962d-270a-3826-58d3d5b47aae\",\n  \"position\": \"<long>\",\n  \"layout\": [\n    {\n      \"layout_x\": \"<long>\",\n      \"layout_y\": \"<long>\",\n      \"widget\": \"<uuid>\",\n      \"width\": \"<long>\",\n      \"height\": \"<long>\"\n    },\n    {\n      \"layout_x\": \"<long>\",\n      \"layout_y\": \"<long>\",\n      \"widget\": \"<uuid>\",\n      \"width\": \"<long>\",\n      \"height\": \"<long>\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b6d65132-45f1-44cd-b403-be5a37727ced",
+          "name": "Update specific fields of a canvas tab.",
+          "request": {
+            "name": "Update specific fields of a canvas tab.",
+            "description": {
+              "content": "Update specific fields of a canvas tab.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "canvases",
+                ":canvas_pk",
+                "tabs",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "canvas_pk",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.cubesoftware.com/o/token/"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://portal.cubesoftware.com/o/authorize/"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            },
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "disabled": false,
+                  "key": "name",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "position",
+                  "value": "<long>"
+                },
+                {
+                  "disabled": false,
+                  "key": "layout",
+                  "value": "{\"layout_x\":\"<long>\",\"layout_y\":\"<long>\",\"widget\":\"<uuid>\",\"width\":\"<long>\",\"height\":\"<long>\"}"
+                },
+                {
+                  "disabled": false,
+                  "key": "layout",
+                  "value": "{\"layout_x\":\"<long>\",\"layout_y\":\"<long>\",\"widget\":\"<uuid>\",\"width\":\"<long>\",\"height\":\"<long>\"}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "4248f77e-d013-405a-87a2-10c6695bd273",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "canvases",
+                    ":canvas_pk",
+                    "tabs",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "canvas_pk",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "position",
+                      "value": "<long>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "layout",
+                      "value": "{\"layout_x\":\"<long>\",\"layout_y\":\"<long>\",\"widget\":\"<uuid>\",\"width\":\"<long>\",\"height\":\"<long>\"}"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "layout",
+                      "value": "{\"layout_x\":\"<long>\",\"layout_y\":\"<long>\",\"widget\":\"<uuid>\",\"width\":\"<long>\",\"height\":\"<long>\"}"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"name\": \"<string>\",\n  \"id\": \"3a256ddf-962d-270a-3826-58d3d5b47aae\",\n  \"position\": \"<long>\",\n  \"layout\": [\n    {\n      \"layout_x\": \"<long>\",\n      \"layout_y\": \"<long>\",\n      \"widget\": \"<uuid>\",\n      \"width\": \"<long>\",\n      \"height\": \"<long>\"\n    },\n    {\n      \"layout_x\": \"<long>\",\n      \"layout_y\": \"<long>\",\n      \"widget\": \"<uuid>\",\n      \"width\": \"<long>\",\n      \"height\": \"<long>\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "051a444e-3586-407e-bba5-647eb8910afe",
+          "name": "Delete a canvas tab.",
+          "request": {
+            "name": "Delete a canvas tab.",
+            "description": {
+              "content": "Delete a canvas tab.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "canvases",
+                ":canvas_pk",
+                "tabs",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "canvas_pk",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "method": "DELETE",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.cubesoftware.com/o/token/"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://portal.cubesoftware.com/o/authorize/"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "a60fca28-956f-42e6-859f-cd17fc0ebe62",
+              "name": "No response body",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "canvases",
+                    ":canvas_pk",
+                    "tabs",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "canvas_pk",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9356e2ca-d30e-48ac-bf28-46f23881390b",
+          "name": "Associate widgets with a canvas tab.",
+          "request": {
+            "name": "Associate widgets with a canvas tab.",
+            "description": {
+              "content": "Associate widgets with a canvas tab.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "canvases",
+                ":canvas_pk",
+                "tabs",
+                ":id",
+                "layout"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "canvas_pk",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.cubesoftware.com/o/token/"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://portal.cubesoftware.com/o/authorize/"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            },
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "disabled": false,
+                  "key": "name",
+                  "value": "<string>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "position",
+                  "value": "<long>"
+                },
+                {
+                  "disabled": false,
+                  "key": "layout",
+                  "value": "{\"layout_x\":\"<long>\",\"layout_y\":\"<long>\",\"widget\":\"<uuid>\",\"width\":\"<long>\",\"height\":\"<long>\"}"
+                },
+                {
+                  "disabled": false,
+                  "key": "layout",
+                  "value": "{\"layout_x\":\"<long>\",\"layout_y\":\"<long>\",\"widget\":\"<uuid>\",\"width\":\"<long>\",\"height\":\"<long>\"}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "0a2ce4db-c6d7-4e06-bb7c-00ee98adc8b5",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "canvases",
+                    ":canvas_pk",
+                    "tabs",
+                    ":id",
+                    "layout"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "canvas_pk",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) ",
+                        "type": "text/plain"
+                      },
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "position",
+                      "value": "<long>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "layout",
+                      "value": "{\"layout_x\":\"<long>\",\"layout_y\":\"<long>\",\"widget\":\"<uuid>\",\"width\":\"<long>\",\"height\":\"<long>\"}"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "layout",
+                      "value": "{\"layout_x\":\"<long>\",\"layout_y\":\"<long>\",\"widget\":\"<uuid>\",\"width\":\"<long>\",\"height\":\"<long>\"}"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"name\": \"<string>\",\n  \"id\": \"3a256ddf-962d-270a-3826-58d3d5b47aae\",\n  \"position\": \"<long>\",\n  \"layout\": [\n    {\n      \"layout_x\": \"<long>\",\n      \"layout_y\": \"<long>\",\n      \"widget\": \"<uuid>\",\n      \"width\": \"<long>\",\n      \"height\": \"<long>\"\n    },\n    {\n      \"layout_x\": \"<long>\",\n      \"layout_y\": \"<long>\",\n      \"widget\": \"<uuid>\",\n      \"width\": \"<long>\",\n      \"height\": \"<long>\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ad69592e-9e91-4a3c-ac94-4b3f935472f1",
+          "name": "Retrieve a specific canvas",
+          "request": {
+            "name": "Retrieve a specific canvas",
+            "description": {
+              "content": "Retrieve details of a specific canvas by ID.\n\n- Includes all fields, including `tabs` and `shared_with` data.\n- This endpoint is intended for viewing a single canvas along with its associated tabs and widgets.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "canvases",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.cubesoftware.com/o/token/"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://portal.cubesoftware.com/o/authorize/"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "21ef834c-49ea-47d9-b631-5c09a6092547",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "canvases",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"79fc999d-f145-47d7-a6a3-a5792ec1b262\",\n  \"name\": \"One Big Beautiful Canvas\",\n  \"description\": \"Best Canvas Ever\",\n  \"sharing_scheme\": \"MANAGERS\",\n  \"is_liked\": true,\n  \"created_by\": {\n    \"id\": 1,\n    \"first_name\": \"John\",\n    \"last_name\": \"Frusciante\"\n  },\n  \"created_at\": \"2026-07-19 00:15:28.217428+00:00\",\n  \"tabs\": [\n    {\n      \"id\": \"905046b7-d66d-495e-bdb9-f30046199227\",\n      \"name\": \"Mystical Tab\",\n      \"position\": 0,\n      \"layout\": [\n        {\n          \"layout_x\": 8,\n          \"layout_y\": 0,\n          \"height\": 8,\n          \"width\": 4,\n          \"widget\": {\n            \"id\": \"450d6fd3-381f-4bd5-8ddb-b5df1665c7ea\",\n            \"name\": \"Fabulous Range\",\n            \"settings\": {\n              \"name_visible\": true,\n              \"board_filter_exclusions\": [],\n              \"styles\": {\n                \"data_cells\": {\n                  \"horizontal_alignment\": \"right\"\n                },\n                \"row_headers\": {\n                  \"horizontal_alignment\": \"left\"\n                },\n                \"column_headers\": {\n                  \"horizontal_alignment\": \"center\"\n                }\n              }\n            },\n            \"type\": \"RANGE\",\n            \"visual_type\": \"LINE\",\n            \"data_sources\": [\n              {\n                \"type\": \"RANGE\",\n                \"object_id\": \"3\",\n                \"settings\": {\n                  \"content\": {\n                    \"A1\": \"Custom formula\",\n                    \"A4\": \"Total\"\n                  },\n                  \"formulas\": {\n                    \"B2\": \"=A1+A2\",\n                    \"B4\": \"=SUM(B2:B3)\",\n                    \"C4\": \"=SUM(B2:B3)\",\n                    \"D4\": \"=SUM(B2:B3)\"\n                  }\n                }\n              }\n            ]\n          }\n        }\n      ]\n    }\n  ],\n  \"shared_with\": [],\n  \"default_currency_id\": null\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "63d1bf59-ce0f-47ad-9c54-5726e162aa6d",
+          "name": "Partially update a canvas by ID.",
+          "request": {
+            "name": "Partially update a canvas by ID.",
+            "description": {
+              "content": "Update one or more editable fields of an existing canvas.\n\n- Only the provided fields will be modified.\n- Non-editable fields (such as `id`, `company_id`, and timestamps) are ignored if included.\n- Returns the updated canvas representation.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "canvases",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.cubesoftware.com/o/token/"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://portal.cubesoftware.com/o/authorize/"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            },
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "disabled": false,
+                  "key": "name",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "description",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "sharing_scheme",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "source",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "filters",
+                  "value": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "default_currency_id",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "shared_with",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "shared_with",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "tabs",
+                  "value": "{\"name\":\"<string>\",\"position\":\"<long>\",\"layout\":[{\"layout_x\":\"<long>\",\"layout_y\":\"<long>\",\"widget\":\"<uuid>\",\"width\":\"<long>\",\"height\":\"<long>\"},{\"layout_x\":\"<long>\",\"layout_y\":\"<long>\",\"widget\":\"<uuid>\",\"width\":\"<long>\",\"height\":\"<long>\"}]}"
+                },
+                {
+                  "disabled": false,
+                  "key": "tabs",
+                  "value": "{\"name\":\"<string>\",\"position\":\"<long>\",\"layout\":[{\"layout_x\":\"<long>\",\"layout_y\":\"<long>\",\"widget\":\"<uuid>\",\"width\":\"<long>\",\"height\":\"<long>\"},{\"layout_x\":\"<long>\",\"layout_y\":\"<long>\",\"widget\":\"<uuid>\",\"width\":\"<long>\",\"height\":\"<long>\"}]}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "7587a582-dd4f-42b9-b7d1-39957df533c3",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "canvases",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "key": "name",
+                      "value": "One Big Beautiful Canvas"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "description",
+                      "value": "Best Canvas Ever"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"79fc999d-f145-47d7-a6a3-a5792ec1b262\",\n  \"name\": \"One Big Beautiful Canvas\",\n  \"description\": \"Best Canvas Ever\",\n  \"sharing_scheme\": \"MANAGERS\",\n  \"is_liked\": true,\n  \"created_by\": {\n    \"id\": 1,\n    \"first_name\": \"John\",\n    \"last_name\": \"Frusciante\"\n  },\n  \"created_at\": \"2026-07-19 00:15:28.217428+00:00\",\n  \"tabs\": [],\n  \"shared_with\": [],\n  \"default_currency_id\": null\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "708c8603-4418-4281-ac81-3e06d8f945f8",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "canvases",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "key": "name",
+                      "value": "One Big Beautiful Canvas"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "description",
+                      "value": "Best Canvas Ever"
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {},\n  \"metadata\": {\n    \"status\": 400,\n    \"error\": true,\n    \"message\": \"Expected a list of items but got type \\\"str\\\".\",\n    \"code\": \"\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "06c47db5-1970-4dc2-b88c-bf223c5fb09a",
+          "name": "Delete a canvas.",
+          "request": {
+            "name": "Delete a canvas.",
+            "description": {
+              "content": "Permanently delete a canvas by ID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "canvases",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "method": "DELETE",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.cubesoftware.com/o/token/"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://portal.cubesoftware.com/o/authorize/"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "7ef1d4f1-85a8-454e-b8f0-fdb7d09117f2",
+              "name": "No response body",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "canvases",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b1983046-dd57-4fa6-a3db-78e838f74eca",
+          "name": "Duplicate a canvas.",
+          "request": {
+            "name": "Duplicate a canvas.",
+            "description": {
+              "content": "Duplicate a canvas. The new canvas will be created with a new name and a copy of the layout.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "canvases",
+                ":id",
+                "duplicate"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.cubesoftware.com/o/token/"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://portal.cubesoftware.com/o/authorize/"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            },
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "disabled": false,
+                  "key": "name",
+                  "value": "<string>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "description",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "sharing_scheme",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "source",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "filters",
+                  "value": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "default_currency_id",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "shared_with",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "shared_with",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "tabs",
+                  "value": "{\"name\":\"<string>\",\"position\":\"<long>\",\"layout\":[{\"layout_x\":\"<long>\",\"layout_y\":\"<long>\",\"widget\":\"<uuid>\",\"width\":\"<long>\",\"height\":\"<long>\"},{\"layout_x\":\"<long>\",\"layout_y\":\"<long>\",\"widget\":\"<uuid>\",\"width\":\"<long>\",\"height\":\"<long>\"}]}"
+                },
+                {
+                  "disabled": false,
+                  "key": "tabs",
+                  "value": "{\"name\":\"<string>\",\"position\":\"<long>\",\"layout\":[{\"layout_x\":\"<long>\",\"layout_y\":\"<long>\",\"widget\":\"<uuid>\",\"width\":\"<long>\",\"height\":\"<long>\"},{\"layout_x\":\"<long>\",\"layout_y\":\"<long>\",\"widget\":\"<uuid>\",\"width\":\"<long>\",\"height\":\"<long>\"}]}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "91b75ff1-34a6-43ac-b489-d1e15a8498ab",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "canvases",
+                    ":id",
+                    "duplicate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) ",
+                        "type": "text/plain"
+                      },
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "description",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "sharing_scheme",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "source",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "filters",
+                      "value": ""
+                    },
+                    {
+                      "disabled": false,
+                      "key": "default_currency_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "shared_with",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "shared_with",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "tabs",
+                      "value": "{\"name\":\"<string>\",\"position\":\"<long>\",\"layout\":[{\"layout_x\":\"<long>\",\"layout_y\":\"<long>\",\"widget\":\"<uuid>\",\"width\":\"<long>\",\"height\":\"<long>\"},{\"layout_x\":\"<long>\",\"layout_y\":\"<long>\",\"widget\":\"<uuid>\",\"width\":\"<long>\",\"height\":\"<long>\"}]}"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "tabs",
+                      "value": "{\"name\":\"<string>\",\"position\":\"<long>\",\"layout\":[{\"layout_x\":\"<long>\",\"layout_y\":\"<long>\",\"widget\":\"<uuid>\",\"width\":\"<long>\",\"height\":\"<long>\"},{\"layout_x\":\"<long>\",\"layout_y\":\"<long>\",\"widget\":\"<uuid>\",\"width\":\"<long>\",\"height\":\"<long>\"}]}"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"name\": \"<string>\",\n  \"id\": \"172f7e34-d955-a2a3-f28c-eb983b84bd7f\",\n  \"description\": \"<string>\",\n  \"sharing_scheme\": \"<string>\",\n  \"source\": \"<string>\",\n  \"filters\": \"\",\n  \"default_currency_id\": \"<integer>\",\n  \"shared_with\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"tabs\": [\n    {\n      \"name\": \"<string>\",\n      \"id\": \"c23a1a97-7a36-9bc8-05ad-81ab4ef2e33b\",\n      \"position\": \"<long>\",\n      \"layout\": [\n        {\n          \"layout_x\": \"<long>\",\n          \"layout_y\": \"<long>\",\n          \"widget\": \"<uuid>\",\n          \"width\": \"<long>\",\n          \"height\": \"<long>\"\n        },\n        {\n          \"layout_x\": \"<long>\",\n          \"layout_y\": \"<long>\",\n          \"widget\": \"<uuid>\",\n          \"width\": \"<long>\",\n          \"height\": \"<long>\"\n        }\n      ]\n    },\n    {\n      \"name\": \"<string>\",\n      \"id\": \"e667daa0-6663-9486-c9a7-49a3803aad89\",\n      \"position\": \"<long>\",\n      \"layout\": [\n        {\n          \"layout_x\": \"<long>\",\n          \"layout_y\": \"<long>\",\n          \"widget\": \"<uuid>\",\n          \"width\": \"<long>\",\n          \"height\": \"<long>\"\n        },\n        {\n          \"layout_x\": \"<long>\",\n          \"layout_y\": \"<long>\",\n          \"widget\": \"<uuid>\",\n          \"width\": \"<long>\",\n          \"height\": \"<long>\"\n        }\n      ]\n    }\n  ],\n  \"is_liked\": false,\n  \"created_by\": {\n    \"created_at\": \"1957-07-20T03:40:26.716Z\",\n    \"email\": \"hA8gwJSIlWgZafY@PJkxoIJKDKBUXXxhnyglQdiyVSny.ojz\",\n    \"id\": 6547,\n    \"is_cube_staff\": true,\n    \"is_staff\": false,\n    \"first_name\": \"string\",\n    \"last_name\": \"string\",\n    \"relationship_type\": \"EMPLOYEE\",\n    \"timezone\": \"Pacific/Guam\"\n  },\n  \"created_at\": \"2002-08-24T21:45:20.544Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b5f67300-66ef-4a74-977f-4a1b8167fabc",
+          "name": "Like a canvas",
+          "request": {
+            "name": "Like a canvas",
+            "description": {
+              "content": "Like a canvas.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "canvases",
+                ":id",
+                "like"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.cubesoftware.com/o/token/"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://portal.cubesoftware.com/o/authorize/"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            },
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "disabled": false,
+                  "key": "name",
+                  "value": "<string>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "description",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "sharing_scheme",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "source",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "filters",
+                  "value": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "default_currency_id",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "shared_with",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "shared_with",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "tabs",
+                  "value": "{\"name\":\"<string>\",\"position\":\"<long>\",\"layout\":[{\"layout_x\":\"<long>\",\"layout_y\":\"<long>\",\"widget\":\"<uuid>\",\"width\":\"<long>\",\"height\":\"<long>\"},{\"layout_x\":\"<long>\",\"layout_y\":\"<long>\",\"widget\":\"<uuid>\",\"width\":\"<long>\",\"height\":\"<long>\"}]}"
+                },
+                {
+                  "disabled": false,
+                  "key": "tabs",
+                  "value": "{\"name\":\"<string>\",\"position\":\"<long>\",\"layout\":[{\"layout_x\":\"<long>\",\"layout_y\":\"<long>\",\"widget\":\"<uuid>\",\"width\":\"<long>\",\"height\":\"<long>\"},{\"layout_x\":\"<long>\",\"layout_y\":\"<long>\",\"widget\":\"<uuid>\",\"width\":\"<long>\",\"height\":\"<long>\"}]}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "7952556d-6781-4b08-b4ea-da1d9914085e",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "canvases",
+                    ":id",
+                    "like"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) ",
+                        "type": "text/plain"
+                      },
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "description",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "sharing_scheme",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "source",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "filters",
+                      "value": ""
+                    },
+                    {
+                      "disabled": false,
+                      "key": "default_currency_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "shared_with",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "shared_with",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "tabs",
+                      "value": "{\"name\":\"<string>\",\"position\":\"<long>\",\"layout\":[{\"layout_x\":\"<long>\",\"layout_y\":\"<long>\",\"widget\":\"<uuid>\",\"width\":\"<long>\",\"height\":\"<long>\"},{\"layout_x\":\"<long>\",\"layout_y\":\"<long>\",\"widget\":\"<uuid>\",\"width\":\"<long>\",\"height\":\"<long>\"}]}"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "tabs",
+                      "value": "{\"name\":\"<string>\",\"position\":\"<long>\",\"layout\":[{\"layout_x\":\"<long>\",\"layout_y\":\"<long>\",\"widget\":\"<uuid>\",\"width\":\"<long>\",\"height\":\"<long>\"},{\"layout_x\":\"<long>\",\"layout_y\":\"<long>\",\"widget\":\"<uuid>\",\"width\":\"<long>\",\"height\":\"<long>\"}]}"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"name\": \"<string>\",\n  \"id\": \"172f7e34-d955-a2a3-f28c-eb983b84bd7f\",\n  \"description\": \"<string>\",\n  \"sharing_scheme\": \"<string>\",\n  \"source\": \"<string>\",\n  \"filters\": \"\",\n  \"default_currency_id\": \"<integer>\",\n  \"shared_with\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"tabs\": [\n    {\n      \"name\": \"<string>\",\n      \"id\": \"c23a1a97-7a36-9bc8-05ad-81ab4ef2e33b\",\n      \"position\": \"<long>\",\n      \"layout\": [\n        {\n          \"layout_x\": \"<long>\",\n          \"layout_y\": \"<long>\",\n          \"widget\": \"<uuid>\",\n          \"width\": \"<long>\",\n          \"height\": \"<long>\"\n        },\n        {\n          \"layout_x\": \"<long>\",\n          \"layout_y\": \"<long>\",\n          \"widget\": \"<uuid>\",\n          \"width\": \"<long>\",\n          \"height\": \"<long>\"\n        }\n      ]\n    },\n    {\n      \"name\": \"<string>\",\n      \"id\": \"e667daa0-6663-9486-c9a7-49a3803aad89\",\n      \"position\": \"<long>\",\n      \"layout\": [\n        {\n          \"layout_x\": \"<long>\",\n          \"layout_y\": \"<long>\",\n          \"widget\": \"<uuid>\",\n          \"width\": \"<long>\",\n          \"height\": \"<long>\"\n        },\n        {\n          \"layout_x\": \"<long>\",\n          \"layout_y\": \"<long>\",\n          \"widget\": \"<uuid>\",\n          \"width\": \"<long>\",\n          \"height\": \"<long>\"\n        }\n      ]\n    }\n  ],\n  \"is_liked\": false,\n  \"created_by\": {\n    \"created_at\": \"1957-07-20T03:40:26.716Z\",\n    \"email\": \"hA8gwJSIlWgZafY@PJkxoIJKDKBUXXxhnyglQdiyVSny.ojz\",\n    \"id\": 6547,\n    \"is_cube_staff\": true,\n    \"is_staff\": false,\n    \"first_name\": \"string\",\n    \"last_name\": \"string\",\n    \"relationship_type\": \"EMPLOYEE\",\n    \"timezone\": \"Pacific/Guam\"\n  },\n  \"created_at\": \"2002-08-24T21:45:20.544Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1f16cb62-c09e-4a19-84f5-1f6aa3f59a09",
+          "name": "Undo a canvas like.",
+          "request": {
+            "name": "Undo a canvas like.",
+            "description": {
+              "content": "Undo a canvas like.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "canvases",
+                ":id",
+                "like"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "method": "DELETE",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.cubesoftware.com/o/token/"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://portal.cubesoftware.com/o/authorize/"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "cb8d3036-e5a4-4917-b065-2367d31a2524",
+              "name": "No response body",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "canvases",
+                    ":id",
+                    "like"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "654f21b2-11d3-48e2-af1a-5f0e0e53fe64",
+          "name": "List all widgets.",
+          "request": {
+            "name": "List all widgets.",
+            "description": {
+              "content": "List all widgets.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "canvases",
+                "widgets"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.cubesoftware.com/o/token/"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://portal.cubesoftware.com/o/authorize/"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "89278c0e-17f3-47aa-b91b-92475629073d",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "canvases",
+                    "widgets"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": \"466c51bd-022e-e789-2d30-b774ccf5518d\",\n    \"name\": \"string\",\n    \"type\": \"TEMPLATE\",\n    \"visual_type\": \"LINE\",\n    \"settings\": \"\",\n    \"data_sources\": [\n      {\n        \"id\": 2825,\n        \"object_id\": \"string\",\n        \"widget_id\": \"f1a37542-b850-0a8e-6ff4-2a838ed239aa\",\n        \"settings\": \"\"\n      },\n      {\n        \"id\": 6186,\n        \"object_id\": \"string\",\n        \"widget_id\": \"07b27e0b-fa5e-0a37-be12-b98b60dfe256\",\n        \"settings\": \"\"\n      }\n    ]\n  },\n  {\n    \"id\": \"b1b68edb-63c6-c3c3-a1c9-1dea7beb13fa\",\n    \"name\": \"string\",\n    \"type\": \"TEXT\",\n    \"visual_type\": \"BAR\",\n    \"settings\": \"\",\n    \"data_sources\": [\n      {\n        \"id\": 8725,\n        \"object_id\": \"string\",\n        \"widget_id\": \"bbac35af-60c8-624f-ce55-edd056eb43cb\",\n        \"settings\": \"\"\n      },\n      {\n        \"id\": 6374,\n        \"object_id\": \"string\",\n        \"widget_id\": \"12980266-be85-9988-261d-854667221312\",\n        \"settings\": \"\"\n      }\n    ]\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ff131e2b-27ff-45b7-a929-f32d5a995f08",
+          "name": "Create a new widget.",
+          "request": {
+            "name": "Create a new widget.",
+            "description": {
+              "content": "Create a new widget.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "canvases",
+                "widgets"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.cubesoftware.com/o/token/"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://portal.cubesoftware.com/o/authorize/"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            },
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "disabled": false,
+                  "key": "name",
+                  "value": "<string>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "type",
+                  "value": "<string>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "visual_type",
+                  "value": "<string>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "settings",
+                  "value": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "data_sources",
+                  "value": "{\"object_id\":\"<string>\",\"settings\":\"\",\"type\":\"<string>\"}"
+                },
+                {
+                  "disabled": false,
+                  "key": "data_sources",
+                  "value": "{\"object_id\":\"<string>\",\"settings\":\"\",\"type\":\"<string>\"}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "2e041942-6940-400a-a3fe-6a0029e4728a",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "canvases",
+                    "widgets"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) ",
+                        "type": "text/plain"
+                      },
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) ",
+                        "type": "text/plain"
+                      },
+                      "key": "type",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) ",
+                        "type": "text/plain"
+                      },
+                      "key": "visual_type",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "settings",
+                      "value": ""
+                    },
+                    {
+                      "disabled": false,
+                      "key": "data_sources",
+                      "value": "{\"object_id\":\"<string>\",\"settings\":\"\",\"type\":\"<string>\"}"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "data_sources",
+                      "value": "{\"object_id\":\"<string>\",\"settings\":\"\",\"type\":\"<string>\"}"
+                    }
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"name\": \"<string>\",\n  \"type\": \"<string>\",\n  \"visual_type\": \"<string>\",\n  \"id\": \"fc798859-e756-d9d4-7a7d-e321103420f3\",\n  \"settings\": \"\",\n  \"data_sources\": [\n    {\n      \"object_id\": \"<string>\",\n      \"id\": 9483,\n      \"widget_id\": \"504ac546-efed-967e-f08d-0cf4eee7b80e\",\n      \"settings\": \"\"\n    },\n    {\n      \"object_id\": \"<string>\",\n      \"id\": 5611,\n      \"widget_id\": \"e0d4c56c-e6e6-5142-10a6-3786f1395c3a\",\n      \"settings\": \"\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "341602a3-8dcb-4af1-9183-f5017c89ccff",
+          "name": "Retrieve details of a specific widget.",
+          "request": {
+            "name": "Retrieve details of a specific widget.",
+            "description": {
+              "content": "Retrieve details of a specific widget.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "canvases",
+                "widgets",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.cubesoftware.com/o/token/"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://portal.cubesoftware.com/o/authorize/"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "89099c8b-b99e-4b06-b30a-5f87649811c2",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "canvases",
+                    "widgets",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"name\": \"<string>\",\n  \"type\": \"<string>\",\n  \"visual_type\": \"<string>\",\n  \"id\": \"fc798859-e756-d9d4-7a7d-e321103420f3\",\n  \"settings\": \"\",\n  \"data_sources\": [\n    {\n      \"object_id\": \"<string>\",\n      \"id\": 9483,\n      \"widget_id\": \"504ac546-efed-967e-f08d-0cf4eee7b80e\",\n      \"settings\": \"\"\n    },\n    {\n      \"object_id\": \"<string>\",\n      \"id\": 5611,\n      \"widget_id\": \"e0d4c56c-e6e6-5142-10a6-3786f1395c3a\",\n      \"settings\": \"\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "81fea264-5521-4b0b-b629-146e258be8b9",
+          "name": "Update specific fields of a widget.",
+          "request": {
+            "name": "Update specific fields of a widget.",
+            "description": {
+              "content": "Update specific fields of a widget.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "canvases",
+                "widgets",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.cubesoftware.com/o/token/"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://portal.cubesoftware.com/o/authorize/"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            },
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "disabled": false,
+                  "key": "name",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "type",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "visual_type",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "settings",
+                  "value": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "data_sources",
+                  "value": "{\"object_id\":\"<string>\",\"settings\":\"\",\"type\":\"<string>\"}"
+                },
+                {
+                  "disabled": false,
+                  "key": "data_sources",
+                  "value": "{\"object_id\":\"<string>\",\"settings\":\"\",\"type\":\"<string>\"}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "9f712378-a85d-4a6c-8358-f930ce42530b",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "canvases",
+                    "widgets",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "type",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "visual_type",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "settings",
+                      "value": ""
+                    },
+                    {
+                      "disabled": false,
+                      "key": "data_sources",
+                      "value": "{\"object_id\":\"<string>\",\"settings\":\"\",\"type\":\"<string>\"}"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "data_sources",
+                      "value": "{\"object_id\":\"<string>\",\"settings\":\"\",\"type\":\"<string>\"}"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"name\": \"<string>\",\n  \"type\": \"<string>\",\n  \"visual_type\": \"<string>\",\n  \"id\": \"fc798859-e756-d9d4-7a7d-e321103420f3\",\n  \"settings\": \"\",\n  \"data_sources\": [\n    {\n      \"object_id\": \"<string>\",\n      \"id\": 9483,\n      \"widget_id\": \"504ac546-efed-967e-f08d-0cf4eee7b80e\",\n      \"settings\": \"\"\n    },\n    {\n      \"object_id\": \"<string>\",\n      \"id\": 5611,\n      \"widget_id\": \"e0d4c56c-e6e6-5142-10a6-3786f1395c3a\",\n      \"settings\": \"\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0d1afad2-64dc-477c-b8a7-95b37392b75b",
+          "name": "canvases widgets destroy",
+          "request": {
+            "name": "canvases widgets destroy",
+            "description": {
+              "content": "This is a shortcut class that will include all 6 resourceful actions part of the DRF ViewSets:\n- list()\n- retrieve()\n- create()\n- update()\n- partial_update()\n- destroy()\n\nIf you do not want to expose all 6 of these in your ViewSet, then use the CubeAuthenticatedViewSet and add the\nappropriate mixins to it (see rest_framework.mixins). This will allow the api to behave appropriately and block\nrequests to unprocessable endpoints. Furthermore, it will make the drf_spectacular documentation be generated more\neasily.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "canvases",
+                "widgets",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "method": "DELETE",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.cubesoftware.com/o/token/"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://portal.cubesoftware.com/o/authorize/"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "33acb48e-7fdc-42a5-97f2-55b625125492",
+              "name": "No response body",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "canvases",
+                    "widgets",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "52744714-cfbf-4b13-8528-ff69d426763e",
+          "name": "Generate a screenshot of a widget component.",
+          "request": {
+            "name": "Generate a screenshot of a widget component.",
+            "description": {
+              "content": "Generates a PNG screenshot of the widget component by rendering it in a headless browser.\n\n- The screenshot is uploaded to S3 for record keeping.\n- Returns the PNG image directly.\n- Optional rendering parameters can be provided in the request body.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "canvases",
+                "widgets",
+                ":id",
+                "render"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.cubesoftware.com/o/token/"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://portal.cubesoftware.com/o/authorize/"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            },
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "disabled": false,
+                  "key": "width",
+                  "value": "<integer>",
+                  "description": "Viewport width in pixels"
+                },
+                {
+                  "disabled": false,
+                  "key": "height",
+                  "value": "<integer>",
+                  "description": "Viewport height in pixels"
+                },
+                {
+                  "disabled": false,
+                  "key": "enable_branding",
+                  "value": "<boolean>",
+                  "description": "Whether to show branding overlay on the widget"
+                },
+                {
+                  "disabled": false,
+                  "key": "enable_filters",
+                  "value": "<boolean>",
+                  "description": "Whether to show filters overlay on the widget"
+                },
+                {
+                  "disabled": false,
+                  "key": "enable_timestamp",
+                  "value": "<boolean>",
+                  "description": "Whether to show timestamp overlay on the widget"
+                },
+                {
+                  "disabled": false,
+                  "key": "filters",
+                  "value": "{\"tld_id\":\"<integer>\",\"value\":\"<string>\"}",
+                  "description": "Dimension filters to apply at render time"
+                },
+                {
+                  "disabled": false,
+                  "key": "filters",
+                  "value": "{\"tld_id\":\"<integer>\",\"value\":\"<string>\"}",
+                  "description": "Dimension filters to apply at render time"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "bb44f7bb-2ce2-43d0-9dcb-3e23a8165808",
+              "name": "Base64-encoded PNG image of the rendered widget component",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "canvases",
+                    "widgets",
+                    ":id",
+                    "render"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Viewport width in pixels",
+                        "type": "text/plain"
+                      },
+                      "key": "width",
+                      "value": "<integer>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Viewport height in pixels",
+                        "type": "text/plain"
+                      },
+                      "key": "height",
+                      "value": "<integer>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Whether to show branding overlay on the widget",
+                        "type": "text/plain"
+                      },
+                      "key": "enable_branding",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Whether to show filters overlay on the widget",
+                        "type": "text/plain"
+                      },
+                      "key": "enable_filters",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Whether to show timestamp overlay on the widget",
+                        "type": "text/plain"
+                      },
+                      "key": "enable_timestamp",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Dimension filters to apply at render time",
+                        "type": "text/plain"
+                      },
+                      "key": "filters",
+                      "value": "{\"tld_id\":\"<integer>\",\"value\":\"<string>\"}"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Dimension filters to apply at render time",
+                        "type": "text/plain"
+                      },
+                      "key": "filters",
+                      "value": "{\"tld_id\":\"<integer>\",\"value\":\"<string>\"}"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"image\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f1a6e7b8-0c8d-41ef-ad06-b5d280bc60fe",
+              "name": "Bad request - invalid parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "canvases",
+                    "widgets",
+                    ":id",
+                    "render"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Viewport width in pixels",
+                        "type": "text/plain"
+                      },
+                      "key": "width",
+                      "value": "<integer>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Viewport height in pixels",
+                        "type": "text/plain"
+                      },
+                      "key": "height",
+                      "value": "<integer>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Whether to show branding overlay on the widget",
+                        "type": "text/plain"
+                      },
+                      "key": "enable_branding",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Whether to show filters overlay on the widget",
+                        "type": "text/plain"
+                      },
+                      "key": "enable_filters",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Whether to show timestamp overlay on the widget",
+                        "type": "text/plain"
+                      },
+                      "key": "enable_timestamp",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Dimension filters to apply at render time",
+                        "type": "text/plain"
+                      },
+                      "key": "filters",
+                      "value": "{\"tld_id\":\"<integer>\",\"value\":\"<string>\"}"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Dimension filters to apply at render time",
+                        "type": "text/plain"
+                      },
+                      "key": "filters",
+                      "value": "{\"tld_id\":\"<integer>\",\"value\":\"<string>\"}"
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "c4f0e695-2dd4-4881-a040-166615d3f3d8",
+              "name": "Widget not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "canvases",
+                    "widgets",
+                    ":id",
+                    "render"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Viewport width in pixels",
+                        "type": "text/plain"
+                      },
+                      "key": "width",
+                      "value": "<integer>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Viewport height in pixels",
+                        "type": "text/plain"
+                      },
+                      "key": "height",
+                      "value": "<integer>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Whether to show branding overlay on the widget",
+                        "type": "text/plain"
+                      },
+                      "key": "enable_branding",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Whether to show filters overlay on the widget",
+                        "type": "text/plain"
+                      },
+                      "key": "enable_filters",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Whether to show timestamp overlay on the widget",
+                        "type": "text/plain"
+                      },
+                      "key": "enable_timestamp",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Dimension filters to apply at render time",
+                        "type": "text/plain"
+                      },
+                      "key": "filters",
+                      "value": "{\"tld_id\":\"<integer>\",\"value\":\"<string>\"}"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Dimension filters to apply at render time",
+                        "type": "text/plain"
+                      },
+                      "key": "filters",
+                      "value": "{\"tld_id\":\"<integer>\",\"value\":\"<string>\"}"
+                    }
+                  ]
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "96ef58ef-5f65-4ca6-8480-ba8b2549927d",
+              "name": "Error generating screenshot",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "canvases",
+                    "widgets",
+                    ":id",
+                    "render"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Viewport width in pixels",
+                        "type": "text/plain"
+                      },
+                      "key": "width",
+                      "value": "<integer>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Viewport height in pixels",
+                        "type": "text/plain"
+                      },
+                      "key": "height",
+                      "value": "<integer>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Whether to show branding overlay on the widget",
+                        "type": "text/plain"
+                      },
+                      "key": "enable_branding",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Whether to show filters overlay on the widget",
+                        "type": "text/plain"
+                      },
+                      "key": "enable_filters",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Whether to show timestamp overlay on the widget",
+                        "type": "text/plain"
+                      },
+                      "key": "enable_timestamp",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Dimension filters to apply at render time",
+                        "type": "text/plain"
+                      },
+                      "key": "filters",
+                      "value": "{\"tld_id\":\"<integer>\",\"value\":\"<string>\"}"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Dimension filters to apply at render time",
+                        "type": "text/plain"
+                      },
+                      "key": "filters",
+                      "value": "{\"tld_id\":\"<integer>\",\"value\":\"<string>\"}"
+                    }
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.cubesoftware.com",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "664ecc5c-ab12-438e-af83-2d012bca6fd7",
+    "name": "Cube Agents Canvases API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "#### General Description\nAn API to access underlying Cube functionality. These endpoints are the same endpoints\nthat support Cube's universal add-ons and a plethora of integrations meaning you'll be able to interact with your\nCube data in many powerful ways. Visit the API section of Cube's [Help Center](https://help.cubesoftware.com/hc/en-us/sections/18205290556180-Custom-Integrations)\nfor more usage guides on how you can use this API to integrate with Cube to accomplish various tasks!\n\n#### Versioning\nAll requests to the API require a version to be configured via an `Accept` Header. The value of this Header should look like this:\n```\nAccept: application/json; version=1.0\n```\nNote that the version number may differ depending on which version of the endpoint is needed.\n\n#### Response Structure\nThe general response structure of Cube's API endpoints will contain a `\"data\"` and `\"metadata\"` root level key:\n```json\n{\n    \"data\": { ... object data or list of objects ... },\n    \"metadata\": {\n        \"status\": 200,\n        \"message\": \"Potential message with additional context\",\n        \"error\": false,\n        \"code\": \"\"\n    }\n}\n```\n\n#### Rate Limiting\nAll endpoints have a rate limit configured, most of them default to 5/s.\nWhen the rate limit is encountered, a 429 HTTP code will be returned.\n\n#### Error Handling\nIn the event an error occurs, the response will typically look like this:\n```json\n{\n    \"data\": {},\n    \"metadata\": {\n        \"status\": 400,\n        \"message\": \"Some error message\",\n        \"error\": true,\n        \"code\": \"SOME_ERROR_CODE\"\n    }\n}\n```\n",
+      "type": "text/plain"
+    }
+  }
+}

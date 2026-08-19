@@ -1,0 +1,214 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Cube Agents Notifications API",
+    "version": "1.0.0 (1.0)"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Notifications",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve notification schedule for a target",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.cubesoftware.com/notification-schedules/:target_app/:target_model/:target_id",
+            "headers": [
+              {
+                "name": "X-Company-ID",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "target_app",
+                "value": "",
+                "type": "path",
+                "description": "Target Django app label (for example: taskflow)."
+              },
+              {
+                "name": "target_id",
+                "value": "",
+                "type": "path",
+                "description": "Target object identifier."
+              },
+              {
+                "name": "target_model",
+                "value": "",
+                "type": "path",
+                "description": "Target Django model name (for example: process)."
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://portal.cubesoftware.com/o/authorize/",
+              "accessTokenUrl": "https://api.cubesoftware.com/o/token/",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Returns the task reminder schedule for a workflow. Creates a schedule with defaults on first access if none exists."
+        },
+        {
+          "info": {
+            "name": "Replace notification schedule config for a target",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.cubesoftware.com/notification-schedules/:target_app/:target_model/:target_id",
+            "headers": [
+              {
+                "name": "X-Company-ID",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "target_app",
+                "value": "",
+                "type": "path",
+                "description": "Target Django app label (for example: taskflow)."
+              },
+              {
+                "name": "target_id",
+                "value": "",
+                "type": "path",
+                "description": "Target object identifier."
+              },
+              {
+                "name": "target_model",
+                "value": "",
+                "type": "path",
+                "description": "Target Django model name (for example: process)."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://portal.cubesoftware.com/o/authorize/",
+              "accessTokenUrl": "https://api.cubesoftware.com/o/token/",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Replaces the full reminder schedule config for the target workflow."
+        },
+        {
+          "info": {
+            "name": "Retrieve notification subscriptions for a target",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.cubesoftware.com/notification-subscriptions/:target_app/:target_model/:target_id",
+            "headers": [
+              {
+                "name": "X-Company-ID",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "target_app",
+                "value": "",
+                "type": "path",
+                "description": "Target Django app label (for example: erps)."
+              },
+              {
+                "name": "target_id",
+                "value": "",
+                "type": "path",
+                "description": "Target object identifier."
+              },
+              {
+                "name": "target_model",
+                "value": "",
+                "type": "path",
+                "description": "Target Django model name (for example: erpconnection)."
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://portal.cubesoftware.com/o/authorize/",
+              "accessTokenUrl": "https://api.cubesoftware.com/o/token/",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Returns watchers for a target. is_active reflects UserCompany membership (deactivated users may still appear in the list). Import/mapping emails are delivered only to active UserCompany rows whose per-event preferences allow the notification (data_imports, manual_mapping)."
+        },
+        {
+          "info": {
+            "name": "Replace notification subscriptions for a target",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.cubesoftware.com/notification-subscriptions/:target_app/:target_model/:target_id",
+            "headers": [
+              {
+                "name": "X-Company-ID",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "target_app",
+                "value": "",
+                "type": "path",
+                "description": "Target Django app label (for example: erps)."
+              },
+              {
+                "name": "target_id",
+                "value": "",
+                "type": "path",
+                "description": "Target object identifier."
+              },
+              {
+                "name": "target_model",
+                "value": "",
+                "type": "path",
+                "description": "Target Django model name (for example: erpconnection)."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://portal.cubesoftware.com/o/authorize/",
+              "accessTokenUrl": "https://api.cubesoftware.com/o/token/",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Replaces watcher list for the target and returns added/removed counts."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

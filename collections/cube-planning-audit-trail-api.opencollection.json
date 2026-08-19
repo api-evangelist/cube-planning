@@ -1,0 +1,275 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Cube Agents Audit Trail API",
+    "version": "1.0.0 (1.0)"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Audit Trail",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Audit Trail Events",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.cubesoftware.com/governance/audit-trail",
+            "headers": [
+              {
+                "name": "X-Company-ID",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "event_type",
+                "value": "",
+                "type": "query",
+                "description": "A list of IDs of the event types to limit the events to."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The limit to be used for pagination to define how many results per \"page\""
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "The offset (page) to be used for pagination"
+              },
+              {
+                "name": "user_id",
+                "value": "",
+                "type": "query",
+                "description": "A list of IDs of the users to limit the returned events to."
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://portal.cubesoftware.com/o/authorize/",
+              "accessTokenUrl": "https://api.cubesoftware.com/o/token/",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Generates a list of audit trail events similar to what is seen on the Cube portal. These events include data imports from source systems, any data published to Cube from spreadsheets, and when source system dimensions are re-synced."
+        },
+        {
+          "info": {
+            "name": "Audit trail event groups",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.cubesoftware.com/governance/audit-trail/groups",
+            "headers": [
+              {
+                "name": "X-Company-ID",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "event_type",
+                "value": "",
+                "type": "query",
+                "description": "A list of IDs of the event types to limit the events to."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The limit to be used for pagination to define how many results per \"page\""
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "The offset (page) to be used for pagination"
+              },
+              {
+                "name": "user_id",
+                "value": "",
+                "type": "query",
+                "description": "A list of IDs of the users to limit the returned events to."
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://portal.cubesoftware.com/o/authorize/",
+              "accessTokenUrl": "https://api.cubesoftware.com/o/token/",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Returns audit trail entries grouped by publish batch (shared OlapCubeChange.batch_id) or as single-event groups when there is no batch. Pagination counts groups, not individual events. Each event includes `metadata` (raw audit payload) in addition to the standard list row shape."
+        },
+        {
+          "info": {
+            "name": "Audit Trail Event Types",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.cubesoftware.com/governance/audit-trail/types",
+            "headers": [
+              {
+                "name": "X-Company-ID",
+                "value": ""
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://portal.cubesoftware.com/o/authorize/",
+              "accessTokenUrl": "https://api.cubesoftware.com/o/token/",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Returns the types of events that are stored in the audit trail."
+        },
+        {
+          "info": {
+            "name": "Retrieve an Audit Trail Event",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.cubesoftware.com/governance/change/:id",
+            "headers": [
+              {
+                "name": "X-Company-ID",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "change_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the change log"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://portal.cubesoftware.com/o/authorize/",
+              "accessTokenUrl": "https://api.cubesoftware.com/o/token/",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Retrieve data about an audit trail event."
+        },
+        {
+          "info": {
+            "name": "Reverts an Audit Trail Event",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.cubesoftware.com/governance/change/:id/revert",
+            "headers": [
+              {
+                "name": "X-Company-ID",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "change_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the change log"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://portal.cubesoftware.com/o/authorize/",
+              "accessTokenUrl": "https://api.cubesoftware.com/o/token/",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Reverts a specific audit trail event by restoring its related cube values to their previous state."
+        },
+        {
+          "info": {
+            "name": "List Audit Trail Event Changed Values",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.cubesoftware.com/governance/change/:id/values",
+            "headers": [
+              {
+                "name": "X-Company-ID",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "change_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the change log"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://portal.cubesoftware.com/o/authorize/",
+              "accessTokenUrl": "https://api.cubesoftware.com/o/token/",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Lists any values changed due to a specific audit trail event (i.e. data imports, spreadsheet publishes)"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

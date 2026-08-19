@@ -1,0 +1,332 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Cube Agents Cube Value Range API",
+    "version": "1.0.0 (1.0)"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Cube Value Range",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List all cube value ranges",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.cubesoftware.com/ranges",
+            "headers": [
+              {
+                "name": "X-Company-ID",
+                "value": ""
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://portal.cubesoftware.com/o/authorize/",
+              "accessTokenUrl": "https://api.cubesoftware.com/o/token/",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "List all cube value ranges available to the authenticated user company.\n\n- The `headers`, `filters`, and `tags` fields are omitted from this response for performance reasons.\n- Results can be limited by passing a comma separated list of ids in the query string: `?ids=1,2,3`"
+        },
+        {
+          "info": {
+            "name": "Create a cube value range",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.cubesoftware.com/ranges",
+            "headers": [
+              {
+                "name": "X-Company-ID",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "collapse_coordinates",
+                "value": "",
+                "type": "query",
+                "description": "Coordinates to collapse. When provided, adds `delete` property to response."
+              },
+              {
+                "name": "header_discovery",
+                "value": "",
+                "type": "query",
+                "description": "Control header discovery. When `true`, adds `discovered_row_headers` property to response."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://portal.cubesoftware.com/o/authorize/",
+              "accessTokenUrl": "https://api.cubesoftware.com/o/token/",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Create a new cube value range associated with the authenticated user company.\n\n- Required fields typically include `name` and `data`.\n- The full range, including generated fields like `id` and `headers`, is returned upon success."
+        },
+        {
+          "info": {
+            "name": "Retrieve a cube value range (A1 notation headers)",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.cubesoftware.com/ranges/:id",
+            "headers": [
+              {
+                "name": "X-Company-ID",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "header_discovery",
+                "value": "",
+                "type": "query",
+                "description": "Control header discovery. When `true`, adds `discovered_row_headers` property to response."
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://portal.cubesoftware.com/o/authorize/",
+              "accessTokenUrl": "https://api.cubesoftware.com/o/token/",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Fetch detailed information about a single cube value range by ID.\n\n- Includes all fields, including the optional, expensive `headers` field, which is represented in **A1 notation**, plus `filters` and `tags`.\n- This endpoint is intended for detail views or editing."
+        },
+        {
+          "info": {
+            "name": "Update a cube value range",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.cubesoftware.com/ranges/:id",
+            "headers": [
+              {
+                "name": "X-Company-ID",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "collapse_coordinates",
+                "value": "",
+                "type": "query",
+                "description": "Coordinates to collapse. When provided, adds `delete` property to response."
+              },
+              {
+                "name": "header_discovery",
+                "value": "",
+                "type": "query",
+                "description": "Control header discovery. When `true`, adds `discovered_row_headers` property to response."
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://portal.cubesoftware.com/o/authorize/",
+              "accessTokenUrl": "https://api.cubesoftware.com/o/token/",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Perform a full update of an existing cube value range.\n\n- Read-only fields (`id`, `headers`) will be ignored if included.\n- The `headers` field is not accepted in the request but will appear in the response."
+        },
+        {
+          "info": {
+            "name": "Partially update a cube value range",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.cubesoftware.com/ranges/:id",
+            "headers": [
+              {
+                "name": "X-Company-ID",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "collapse_coordinates",
+                "value": "",
+                "type": "query",
+                "description": "Coordinates to collapse. When provided, adds `delete` property to response."
+              },
+              {
+                "name": "header_discovery",
+                "value": "",
+                "type": "query",
+                "description": "Control header discovery. When `true`, adds `discovered_row_headers` property to response."
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://portal.cubesoftware.com/o/authorize/",
+              "accessTokenUrl": "https://api.cubesoftware.com/o/token/",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Update one or more editable fields on an existing cube value range.\n\n"
+        },
+        {
+          "info": {
+            "name": "Delete a cube value range",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.cubesoftware.com/ranges/:id",
+            "headers": [
+              {
+                "name": "X-Company-ID",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://portal.cubesoftware.com/o/authorize/",
+              "accessTokenUrl": "https://api.cubesoftware.com/o/token/",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Permanently remove a cube value range by ID."
+        },
+        {
+          "info": {
+            "name": "Retrieve a cube value range with A1 headers",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.cubesoftware.com/ranges/:id/a1",
+            "headers": [
+              {
+                "name": "X-Company-ID",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://portal.cubesoftware.com/o/authorize/",
+              "accessTokenUrl": "https://api.cubesoftware.com/o/token/",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Return the cube value range with its `headers` field represented in **A1 notation**.\n\n- Equivalent to the default `retrieve` endpoint.\n- Use this when you want to explicitly request A1-based headers."
+        },
+        {
+          "info": {
+            "name": "Retrieve a cube value range with structured headers",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.cubesoftware.com/ranges/:id/dimensions",
+            "headers": [
+              {
+                "name": "X-Company-ID",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://portal.cubesoftware.com/o/authorize/",
+              "accessTokenUrl": "https://api.cubesoftware.com/o/token/",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Return the cube value range with its `headers` field represented as structured row/column dimensions.\n\n- Unlike `retrieve` and `a1`, this endpoint organizes headers by their underlying dimensions.\n- Use this when you need explicit row/column headers instead of A1 notation."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
