@@ -104,6 +104,8 @@ apis:
   humanURL: https://www.cubesoftware.com/developer-center
   baseURL: https://api.cubesoftware.com
   tags:
+  - Authentication
+  tags_raw:
   - Auth
   properties:
   - type: OpenAPI
@@ -252,6 +254,8 @@ apis:
   humanURL: https://www.cubesoftware.com/developer-center
   baseURL: https://api.cubesoftware.com
   tags:
+  - Compliance
+  tags_raw:
   - compliance
   properties:
   - type: OpenAPI
@@ -350,6 +354,8 @@ apis:
   humanURL: https://www.cubesoftware.com/developer-center
   baseURL: https://api.cubesoftware.com
   tags:
+  - Currency
+  tags_raw:
   - Currencies
   properties:
   - type: OpenAPI
@@ -474,6 +480,8 @@ apis:
   humanURL: https://www.cubesoftware.com/developer-center
   baseURL: https://api.cubesoftware.com
   tags:
+  - Event
+  tags_raw:
   - Events
   properties:
   - type: OpenAPI
@@ -510,6 +518,8 @@ apis:
   humanURL: https://www.cubesoftware.com/developer-center
   baseURL: https://api.cubesoftware.com
   tags:
+  - Integration
+  tags_raw:
   - Integrations
   properties:
   - type: OpenAPI
@@ -558,6 +568,8 @@ apis:
   humanURL: https://www.cubesoftware.com/developer-center
   baseURL: https://api.cubesoftware.com
   tags:
+  - Notification
+  tags_raw:
   - Notifications
   properties:
   - type: OpenAPI
@@ -590,6 +602,8 @@ apis:
   humanURL: https://www.cubesoftware.com/developer-center
   baseURL: https://api.cubesoftware.com
   tags:
+  - PermissionSets
+  tags_raw:
   - permissionsets
   properties:
   - type: OpenAPI
@@ -734,6 +748,8 @@ apis:
   humanURL: https://www.cubesoftware.com/developer-center
   baseURL: https://api.cubesoftware.com
   tags:
+  - Workflows
+  tags_raw:
   - Workflow
   properties:
   - type: OpenAPI
