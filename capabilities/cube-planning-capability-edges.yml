@@ -1,0 +1,34 @@
+slug: cube-planning
+provider: Cube Planning
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Software & Technology
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 2
+edges:
+- tag: permissionsets
+  spec_file: cube-planning-permissionsets-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.72
+  evidence: GET /permissionsets permissionsets_list; schemas OperationTypesEnum, PermissionSet
+  reason: Read access to permission sets defining allowed operation types — authorisation/entitlement
+    definitions, i.e. identity and access management.
+- tag: Planning Table
+  spec_file: cube-planning-planning-table-api-openapi.yml
+  capability_id: BC-230
+  capability_id_l1: BC-230
+  capability_name: Financial Planning & Analysis
+  confidence: 0.7
+  evidence: POST /tables  tables_create  Create a planning table; GET /tables/{table_pk}/datasets  Get
+    planning table datasets; PlanningTableCompute
+  reason: CRUD over planning tables and their datasets is the core planning/budgeting modelling surface
+    of this FP&A platform; which FP&A sub-capability (budgeting vs forecasting) is unclear, so L1 only.
