@@ -614,7 +614,7 @@ apis:
   humanURL: https://www.cubesoftware.com/developer-center
   baseURL: https://api.cubesoftware.com
   tags:
-  - permissionsets
+  - PermissionSets
   tags_raw:
   - permissionsets
   properties:
