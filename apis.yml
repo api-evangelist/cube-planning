@@ -77,8 +77,9 @@ apis:
     url: https://help.cubesoftware.com/hc/en-us/sections/18205290556180-Custom-Integrations
 - aid: cube-planning:cube-planning-attributes-api
   name: Cube Planning Attributes API
-  description: "Attributes are additional metadata that can be applied to values in the cube. They\n \
-    \           show up as additional columns in drilldowns, for instance."
+  description: >-
+    Attributes are additional metadata that can be applied to values in the cube. They
+                show up as additional columns in drilldowns, for instance.
   humanURL: https://www.cubesoftware.com/developer-center
   baseURL: https://api.cubesoftware.com
   tags:
@@ -128,8 +129,9 @@ apis:
     url: https://help.cubesoftware.com/hc/en-us/sections/18205290556180-Custom-Integrations
 - aid: cube-planning:cube-planning-authentication-api
   name: Cube Planning Authentication API
-  description: "The Cube API supports user authentication via OAuth2 using the OAuth2 Authorization Code\
-    \ Flow.\n            To authenticate via OAuth2, an application must first be registered."
+  description: >-
+    The Cube API supports user authentication via OAuth2 using the OAuth2 Authorization Code Flow.
+                To authenticate via OAuth2, an application must first be registered.
   humanURL: https://www.cubesoftware.com/developer-center
   baseURL: https://api.cubesoftware.com
   tags:
@@ -153,38 +155,6 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/cube-planning-canvases-api-openapi.yml
-  - type: APIReference
-    url: https://api.cubesoftware.com/docs/
-  - type: Documentation
-    url: https://www.cubesoftware.com/developer-center
-  - type: GettingStarted
-    url: https://help.cubesoftware.com/hc/en-us/sections/18205290556180-Custom-Integrations
-- aid: cube-planning:cube-planning-chatmessages-api
-  name: Cube Planning ChatMessages API
-  description: The ChatMessages API from Cube Planning — 2 operation(s) for chatmessages.
-  humanURL: https://www.cubesoftware.com/developer-center
-  baseURL: https://api.cubesoftware.com
-  tags:
-  - ChatMessages
-  properties:
-  - type: OpenAPI
-    url: openapi/cube-planning-chatmessages-api-openapi.yml
-  - type: APIReference
-    url: https://api.cubesoftware.com/docs/
-  - type: Documentation
-    url: https://www.cubesoftware.com/developer-center
-  - type: GettingStarted
-    url: https://help.cubesoftware.com/hc/en-us/sections/18205290556180-Custom-Integrations
-- aid: cube-planning:cube-planning-chatsessions-api
-  name: Cube Planning ChatSessions API
-  description: The ChatSessions API from Cube Planning — 2 operation(s) for chatsessions.
-  humanURL: https://www.cubesoftware.com/developer-center
-  baseURL: https://api.cubesoftware.com
-  tags:
-  - ChatSessions
-  properties:
-  - type: OpenAPI
-    url: openapi/cube-planning-chatsessions-api-openapi.yml
   - type: APIReference
     url: https://api.cubesoftware.com/docs/
   - type: Documentation
@@ -225,8 +195,9 @@ apis:
     url: https://help.cubesoftware.com/hc/en-us/sections/18205290556180-Custom-Integrations
 - aid: cube-planning:cube-planning-companies-api
   name: Cube Planning Companies API
-  description: "A user in Cube belongs to one or more companies. Companies are how various teams of\n\
-    \            employees manage their data (dimensions, etc) and permissions (users, etc)."
+  description: >-
+    A user in Cube belongs to one or more companies. Companies are how various teams of
+                employees manage their data (dimensions, etc) and permissions (users, etc).
   humanURL: https://www.cubesoftware.com/developer-center
   baseURL: https://api.cubesoftware.com
   tags:
@@ -276,8 +247,9 @@ apis:
     url: https://help.cubesoftware.com/hc/en-us/sections/18205290556180-Custom-Integrations
 - aid: cube-planning:cube-planning-connections-api
   name: Cube Planning Connections API
-  description: "Connections to external source systems allow Cube to automatically import source\n   \
-    \         dimensions and transaction data."
+  description: >-
+    Connections to external source systems allow Cube to automatically import source
+                dimensions and transaction data.
   humanURL: https://www.cubesoftware.com/developer-center
   baseURL: https://api.cubesoftware.com
   tags:
@@ -285,22 +257,6 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/cube-planning-connections-api-openapi.yml
-  - type: APIReference
-    url: https://api.cubesoftware.com/docs/
-  - type: Documentation
-    url: https://www.cubesoftware.com/developer-center
-  - type: GettingStarted
-    url: https://help.cubesoftware.com/hc/en-us/sections/18205290556180-Custom-Integrations
-- aid: cube-planning:cube-planning-contenttype-api
-  name: Cube Planning ContentType API
-  description: The ContentType API from Cube Planning — 2 operation(s) for contenttype.
-  humanURL: https://www.cubesoftware.com/developer-center
-  baseURL: https://api.cubesoftware.com
-  tags:
-  - ContentType
-  properties:
-  - type: OpenAPI
-    url: openapi/cube-planning-contenttype-api-openapi.yml
   - type: APIReference
     url: https://api.cubesoftware.com/docs/
   - type: Documentation
@@ -391,9 +347,11 @@ apis:
     url: https://help.cubesoftware.com/hc/en-us/sections/18205290556180-Custom-Integrations
 - aid: cube-planning:cube-planning-data-table-uploads-api
   name: Cube Planning Data Table Uploads API
-  description: "Cube often uses uploads as a way to load in transaction data for a given data table\n\
-    \            or connection. You can use the API to create new uploads, send files, and track the status\n\
-    of an\n            upload."
+  description: >-
+    Cube often uses uploads as a way to load in transaction data for a given data table
+                or connection. You can use the API to create new uploads, send files, and track the status
+    of an
+                upload.
   humanURL: https://www.cubesoftware.com/developer-center
   baseURL: https://api.cubesoftware.com
   tags:
@@ -409,9 +367,11 @@ apis:
     url: https://help.cubesoftware.com/hc/en-us/sections/18205290556180-Custom-Integrations
 - aid: cube-planning:cube-planning-data-tables-api
   name: Cube Planning Data Tables API
-  description: "Data Tables are a generic way to organize the source dimensions, mappings, uploads,\n\
-    \            and imports from an outside source into Cube (e.g. ERP connections, imported flat files,\n\
-    spreadsheet\n            updates, employee rosters, etc)."
+  description: >-
+    Data Tables are a generic way to organize the source dimensions, mappings, uploads,
+                and imports from an outside source into Cube (e.g. ERP connections, imported flat files,
+    spreadsheet
+                updates, employee rosters, etc).
   humanURL: https://www.cubesoftware.com/developer-center
   baseURL: https://api.cubesoftware.com
   tags:
@@ -427,9 +387,11 @@ apis:
     url: https://help.cubesoftware.com/hc/en-us/sections/18205290556180-Custom-Integrations
 - aid: cube-planning:cube-planning-dimensions-api
   name: Cube Planning Dimensions API
-  description: "Dimensions store the organizational hierarchy for a company and outline how their data\
-    \ is\n            structured. All companies have top level dimensions called Account, Scenario, Department,\n\
-    and Time. They also\n            can have additional custom top level dimensions (i.e. Product, Entity)."
+  description: >-
+    Dimensions store the organizational hierarchy for a company and outline how their data is
+                structured. All companies have top level dimensions called Account, Scenario, Department,
+    and Time. They also
+                can have additional custom top level dimensions (i.e. Product, Entity).
   humanURL: https://www.cubesoftware.com/developer-center
   baseURL: https://api.cubesoftware.com
   tags:
@@ -495,10 +457,11 @@ apis:
     url: https://help.cubesoftware.com/hc/en-us/sections/18205290556180-Custom-Integrations
 - aid: cube-planning:cube-planning-formulas-api
   name: Cube Planning Formulas API
-  description: "Cube uses formulas to calculate values for a dimension, based on other dimensions.\n \
-    \           Examples: - Gross Margin = \"Revenue\" - \"Cost of Goods Sold\" - Net Income = \"Gross\
-    \ Margin\"\n- \"Expense\"\n            You can use formula endpoints in the API to access formulas\
-    \ for dimensions in your company."
+  description: >-
+    Cube uses formulas to calculate values for a dimension, based on other dimensions.
+                Examples: - Gross Margin = "Revenue" - "Cost of Goods Sold" - Net Income = "Gross Margin"
+    - "Expense"
+                You can use formula endpoints in the API to access formulas for dimensions in your company.
   humanURL: https://www.cubesoftware.com/developer-center
   baseURL: https://api.cubesoftware.com
   tags:
@@ -590,24 +553,6 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/cube-planning-permissions-api-openapi.yml
-  - type: APIReference
-    url: https://api.cubesoftware.com/docs/
-  - type: Documentation
-    url: https://www.cubesoftware.com/developer-center
-  - type: GettingStarted
-    url: https://help.cubesoftware.com/hc/en-us/sections/18205290556180-Custom-Integrations
-- aid: cube-planning:cube-planning-permissionsets-api
-  name: Cube Planning permissionsets API
-  description: The permissionsets API from Cube Planning — 2 operation(s) for permissionsets.
-  humanURL: https://www.cubesoftware.com/developer-center
-  baseURL: https://api.cubesoftware.com
-  tags:
-  - PermissionSets
-  tags_raw:
-  - permissionsets
-  properties:
-  - type: OpenAPI
-    url: openapi/cube-planning-permissionsets-api-openapi.yml
   - type: APIReference
     url: https://api.cubesoftware.com/docs/
   - type: Documentation
@@ -754,6 +699,70 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/cube-planning-workflow-api-openapi.yml
+  - type: APIReference
+    url: https://api.cubesoftware.com/docs/
+  - type: Documentation
+    url: https://www.cubesoftware.com/developer-center
+  - type: GettingStarted
+    url: https://help.cubesoftware.com/hc/en-us/sections/18205290556180-Custom-Integrations
+- aid: cube-planning:cube-planning-chat-messages-api
+  name: Cube Planning Chat Messages API
+  description: The Chat Messages API from Cube Planning — 2 operation(s) for chat messages.
+  humanURL: https://www.cubesoftware.com/developer-center
+  baseURL: https://api.cubesoftware.com
+  tags:
+  - Chat Messages
+  properties:
+  - type: OpenAPI
+    url: openapi/cube-planning-chat-messages-api-openapi.yml
+  - type: APIReference
+    url: https://api.cubesoftware.com/docs/
+  - type: Documentation
+    url: https://www.cubesoftware.com/developer-center
+  - type: GettingStarted
+    url: https://help.cubesoftware.com/hc/en-us/sections/18205290556180-Custom-Integrations
+- aid: cube-planning:cube-planning-chat-sessions-api
+  name: Cube Planning Chat Sessions API
+  description: The Chat Sessions API from Cube Planning — 2 operation(s) for chat sessions.
+  humanURL: https://www.cubesoftware.com/developer-center
+  baseURL: https://api.cubesoftware.com
+  tags:
+  - Chat Sessions
+  properties:
+  - type: OpenAPI
+    url: openapi/cube-planning-chat-sessions-api-openapi.yml
+  - type: APIReference
+    url: https://api.cubesoftware.com/docs/
+  - type: Documentation
+    url: https://www.cubesoftware.com/developer-center
+  - type: GettingStarted
+    url: https://help.cubesoftware.com/hc/en-us/sections/18205290556180-Custom-Integrations
+- aid: cube-planning:cube-planning-content-type-api
+  name: Cube Planning Content Type API
+  description: The Content Type API from Cube Planning — 2 operation(s) for content type.
+  humanURL: https://www.cubesoftware.com/developer-center
+  baseURL: https://api.cubesoftware.com
+  tags:
+  - Content Type
+  properties:
+  - type: OpenAPI
+    url: openapi/cube-planning-content-type-api-openapi.yml
+  - type: APIReference
+    url: https://api.cubesoftware.com/docs/
+  - type: Documentation
+    url: https://www.cubesoftware.com/developer-center
+  - type: GettingStarted
+    url: https://help.cubesoftware.com/hc/en-us/sections/18205290556180-Custom-Integrations
+- aid: cube-planning:cube-planning-permission-sets-api
+  name: Cube Planning Permission Sets API
+  description: The Permission Sets API from Cube Planning — 2 operation(s) for permission sets.
+  humanURL: https://www.cubesoftware.com/developer-center
+  baseURL: https://api.cubesoftware.com
+  tags:
+  - Permission Sets
+  properties:
+  - type: OpenAPI
+    url: openapi/cube-planning-permission-sets-api-openapi.yml
   - type: APIReference
     url: https://api.cubesoftware.com/docs/
   - type: Documentation
