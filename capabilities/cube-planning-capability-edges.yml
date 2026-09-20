@@ -14,7 +14,8 @@ capability_model:
 edge_count: 2
 edges:
 - tag: permissionsets
-  spec_file: cube-planning-permissionsets-api-openapi.yml
+  spec_file: cube-planning-permission-sets-api-openapi.yml
+  reanchored_from: cube-planning-permissionsets-api-openapi.yml
   capability_id: BC-620.20
   capability_id_l1: BC-620
   capability_name: Identity & Access Management
