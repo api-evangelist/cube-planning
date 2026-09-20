@@ -778,6 +778,8 @@ apis:
   - type: GettingStarted
     url: https://help.cubesoftware.com/hc/en-us/sections/18205290556180-Custom-Integrations
 common:
+- type: Plans
+  url: plans/cube-planning-plans-pricing.yml
 - type: Website
   url: https://www.cubesoftware.com/
 - type: CapabilityMap
