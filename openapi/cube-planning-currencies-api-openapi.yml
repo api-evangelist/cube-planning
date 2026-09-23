@@ -1,8 +1,10 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Cube Agents Currencies API
+  title: Cube Currencies API
   version: 1.0.0 (1.0)
-  description: "#### General Description\nAn API to access underlying Cube functionality. These endpoints are the same endpoints\nthat support Cube's universal add-ons and a plethora of integrations meaning you'll be able to interact with your\nCube data in many powerful ways. Visit the API section of Cube's [Help Center](https://help.cubesoftware.com/hc/en-us/sections/18205290556180-Custom-Integrations)\nfor more usage guides on how you can use this API to integrate with Cube to accomplish various tasks!\n\n#### Versioning\nAll requests to the API require a version to be configured via an `Accept` Header. The value of this Header should look like this:\n```\nAccept: application/json; version=1.0\n```\nNote that the version number may differ depending on which version of the endpoint is needed.\n\n#### Response Structure\nThe general response structure of Cube's API endpoints will contain a `\"data\"` and `\"metadata\"` root level key:\n```json\n{\n    \"data\": { ... object data or list of objects ... },\n    \"metadata\": {\n        \"status\": 200,\n        \"message\": \"Potential message with additional context\",\n        \"error\": false,\n        \"code\": \"\"\n    }\n}\n```\n\n#### Rate Limiting\nAll endpoints have a rate limit configured, most of them default to 5/s.\nWhen the rate limit is encountered, a 429 HTTP code will be returned.\n\n#### Error Handling\nIn the event an error occurs, the response will typically look like this:\n```json\n{\n    \"data\": {},\n    \"metadata\": {\n        \"status\": 400,\n        \"message\": \"Some error message\",\n        \"error\": true,\n        \"code\": \"SOME_ERROR_CODE\"\n    }\n}\n```\n"
+  description: '#### General Description
+
+    An API to access underlying Cube functionality.'
   termsOfService: https://www.cubesoftware.com/terms-of-service
 servers:
 - url: https://api.cubesoftware.com
@@ -95,7 +97,6 @@ paths:
   /currencies/rates:
     get:
       operationId: currencies_rates_list
-      description: List currency conversion rates
       summary: List currency conversion rates
       parameters:
       - in: header
@@ -161,7 +162,6 @@ paths:
           description: List of conversion rates
     post:
       operationId: currencies_rates_create
-      description: Create a currency conversion rates
       summary: Create a currency conversion rates
       parameters:
       - in: header
@@ -203,7 +203,6 @@ paths:
   /currencies/rates/{id}:
     get:
       operationId: currencies_rates_retrieve
-      description: Retrieve a currency conversion rate by ID
       summary: Retrieve a currency conversion rate by ID
       parameters:
       - in: header
@@ -238,7 +237,6 @@ paths:
           description: ''
     put:
       operationId: currencies_rates_update
-      description: Completely update a currency conversion rate by ID
       summary: Completely update a currency conversion rate by ID
       parameters:
       - in: header
@@ -285,7 +283,6 @@ paths:
           description: ''
     patch:
       operationId: currencies_rates_partial_update
-      description: Update specific fields within a currency conversion rate by ID
       summary: Update specific fields within a currency conversion rate by ID
       parameters:
       - in: header
@@ -331,7 +328,6 @@ paths:
           description: ''
     delete:
       operationId: currencies_rates_destroy
-      description: Delete a currency conversion rate by ID
       summary: Delete a currency conversion rate by ID
       parameters:
       - in: header
@@ -363,8 +359,10 @@ paths:
   /currencies/rates/{id}/lock:
     patch:
       operationId: currencies_rates_lock_partial_update
-      description: "This endpoint identifies the specific ConversionRate and updates the is_locked attribute to True.\n            This will make it not editable."
-      summary: Lock's a ConversionRate from being editable.
+      description: 'This endpoint identifies the specific ConversionRate and updates the is_locked attribute to True.
+
+        This will make it not editable.'
+      summary: Lock's a ConversionRate from being editable
       parameters:
       - in: header
         name: HTTP_ACCEPT
@@ -410,8 +408,10 @@ paths:
   /currencies/rates/{id}/unlock:
     patch:
       operationId: currencies_rates_unlock_partial_update
-      description: "This endpoint identifies the specific ConversionRate and updates the is_locked attribute to False.\n            This will make it editable."
-      summary: UnLock's a ConversionRate from being not editable.
+      description: 'This endpoint identifies the specific ConversionRate and updates the is_locked attribute to False.
+
+        This will make it editable.'
+      summary: UnLock's a ConversionRate from being not editable
       parameters:
       - in: header
         name: HTTP_ACCEPT
@@ -457,7 +457,11 @@ paths:
   /currencies/rates/bulk_update:
     put:
       operationId: currencies_rates_bulk_update_update
-      description: "This endpoint allows for a destructive delete all and bulk create Currency Conversion Rates for\n            a specific rateable object. This is meant to be used with DimensionExchangeRateTypeMapping entities as the\n            rateable."
+      description: 'This endpoint allows for a destructive delete all and bulk create Currency Conversion Rates for
+
+        a specific rateable object. This is meant to be used with DimensionExchangeRateTypeMapping entities as the
+
+        rateable.'
       summary: Bulk Update Currency Conversion Rates
       parameters:
       - in: header
@@ -501,7 +505,6 @@ paths:
   /currencies/rates/dimension-mappings:
     get:
       operationId: currencies_rates_dimension_mappings_list
-      description: List all dimension conversion rate mappings
       summary: List all dimension conversion rate mappings
       parameters:
       - in: header
@@ -656,7 +659,9 @@ paths:
   /currencies/rates/export:
     get:
       operationId: currencies_rates_export_retrieve
-      description: "This endpoint retrieves and organizes the currency conversion rates into a CSV and streams the\n            result back to the requester."
+      description: 'This endpoint retrieves and organizes the currency conversion rates into a CSV and streams the
+
+        result back to the requester.'
       summary: Export Currency Conversion Rates
       parameters:
       - in: header
@@ -733,7 +738,6 @@ paths:
   /currencies/rates/types:
     get:
       operationId: currencies_rates_types_list
-      description: Lists exchange rate types that exist for a given company
       summary: Lists exchange rate types that exist for a given company
       parameters:
       - in: header
@@ -851,6 +855,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/Currency'
           description: ''
+      summary: Currencies system currencies create
+      x-summary-source: derived
   /currencies/system-currencies/{id}:
     get:
       operationId: currencies_system_currencies_retrieve
@@ -938,6 +944,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/Currency'
           description: ''
+      summary: Currencies system currencies update
+      x-summary-source: derived
     patch:
       operationId: currencies_system_currencies_partial_update
       description: 'This is a shortcut class that will include all 6 resourceful actions part of the DRF ViewSets:
@@ -996,6 +1004,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/Currency'
           description: ''
+      summary: Currencies system currencies partial update
+      x-summary-source: derived
     delete:
       operationId: currencies_system_currencies_destroy
       description: 'This is a shortcut class that will include all 6 resourceful actions part of the DRF ViewSets:
@@ -1039,63 +1049,10 @@ paths:
       responses:
         '204':
           description: No response body
+      summary: Currencies system currencies destroy
+      x-summary-source: derived
 components:
   schemas:
-    PatchedConversionRate:
-      type: object
-      properties:
-        id:
-          type: integer
-          readOnly: true
-        from_currency:
-          type: integer
-        to_currency:
-          type: integer
-        account:
-          type: integer
-          nullable: true
-        date:
-          type: string
-          format: date
-        rate:
-          type: string
-          format: decimal
-          pattern: ^-?\d{0,17}(?:\.\d{0,20})?$
-        exchange_rate_type_id:
-          type: integer
-          nullable: true
-          readOnly: true
-        rateable_type:
-          type: integer
-          nullable: true
-        rateable_id:
-          type: string
-          nullable: true
-          maxLength: 36
-        is_locked:
-          type: boolean
-        created_at:
-          type: string
-          format: date-time
-          readOnly: true
-        modified_at:
-          type: string
-          format: date-time
-          readOnly: true
-    CompanyCurrency:
-      type: object
-      properties:
-        default:
-          type: boolean
-        created_at:
-          type: string
-          format: date-time
-          readOnly: true
-        currency:
-          $ref: '#/components/schemas/Currency'
-      required:
-      - created_at
-      - currency
     PatchedCurrency:
       type: object
       description: "Allows selectively disabling DRF uniqueness validation for ModelSerializers.\n\nModelSerializer runs unique field validation during `is_valid()`, even when the\nserializer is used only to deserialize or reference existing model data (i.e. with\nno intent to create or update an instance). This mixin enables callers to explicitly\nskip uniqueness checks for specific fields in those cases.\n\nUsage:\n    serializer = MySerializer(\n        data=payload,\n        skip_unique_validation_fields=('code',),\n    )"
@@ -1113,8 +1070,9 @@ components:
           type: string
           maxLength: 10
         description:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         created_at:
           type: string
           format: date-time
@@ -1125,79 +1083,32 @@ components:
         created_by_id:
           type: integer
           writeOnly: true
-    ConversionRate:
+    Dict:
       type: object
       properties:
-        id:
-          type: integer
-          readOnly: true
-        from_currency:
-          type: integer
-        to_currency:
-          type: integer
-        account:
-          type: integer
-          nullable: true
+        rate:
+          type: number
+          format: double
         date:
           type: string
           format: date
-        rate:
-          type: string
-          format: decimal
-          pattern: ^-?\d{0,17}(?:\.\d{0,20})?$
-        exchange_rate_type_id:
-          type: integer
-          nullable: true
-          readOnly: true
-        rateable_type:
-          type: integer
-          nullable: true
-        rateable_id:
-          type: string
-          nullable: true
-          maxLength: 36
-        is_locked:
+      required:
+      - date
+      - rate
+    CompanyCurrency:
+      type: object
+      properties:
+        default:
           type: boolean
         created_at:
           type: string
           format: date-time
           readOnly: true
-        modified_at:
-          type: string
-          format: date-time
-          readOnly: true
+        currency:
+          $ref: '#/components/schemas/Currency'
       required:
       - created_at
-      - date
-      - exchange_rate_type_id
-      - from_currency
-      - id
-      - modified_at
-      - rate
-      - to_currency
-    InlineForm:
-      type: object
-      properties:
-        rateable_id:
-          type: string
-          nullable: true
-        rateable_type:
-          type: integer
-          nullable: true
-        from_currency:
-          type: integer
-        to_currency:
-          type: integer
-        conversion_rates:
-          type: array
-          items:
-            $ref: '#/components/schemas/Dict'
-      required:
-      - conversion_rates
-      - from_currency
-      - rateable_id
-      - rateable_type
-      - to_currency
+      - currency
     RateTypeEnum:
       enum:
       - CURRENT
@@ -1215,18 +1126,60 @@ components:
         * `CONSTANT` - Constant
 
         * `CUSTOM` - Custom'
-    Dict:
+    PatchedConversionRate:
       type: object
       properties:
-        rate:
-          type: number
-          format: double
+        id:
+          type: integer
+          readOnly: true
+        from_currency:
+          type: integer
+        to_currency:
+          type: integer
+        account:
+          type:
+          - integer
+          - 'null'
         date:
           type: string
           format: date
+        rate:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,17}(?:\.\d{0,20})?$
+        exchange_rate_type_id:
+          type:
+          - integer
+          - 'null'
+          readOnly: true
+        rateable_type:
+          type:
+          - integer
+          - 'null'
+        rateable_id:
+          type:
+          - string
+          - 'null'
+          maxLength: 36
+        is_locked:
+          type: boolean
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        modified_at:
+          type: string
+          format: date-time
+          readOnly: true
+    Currency:
+      type: object
+      description: "Allows selectively disabling DRF uniqueness validation for ModelSerializers.\n\nModelSerializer runs unique field validation during `is_valid()`, even when the\nserializer is used only to deserialize or reference existing model data (i.e. with\nno intent to create or update an instance). This mixin enables callers to explicitly\nskip uniqueness checks for specific fields in those cases.\n\nUsage:\n    serializer = MySerializer(\n        data=payload,\n        skip_unique_validation_fields=('code',),\n    )"
+      properties:
+        code:
+          type: string
+          maxLength: 10
       required:
-      - date
-      - rate
+      - code
     DimensionExchangeRateTypeMapping:
       type: object
       properties:
@@ -1243,16 +1196,19 @@ components:
         exchange_rate_type:
           type: integer
         from_currency:
-          type: integer
-          nullable: true
+          type:
+          - integer
+          - 'null'
         to_currency:
-          type: integer
-          nullable: true
+          type:
+          - integer
+          - 'null'
         constant_rate:
-          type: string
+          type:
+          - string
+          - 'null'
           format: decimal
           pattern: ^-?\d{0,17}(?:\.\d{0,20})?$
-          nullable: true
         content_type_id:
           type: integer
           description: "A helper property method for grabbing the id of the ContentType of this model.\nThis is used for creating the rateable relationships with ConversionRate instances.\n\nReturns:\n    an integer representing the content type"
@@ -1285,8 +1241,9 @@ components:
           type: string
           maxLength: 255
         weighted_average_of_id:
-          type: integer
-          nullable: true
+          type:
+          - integer
+          - 'null'
           readOnly: true
         created_at:
           type: string
@@ -1303,6 +1260,85 @@ components:
       - name
       - rate_type
       - weighted_average_of_id
+    InlineForm:
+      type: object
+      properties:
+        rateable_id:
+          type:
+          - string
+          - 'null'
+        rateable_type:
+          type:
+          - integer
+          - 'null'
+        from_currency:
+          type: integer
+        to_currency:
+          type: integer
+        conversion_rates:
+          type: array
+          items:
+            $ref: '#/components/schemas/Dict'
+      required:
+      - conversion_rates
+      - from_currency
+      - rateable_id
+      - rateable_type
+      - to_currency
+    ConversionRate:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        from_currency:
+          type: integer
+        to_currency:
+          type: integer
+        account:
+          type:
+          - integer
+          - 'null'
+        date:
+          type: string
+          format: date
+        rate:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,17}(?:\.\d{0,20})?$
+        exchange_rate_type_id:
+          type:
+          - integer
+          - 'null'
+          readOnly: true
+        rateable_type:
+          type:
+          - integer
+          - 'null'
+        rateable_id:
+          type:
+          - string
+          - 'null'
+          maxLength: 36
+        is_locked:
+          type: boolean
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        modified_at:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+      - created_at
+      - date
+      - exchange_rate_type_id
+      - from_currency
+      - id
+      - modified_at
+      - rate
+      - to_currency
     Inline:
       type: object
       properties:
@@ -1313,15 +1349,6 @@ components:
       required:
       - currency_id
       - default
-    Currency:
-      type: object
-      description: "Allows selectively disabling DRF uniqueness validation for ModelSerializers.\n\nModelSerializer runs unique field validation during `is_valid()`, even when the\nserializer is used only to deserialize or reference existing model data (i.e. with\nno intent to create or update an instance). This mixin enables callers to explicitly\nskip uniqueness checks for specific fields in those cases.\n\nUsage:\n    serializer = MySerializer(\n        data=payload,\n        skip_unique_validation_fields=('code',),\n    )"
-      properties:
-        code:
-          type: string
-          maxLength: 10
-      required:
-      - code
   securitySchemes:
     OAuth2:
       type: oauth2

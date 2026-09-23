@@ -1,8 +1,10 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Cube Agents Taskflow API
+  title: Cube Taskflow API
   version: 1.0.0 (1.0)
-  description: "#### General Description\nAn API to access underlying Cube functionality. These endpoints are the same endpoints\nthat support Cube's universal add-ons and a plethora of integrations meaning you'll be able to interact with your\nCube data in many powerful ways. Visit the API section of Cube's [Help Center](https://help.cubesoftware.com/hc/en-us/sections/18205290556180-Custom-Integrations)\nfor more usage guides on how you can use this API to integrate with Cube to accomplish various tasks!\n\n#### Versioning\nAll requests to the API require a version to be configured via an `Accept` Header. The value of this Header should look like this:\n```\nAccept: application/json; version=1.0\n```\nNote that the version number may differ depending on which version of the endpoint is needed.\n\n#### Response Structure\nThe general response structure of Cube's API endpoints will contain a `\"data\"` and `\"metadata\"` root level key:\n```json\n{\n    \"data\": { ... object data or list of objects ... },\n    \"metadata\": {\n        \"status\": 200,\n        \"message\": \"Potential message with additional context\",\n        \"error\": false,\n        \"code\": \"\"\n    }\n}\n```\n\n#### Rate Limiting\nAll endpoints have a rate limit configured, most of them default to 5/s.\nWhen the rate limit is encountered, a 429 HTTP code will be returned.\n\n#### Error Handling\nIn the event an error occurs, the response will typically look like this:\n```json\n{\n    \"data\": {},\n    \"metadata\": {\n        \"status\": 400,\n        \"message\": \"Some error message\",\n        \"error\": true,\n        \"code\": \"SOME_ERROR_CODE\"\n    }\n}\n```\n"
+  description: '#### General Description
+
+    An API to access underlying Cube functionality.'
   termsOfService: https://www.cubesoftware.com/terms-of-service
 servers:
 - url: https://api.cubesoftware.com
@@ -471,6 +473,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/Process'
           description: ''
+      summary: Processes duplicate create
+      x-summary-source: derived
   /processes/{id}/remind-now:
     post:
       operationId: processes_remind_now_create
@@ -531,6 +535,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/Process'
           description: ''
+      summary: Processes remind now create
+      x-summary-source: derived
   /processes/{id}/tasks/{task_id}/remind:
     post:
       operationId: processes_tasks_remind_create
@@ -596,6 +602,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/Process'
           description: ''
+      summary: Processes tasks remind create
+      x-summary-source: derived
   /processes/{id}/tasks/export:
     get:
       operationId: processes_tasks_export_retrieve
@@ -644,6 +652,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/Process'
           description: ''
+      summary: Processes tasks export retrieve
+      x-summary-source: derived
   /tasks:
     get:
       operationId: tasks_list
@@ -782,6 +792,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/Task'
           description: ''
+      summary: Tasks retrieve
+      x-summary-source: derived
     put:
       operationId: tasks_update
       description: 'This is a shortcut class that will include all 6 resourceful actions part of the DRF ViewSets:
@@ -841,6 +853,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/Task'
           description: ''
+      summary: Tasks update
+      x-summary-source: derived
     patch:
       operationId: tasks_partial_update
       description: Update task fields. Only include fields to be updated.
@@ -928,6 +942,8 @@ paths:
       responses:
         '204':
           description: No response body
+      summary: Tasks destroy
+      x-summary-source: derived
   /tasks/bulk:
     post:
       operationId: tasks_bulk_create
@@ -1454,169 +1470,6 @@ paths:
           description: Forbidden - User is not a Workflow Manager
 components:
   schemas:
-    Status32bEnum:
-      enum:
-      - DRAFT
-      - TODO
-      - DONE
-      type: string
-      description: '* `DRAFT` - Draft
-
-        * `TODO` - To Do
-
-        * `DONE` - Done'
-    BulkTaskResult:
-      type: object
-      properties:
-        task:
-          allOf:
-          - $ref: '#/components/schemas/Task'
-          nullable: true
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/BulkTaskError'
-          nullable: true
-      required:
-      - errors
-      - task
-    Task:
-      type: object
-      properties:
-        id:
-          type: integer
-          readOnly: true
-        process_id:
-          type: integer
-        name:
-          type: string
-          maxLength: 255
-        description:
-          type: string
-        status:
-          $ref: '#/components/schemas/Status32bEnum'
-        resources:
-          type: array
-          items:
-            $ref: '#/components/schemas/Resource'
-        assignee_id:
-          type: string
-          nullable: true
-        due_date:
-          type: string
-          format: date
-          nullable: true
-        deleted_at:
-          type: string
-          format: date-time
-          readOnly: true
-          nullable: true
-        completed_at:
-          type: string
-          format: date-time
-          readOnly: true
-          nullable: true
-        assigned_at:
-          type: string
-          format: date-time
-          readOnly: true
-          nullable: true
-        modified_at:
-          type: string
-          format: date-time
-          readOnly: true
-        completed_by_id:
-          type: integer
-          nullable: true
-          readOnly: true
-        created_by_id:
-          type: integer
-          readOnly: true
-        modified_by_id:
-          type: integer
-          nullable: true
-          readOnly: true
-      required:
-      - assigned_at
-      - completed_at
-      - completed_by_id
-      - created_by_id
-      - deleted_at
-      - id
-      - modified_at
-      - modified_by_id
-      - name
-    Process:
-      type: object
-      properties:
-        id:
-          type: integer
-          readOnly: true
-        name:
-          type: string
-          maxLength: 255
-        description:
-          type: string
-        status:
-          $ref: '#/components/schemas/ProcessStatusEnum'
-        completed_at:
-          type: string
-          format: date-time
-          readOnly: true
-          nullable: true
-        completed_by:
-          type: integer
-          readOnly: true
-          nullable: true
-        created_by:
-          type: integer
-          readOnly: true
-        modified_by:
-          type: integer
-          readOnly: true
-          nullable: true
-        owner:
-          type: integer
-      required:
-      - completed_at
-      - completed_by
-      - created_by
-      - id
-      - modified_by
-      - name
-    BulkTaskItem:
-      type: object
-      description: Schema for OpenAPI docs - validation deferred to TaskSerializer in service layer.
-      properties:
-        id:
-          type: integer
-        name:
-          type: string
-        description:
-          type: string
-        status:
-          $ref: '#/components/schemas/Status32bEnum'
-        due_date:
-          type: string
-          format: date
-        assignee_id:
-          type: integer
-        resources:
-          type: array
-          items:
-            $ref: '#/components/schemas/Resource'
-    BulkTaskRequest:
-      type: object
-      properties:
-        process_id:
-          type: integer
-        tasks:
-          type: array
-          items:
-            $ref: '#/components/schemas/BulkTaskItem'
-      required:
-      - process_id
-      - tasks
     PatchedTask:
       type: object
       properties:
@@ -1637,92 +1490,134 @@ components:
           items:
             $ref: '#/components/schemas/Resource'
         assignee_id:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         due_date:
-          type: string
+          type:
+          - string
+          - 'null'
           format: date
-          nullable: true
         deleted_at:
-          type: string
+          type:
+          - string
+          - 'null'
           format: date-time
           readOnly: true
-          nullable: true
         completed_at:
-          type: string
+          type:
+          - string
+          - 'null'
           format: date-time
           readOnly: true
-          nullable: true
         assigned_at:
-          type: string
+          type:
+          - string
+          - 'null'
           format: date-time
           readOnly: true
-          nullable: true
         modified_at:
           type: string
           format: date-time
           readOnly: true
         completed_by_id:
-          type: integer
-          nullable: true
+          type:
+          - integer
+          - 'null'
           readOnly: true
         created_by_id:
           type: integer
           readOnly: true
         modified_by_id:
-          type: integer
-          nullable: true
+          type:
+          - integer
+          - 'null'
           readOnly: true
-    PatchedProcess:
+    Task:
       type: object
       properties:
         id:
           type: integer
           readOnly: true
+        process_id:
+          type: integer
         name:
           type: string
           maxLength: 255
         description:
           type: string
         status:
-          $ref: '#/components/schemas/ProcessStatusEnum'
+          $ref: '#/components/schemas/Status32bEnum'
+        resources:
+          type: array
+          items:
+            $ref: '#/components/schemas/Resource'
+        assignee_id:
+          type:
+          - string
+          - 'null'
+        due_date:
+          type:
+          - string
+          - 'null'
+          format: date
+        deleted_at:
+          type:
+          - string
+          - 'null'
+          format: date-time
+          readOnly: true
         completed_at:
+          type:
+          - string
+          - 'null'
+          format: date-time
+          readOnly: true
+        assigned_at:
+          type:
+          - string
+          - 'null'
+          format: date-time
+          readOnly: true
+        modified_at:
           type: string
           format: date-time
           readOnly: true
-          nullable: true
-        completed_by:
+        completed_by_id:
+          type:
+          - integer
+          - 'null'
+          readOnly: true
+        created_by_id:
           type: integer
           readOnly: true
-          nullable: true
-        created_by:
-          type: integer
-          readOnly: true
-        modified_by:
-          type: integer
-          readOnly: true
-          nullable: true
-        owner:
-          type: integer
-    Resource:
-      type: object
-      properties:
-        id:
-          type: string
-        permission_denied:
-          type: boolean
-          readOnly: true
-        content_type:
-          type: string
-        content:
-          type: object
-          additionalProperties: {}
+        modified_by_id:
+          type:
+          - integer
+          - 'null'
           readOnly: true
       required:
-      - content
-      - content_type
+      - assigned_at
+      - completed_at
+      - completed_by_id
+      - created_by_id
+      - deleted_at
       - id
-      - permission_denied
+      - modified_at
+      - modified_by_id
+      - name
+    BulkTaskRequest:
+      type: object
+      properties:
+        process_id:
+          type: integer
+        tasks:
+          type: array
+          items:
+            $ref: '#/components/schemas/BulkTaskItem'
+      required:
+      - process_id
+      - tasks
     BulkTaskError:
       type: object
       description: Single error object for bulk task operations.
@@ -1734,63 +1629,30 @@ components:
           type: string
           description: Human-readable error message
         source:
-          type: object
+          type:
+          - object
+          - 'null'
           additionalProperties: {}
-          nullable: true
           description: 'Source of the error. Contains {"field": "field_name"} for validation errors, null for business errors.'
       required:
       - code
       - detail
       - source
-    ProcessStatusEnum:
-      enum:
-      - NOT_STARTED
-      - IN_PROGRESS
-      - COMPLETED
-      type: string
-      description: '* `NOT_STARTED` - Not Started
-
-        * `IN_PROGRESS` - In Progress
-
-        * `COMPLETED` - Completed'
-    PatchedActionItem:
+    BulkTaskResult:
       type: object
-      description: "Mixin for serializers that automatically validates position field values.\n\nAttributes:\n    position_field_name (str): The name of the position field to validate.\n                               Defaults to 'position'.\n\nThis mixin provides:\n- Automatic validation via validate_<field_name> method\n- Non-negative position validation\n- Max position validation based on existing items\n\nRequires 'position_queryset' in serializer context (provided by PositionReorderViewSetMixin)."
       properties:
-        id:
-          type: integer
-          readOnly: true
-        name:
-          type: string
-          maxLength: 255
-        company_id:
-          type: string
-          format: uuid
-          readOnly: true
-        created_by_id:
-          type: integer
-          readOnly: true
-        position:
-          type: integer
-          maximum: 4294967295
-          minimum: 0
-          format: int64
-        created_at:
-          type: string
-          format: date-time
-          readOnly: true
-        modified_at:
-          type: string
-          format: date-time
-          readOnly: true
-        completed_at:
-          type: string
-          format: date-time
-          readOnly: true
-          nullable: true
-        completed:
-          type: boolean
-          writeOnly: true
+        task:
+          allOf:
+          - $ref: '#/components/schemas/Task'
+        errors:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/BulkTaskError'
+      required:
+      - errors
+      - task
     ActionItem:
       type: object
       description: "Mixin for serializers that automatically validates position field values.\n\nAttributes:\n    position_field_name (str): The name of the position field to validate.\n                               Defaults to 'position'.\n\nThis mixin provides:\n- Automatic validation via validate_<field_name> method\n- Non-negative position validation\n- Max position validation based on existing items\n\nRequires 'position_queryset' in serializer context (provided by PositionReorderViewSetMixin)."
@@ -1822,10 +1684,11 @@ components:
           format: date-time
           readOnly: true
         completed_at:
-          type: string
+          type:
+          - string
+          - 'null'
           format: date-time
           readOnly: true
-          nullable: true
         completed:
           type: boolean
           writeOnly: true
@@ -1836,6 +1699,182 @@ components:
       - created_by_id
       - id
       - modified_at
+      - name
+    Resource:
+      type: object
+      properties:
+        id:
+          type: string
+        permission_denied:
+          type: boolean
+          readOnly: true
+        content_type:
+          type: string
+        content:
+          type: object
+          additionalProperties: {}
+          readOnly: true
+      required:
+      - content
+      - content_type
+      - id
+      - permission_denied
+    PatchedProcess:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          maxLength: 255
+        description:
+          type: string
+        status:
+          $ref: '#/components/schemas/ProcessStatusEnum'
+        completed_at:
+          type:
+          - string
+          - 'null'
+          format: date-time
+          readOnly: true
+        completed_by:
+          type:
+          - integer
+          - 'null'
+          readOnly: true
+        created_by:
+          type: integer
+          readOnly: true
+        modified_by:
+          type:
+          - integer
+          - 'null'
+          readOnly: true
+        owner:
+          type: integer
+    BulkTaskItem:
+      type: object
+      description: Schema for OpenAPI docs - validation deferred to TaskSerializer in service layer.
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        description:
+          type: string
+        status:
+          $ref: '#/components/schemas/Status32bEnum'
+        due_date:
+          type: string
+          format: date
+        assignee_id:
+          type: integer
+        resources:
+          type: array
+          items:
+            $ref: '#/components/schemas/Resource'
+    PatchedActionItem:
+      type: object
+      description: "Mixin for serializers that automatically validates position field values.\n\nAttributes:\n    position_field_name (str): The name of the position field to validate.\n                               Defaults to 'position'.\n\nThis mixin provides:\n- Automatic validation via validate_<field_name> method\n- Non-negative position validation\n- Max position validation based on existing items\n\nRequires 'position_queryset' in serializer context (provided by PositionReorderViewSetMixin)."
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          maxLength: 255
+        company_id:
+          type: string
+          format: uuid
+          readOnly: true
+        created_by_id:
+          type: integer
+          readOnly: true
+        position:
+          type: integer
+          maximum: 4294967295
+          minimum: 0
+          format: int64
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        modified_at:
+          type: string
+          format: date-time
+          readOnly: true
+        completed_at:
+          type:
+          - string
+          - 'null'
+          format: date-time
+          readOnly: true
+        completed:
+          type: boolean
+          writeOnly: true
+    ProcessStatusEnum:
+      enum:
+      - NOT_STARTED
+      - IN_PROGRESS
+      - COMPLETED
+      type: string
+      description: '* `NOT_STARTED` - Not Started
+
+        * `IN_PROGRESS` - In Progress
+
+        * `COMPLETED` - Completed'
+    Status32bEnum:
+      enum:
+      - DRAFT
+      - TODO
+      - DONE
+      type: string
+      description: '* `DRAFT` - Draft
+
+        * `TODO` - To Do
+
+        * `DONE` - Done'
+    Process:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          maxLength: 255
+        description:
+          type: string
+        status:
+          $ref: '#/components/schemas/ProcessStatusEnum'
+        completed_at:
+          type:
+          - string
+          - 'null'
+          format: date-time
+          readOnly: true
+        completed_by:
+          type:
+          - integer
+          - 'null'
+          readOnly: true
+        created_by:
+          type: integer
+          readOnly: true
+        modified_by:
+          type:
+          - integer
+          - 'null'
+          readOnly: true
+        owner:
+          type: integer
+      required:
+      - completed_at
+      - completed_by
+      - created_by
+      - id
+      - modified_by
       - name
   securitySchemes:
     OAuth2:

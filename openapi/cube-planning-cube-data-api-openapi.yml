@@ -1,8 +1,10 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Cube Agents Cube Data API
+  title: Cube Data API
   version: 1.0.0 (1.0)
-  description: "#### General Description\nAn API to access underlying Cube functionality. These endpoints are the same endpoints\nthat support Cube's universal add-ons and a plethora of integrations meaning you'll be able to interact with your\nCube data in many powerful ways. Visit the API section of Cube's [Help Center](https://help.cubesoftware.com/hc/en-us/sections/18205290556180-Custom-Integrations)\nfor more usage guides on how you can use this API to integrate with Cube to accomplish various tasks!\n\n#### Versioning\nAll requests to the API require a version to be configured via an `Accept` Header. The value of this Header should look like this:\n```\nAccept: application/json; version=1.0\n```\nNote that the version number may differ depending on which version of the endpoint is needed.\n\n#### Response Structure\nThe general response structure of Cube's API endpoints will contain a `\"data\"` and `\"metadata\"` root level key:\n```json\n{\n    \"data\": { ... object data or list of objects ... },\n    \"metadata\": {\n        \"status\": 200,\n        \"message\": \"Potential message with additional context\",\n        \"error\": false,\n        \"code\": \"\"\n    }\n}\n```\n\n#### Rate Limiting\nAll endpoints have a rate limit configured, most of them default to 5/s.\nWhen the rate limit is encountered, a 429 HTTP code will be returned.\n\n#### Error Handling\nIn the event an error occurs, the response will typically look like this:\n```json\n{\n    \"data\": {},\n    \"metadata\": {\n        \"status\": 400,\n        \"message\": \"Some error message\",\n        \"error\": true,\n        \"code\": \"SOME_ERROR_CODE\"\n    }\n}\n```\n"
+  description: '#### General Description
+
+    An API to access underlying Cube functionality.'
   termsOfService: https://www.cubesoftware.com/terms-of-service
 servers:
 - url: https://api.cubesoftware.com
@@ -14,7 +16,9 @@ paths:
   /cube/analyze:
     post:
       operationId: cube_analyze_create
-      description: "Analyzes a 2D array of data representing potential data for the cube\n        and determines where the various dimensions are within that data.\n        "
+      description: 'Analyzes a 2D array of data representing potential data for the cube
+
+        and determines where the various dimensions are within that data.'
       summary: Analyze Matrix For Dimensions
       parameters:
       - in: header
@@ -165,7 +169,6 @@ paths:
   /cube/export:
     get:
       operationId: cube_export_list
-      description: List all exports
       summary: List all exports
       parameters:
       - in: header
@@ -190,7 +193,6 @@ paths:
           description: ''
     post:
       operationId: cube_export_create
-      description: Begin an export
       summary: Begin an export
       parameters:
       - in: header
@@ -300,7 +302,6 @@ paths:
   /cube/export/schedule:
     get:
       operationId: cube_export_schedule_list
-      description: Retrieve a BI data export schedule
       summary: Retrieve a BI data export schedule
       parameters:
       - in: header
@@ -325,7 +326,6 @@ paths:
           description: ''
     post:
       operationId: cube_export_schedule_create
-      description: Create a BI data export schedule
       summary: Create a BI data export schedule
       parameters:
       - in: header
@@ -360,7 +360,6 @@ paths:
   /cube/export/schedule/{id}:
     patch:
       operationId: cube_export_schedule_partial_update
-      description: Update a BI data export schedule
       summary: Update a BI data export schedule
       parameters:
       - in: header
@@ -399,7 +398,6 @@ paths:
           description: ''
     delete:
       operationId: cube_export_schedule_destroy
-      description: Delete a BI data export schedule
       summary: Delete a BI data export schedule
       parameters:
       - in: header
@@ -847,115 +845,20 @@ paths:
             `BATCH_PUBLISH_COUNT_EXCEEDED` - Batch contains more than 50 publishes. `meta.limit` and `meta.count` carry the configured maximum and the submitted count.'
 components:
   schemas:
-    OlapCubeChange:
+    CubeUpdateResponseChange:
       type: object
       properties:
         id:
           type: integer
-          readOnly: true
-        message:
-          type: string
-          nullable: true
-          maxLength: 1024
-        created_at:
-          type: string
-          format: date-time
-          readOnly: true
-        metadata:
-          nullable: true
-        type:
-          $ref: '#/components/schemas/OlapCubeChangeTypeEnum'
-        friendly_type:
-          type: string
-          readOnly: true
-        created_by:
-          $ref: '#/components/schemas/User'
-        user:
-          allOf:
-          - $ref: '#/components/schemas/User'
-          readOnly: true
-        num_changes:
-          type: integer
-          maximum: 4294967295
-          minimum: 0
-          format: int64
-          nullable: true
         url:
           type: string
-          readOnly: true
-        status:
-          $ref: '#/components/schemas/OlapCubeChangeStatusEnum'
-        batch_id:
-          type: string
-          readOnly: true
-          nullable: true
-      required:
-      - batch_id
-      - created_at
-      - created_by
-      - friendly_type
-      - id
-      - url
-      - user
-    Integration:
-      type: object
-      properties:
-        id:
+          format: uri
+        num_changes:
           type: integer
-          readOnly: true
-        source:
-          $ref: '#/components/schemas/IntegrationSourceEnum'
-        category:
-          $ref: '#/components/schemas/CategoryEnum'
-        name:
-          type: string
-          maxLength: 100
-        logo_url:
-          type: string
-          nullable: true
-          readOnly: true
       required:
-      - category
       - id
-      - logo_url
-      - name
-      - source
-    CubeUpdateResponse:
-      type: object
-      properties:
-        code:
-          type: string
-        message:
-          type: string
-        change:
-          $ref: '#/components/schemas/CubeUpdateResponseChange'
-        nonwriteable_dimensions:
-          $ref: '#/components/schemas/CubeUpdateResponseNonwriteableDimensions'
-      required:
-      - change
-      - code
-      - message
-      - nonwriteable_dimensions
-    CubePivot:
-      type: object
-      properties:
-        filters:
-          type: object
-          additionalProperties: {}
-        rows:
-          type: array
-          items: {}
-        columns:
-          type: array
-          items: {}
-        matrix:
-          type: array
-          items: {}
-      required:
-      - columns
-      - filters
-      - matrix
-      - rows
+      - num_changes
+      - url
     CubeUpdateResponseNonwriteableDimensions:
       type: object
       properties:
@@ -969,18 +872,28 @@ components:
       - num_formulas
       - num_parents
       - num_write_protected
-    CubePivotSources:
+    StaleBiDataNotification:
       type: object
       properties:
-        filters:
-          type: object
-          additionalProperties: {}
-        matrix:
-          type: array
-          items: {}
+        paused:
+          type: boolean
+          readOnly: true
+        paused_at:
+          type:
+          - string
+          - 'null'
+          readOnly: true
       required:
-      - filters
-      - matrix
+      - paused
+      - paused_at
+    RelationshipTypeEnum:
+      enum:
+      - EMPLOYEE
+      - PARTNER
+      type: string
+      description: '* `EMPLOYEE` - Employee
+
+        * `PARTNER` - Partner'
     Connection:
       type: object
       properties:
@@ -992,8 +905,9 @@ components:
           type: boolean
           readOnly: true
         type:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
           description: "Return the category of the associated Integration model for backwards compatibility\n\nReturns:\n    The integration category (See Integration.CATEGORIES)"
           readOnly: true
         friendly_source:
@@ -1018,6 +932,49 @@ components:
       - metadata
       - settings
       - type
+    OlapCubeChangeStatusEnum:
+      enum:
+      - PENDING
+      - COMPLETED
+      - FAILED
+      type: string
+      description: '* `PENDING` - Pending
+
+        * `COMPLETED` - Completed
+
+        * `FAILED` - Failed'
+    CubePivotSourceResponse:
+      type: object
+      properties:
+        sources:
+          type: array
+          items:
+            $ref: '#/components/schemas/SourceDataTable'
+        cube_change:
+          $ref: '#/components/schemas/OlapCubeChange'
+      required:
+      - cube_change
+      - sources
+    SourceDataTableTypeEnum:
+      enum:
+      - AD_HOC
+      - ERP_CONNECTION
+      - GENERIC
+      - EMPLOYEE_ROSTER
+      - HRIS
+      type: string
+      description: '* `AD_HOC` - Ad Hoc
+
+        * `ERP_CONNECTION` - ERP Connection
+
+        * `GENERIC` - Generic
+
+        * `EMPLOYEE_ROSTER` - Employee Roster
+
+        * `HRIS` - HRIS Connection'
+    BlankEnum:
+      enum:
+      - ''
     CubeBatchUpdateRequest:
       type: object
       properties:
@@ -1043,20 +1000,196 @@ components:
           additionalProperties: {}
       required:
       - backgrounding_info
-    CubePivotResponse:
+    OlapCubeChangeTypeEnum:
+      enum:
+      - USER
+      - AI
+      - USER_REVERT
+      - TBI
+      - EXTERNAL_SOURCE
+      - EMPLOYEE_ROSTER
+      - DATA_IMPORT
+      - FORMULA
+      - DISABLED
+      - MERGE
+      - DUPLICATION
+      type: string
+      description: '* `USER` - User
+
+        * `AI` - AI
+
+        * `USER_REVERT` - Revert
+
+        * `TBI` - Trial Balance
+
+        * `EXTERNAL_SOURCE` - External Source
+
+        * `EMPLOYEE_ROSTER` - Employee Roster
+
+        * `DATA_IMPORT` - Data
+
+        * `FORMULA` - Formula
+
+        * `DISABLED` - Disabled
+
+        * `MERGE` - Merge
+
+        * `DUPLICATION` - Duplication'
+    User:
+      type: object
+      description: 'A serializer mixin that allows dynamic inclusion or exclusion of serializer fields by
+
+        passing `fields=[...]` or `exclude_fields=[...]` when initializing.'
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        first_name:
+          type: string
+          maxLength: 100
+        last_name:
+          type: string
+          maxLength: 100
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        email:
+          type: string
+          format: email
+          maxLength: 254
+        is_staff:
+          type: boolean
+          readOnly: true
+        is_cube_staff:
+          type: boolean
+          readOnly: true
+        relationship_type:
+          oneOf:
+          - $ref: '#/components/schemas/RelationshipTypeEnum'
+          - $ref: '#/components/schemas/BlankEnum'
+          - $ref: '#/components/schemas/NullEnum'
+        timezone:
+          $ref: '#/components/schemas/TimezoneEnum'
+      required:
+      - created_at
+      - email
+      - id
+      - is_cube_staff
+      - is_staff
+    Matrix:
+      type: object
+      properties:
+        attribute_columns:
+          type: array
+          items:
+            type: integer
+            minimum: 0
+        attribute_row:
+          type: integer
+          minimum: 0
+        filters:
+          type: object
+          additionalProperties:
+            type: string
+        data:
+          type: array
+          items:
+            type: array
+            items: {}
+      required:
+      - data
+      - filters
+    CubeAnalyze:
+      type: object
+      properties:
+        address:
+          type: string
+        maxtrix:
+          type: array
+          items: {}
+      required:
+      - address
+      - maxtrix
+    BusinessIntelligenceExportStatusEnum:
+      enum:
+      - PROCESSING
+      - SUCCESS
+      - ERROR
+      type: string
+      description: '* `PROCESSING` - Processing
+
+        * `SUCCESS` - Success
+
+        * `ERROR` - Error'
+    CubeUpdateResponse:
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+        change:
+          $ref: '#/components/schemas/CubeUpdateResponseChange'
+        nonwriteable_dimensions:
+          $ref: '#/components/schemas/CubeUpdateResponseNonwriteableDimensions'
+      required:
+      - change
+      - code
+      - message
+      - nonwriteable_dimensions
+    OlapCubeChange:
       type: object
       properties:
         id:
+          type: integer
+          readOnly: true
+        message:
+          type:
+          - string
+          - 'null'
+          maxLength: 1024
+        created_at:
           type: string
-        value:
+          format: date-time
+          readOnly: true
+        metadata: {}
+        type:
+          $ref: '#/components/schemas/OlapCubeChangeTypeEnum'
+        friendly_type:
           type: string
-        dimensions:
-          type: object
-          additionalProperties: {}
+          readOnly: true
+        created_by:
+          $ref: '#/components/schemas/User'
+        user:
+          allOf:
+          - $ref: '#/components/schemas/User'
+          readOnly: true
+        num_changes:
+          type:
+          - integer
+          - 'null'
+          maximum: 4294967295
+          minimum: 0
+          format: int64
+        url:
+          type: string
+          readOnly: true
+        status:
+          $ref: '#/components/schemas/OlapCubeChangeStatusEnum'
+        batch_id:
+          type:
+          - string
+          - 'null'
+          readOnly: true
       required:
-      - dimensions
+      - batch_id
+      - created_at
+      - created_by
+      - friendly_type
       - id
-      - value
+      - url
+      - user
     BusinessIntelligenceExport:
       type: object
       properties:
@@ -1073,14 +1206,16 @@ components:
           - $ref: '#/components/schemas/BusinessIntelligenceExportStatusEnum'
           readOnly: true
         completed_at:
-          type: string
+          type:
+          - string
+          - 'null'
           format: date-time
           readOnly: true
-          nullable: true
         created_by:
-          type: integer
+          type:
+          - integer
+          - 'null'
           readOnly: true
-          nullable: true
         scheduled:
           type: boolean
           readOnly: true
@@ -1091,6 +1226,82 @@ components:
       - id
       - scheduled
       - status
+    CubePivot:
+      type: object
+      properties:
+        filters:
+          type: object
+          additionalProperties: {}
+        rows:
+          type: array
+          items: {}
+        columns:
+          type: array
+          items: {}
+        matrix:
+          type: array
+          items: {}
+      required:
+      - columns
+      - filters
+      - matrix
+      - rows
+    CubePivotResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        value:
+          type: string
+        dimensions:
+          type: object
+          additionalProperties: {}
+      required:
+      - dimensions
+      - id
+      - value
+    Integration:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        source:
+          $ref: '#/components/schemas/IntegrationSourceEnum'
+        category:
+          $ref: '#/components/schemas/CategoryEnum'
+        name:
+          type: string
+          maxLength: 100
+        logo_url:
+          type:
+          - string
+          - 'null'
+          readOnly: true
+      required:
+      - category
+      - id
+      - logo_url
+      - name
+      - source
+    PatchedScheduledDataExport:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        hour_of_day:
+          type: integer
+          maximum: 23
+          minimum: 0
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        modified_at:
+          type: string
+          format: date-time
+          readOnly: true
     CubeBatchUpdatePublishItem:
       type: object
       properties:
@@ -1106,80 +1317,18 @@ components:
           type: string
       required:
       - matrix
-    SourceDataTable:
+    CubePivotSources:
       type: object
       properties:
-        id:
-          type: string
-          format: uuid
-          readOnly: true
-        name:
-          type: string
-          maxLength: 255
-        active:
-          type: boolean
-          readOnly: true
-        settings:
+        filters:
           type: object
           additionalProperties: {}
-        created_at:
-          type: string
-          format: date-time
-          readOnly: true
-        connection:
-          allOf:
-          - $ref: '#/components/schemas/Connection'
-          readOnly: true
-        type:
-          allOf:
-          - $ref: '#/components/schemas/SourceDataTableTypeEnum'
-          readOnly: true
-        type_friendly:
-          type: string
-          readOnly: true
-        last_import:
-          type: object
-          additionalProperties: {}
-          readOnly: true
-        last_successful_import:
-          type: object
-          additionalProperties: {}
-          readOnly: true
-        source_type:
-          type: string
-          description: "Returns the human-friendly category of the connection's Integration, if the table has\na connection. Otherwise, returns 'Data Table'.\n\nReturns:\n    The human-friendly source category"
-          readOnly: true
-        mapping_data:
-          type: object
-          additionalProperties: {}
-          readOnly: true
-        description:
-          type: string
-      required:
-      - active
-      - connection
-      - created_at
-      - id
-      - last_import
-      - last_successful_import
-      - mapping_data
-      - name
-      - settings
-      - source_type
-      - type
-      - type_friendly
-    CubePivotSourceResponse:
-      type: object
-      properties:
-        sources:
+        matrix:
           type: array
-          items:
-            $ref: '#/components/schemas/SourceDataTable'
-        cube_change:
-          $ref: '#/components/schemas/OlapCubeChange'
+          items: {}
       required:
-      - cube_change
-      - sources
+      - filters
+      - matrix
     ScheduledDataExport:
       type: object
       properties:
@@ -1202,74 +1351,29 @@ components:
       - created_at
       - id
       - modified_at
-    BlankEnum:
+    CategoryEnum:
       enum:
-      - ''
-    PatchedScheduledDataExport:
-      type: object
-      properties:
-        id:
-          type: integer
-          readOnly: true
-        hour_of_day:
-          type: integer
-          maximum: 23
-          minimum: 0
-        created_at:
-          type: string
-          format: date-time
-          readOnly: true
-        modified_at:
-          type: string
-          format: date-time
-          readOnly: true
-    CubeUpdateRequest:
-      type: object
-      properties:
-        message:
-          type: string
-        matrix:
-          type: object
-          additionalProperties: {}
-      required:
-      - matrix
-      - message
-    BusinessIntelligenceExportStatusEnum:
-      enum:
-      - PROCESSING
-      - SUCCESS
-      - ERROR
+      - BI
+      - GL
+      - HRIS
+      - SSO
+      - CRM
+      - OTHER
+      - UAP
       type: string
-      description: '* `PROCESSING` - Processing
+      description: '* `BI` - Business Intelligence
 
-        * `SUCCESS` - Success
+        * `GL` - General Ledger
 
-        * `ERROR` - Error'
-    CubeAnalyze:
-      type: object
-      properties:
-        address:
-          type: string
-        maxtrix:
-          type: array
-          items: {}
-      required:
-      - address
-      - maxtrix
-    CubeUpdateResponseChange:
-      type: object
-      properties:
-        id:
-          type: integer
-        url:
-          type: string
-          format: uri
-        num_changes:
-          type: integer
-      required:
-      - id
-      - num_changes
-      - url
+        * `HRIS` - Human Resource Information Service
+
+        * `SSO` - Single Sign On
+
+        * `CRM` - Customer Relationship Management
+
+        * `OTHER` - Other
+
+        * `UAP` - Unified API Platform'
     IntegrationSourceEnum:
       enum:
       - METABASE
@@ -1320,148 +1424,20 @@ components:
         * `NETSUITE_RATES` - NetSuite Saved Search
 
         * `MERGE` - Cube Universal Connect'
-    User:
-      type: object
-      description: 'A serializer mixin that allows dynamic inclusion or exclusion of serializer fields by
-
-        passing `fields=[...]` or `exclude_fields=[...]` when initializing.'
-      properties:
-        id:
-          type: integer
-          readOnly: true
-        first_name:
-          type: string
-          maxLength: 100
-        last_name:
-          type: string
-          maxLength: 100
-        created_at:
-          type: string
-          format: date-time
-          readOnly: true
-        email:
-          type: string
-          format: email
-          maxLength: 254
-        is_staff:
-          type: boolean
-          readOnly: true
-        is_cube_staff:
-          type: boolean
-          readOnly: true
-        relationship_type:
-          nullable: true
-          oneOf:
-          - $ref: '#/components/schemas/RelationshipTypeEnum'
-          - $ref: '#/components/schemas/BlankEnum'
-          - $ref: '#/components/schemas/NullEnum'
-        timezone:
-          $ref: '#/components/schemas/TimezoneEnum'
-      required:
-      - created_at
-      - email
-      - id
-      - is_cube_staff
-      - is_staff
-    OlapCubeChangeTypeEnum:
-      enum:
-      - USER
-      - AI
-      - USER_REVERT
-      - TBI
-      - EXTERNAL_SOURCE
-      - EMPLOYEE_ROSTER
-      - DATA_IMPORT
-      - FORMULA
-      - DISABLED
-      - MERGE
-      - DUPLICATION
-      type: string
-      description: '* `USER` - User
-
-        * `AI` - AI
-
-        * `USER_REVERT` - Revert
-
-        * `TBI` - Trial Balance
-
-        * `EXTERNAL_SOURCE` - External Source
-
-        * `EMPLOYEE_ROSTER` - Employee Roster
-
-        * `DATA_IMPORT` - Data
-
-        * `FORMULA` - Formula
-
-        * `DISABLED` - Disabled
-
-        * `MERGE` - Merge
-
-        * `DUPLICATION` - Duplication'
-    OlapCubeChangeStatusEnum:
-      enum:
-      - PENDING
-      - COMPLETED
-      - FAILED
-      type: string
-      description: '* `PENDING` - Pending
-
-        * `COMPLETED` - Completed
-
-        * `FAILED` - Failed'
-    SourceDataTableTypeEnum:
-      enum:
-      - AD_HOC
-      - ERP_CONNECTION
-      - GENERIC
-      - EMPLOYEE_ROSTER
-      - HRIS
-      type: string
-      description: '* `AD_HOC` - Ad Hoc
-
-        * `ERP_CONNECTION` - ERP Connection
-
-        * `GENERIC` - Generic
-
-        * `EMPLOYEE_ROSTER` - Employee Roster
-
-        * `HRIS` - HRIS Connection'
-    StaleBiDataNotification:
+    CubeUpdateRequest:
       type: object
       properties:
-        paused:
-          type: boolean
-          readOnly: true
-        paused_at:
+        message:
           type: string
-          nullable: true
-          readOnly: true
+        matrix:
+          type: object
+          additionalProperties: {}
       required:
-      - paused
-      - paused_at
-    CategoryEnum:
+      - matrix
+      - message
+    NullEnum:
       enum:
-      - BI
-      - GL
-      - HRIS
-      - SSO
-      - CRM
-      - OTHER
-      - UAP
-      type: string
-      description: '* `BI` - Business Intelligence
-
-        * `GL` - General Ledger
-
-        * `HRIS` - Human Resource Information Service
-
-        * `SSO` - Single Sign On
-
-        * `CRM` - Customer Relationship Management
-
-        * `OTHER` - Other
-
-        * `UAP` - Unified API Platform'
+      - null
     TimezoneEnum:
       enum:
       - Africa/Abidjan
@@ -3255,41 +3231,68 @@ components:
         * `WET` - WET
 
         * `Zulu` - Zulu'
-    NullEnum:
-      enum:
-      - null
-    Matrix:
+    SourceDataTable:
       type: object
       properties:
-        attribute_columns:
-          type: array
-          items:
-            type: integer
-            minimum: 0
-        attribute_row:
-          type: integer
-          minimum: 0
-        filters:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        name:
+          type: string
+          maxLength: 255
+        active:
+          type: boolean
+          readOnly: true
+        settings:
           type: object
-          additionalProperties:
-            type: string
-        data:
-          type: array
-          items:
-            type: array
-            items:
-              nullable: true
+          additionalProperties: {}
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        connection:
+          allOf:
+          - $ref: '#/components/schemas/Connection'
+          readOnly: true
+        type:
+          allOf:
+          - $ref: '#/components/schemas/SourceDataTableTypeEnum'
+          readOnly: true
+        type_friendly:
+          type: string
+          readOnly: true
+        last_import:
+          type: object
+          additionalProperties: {}
+          readOnly: true
+        last_successful_import:
+          type: object
+          additionalProperties: {}
+          readOnly: true
+        source_type:
+          type: string
+          description: "Returns the human-friendly category of the connection's Integration, if the table has\na connection. Otherwise, returns 'Data Table'.\n\nReturns:\n    The human-friendly source category"
+          readOnly: true
+        mapping_data:
+          type: object
+          additionalProperties: {}
+          readOnly: true
+        description:
+          type: string
       required:
-      - data
-      - filters
-    RelationshipTypeEnum:
-      enum:
-      - EMPLOYEE
-      - PARTNER
-      type: string
-      description: '* `EMPLOYEE` - Employee
-
-        * `PARTNER` - Partner'
+      - active
+      - connection
+      - created_at
+      - id
+      - last_import
+      - last_successful_import
+      - mapping_data
+      - name
+      - settings
+      - source_type
+      - type
+      - type_friendly
   securitySchemes:
     OAuth2:
       type: oauth2

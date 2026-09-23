@@ -1,8 +1,10 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Cube Agents Audit Trail API
+  title: Cube Audit Trail API
   version: 1.0.0 (1.0)
-  description: "#### General Description\nAn API to access underlying Cube functionality. These endpoints are the same endpoints\nthat support Cube's universal add-ons and a plethora of integrations meaning you'll be able to interact with your\nCube data in many powerful ways. Visit the API section of Cube's [Help Center](https://help.cubesoftware.com/hc/en-us/sections/18205290556180-Custom-Integrations)\nfor more usage guides on how you can use this API to integrate with Cube to accomplish various tasks!\n\n#### Versioning\nAll requests to the API require a version to be configured via an `Accept` Header. The value of this Header should look like this:\n```\nAccept: application/json; version=1.0\n```\nNote that the version number may differ depending on which version of the endpoint is needed.\n\n#### Response Structure\nThe general response structure of Cube's API endpoints will contain a `\"data\"` and `\"metadata\"` root level key:\n```json\n{\n    \"data\": { ... object data or list of objects ... },\n    \"metadata\": {\n        \"status\": 200,\n        \"message\": \"Potential message with additional context\",\n        \"error\": false,\n        \"code\": \"\"\n    }\n}\n```\n\n#### Rate Limiting\nAll endpoints have a rate limit configured, most of them default to 5/s.\nWhen the rate limit is encountered, a 429 HTTP code will be returned.\n\n#### Error Handling\nIn the event an error occurs, the response will typically look like this:\n```json\n{\n    \"data\": {},\n    \"metadata\": {\n        \"status\": 400,\n        \"message\": \"Some error message\",\n        \"error\": true,\n        \"code\": \"SOME_ERROR_CODE\"\n    }\n}\n```\n"
+  description: '#### General Description
+
+    An API to access underlying Cube functionality.'
   termsOfService: https://www.cubesoftware.com/terms-of-service
 servers:
 - url: https://api.cubesoftware.com
@@ -341,7 +343,6 @@ components:
           type: boolean
           readOnly: true
         relationship_type:
-          nullable: true
           oneOf:
           - $ref: '#/components/schemas/RelationshipTypeEnum'
           - $ref: '#/components/schemas/BlankEnum'
@@ -354,178 +355,43 @@ components:
       - id
       - is_cube_staff
       - is_staff
-    OlapCubeChange:
+    AuditTrailGroup:
       type: object
       properties:
-        id:
-          type: integer
+        batch_id:
+          type:
+          - string
+          - 'null'
           readOnly: true
-        message:
-          type: string
-          nullable: true
-          maxLength: 1024
         created_at:
           type: string
           format: date-time
           readOnly: true
-        metadata:
-          nullable: true
-        type:
-          $ref: '#/components/schemas/OlapCubeChangeTypeEnum'
-        friendly_type:
-          type: string
+        events:
+          type: array
+          items:
+            $ref: '#/components/schemas/AuditTrailListItem'
           readOnly: true
-        created_by:
-          $ref: '#/components/schemas/User'
-        user:
-          allOf:
-          - $ref: '#/components/schemas/User'
-          readOnly: true
-        num_changes:
-          type: integer
-          maximum: 4294967295
-          minimum: 0
-          format: int64
-          nullable: true
-        url:
-          type: string
-          readOnly: true
-        status:
-          $ref: '#/components/schemas/OlapCubeChangeStatusEnum'
-        batch_id:
-          type: string
-          readOnly: true
-          nullable: true
       required:
       - batch_id
       - created_at
-      - created_by
-      - friendly_type
-      - id
-      - url
-      - user
-    OlapCubeChangeTypeEnum:
+      - events
+    RelationshipTypeEnum:
       enum:
-      - USER
-      - AI
-      - USER_REVERT
-      - TBI
-      - EXTERNAL_SOURCE
-      - EMPLOYEE_ROSTER
-      - DATA_IMPORT
-      - FORMULA
-      - DISABLED
-      - MERGE
-      - DUPLICATION
+      - EMPLOYEE
+      - PARTNER
       type: string
-      description: '* `USER` - User
+      description: '* `EMPLOYEE` - Employee
 
-        * `AI` - AI
-
-        * `USER_REVERT` - Revert
-
-        * `TBI` - Trial Balance
-
-        * `EXTERNAL_SOURCE` - External Source
-
-        * `EMPLOYEE_ROSTER` - Employee Roster
-
-        * `DATA_IMPORT` - Data
-
-        * `FORMULA` - Formula
-
-        * `DISABLED` - Disabled
-
-        * `MERGE` - Merge
-
-        * `DUPLICATION` - Duplication'
-    AuditTrailRelatedChange:
-      type: object
-      properties:
-        id:
-          type: integer
-        relation:
-          type: string
-      required:
-      - id
-      - relation
-    OlapCubeChangeStatusEnum:
+        * `PARTNER` - Partner'
+    NameEnum:
       enum:
-      - PENDING
-      - COMPLETED
-      - FAILED
+      - CubeChangeEvent
+      - ConnectionSyncEvent
       type: string
-      description: '* `PENDING` - Pending
+      description: '* `CubeChangeEvent` - Data Change
 
-        * `COMPLETED` - Completed
-
-        * `FAILED` - Failed'
-    AuditTrailListItem:
-      type: object
-      description: "A serializer that conditionally includes optional fields based on context.\n\nOptional fields should be listed in `Meta.read_optional_fields`. To include them\nin the output, pass a list via `context['include_fields']` (for top-level serializers)\nor `context[<nested_path>]['include_fields']` (for nested serializers).\n\nExamples:\n    class ChildSerializer(IncludeOptionalFieldsSerializerMixin, serializers.ModelSerializer):\n        extra = serializers.CharField()\n        class Meta:\n            model = Child\n            fields = ['id', 'extra']\n            read_optional_fields = ['extra']\n\n    class ParentSerializer(IncludeOptionalFieldsSerializerMixin, serializers.ModelSerializer):\n        child = ChildSerializer()\n        expensive = serializers.CharField()\n        class Meta:\n            model = Parent\n            fields = ['id', 'child', 'expensive']\n            read_optional_fields = ['expensive']\n\n    # Top-level usage (includes 'expensive' field)\n    ParentSerializer(instance, context={'include_fields': ['expensive']}).data\n\n    # Nested usage (includes 'extra' field inside child)\n    ParentSerializer(\n        instance,\n        context={'child': {'include_fields': ['extra']}}\n    ).data"
-      properties:
-        model_id:
-          type: string
-          readOnly: true
-        created_at:
-          type: string
-          format: date-time
-          readOnly: true
-        user:
-          allOf:
-          - $ref: '#/components/schemas/AuditTrailListUser'
-          readOnly: true
-        message:
-          type: string
-          readOnly: true
-          nullable: true
-        type:
-          type: string
-          readOnly: true
-          nullable: true
-        audit_log_event_type:
-          type: string
-          readOnly: true
-        friendly_type:
-          type: string
-          readOnly: true
-          nullable: true
-        link:
-          type: object
-          additionalProperties:
-            type: string
-            nullable: true
-          readOnly: true
-        status:
-          type: string
-          readOnly: true
-          nullable: true
-        num_changes:
-          type: integer
-          minimum: 0
-          readOnly: true
-          nullable: true
-        related_change:
-          allOf:
-          - $ref: '#/components/schemas/AuditTrailRelatedChange'
-          readOnly: true
-          nullable: true
-        metadata:
-          readOnly: true
-          nullable: true
-      required:
-      - audit_log_event_type
-      - created_at
-      - friendly_type
-      - link
-      - message
-      - metadata
-      - model_id
-      - num_changes
-      - related_change
-      - status
-      - type
-      - user
+        * `ConnectionSyncEvent` - Source Sync'
     AuditTrailListUser:
       type: object
       description: Same shape as legacy marshmallow `UserSchema` with `exclude={'email'}` on audit trail rows.
@@ -552,26 +418,75 @@ components:
       - id
       - is_staff
       - last_name
-    AuditTrailGroup:
+    PaginatedAuditTrailListItemList:
       type: object
+      required:
+      - count
+      - results
       properties:
-        batch_id:
-          type: string
-          readOnly: true
-          nullable: true
-        created_at:
-          type: string
-          format: date-time
-          readOnly: true
-        events:
+        count:
+          type: integer
+          example: 123
+        next:
+          type:
+          - string
+          - 'null'
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type:
+          - string
+          - 'null'
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
           type: array
           items:
             $ref: '#/components/schemas/AuditTrailListItem'
-          readOnly: true
+    AuditTrailChange:
+      type: object
+      properties:
+        id:
+          type: integer
+        message:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+        metadata:
+          type: object
+          additionalProperties: {}
+        type:
+          type: string
+        friendly_type:
+          type: string
+        user:
+          $ref: '#/components/schemas/User'
+        num_changes:
+          type: integer
+        url:
+          type: string
       required:
-      - batch_id
       - created_at
-      - events
+      - friendly_type
+      - id
+      - message
+      - metadata
+      - num_changes
+      - type
+      - url
+      - user
+    OlapCubeChangeStatusEnum:
+      enum:
+      - PENDING
+      - COMPLETED
+      - FAILED
+      type: string
+      description: '* `PENDING` - Pending
+
+        * `COMPLETED` - Completed
+
+        * `FAILED` - Failed'
     PaginatedAuditTrailGroupList:
       type: object
       required:
@@ -582,19 +497,76 @@ components:
           type: integer
           example: 123
         next:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
           format: uri
           example: http://api.example.org/accounts/?page=4
         previous:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
           format: uri
           example: http://api.example.org/accounts/?page=2
         results:
           type: array
           items:
             $ref: '#/components/schemas/AuditTrailGroup'
+    OlapCubeChange:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        message:
+          type:
+          - string
+          - 'null'
+          maxLength: 1024
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        metadata: {}
+        type:
+          $ref: '#/components/schemas/OlapCubeChangeTypeEnum'
+        friendly_type:
+          type: string
+          readOnly: true
+        created_by:
+          $ref: '#/components/schemas/User'
+        user:
+          allOf:
+          - $ref: '#/components/schemas/User'
+          readOnly: true
+        num_changes:
+          type:
+          - integer
+          - 'null'
+          maximum: 4294967295
+          minimum: 0
+          format: int64
+        url:
+          type: string
+          readOnly: true
+        status:
+          $ref: '#/components/schemas/OlapCubeChangeStatusEnum'
+        batch_id:
+          type:
+          - string
+          - 'null'
+          readOnly: true
+      required:
+      - batch_id
+      - created_at
+      - created_by
+      - friendly_type
+      - id
+      - url
+      - user
+    NullEnum:
+      enum:
+      - null
     AuditLogEventType:
       type: object
       properties:
@@ -609,9 +581,9 @@ components:
       required:
       - friendly_name
       - id
-    NullEnum:
+    BlankEnum:
       enum:
-      - null
+      - ''
     TimezoneEnum:
       enum:
       - Africa/Abidjan
@@ -2405,81 +2377,121 @@ components:
         * `WET` - WET
 
         * `Zulu` - Zulu'
-    BlankEnum:
-      enum:
-      - ''
-    RelationshipTypeEnum:
-      enum:
-      - EMPLOYEE
-      - PARTNER
-      type: string
-      description: '* `EMPLOYEE` - Employee
-
-        * `PARTNER` - Partner'
-    NameEnum:
-      enum:
-      - CubeChangeEvent
-      - ConnectionSyncEvent
-      type: string
-      description: '* `CubeChangeEvent` - Data Change
-
-        * `ConnectionSyncEvent` - Source Sync'
-    PaginatedAuditTrailListItemList:
-      type: object
-      required:
-      - count
-      - results
-      properties:
-        count:
-          type: integer
-          example: 123
-        next:
-          type: string
-          nullable: true
-          format: uri
-          example: http://api.example.org/accounts/?page=4
-        previous:
-          type: string
-          nullable: true
-          format: uri
-          example: http://api.example.org/accounts/?page=2
-        results:
-          type: array
-          items:
-            $ref: '#/components/schemas/AuditTrailListItem'
-    AuditTrailChange:
+    AuditTrailRelatedChange:
       type: object
       properties:
         id:
           type: integer
-        message:
+        relation:
           type: string
+      required:
+      - id
+      - relation
+    AuditTrailListItem:
+      type: object
+      description: "A serializer that conditionally includes optional fields based on context.\n\nOptional fields should be listed in `Meta.read_optional_fields`. To include them\nin the output, pass a list via `context['include_fields']` (for top-level serializers)\nor `context[<nested_path>]['include_fields']` (for nested serializers).\n\nExamples:\n    class ChildSerializer(IncludeOptionalFieldsSerializerMixin, serializers.ModelSerializer):\n        extra = serializers.CharField()\n        class Meta:\n            model = Child\n            fields = ['id', 'extra']\n            read_optional_fields = ['extra']\n\n    class ParentSerializer(IncludeOptionalFieldsSerializerMixin, serializers.ModelSerializer):\n        child = ChildSerializer()\n        expensive = serializers.CharField()\n        class Meta:\n            model = Parent\n            fields = ['id', 'child', 'expensive']\n            read_optional_fields = ['expensive']\n\n    # Top-level usage (includes 'expensive' field)\n    ParentSerializer(instance, context={'include_fields': ['expensive']}).data\n\n    # Nested usage (includes 'extra' field inside child)\n    ParentSerializer(\n        instance,\n        context={'child': {'include_fields': ['extra']}}\n    ).data"
+      properties:
+        model_id:
+          type: string
+          readOnly: true
         created_at:
           type: string
           format: date-time
-        metadata:
-          type: object
-          additionalProperties: {}
-        type:
-          type: string
-        friendly_type:
-          type: string
+          readOnly: true
         user:
-          $ref: '#/components/schemas/User'
-        num_changes:
-          type: integer
-        url:
+          allOf:
+          - $ref: '#/components/schemas/AuditTrailListUser'
+          readOnly: true
+        message:
+          type:
+          - string
+          - 'null'
+          readOnly: true
+        type:
+          type:
+          - string
+          - 'null'
+          readOnly: true
+        audit_log_event_type:
           type: string
+          readOnly: true
+        friendly_type:
+          type:
+          - string
+          - 'null'
+          readOnly: true
+        link:
+          type: object
+          additionalProperties:
+            type:
+            - string
+            - 'null'
+          readOnly: true
+        status:
+          type:
+          - string
+          - 'null'
+          readOnly: true
+        num_changes:
+          type:
+          - integer
+          - 'null'
+          minimum: 0
+          readOnly: true
+        related_change:
+          allOf:
+          - $ref: '#/components/schemas/AuditTrailRelatedChange'
+          readOnly: true
+        metadata:
+          readOnly: true
       required:
+      - audit_log_event_type
       - created_at
       - friendly_type
-      - id
+      - link
       - message
       - metadata
+      - model_id
       - num_changes
+      - related_change
+      - status
       - type
-      - url
       - user
+    OlapCubeChangeTypeEnum:
+      enum:
+      - USER
+      - AI
+      - USER_REVERT
+      - TBI
+      - EXTERNAL_SOURCE
+      - EMPLOYEE_ROSTER
+      - DATA_IMPORT
+      - FORMULA
+      - DISABLED
+      - MERGE
+      - DUPLICATION
+      type: string
+      description: '* `USER` - User
+
+        * `AI` - AI
+
+        * `USER_REVERT` - Revert
+
+        * `TBI` - Trial Balance
+
+        * `EXTERNAL_SOURCE` - External Source
+
+        * `EMPLOYEE_ROSTER` - Employee Roster
+
+        * `DATA_IMPORT` - Data
+
+        * `FORMULA` - Formula
+
+        * `DISABLED` - Disabled
+
+        * `MERGE` - Merge
+
+        * `DUPLICATION` - Duplication'
   securitySchemes:
     OAuth2:
       type: oauth2

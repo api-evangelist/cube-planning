@@ -1,8 +1,10 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Cube Agents Notifications API
+  title: Cube Notifications API
   version: 1.0.0 (1.0)
-  description: "#### General Description\nAn API to access underlying Cube functionality. These endpoints are the same endpoints\nthat support Cube's universal add-ons and a plethora of integrations meaning you'll be able to interact with your\nCube data in many powerful ways. Visit the API section of Cube's [Help Center](https://help.cubesoftware.com/hc/en-us/sections/18205290556180-Custom-Integrations)\nfor more usage guides on how you can use this API to integrate with Cube to accomplish various tasks!\n\n#### Versioning\nAll requests to the API require a version to be configured via an `Accept` Header. The value of this Header should look like this:\n```\nAccept: application/json; version=1.0\n```\nNote that the version number may differ depending on which version of the endpoint is needed.\n\n#### Response Structure\nThe general response structure of Cube's API endpoints will contain a `\"data\"` and `\"metadata\"` root level key:\n```json\n{\n    \"data\": { ... object data or list of objects ... },\n    \"metadata\": {\n        \"status\": 200,\n        \"message\": \"Potential message with additional context\",\n        \"error\": false,\n        \"code\": \"\"\n    }\n}\n```\n\n#### Rate Limiting\nAll endpoints have a rate limit configured, most of them default to 5/s.\nWhen the rate limit is encountered, a 429 HTTP code will be returned.\n\n#### Error Handling\nIn the event an error occurs, the response will typically look like this:\n```json\n{\n    \"data\": {},\n    \"metadata\": {\n        \"status\": 400,\n        \"message\": \"Some error message\",\n        \"error\": true,\n        \"code\": \"SOME_ERROR_CODE\"\n    }\n}\n```\n"
+  description: '#### General Description
+
+    An API to access underlying Cube functionality.'
   termsOfService: https://www.cubesoftware.com/terms-of-service
 servers:
 - url: https://api.cubesoftware.com
@@ -325,51 +327,6 @@ paths:
           description: Target does not exist
 components:
   schemas:
-    OverdueCadenceConfig:
-      type: object
-      properties:
-        enabled:
-          type: boolean
-        cadence:
-          $ref: '#/components/schemas/CadenceEnum'
-      required:
-      - cadence
-      - enabled
-    NotificationSubscriptionsResponse:
-      type: object
-      properties:
-        target:
-          $ref: '#/components/schemas/NotificationSubscriptionTarget'
-        subscriptions:
-          type: array
-          items:
-            $ref: '#/components/schemas/NotificationSubscriptionUser'
-      required:
-      - subscriptions
-      - target
-    BeforeDueDateConfig:
-      type: object
-      properties:
-        enabled:
-          type: boolean
-        days:
-          type: integer
-      required:
-      - days
-      - enabled
-    NotificationSubscriptionTarget:
-      type: object
-      properties:
-        app:
-          type: string
-        model:
-          type: string
-        id:
-          type: string
-      required:
-      - app
-      - id
-      - model
     NotificationSubscriptionUser:
       type: object
       properties:
@@ -397,19 +354,34 @@ components:
       - preferences
       - user_company_id
       - user_id
-    NotificationScheduleRecord:
+    CadenceEnum:
+      enum:
+      - DAILY
+      - EVERY_3_DAYS
+      - WEEKLY
+      type: string
+      description: '* `DAILY` - Daily
+
+        * `EVERY_3_DAYS` - Every 3 Days
+
+        * `WEEKLY` - Weekly'
+    BeforeDueDateConfig:
       type: object
       properties:
-        id:
+        enabled:
+          type: boolean
+        days:
           type: integer
-        name:
-          type: string
+      required:
+      - days
+      - enabled
+    NotificationScheduleReplaceRequest:
+      type: object
+      properties:
         config:
           $ref: '#/components/schemas/NotificationScheduleConfig'
       required:
       - config
-      - id
-      - name
     NotificationScheduleTarget:
       type: object
       properties:
@@ -423,53 +395,6 @@ components:
       - app
       - id
       - model
-    NotificationSubscriptionReplaceRequest:
-      type: object
-      properties:
-        user_company_ids:
-          type: array
-          items:
-            type: integer
-      required:
-      - user_company_ids
-    NotificationScheduleReplaceRequest:
-      type: object
-      properties:
-        config:
-          $ref: '#/components/schemas/NotificationScheduleConfig'
-      required:
-      - config
-    NotificationScheduleConfig:
-      type: object
-      properties:
-        before_due_date:
-          $ref: '#/components/schemas/BeforeDueDateConfig'
-        overdue_cadence:
-          $ref: '#/components/schemas/OverdueCadenceConfig'
-      required:
-      - before_due_date
-      - overdue_cadence
-    NotificationScheduleResponse:
-      type: object
-      properties:
-        target:
-          $ref: '#/components/schemas/NotificationScheduleTarget'
-        schedule:
-          $ref: '#/components/schemas/NotificationScheduleRecord'
-      required:
-      - schedule
-      - target
-    CadenceEnum:
-      enum:
-      - DAILY
-      - EVERY_3_DAYS
-      - WEEKLY
-      type: string
-      description: '* `DAILY` - Daily
-
-        * `EVERY_3_DAYS` - Every 3 Days
-
-        * `WEEKLY` - Weekly'
     NotificationSubscriptionsReplaceResponse:
       type: object
       properties:
@@ -488,6 +413,83 @@ components:
       - target
       - users_added_count
       - users_removed_count
+    NotificationSubscriptionTarget:
+      type: object
+      properties:
+        app:
+          type: string
+        model:
+          type: string
+        id:
+          type: string
+      required:
+      - app
+      - id
+      - model
+    NotificationScheduleConfig:
+      type: object
+      properties:
+        before_due_date:
+          $ref: '#/components/schemas/BeforeDueDateConfig'
+        overdue_cadence:
+          $ref: '#/components/schemas/OverdueCadenceConfig'
+      required:
+      - before_due_date
+      - overdue_cadence
+    OverdueCadenceConfig:
+      type: object
+      properties:
+        enabled:
+          type: boolean
+        cadence:
+          $ref: '#/components/schemas/CadenceEnum'
+      required:
+      - cadence
+      - enabled
+    NotificationSubscriptionReplaceRequest:
+      type: object
+      properties:
+        user_company_ids:
+          type: array
+          items:
+            type: integer
+      required:
+      - user_company_ids
+    NotificationSubscriptionsResponse:
+      type: object
+      properties:
+        target:
+          $ref: '#/components/schemas/NotificationSubscriptionTarget'
+        subscriptions:
+          type: array
+          items:
+            $ref: '#/components/schemas/NotificationSubscriptionUser'
+      required:
+      - subscriptions
+      - target
+    NotificationScheduleResponse:
+      type: object
+      properties:
+        target:
+          $ref: '#/components/schemas/NotificationScheduleTarget'
+        schedule:
+          $ref: '#/components/schemas/NotificationScheduleRecord'
+      required:
+      - schedule
+      - target
+    NotificationScheduleRecord:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        config:
+          $ref: '#/components/schemas/NotificationScheduleConfig'
+      required:
+      - config
+      - id
+      - name
   securitySchemes:
     OAuth2:
       type: oauth2

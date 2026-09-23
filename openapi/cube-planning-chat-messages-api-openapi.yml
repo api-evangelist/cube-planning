@@ -1,0 +1,65 @@
+openapi: 3.2.0
+info:
+  title: Cube Chat Messages API
+  version: 1.0.0 (1.0)
+  description: '#### General Description
+
+    An API to access underlying Cube functionality.'
+  termsOfService: https://www.cubesoftware.com/terms-of-service
+servers:
+- url: https://api.cubesoftware.com
+  description: Cube API Production URL
+tags:
+- name: Chat Messages
+paths:
+  /agents/chat/messages:
+    get:
+      operationId: agents_chat_messages_retrieve
+      description: List chat messages for a specific session. Supports filtering by session ID using the "session" query parameter.
+      summary: List Chat Messages
+      tags:
+      - Chat Messages
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          description: No response body
+    post:
+      operationId: agents_chat_messages_create
+      description: Create a new chat message in a session
+      summary: Create Chat Message
+      tags:
+      - Chat Messages
+      security:
+      - OAuth2: []
+      responses:
+        '201':
+          description: No response body
+  /agents/chat/messages/{id}:
+    get:
+      operationId: agents_chat_messages_retrieve_2
+      description: Retrieve a specific chat message by ID
+      summary: Retrieve Chat Message
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+      tags:
+      - Chat Messages
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          description: No response body
+components:
+  securitySchemes:
+    OAuth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://portal.cubesoftware.com/o/authorize/
+          tokenUrl: https://api.cubesoftware.com/o/token/
+          scopes: {}
+      description: Standard Cube OAuth 2.0 flow

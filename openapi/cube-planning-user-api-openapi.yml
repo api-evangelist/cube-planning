@@ -1,8 +1,10 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Cube Agents User API
+  title: Cube User API
   version: 1.0.0 (1.0)
-  description: "#### General Description\nAn API to access underlying Cube functionality. These endpoints are the same endpoints\nthat support Cube's universal add-ons and a plethora of integrations meaning you'll be able to interact with your\nCube data in many powerful ways. Visit the API section of Cube's [Help Center](https://help.cubesoftware.com/hc/en-us/sections/18205290556180-Custom-Integrations)\nfor more usage guides on how you can use this API to integrate with Cube to accomplish various tasks!\n\n#### Versioning\nAll requests to the API require a version to be configured via an `Accept` Header. The value of this Header should look like this:\n```\nAccept: application/json; version=1.0\n```\nNote that the version number may differ depending on which version of the endpoint is needed.\n\n#### Response Structure\nThe general response structure of Cube's API endpoints will contain a `\"data\"` and `\"metadata\"` root level key:\n```json\n{\n    \"data\": { ... object data or list of objects ... },\n    \"metadata\": {\n        \"status\": 200,\n        \"message\": \"Potential message with additional context\",\n        \"error\": false,\n        \"code\": \"\"\n    }\n}\n```\n\n#### Rate Limiting\nAll endpoints have a rate limit configured, most of them default to 5/s.\nWhen the rate limit is encountered, a 429 HTTP code will be returned.\n\n#### Error Handling\nIn the event an error occurs, the response will typically look like this:\n```json\n{\n    \"data\": {},\n    \"metadata\": {\n        \"status\": 400,\n        \"message\": \"Some error message\",\n        \"error\": true,\n        \"code\": \"SOME_ERROR_CODE\"\n    }\n}\n```\n"
+  description: '#### General Description
+
+    An API to access underlying Cube functionality.'
   termsOfService: https://www.cubesoftware.com/terms-of-service
 servers:
 - url: https://api.cubesoftware.com
@@ -15,7 +17,7 @@ paths:
     get:
       operationId: user_retrieve
       description: Will return user information.
-      summary: Will return user information.
+      summary: Will return user information
       parameters:
       - in: header
         name: X-Company-ID
@@ -38,7 +40,7 @@ paths:
   /user/companies:
     get:
       operationId: user_companies_retrieve
-      description: "If a company has multiple currencies enabled, those will be listed as well. Otherwise, USD is the default for all companies.\n        "
+      description: If a company has multiple currencies enabled, those will be listed as well. Otherwise, USD is the default for all companies.
       summary: Get User's Companies
       parameters:
       - in: header
@@ -64,7 +66,7 @@ paths:
   /user/company/settings:
     get:
       operationId: user_company_settings_retrieve
-      description: "This endpoint can be used to retrieve the user's company-specific settings. All available settings will be returned.\n        "
+      description: This endpoint can be used to retrieve the user's company-specific settings. All available settings will be returned.
       summary: Get User Company Settings
       parameters:
       - in: header
@@ -87,7 +89,9 @@ paths:
           description: ''
     post:
       operationId: user_company_settings_create
-      description: "This endpoint can be used to update the user's company-specific settings. Only the settings\n        included in the request data will be updated.\n        "
+      description: 'This endpoint can be used to update the user''s company-specific settings. Only the settings
+
+        included in the request data will be updated.'
       summary: Update User Company Settings
       parameters:
       - in: header
@@ -129,7 +133,7 @@ paths:
     post:
       operationId: user_password_forgot_create
       description: Initiates the forgot password process.
-      summary: Initiates the forgot password process.
+      summary: Initiates the forgot password process
       parameters:
       - in: header
         name: X-Company-ID
@@ -168,7 +172,15 @@ paths:
   /user/settings/spreadsheets:
     get:
       operationId: user_settings_spreadsheets_retrieve
-      description: "This endpoint returns dimension and user settings for the open spreadsheet. It gives\n        reasonable dimension defaults when the user hasn't specified dimensions to use for rows, columns,\n        filters inside of a Cube add-on. These defaults are based on commonly used dimensions for a given top\n        level dimension (i.e. \"Actuals\" for \"Scenario\"). It also gives user data such as whether or not to show\n        the 'undo' warning in Excel files.\n        "
+      description: 'This endpoint returns dimension and user settings for the open spreadsheet. It gives
+
+        reasonable dimension defaults when the user hasn''t specified dimensions to use for rows, columns,
+
+        filters inside of a Cube add-on. These defaults are based on commonly used dimensions for a given top
+
+        level dimension (i.e. "Actuals" for "Scenario"). It also gives user data such as whether or not to show
+
+        the ''undo'' warning in Excel files.'
       summary: Get Spreadsheet Settings
       parameters:
       - in: header
@@ -192,7 +204,9 @@ paths:
   /user/settings/spreadsheets/update:
     post:
       operationId: user_settings_spreadsheets_update_create
-      description: "This endpoint can be used to update whether or not to show the Excel 'Undo' warning,\n        when the user toggles that they would not like to be warned again.\n        "
+      description: 'This endpoint can be used to update whether or not to show the Excel ''Undo'' warning,
+
+        when the user toggles that they would not like to be warned again.'
       summary: Update Spreadsheet Settings
       parameters:
       - in: header
@@ -256,25 +270,6 @@ paths:
           description: ''
 components:
   schemas:
-    Message_Response:
-      type: object
-      properties:
-        message:
-          type: string
-      required:
-      - message
-    UserSpreadsheetSettingsResponse:
-      type: object
-      properties:
-        dimensions:
-          type: object
-          additionalProperties: {}
-        user:
-          type: object
-          additionalProperties: {}
-      required:
-      - dimensions
-      - user
     UserCompanySettingsResponse:
       type: object
       properties:
@@ -286,6 +281,13 @@ components:
       required:
       - add_on_data_status_last_viewed_at
       - drilldown_suppress_zeros
+    forgot_password_message_serializer_message_serializer:
+      type: object
+      properties:
+        message:
+          type: string
+      required:
+      - message
     User:
       type: object
       description: 'A serializer mixin that allows dynamic inclusion or exclusion of serializer fields by
@@ -316,7 +318,6 @@ components:
           type: boolean
           readOnly: true
         relationship_type:
-          nullable: true
           oneOf:
           - $ref: '#/components/schemas/RelationshipTypeEnum'
           - $ref: '#/components/schemas/BlankEnum'
@@ -329,33 +330,46 @@ components:
       - id
       - is_cube_staff
       - is_staff
-    ForgotPasswordOpenApiDocAttributes_1:
+    BlankEnum:
+      enum:
+      - ''
+    UserSpreadsheetSettingsResponse:
       type: object
       properties:
-        email:
+        dimensions:
+          type: object
+          additionalProperties: {}
+        user:
+          type: object
+          additionalProperties: {}
+      required:
+      - dimensions
+      - user
+    RelationshipTypeEnum:
+      enum:
+      - EMPLOYEE
+      - PARTNER
+      type: string
+      description: '* `EMPLOYEE` - Employee
+
+        * `PARTNER` - Partner'
+    Message_Response:
+      type: object
+      properties:
+        message:
           type: string
-          format: email
       required:
-      - email
-    UserSpreadsheetUpdateRequest:
+      - message
+    UserCompanyViewResponse:
       type: object
       properties:
-        show_excel_warning:
-          type: boolean
+        company:
+          $ref: '#/components/schemas/Company'
+        permission_group:
+          $ref: '#/components/schemas/AuthGroupPermissions'
       required:
-      - show_excel_warning
-    AuthGroupPermissions:
-      type: object
-      properties:
-        id:
-          type: integer
-          readOnly: true
-        name:
-          type: string
-          maxLength: 150
-      required:
-      - id
-      - name
+      - company
+      - permission_group
     TimezoneEnum:
       enum:
       - Africa/Abidjan
@@ -2149,49 +2163,29 @@ components:
         * `WET` - WET
 
         * `Zulu` - Zulu'
-    UserCompanyViewResponse:
+    AuthGroupPermissions:
       type: object
       properties:
-        company:
-          $ref: '#/components/schemas/Company'
-        permission_group:
-          $ref: '#/components/schemas/AuthGroupPermissions'
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          maxLength: 150
       required:
-      - company
-      - permission_group
+      - id
+      - name
+    ForgotPasswordOpenApiDocAttributes_1:
+      type: object
+      properties:
+        email:
+          type: string
+          format: email
+      required:
+      - email
     NullEnum:
       enum:
       - null
-    RelationshipTypeEnum:
-      enum:
-      - EMPLOYEE
-      - PARTNER
-      type: string
-      description: '* `EMPLOYEE` - Employee
-
-        * `PARTNER` - Partner'
-    BlankEnum:
-      enum:
-      - ''
-    TimeTypeEnum:
-      enum:
-      - STANDARD
-      - HALF_YEAR
-      - CUSTOM
-      type: string
-      description: '* `STANDARD` - Standard
-
-        * `HALF_YEAR` - Half Year
-
-        * `CUSTOM` - Custom'
-    UserCompanySettingsRequest:
-      type: object
-      properties:
-        add_on_data_status_last_viewed_at:
-          type: string
-          format: date-time
-      required:
-      - add_on_data_status_last_viewed_at
     Company:
       type: object
       description: 'A serializer mixin that allows dynamic inclusion or exclusion of serializer fields by
@@ -2206,12 +2200,14 @@ components:
           type: string
           maxLength: 255
         slug:
-          type: string
+          type:
+          - string
+          - 'null'
           readOnly: true
-          nullable: true
         salesforce_id:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
           maxLength: 32
         time_type:
           $ref: '#/components/schemas/TimeTypeEnum'
@@ -2224,13 +2220,32 @@ components:
       - id
       - name
       - slug
-    forgot_password_message_serializer_message_serializer:
+    TimeTypeEnum:
+      enum:
+      - STANDARD
+      - HALF_YEAR
+      - CUSTOM
+      type: string
+      description: '* `STANDARD` - Standard
+
+        * `HALF_YEAR` - Half Year
+
+        * `CUSTOM` - Custom'
+    UserSpreadsheetUpdateRequest:
       type: object
       properties:
-        message:
-          type: string
+        show_excel_warning:
+          type: boolean
       required:
-      - message
+      - show_excel_warning
+    UserCompanySettingsRequest:
+      type: object
+      properties:
+        add_on_data_status_last_viewed_at:
+          type: string
+          format: date-time
+      required:
+      - add_on_data_status_last_viewed_at
   securitySchemes:
     OAuth2:
       type: oauth2

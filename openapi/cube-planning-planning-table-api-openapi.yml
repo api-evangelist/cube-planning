@@ -1,8 +1,10 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Cube Agents Planning Table API
+  title: Cube Planning Table API
   version: 1.0.0 (1.0)
-  description: "#### General Description\nAn API to access underlying Cube functionality. These endpoints are the same endpoints\nthat support Cube's universal add-ons and a plethora of integrations meaning you'll be able to interact with your\nCube data in many powerful ways. Visit the API section of Cube's [Help Center](https://help.cubesoftware.com/hc/en-us/sections/18205290556180-Custom-Integrations)\nfor more usage guides on how you can use this API to integrate with Cube to accomplish various tasks!\n\n#### Versioning\nAll requests to the API require a version to be configured via an `Accept` Header. The value of this Header should look like this:\n```\nAccept: application/json; version=1.0\n```\nNote that the version number may differ depending on which version of the endpoint is needed.\n\n#### Response Structure\nThe general response structure of Cube's API endpoints will contain a `\"data\"` and `\"metadata\"` root level key:\n```json\n{\n    \"data\": { ... object data or list of objects ... },\n    \"metadata\": {\n        \"status\": 200,\n        \"message\": \"Potential message with additional context\",\n        \"error\": false,\n        \"code\": \"\"\n    }\n}\n```\n\n#### Rate Limiting\nAll endpoints have a rate limit configured, most of them default to 5/s.\nWhen the rate limit is encountered, a 429 HTTP code will be returned.\n\n#### Error Handling\nIn the event an error occurs, the response will typically look like this:\n```json\n{\n    \"data\": {},\n    \"metadata\": {\n        \"status\": 400,\n        \"message\": \"Some error message\",\n        \"error\": true,\n        \"code\": \"SOME_ERROR_CODE\"\n    }\n}\n```\n"
+  description: '#### General Description
+
+    An API to access underlying Cube functionality.'
   termsOfService: https://www.cubesoftware.com/terms-of-service
 servers:
 - url: https://api.cubesoftware.com
@@ -13,7 +15,6 @@ paths:
   /tables:
     get:
       operationId: tables_list
-      description: List all planning tables
       summary: List all planning tables
       parameters:
       - in: header
@@ -75,7 +76,6 @@ paths:
   /tables/{id}:
     get:
       operationId: tables_retrieve
-      description: Retrieve a planning table
       summary: Retrieve a planning table
       parameters:
       - in: header
@@ -143,7 +143,6 @@ paths:
           description: ''
     delete:
       operationId: tables_destroy
-      description: Delete a planning table
       summary: Delete a planning table
       parameters:
       - in: header
@@ -238,6 +237,8 @@ paths:
       responses:
         '200':
           description: No response body
+      summary: Tables datasets update
+      x-summary-source: derived
   /tables/compute-calculated-columns:
     post:
       operationId: tables_compute_calculated_columns_create
@@ -376,22 +377,52 @@ paths:
           description: User lacks the view_planningtable permission.
 components:
   schemas:
-    metadata_serializer:
+    PlanningTableDataset:
       type: object
+      description: Mixin to delegate create and update operations to a service class.
       properties:
-        status:
+        id:
           type: integer
-        error:
-          type: boolean
-        message:
+          readOnly: true
+        planning_table_id:
+          type: integer
+          readOnly: true
+        planning_table_schema:
           type: string
-        code:
+          readOnly: true
+        created_at:
           type: string
+          format: date-time
+          readOnly: true
+        modified_at:
+          type: string
+          format: date-time
+          readOnly: true
+        version:
+          type:
+          - string
+          - 'null'
+          readOnly: true
+        scenario_id:
+          type: integer
+        data: {}
+        created_by_id:
+          type: integer
+          readOnly: true
+        modified_by_id:
+          type: integer
+          readOnly: true
       required:
-      - code
-      - error
-      - message
-      - status
+      - created_at
+      - created_by_id
+      - data
+      - id
+      - modified_at
+      - modified_by_id
+      - planning_table_id
+      - planning_table_schema
+      - scenario_id
+      - version
     SharingScheme2f1Enum:
       enum:
       - ALL
@@ -403,59 +434,6 @@ components:
         * `MANAGERS` - Managers Only
 
         * `SPECIFIC` - Specific Users'
-    data:
-      type: object
-      properties:
-        data:
-          type: object
-          additionalProperties: {}
-        metadata:
-          type: object
-          additionalProperties: {}
-      required:
-      - data
-      - metadata
-    PatchedPlanningTable:
-      type: object
-      description: Mixin to delegate create and update operations to a service class.
-      properties:
-        id:
-          type: integer
-          readOnly: true
-        company_id:
-          type: string
-          format: uuid
-          readOnly: true
-        created_at:
-          type: string
-          format: date-time
-          readOnly: true
-        modified_at:
-          type: string
-          format: date-time
-          readOnly: true
-        name:
-          type: string
-          maxLength: 255
-        sharing_scheme:
-          $ref: '#/components/schemas/SharingScheme2f1Enum'
-        schema: {}
-        schema_reviewed:
-          type: boolean
-        created_by_id:
-          type: integer
-          readOnly: true
-        modified_by_id:
-          type: integer
-          readOnly: true
-        has_templates:
-          type: boolean
-          readOnly: true
-        shared_with:
-          type: array
-          items:
-            type: string
-            nullable: true
     PlanningTable:
       type: object
       description: Mixin to delegate create and update operations to a service class.
@@ -495,8 +473,9 @@ components:
         shared_with:
           type: array
           items:
-            type: string
-            nullable: true
+            type:
+            - string
+            - 'null'
       required:
       - company_id
       - created_at
@@ -507,51 +486,22 @@ components:
       - modified_by_id
       - name
       - schema
-    PlanningTableDataset:
+    metadata_serializer:
       type: object
-      description: Mixin to delegate create and update operations to a service class.
       properties:
-        id:
+        status:
           type: integer
-          readOnly: true
-        planning_table_id:
-          type: integer
-          readOnly: true
-        planning_table_schema:
+        error:
+          type: boolean
+        message:
           type: string
-          readOnly: true
-        created_at:
+        code:
           type: string
-          format: date-time
-          readOnly: true
-        modified_at:
-          type: string
-          format: date-time
-          readOnly: true
-        version:
-          type: string
-          readOnly: true
-          nullable: true
-        scenario_id:
-          type: integer
-        data: {}
-        created_by_id:
-          type: integer
-          readOnly: true
-        modified_by_id:
-          type: integer
-          readOnly: true
       required:
-      - created_at
-      - created_by_id
-      - data
-      - id
-      - modified_at
-      - modified_by_id
-      - planning_table_id
-      - planning_table_schema
-      - scenario_id
-      - version
+      - code
+      - error
+      - message
+      - status
     error_response_serializer:
       type: object
       properties:
@@ -571,6 +521,60 @@ components:
       required:
       - data
       - schema
+    PatchedPlanningTable:
+      type: object
+      description: Mixin to delegate create and update operations to a service class.
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        company_id:
+          type: string
+          format: uuid
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        modified_at:
+          type: string
+          format: date-time
+          readOnly: true
+        name:
+          type: string
+          maxLength: 255
+        sharing_scheme:
+          $ref: '#/components/schemas/SharingScheme2f1Enum'
+        schema: {}
+        schema_reviewed:
+          type: boolean
+        created_by_id:
+          type: integer
+          readOnly: true
+        modified_by_id:
+          type: integer
+          readOnly: true
+        has_templates:
+          type: boolean
+          readOnly: true
+        shared_with:
+          type: array
+          items:
+            type:
+            - string
+            - 'null'
+    data:
+      type: object
+      properties:
+        data:
+          type: object
+          additionalProperties: {}
+        metadata:
+          type: object
+          additionalProperties: {}
+      required:
+      - data
+      - metadata
   securitySchemes:
     OAuth2:
       type: oauth2
